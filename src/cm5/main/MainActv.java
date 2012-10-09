@@ -882,30 +882,54 @@ public class MainActv extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView lv, View v, int position, long id) {
-		/*----------------------------
-		 * Steps
+		/*********************************
 		 * 0. Vibrate
+		 * 
 		 * 1. Get item name
 		 * 2. Get file object
+		 * 2-2. File object exists?
+		 * 
 		 * 3. Is a directory?
 		 * 		=> If yes, update the current path
-			----------------------------*/
+		 * 
+		 * 4. Is a "list.txt"?
+		 *********************************/
 		//
 		vib.vibrate(Methods.vibLength_click);
 		
-		String itemName = (String) lv.getItemAtPosition(position);
+		/*********************************
+		 * 1. Get item name
+		 *********************************/
+		String item = (String) lv.getItemAtPosition(position);
 		
-		/*----------------------------
+		if (item != null) {
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "item=" + item);
+			
+		} else {//if (item_)
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "item == null");
+			
+		}//if (item_)
+		
+		
+		/*********************************
 		 * 2. Get file object
-			----------------------------*/
-		File target = get_file_object(itemName);
+		 *********************************/
+		File target = get_file_object(item);
 		
-		/*----------------------------
-		 * 3. Is a directory?
-			----------------------------*/
+		/*********************************
+		 * 2-2. File object exists?
+		 *********************************/
 		if (!target.exists()) {
 			// debug
-			Toast.makeText(this, "This item doesn't exist in the directory: " + itemName, 
+			Toast.makeText(this, "This item doesn't exist in the directory: " + item, 
 					2000)
 					.show();
 			
@@ -913,34 +937,56 @@ public class MainActv extends ListActivity {
 			Log.e("MainActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", 
-					"This item doesn't exist in the directory: " + itemName);
+					"This item doesn't exist in the directory: " + item);
 
 			return;
+		} else {//if (!target.exists())
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Target exists: " + item);
+			
 		}//if (!target.exists())
-		
-		//
+
+		/*********************************
+		 * 3. Is a directory?
+		 * 		=> If yes, update the current path
+		 *********************************/
 		if (target.isDirectory()) {
 			
-			Methods.enterDir(this, target);
+//			Methods.enterDir(this, target);
 			
-//			// debug
-//			Toast.makeText(this, "Enter directory: " + itemName, 
-//					2000)
-//					.show();
+			// debug
+			Toast.makeText(this, "Enter directory: " + item, 
+					2000)
+					.show();
 			
 		} else if (target.isFile()) {//if (target.isDirectory())
 			
-			Methods.startThumbnailActivity(this, target.getName());
+			/*********************************
+			 * 4. Is a "list.txt"?
+			 *********************************/
+			if (!target.getName().equals(MainActv.fname_list)) {
+				
+				// debug
+				Toast.makeText(this, "list.txt ‚Å‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+				
+				return;
+			}//if (!target.getName().equals(ImageFileManager8Activity.fname_list))
+
+//			Methods.startThumbnailActivity(this, target.getName());
+			Methods.start_actv_allist(this);
 			
 //			// Log
 //			Log.d("MainActv.java" + "["
 //					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //					+ "]", "target.getName()=" + target.getName());
 			
-//			Methods.toastAndLog(this, "This is a file: " + itemName, 2000);
+//			Methods.toastAndLog(this, "This is a file: " + item, 2000);
 			
 //			// debug
-//			Toast.makeText(this, "This is a file: " + itemName, 
+//			Toast.makeText(this, "This is a file: " + item, 
 //					2000)
 //					.show();
 			
@@ -951,30 +997,39 @@ public class MainActv extends ListActivity {
 	}//protected void onListItemClick(ListView l, View v, int position, long id)
 
 	private File get_file_object(String itemName) {
-//		/*----------------------------
-//		 * 1. 
-//			----------------------------*/
-//		
-//		dpath_current = prefs_main.getString(prefs_current_path, null);
-//		
-//		if (dpath_current == null) {
-//			
-//			init_prefs_current_path();
-//			
-//			dpath_current = prefs_main.getString(prefs_current_path, null);
-//			
-//		}//if (dpath_current == null)
-//		
-//		File target = new File(dpath_current, itemName);
-//		
-//		// Log
-//		Log.d("MainActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "dpath_current: " + dpath_current);
-//		
-//		return target;
+		/*----------------------------
+		 * 1. 
+			----------------------------*/
+		SharedPreferences prefs = 
+				this.getSharedPreferences(pname_current_path, MODE_PRIVATE);
+
+		String path = prefs.getString(pkey_current_path, null);
 		
-		return null;
+		if (path == null) {
+			
+//			init_prefs_current_path();
+			Methods.set_pref(this,
+					MainActv.pname_current_path,
+					MainActv.pkey_current_path,
+//					MainActv.dname_base);
+					MainActv.dpath_base);
+			
+			path = MainActv.dpath_base;
+			
+//			path = prefs.getString(prefs_current_path, null);
+			
+		}//if (path == null)
+		
+		File target = new File(path, itemName);
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "path: " + path);
+		
+		return target;
+		
+//		return null;
 		
 	}//private File get_file_object(String itemName)
 

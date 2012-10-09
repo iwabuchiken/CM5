@@ -64,6 +64,7 @@ import cm5.listeners.DialogButtonOnTouchListener;
 import cm5.listeners.DialogListener;
 import cm5.listeners.DialogOnItemClickListener;
 import cm5.listeners.DialogOnItemLongClickListener;
+import cm5.main.ALActv;
 import cm5.main.MainActv;
 import cm5.main.PrefActv;
 import cm5.main.TNActv;
@@ -822,6 +823,21 @@ public class Methods {
 		
 	}//public static void startThumbnailActivity(Activity actv, File target)
 
+	public static void start_actv_allist(Activity actv) {
+		/*********************************
+		 * memo
+		 *********************************/
+		Intent i = new Intent();
+		
+		i.setClass(actv, ALActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		actv.startActivity(i);
+
+		
+	}//public static void start_actv_allist(Activity actv)
+
 
 	public static void start_PrefActv(Activity actv) {
 		
@@ -1003,53 +1019,132 @@ public class Methods {
 		
 	}//public static List<ThumbnailItem> getAllData
 
+	/*********************************
+	 * <Return>
+	 * null		=> Pref value not set
+	 *********************************/
 	public static String convert_path_into_table_name(Activity actv) {
-		/*----------------------------
-		 * Steps
-		 * 1. Get table name => Up to the current path
-		 * 2. Add name => Target folder name
-			----------------------------*/
-		String tableName = null;
-		StringBuilder sb = new StringBuilder();
+		/*********************************
+		 * 1. Get path from pref
+		 * 2. Process path into table name
+		 * 
+		 * 3. Return
+		 *********************************/
+		SharedPreferences prefs_main = 
+				actv.getSharedPreferences(MainActv.pname_current_path, Activity.MODE_PRIVATE);	
 
+		String value = prefs_main.getString(MainActv.pkey_current_path, null);
+		
+		if (value == null) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "value == null");
+			
+			return null;
+			
+		}//if (value == null)
+		
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "convert_prefs_into_path_label(actv): " + convert_prefs_into_path_label(actv));
+				+ "]", "value=" + value);
 		
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "MainActv.dbName: " + MainActv.dbName);
+		/*********************************
+		 * 2. Process path into table name
+		 *********************************/
+		String[] a_path = value.split(File.separator);
 		
-//		if(convert_prefs_into_path_label(actv).equals(MainActv.dbName)) {
-		if(convert_prefs_into_path_label(actv).equals(MainActv.dpath_base)) {
-			
-			tableName = convert_prefs_into_path_label(actv);
-			
-		} else {
-			
-			String[] currentPathArray = convert_prefs_into_path_label(actv).split(File.separator);
-			
-			if (currentPathArray.length > 1) {
-				
-				tableName = StringUtils.join(currentPathArray, "__");
-				
-			} else {//if (currentPathArray.length > 1)
-				
-				sb.append(currentPathArray[0]);
-				
-			}//if (currentPathArray.length > 1)
-			
-		}//if(getCurrentPathLabel(actv).equals(ImageFileManager8Activity.baseDirName))
+		// Detect the position of the "dname_base"
+		int loc = Methods.get_position_from_array(a_path, MainActv.dname_base);
 		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "tableName => " + tableName);
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "loc=" + loc);
 		
+		// REF=> http://stackoverflow.com/questions/4439595/how-to-create-a-sub-array-from-another-array-in-java
+		String[] sub_array = Arrays.copyOfRange(a_path, loc, a_path.length);
 		
-		return tableName;
+		String new_value = StringUtils.join(sub_array, "__");
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "new_value=" + new_value);
+		
+		/*********************************
+		 * 3. Return
+		 *********************************/
+		return new_value;
+		
+//		String tableName = null;
+//		StringBuilder sb = new StringBuilder();
+//
+////		// Log
+////		Log.d("Methods.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "convert_prefs_into_path_label(actv): " + convert_prefs_into_path_label(actv));
+//		
+////		Log.d("Methods.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "MainActv.dbName: " + MainActv.dbName);
+//		
+////		if(convert_prefs_into_path_label(actv).equals(MainActv.dbName)) {
+//		if(convert_prefs_into_path_label(actv).equals(MainActv.dpath_base)) {
+//			
+//			tableName = convert_prefs_into_path_label(actv);
+//			
+//		} else {
+//			
+//			String[] currentPathArray = convert_prefs_into_path_label(actv).split(File.separator);
+//			
+//			if (currentPathArray.length > 1) {
+//				
+//				tableName = StringUtils.join(currentPathArray, "__");
+//				
+//			} else {//if (currentPathArray.length > 1)
+//				
+//				sb.append(currentPathArray[0]);
+//				
+//			}//if (currentPathArray.length > 1)
+//			
+//		}//if(getCurrentPathLabel(actv).equals(ImageFileManager8Activity.baseDirName))
+//		
+////		// Log
+////		Log.d("Methods.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "tableName => " + tableName);
+//		
+//		
+//		return tableName;
 	}//public static String convert_path_into_table_name(Activity actv)
+
+	/*********************************
+	 * <Return>
+	 * -1	=> Not detected
+	 *********************************/
+	private static int get_position_from_array(String[] base_array,
+			String target_string) {
+		/*********************************
+		 * memo
+		 *********************************/
+		int position;
+		
+		for (position = 0; position < base_array.length; position++) {
+			
+			if (base_array[position].equals(target_string)) {
+				
+				return position;
+				
+			}//if (base_array[i] == condition)
+			
+		}//for (int position = 0; position < base_array.length; position++)
+		
+		
+		return -1;
+	}//private static int get_position_from_array()
 
 	public static String convert_path_into_table_name(Activity actv, String newPath) {
 		/*----------------------------
@@ -3028,6 +3123,45 @@ public class Methods {
 		
 		try {
 			editor.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
+	}//public static boolean set_pref(String pref_name, String value)
+
+	public static boolean set_pref(Activity actv,
+								String pref_name, String pref_key,
+								String value) {
+		
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
+
+		/*----------------------------
+		 * 2. Get editor
+			----------------------------*/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/*----------------------------
+		 * 3. Set value
+			----------------------------*/
+		editor.putString(pref_key, value);
+		
+		try {
+			editor.commit();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Pref set => " + pref_key + "/" + value);
 			
 			return true;
 			
