@@ -348,7 +348,9 @@ public class Methods {
 	public static boolean update_prefs_currentPath(Activity actv, String newPath) {
 		
 		SharedPreferences prefs = 
-				actv.getSharedPreferences(MainActv.prefs_current_path, MainActv.MODE_PRIVATE);
+				actv.getSharedPreferences(
+						MainActv.pname_current_path,
+						MainActv.MODE_PRIVATE);
 
 		/*----------------------------
 		 * 2. Get editor
@@ -358,7 +360,7 @@ public class Methods {
 		/*----------------------------
 		 * 3. Set value
 			----------------------------*/
-		editor.putString(MainActv.prefs_current_path, newPath);
+		editor.putString(MainActv.pkey_current_path, newPath);
 		
 		try {
 			editor.commit();
@@ -388,10 +390,13 @@ public class Methods {
 	 * 
 	 * <Steps> 1.
 	 ****************************************/
-	public static boolean clear_prefs_currentPath(Activity actv, String newPath) {
+	public static boolean clear_prefs_currentPath(
+							Activity actv,String newPath) {
 		
 		SharedPreferences prefs = 
-				actv.getSharedPreferences(MainActv.prefs_current_path, MainActv.MODE_PRIVATE);
+				actv.getSharedPreferences(
+						MainActv.pname_current_path,
+						MainActv.MODE_PRIVATE);
 
 		/*----------------------------
 		 * 2. Get editor
@@ -440,9 +445,11 @@ public class Methods {
 	public static String get_currentPath_from_prefs(Activity actv) {
 		
 		SharedPreferences prefs = 
-				actv.getSharedPreferences(MainActv.prefs_current_path, MainActv.MODE_PRIVATE);
+				actv.getSharedPreferences(
+						MainActv.pname_current_path,
+						MainActv.MODE_PRIVATE);
 
-		return prefs.getString(MainActv.prefs_current_path, null);
+		return prefs.getString(MainActv.pkey_current_path, null);
 		
 	}//public static String get_currentPath_from_prefs(Activity actv)
 
@@ -766,7 +773,11 @@ public class Methods {
 		/*----------------------------
 		 * 4-2. Update buttons
 			----------------------------*/
-		currentPath = Methods.get_pref(actv, MainActv.prefs_current_path, null);
+		currentPath = Methods.get_pref(
+							actv,
+							MainActv.pname_current_path,
+							MainActv.pkey_current_path,
+							null);
 		
 		if (currentPath != null) {
 			
@@ -2941,7 +2952,10 @@ public class Methods {
 
 	}//public static boolean set_pref(String pref_name, String value)
 
-	public static String get_pref(Activity actv, String pref_name, String defValue) {
+	public static String get_pref(
+						Activity actv,
+						String pref_name,
+						String defValue) {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
@@ -2950,6 +2964,21 @@ public class Methods {
 			----------------------------*/
 		return prefs.getString(pref_name, defValue);
 
+	}//public static boolean set_pref(String pref_name, String value)
+
+	public static String get_pref(
+					Activity actv,
+					String pref_name,
+					String pref_key,
+					String defValue) {
+		SharedPreferences prefs = 
+			actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
+		
+		/*----------------------------
+		* Return
+		----------------------------*/
+		return prefs.getString(pref_key, defValue);
+		
 	}//public static boolean set_pref(String pref_name, String value)
 
 	public static boolean set_pref(Activity actv, String pref_name, int value) {
@@ -3323,7 +3352,13 @@ public class Methods {
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "prefs_current_path: " + Methods.get_pref(actv, MainActv.prefs_current_path, "NO DATA"));
+				+ "]", 
+				"prefs_current_path: " 
+				+ Methods.get_pref(
+						actv,
+						MainActv.pname_current_path,
+						MainActv.pkey_current_path,
+						"NO DATA"));
 		
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -5944,6 +5979,51 @@ public class Methods {
 		
 		return false;
 	}//public static boolean record_history(Activity actv, long fileId)
+
+	/*********************************
+	 * <Return>
+	 * null		=> File "dpath" doesn't exist
+	 *********************************/
+	public static List<String> get_file_list(File dpath) {
+		/*********************************
+		 * 1. Directory exists?
+		 * 2. Build list
+		 * 
+		 * 3. Return
+		 *********************************/
+		/*********************************
+		 * 1. Directory exists?
+		 *********************************/
+		if (!dpath.exists()) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Dir doesn't exist");
+			
+			return null;
+			
+		}//if (!dpath.exists() == condition)
+		
+		/*********************************
+		 * 2. Build list
+		 *********************************/
+		List<String> list_dir = new ArrayList<String>();
+		
+		File[] files_list = dpath.listFiles();
+		
+		for (File f : files_list) {
+			
+			list_dir.add(f.getName());
+			
+		}//for (File f : files_list)
+		
+		/*********************************
+		 * 3. Return
+		 *********************************/
+		return list_dir;
+		
+	}//public static List<String> get_file_list(File dpath)
 
 
 	

@@ -55,19 +55,26 @@ public class MainActv extends ListActivity {
 	
 	public static String intent_label_table_names = "table_names";	// Methods.show_history()
 
-	public static String intent_label_searchedItems_table_names = "string_searchedItems_table_names";
+	public static String
+	intent_label_searchedItems_table_names =
+					"string_searchedItems_table_names";
 	
 	/*********************************
 	 * Prefs
 	 *********************************/
-	private static SharedPreferences prefs;
+//	private static SharedPreferences prefs;
+	private static SharedPreferences prefs_main;
 
 //	public static String prefs_current_path = "current_path";
-	public static String prefs_current_path = "ifm9_master_current_path";
+//	public static String prefs_current_path = "ifm9_master_current_path";
+	public static String pname_current_path = "current_path";
+	public static String pkey_current_path = "current_path";
 	
 	public static String pname_tnActv = "pref_tn_actv";
 	
-	public static String pname_tnActv_current_image_position = "pref_tn_actv_current_image_position";
+	public static String
+	pname_tnActv_current_image_position = 
+					"pref_tn_actv_current_image_position";
 	
 	// MainActv
 	// history
@@ -105,8 +112,10 @@ public class MainActv extends ListActivity {
 	// Used => 
 	public static List<AI> list_ai = null;
 
-	public static ArrayAdapter<AI> aAdp = null;
+	public static ArrayAdapter<String> adp_dir_list = null;
 
+//	public static List<String> file_names = null;
+	public static List<String> list_root_dir = null;
 	
 	/*********************************
 	 * Others
@@ -405,49 +414,49 @@ public class MainActv extends ListActivity {
 	}
 
 	private void check_db() {
-    	/*********************************
-		 * 1. Clear preferences
-		 *********************************/
-		prefs = 
-				this.getSharedPreferences(prefs_current_path, MODE_PRIVATE);
-		
-		SharedPreferences.Editor editor = prefs.edit();
-
-		editor.clear();
-		editor.commit();
-		
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Prefs cleared");
-
-		
-    	String dst = "/data/data/ifm9.main/databases" + MainActv.dbName;
-    	
-    	File f = new File(dst);
-    	
-    	File db_dir = new File("/data/data/ifm9.main/databases");
-    	
-    	for (String name : db_dir.list()) {
-			
-    		// Log
-			Log.d("MainActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "file name=" + name);
-    		
-		}//for (String name : db_dir.list())
-    	
-//    	boolean res = f.exists();
-//    	
-//    	// Log
-//		Log.d("MainActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "res=" + res);
+//    	/*********************************
+//		 * 1. Clear preferences
+//		 *********************************/
+//		prefs_main = 
+//				this.getSharedPreferences(prefs_current_path, MODE_PRIVATE);
+//		
+//		SharedPreferences.Editor editor = prefs_main.edit();
 //
+//		editor.clear();
+//		editor.commit();
+//		
 //		// Log
 //		Log.d("MainActv.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "f.getAbsolutePath(): " + f.getAbsolutePath());
+//				+ "]", "Prefs cleared");
+//
+//		
+//    	String dst = "/data/data/ifm9.main/databases" + MainActv.dbName;
+//    	
+//    	File f = new File(dst);
+//    	
+//    	File db_dir = new File("/data/data/ifm9.main/databases");
+//    	
+//    	for (String name : db_dir.list()) {
+//			
+//    		// Log
+//			Log.d("MainActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file name=" + name);
+//    		
+//		}//for (String name : db_dir.list())
+//    	
+////    	boolean res = f.exists();
+////    	
+////    	// Log
+////		Log.d("MainActv.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "res=" + res);
+////
+////		// Log
+////		Log.d("MainActv.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "f.getAbsolutePath(): " + f.getAbsolutePath());
 	}
 
 	private void restore_db() {
@@ -593,6 +602,34 @@ public class MainActv extends ListActivity {
 			return false;
 		}//if (res == false)
 
+		/*********************************
+		 * 2. Set variables => currentDirPath, baseDirPath
+		 *********************************/
+//		init_prefs_current_path();
+
+		/*********************************
+		 * 3. Get file list
+		 *********************************/
+		
+		if (list_root_dir == null) {
+			
+			list_root_dir = Methods.get_file_list(root_dir);
+			
+//			init_file_list(root_dir);
+			
+		}//if (this.list_root_dir == null)
+
+		/*----------------------------
+		 * 4. Set list to adapter
+			----------------------------*/
+		
+		res = set_list_to_adapter();
+		
+		if (res == false)
+			return false;
+		
+
+		
 		return false;
 	}//private boolean set_initial_dir_list()
 
@@ -609,43 +646,43 @@ public class MainActv extends ListActivity {
 
 	private boolean set_list_to_adapter() {
 		
-//		adapter = new ArrayAdapter<String>(
-//				this,
-//				android.R.layout.simple_list_item_1,
-//				file_names
-//				);
-//
-//		this.setListAdapter(adapter);
-//		
-////		// Log
-////		Log.d("MainActv.java" + "["
-////		+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////		+ "]", "adapter => set");
-//		
-//		if (adapter == null) {
-////			// Log
-////			Log.d("MainActv.java" + "["
-////			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////			+ "]", "adapter => null");
-//			
-//			return false;
-//			
-//		} else {//if (adapter == null)
-////			// Log
-////			Log.d("MainActv.java" + "["
-////			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////			+ "]", "adapter => Not null");
-//			
-//			return true;
-//			
-//		}//if (adapter == null)
+		adp_dir_list = new ArrayAdapter<String>(
+				this,
+				android.R.layout.simple_list_item_1,
+				list_root_dir
+				);
 
-		return false;
+		this.setListAdapter(adp_dir_list);
+		
+//		// Log
+//		Log.d("MainActv.java" + "["
+//		+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//		+ "]", "adp_dir_list => set");
+		
+		if (adp_dir_list == null) {
+//			// Log
+//			Log.d("MainActv.java" + "["
+//			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//			+ "]", "adp_dir_list => null");
+			
+			return false;
+			
+		} else {//if (adp_dir_list == null)
+//			// Log
+//			Log.d("MainActv.java" + "["
+//			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//			+ "]", "adp_dir_list => Not null");
+			
+			return true;
+			
+		}//if (adapter == null)
 
+//		return false;
 
 	}//private boolean set_list_to_adapter()
 
 	private void init_file_list(File file) {
+		
 //		/*----------------------------
 //		 * 1. Get file array
 //		 * 2. Sort the array
@@ -692,11 +729,11 @@ public class MainActv extends ListActivity {
 //			----------------------------*/
 //		Methods.sortFileList(files);
 //		
-////		List<String> file_names = new ArrayList<String>();
-//		file_names = new ArrayList<String>();
+////		List<String> list_root_dir = new ArrayList<String>();
+//		list_root_dir = new ArrayList<String>();
 //
 //		for (File item : files) {
-//			file_names.add(item.getName());
+//			list_root_dir.add(item.getName());
 //		}
 				
 	}//private void init_file_list(File file)
@@ -715,14 +752,17 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 1. Get preference
 			----------------------------*/
-		prefs = 
-				this.getSharedPreferences(prefs_current_path, MODE_PRIVATE);
+		prefs_main = 
+				this.getSharedPreferences(
+						pname_current_path,
+						MODE_PRIVATE);
 
 		/*----------------------------
 		 * 0. Prefs set already?
 			----------------------------*/
-		String temp = prefs.getString(prefs_current_path, null);
+		String temp = prefs_main.getString(pkey_current_path, null);
 		
+//		if (temp != null && !temp.equals("IFM8")) {
 		if (temp != null && !temp.equals("IFM8")) {
 			
 			// Log
@@ -738,19 +778,19 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 2. Get editor
 			----------------------------*/
-		SharedPreferences.Editor editor = prefs.edit();
+		SharedPreferences.Editor editor = prefs_main.edit();
 
 		/*----------------------------
 		 * 3. Set value
 			----------------------------*/
-		editor.putString(prefs_current_path, dname_base);
+		editor.putString(pkey_current_path, dname_base);
 		
 		editor.commit();
 		
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Prefs init => " + prefs_current_path + "/" + dname_base);
+//		// Log
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Prefs init => " + prefs_current_path + "/" + dname_base);
 		
 	}//private void init_prefs_current_path()
 
@@ -798,9 +838,10 @@ public class MainActv extends ListActivity {
 	}//private boolean create_list_file()
 
 	private File create_root_dir() {
+		
 		String dpath_base = StringUtils.join(
 				new String[]{
-						dpath_storage_sdcard, this.dname_base},
+						dpath_storage_sdcard, dname_base},
 				File.separator);
 
 		File file = new File(dpath_base);
@@ -914,13 +955,13 @@ public class MainActv extends ListActivity {
 //		 * 1. 
 //			----------------------------*/
 //		
-//		dpath_current = prefs.getString(prefs_current_path, null);
+//		dpath_current = prefs_main.getString(prefs_current_path, null);
 //		
 //		if (dpath_current == null) {
 //			
 //			init_prefs_current_path();
 //			
-//			dpath_current = prefs.getString(prefs_current_path, null);
+//			dpath_current = prefs_main.getString(prefs_current_path, null);
 //			
 //		}//if (dpath_current == null)
 //		
@@ -942,19 +983,19 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 1. Reconfirm if the user means to quit
 		 * 2. super
-		 * 3. Clear => prefs
-		 * 4. Clear => file_names
+		 * 3. Clear => prefs_main
+		 * 4. Clear => list_root_dir
 			----------------------------*/
 		
 		super.onDestroy();
 		
 		/*----------------------------
-		 * 3. Clear => prefs
+		 * 3. Clear => prefs_main
 			----------------------------*/
-		prefs = 
-				this.getSharedPreferences(prefs_current_path, MODE_PRIVATE);
+		prefs_main = 
+				this.getSharedPreferences(pname_current_path, MODE_PRIVATE);
 		
-		SharedPreferences.Editor editor = prefs.edit();
+		SharedPreferences.Editor editor = prefs_main.edit();
 
 		editor.clear();
 		editor.commit();
@@ -962,17 +1003,17 @@ public class MainActv extends ListActivity {
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Prefs cleared");
+				+ "]", "Prefs cleared: pname_current_path");
 		
 		/*----------------------------
-		 * 4. Clear => file_names
+		 * 4. Clear => list_root_dir
 			----------------------------*/
-//		file_names = null;
+//		list_root_dir = null;
 		
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "file_names => Set to null");
+				+ "]", "list_root_dir => Set to null");
 		
 	}//protected void onDestroy()
 
@@ -1068,7 +1109,7 @@ public class MainActv extends ListActivity {
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "prefs: " + Methods.get_currentPath_from_prefs(this));
+				+ "]", "prefs_main: " + Methods.get_currentPath_from_prefs(this));
 		
 		
 	}
@@ -1088,7 +1129,7 @@ public class MainActv extends ListActivity {
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "prefs: " + Methods.get_currentPath_from_prefs(this));
+				+ "]", "prefs_main: " + Methods.get_currentPath_from_prefs(this));
 		
 		/*********************************
 		 * 2. Set enables
@@ -1182,26 +1223,26 @@ public class MainActv extends ListActivity {
 		 * 1. Refresh DB
 			----------------------------*/
 //		refresh_db();
-//		SharedPreferences prefs =
+//		SharedPreferences prefs_main =
 //							this.getSharedPreferences(this.getString(R.string.prefs_shared_prefs_name), 0);
 //		
 ////		// Log
 ////		Log.d("MainActv.java" + "["
 ////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////				+ "]", "prefs: db_refresh => " + prefs.getBoolean(this.getString(R.string.prefs_db_refresh_key), false));
+////				+ "]", "prefs_main: db_refresh => " + prefs_main.getBoolean(this.getString(R.string.prefs_db_refresh_key), false));
 //		
-//		if(prefs.getBoolean(this.getString(R.string.prefs_db_refresh_key), false)) {
+//		if(prefs_main.getBoolean(this.getString(R.string.prefs_db_refresh_key), false)) {
 //			
 //			Methods.start_refreshDB(this);
 //			
-//		} else {//if(prefs.getBoolean(this.getString(R.string.prefs_db_refresh_key), false))
+//		} else {//if(prefs_main.getBoolean(this.getString(R.string.prefs_db_refresh_key), false))
 //			
 ////			// Log
 ////			Log.d("MainActv.java" + "["
 ////					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 ////					+ "]", "Prefs: db_refresh => " + false);
 //			
-//		}//if(prefs.getBoolean(this.getString(R.string.prefs_db_refresh_key), false))
+//		}//if(prefs_main.getBoolean(this.getString(R.string.prefs_db_refresh_key), false))
 		
 		super.onStart();
 	}//protected void onStart()
