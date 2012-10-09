@@ -1,6 +1,6 @@
 a
 cd C:\WORKS\WS\WS_Android~\CM5
-C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android~\FM\CM5\CM5.mm
+C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android~\FM\CM5(A)\CM5(A).mm
 gitk
 
 

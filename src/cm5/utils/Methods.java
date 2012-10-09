@@ -57,6 +57,7 @@ import android.os.AsyncTask;
 // Apache
 import org.apache.commons.lang.StringUtils;
 
+import cm5.items.AI;
 import cm5.items.TI;
 import cm5.listeners.CustomOnItemLongClickListener;
 import cm5.listeners.DialogButtonOnClickListener;
@@ -1375,6 +1376,499 @@ public class Methods {
 		return numOfItemsAdded;
 		
 	}//public static int refreshMainDB(Activity actv)
+
+	public static int refresh_main_db(Activity actv) {
+		/*********************************
+		 * 1. Set up DB(writable)
+		 * 2. Table exists?
+		 * 2-1. If no, then create one
+		 * 
+		 * 3. Execute query for audio files
+		 * 3.1. Get value => Last refreshed date
+		 * 3.2. Get a files list
+		 * 
+		 * 
+		 * 4. Insert data into db
+		 * 5. Update table "refresh_log"
+		 * 
+		 * 9. Close db
+		 * 10. Return
+		 *********************************/
+		/*----------------------------
+		 * 1. Set up DB(writable)
+			----------------------------*/
+		//
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		/*----------------------------
+		 * 2. Table exists?
+		 * 2-1. If no, then create one
+		 * 		1. baseDirName
+		 * 		2. backupTableName
+			----------------------------*/
+//		boolean res = Methods.refreshMainDB_1_set_up_table(wdb, dbu, MainActv.tname_item);
+		boolean res = Methods.refresh_main_db_1_set_up_table(wdb, dbu, MainActv.tname_main);
+		
+		if (res == false) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "res == false");
+			
+			wdb.close();
+			
+			return -1;
+			
+		} else {//if (res == false)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Done => Methods.refresh_main_db_1_set_up_table()");
+		}
+
+		/*********************************
+		 * 3.1. Get value => Last refreshed date
+		 * 	1. Table exists?
+		 * 	2. Get date
+		 *********************************/
+		/*********************************
+		 * 3.1.1. Table exists?
+		 *********************************/
+		res = Methods.refresh_main_db_2_set_up_table_refresh_history(
+								wdb, dbu);
+
+		if (res == false) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "res == false");
+			
+			wdb.close();
+			
+			return -1;
+			
+		} else {//if (res == false)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]",
+			"Done => Methods.refresh_main_db_2_set_up_table_refresh_history()");
+			
+		}
+
+		/*********************************
+		 * 3.1.2. Get date
+		 *********************************/
+		long last_refreshed_date = Methods.get_last_refreshed_date(wdb, dbu);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "last_refreshed_date=" + last_refreshed_date);
+		
+		/*********************************
+		 * 3.2. Get a files list
+		 * 	1. Build a path
+		 * 	2. If no files in the dir, return
+		 * 	3. If new files, then build a list
+		 *********************************/
+		// Build a path
+		String path = StringUtils.join(
+				(new String[]{
+					MainActv.dpath_storage_internal,
+					MainActv.dname_tt_internal}),
+					File.separator);
+
+		/*********************************
+		 * 3.2.2. If no files in the dir, return
+		 *********************************/
+		// Files list
+		File[] file_list = new File(path).listFiles();
+		
+		if (file_list.length < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "file_list.length < 1");
+			
+			wdb.close();
+			
+			return -2;
+			
+		}//if (file_list.length == condition)
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "file_list.length=" + file_list.length);
+
+		/*********************************
+		 * 3.3. If new files, then build a list
+		 *********************************/
+		List<AI> ai_list = new ArrayList<AI>();
+		
+		int num_of_items = 0;
+		
+		for (File f : file_list) {
+			
+			if (f.lastModified() > last_refreshed_date) {
+//				String file_name, String title, String memo,
+//				long last_played_at,
+//				String table_name
+				
+				AI ai = new AI(
+						f.getName(),
+				    	StringUtils.join(
+		    				new String[]{
+		    						MainActv.dpath_storage_internal,
+	//	    						MainActv.dname_source_folder_tt},
+		    						MainActv.dname_tt_internal},
+    						File.separator),
+
+    						"", "", 0,
+    						MainActv.tname_main,
+    						f.lastModified()
+    						);
+				
+				ai_list.add(ai);
+				
+				num_of_items += 1;
+				
+			}//if (f.lastModified() == condition)
+			
+		}//for (File f : file_list)
+		
+		if (ai_list.size() < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list.size() < 1");
+			
+			wdb.close();
+			
+			return -3;
+			
+		} else {//if (ai_list.size() == condition)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list.size()=" + ai_list.size());
+			
+		}//if (ai_list.size() == condition)
+
+
+		//debug
+		wdb.close();
+		
+		return -3;
+		
+//		/*----------------------------
+//		 * 3. Execute query for audio files
+//		 * 	1. Get value => Last refreshed date
+//			----------------------------*/
+////		Cursor c = Methods.refreshMainDB_2_exec_query(actv, wdb, dbu);
+//		/*********************************
+//		 * 3.1. Get value => Last refreshed date
+//		 *********************************/
+//		long last_refreshed_date = Methods.get_last_refreshed_date(wdb, dbu);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "last_refreshed_date=" + last_refreshed_date);
+//		
+//		/*********************************
+//		 * memo
+//		 *********************************/
+//		String path = StringUtils.join(
+//					(new String[]{
+//						MainActv.dname_storage_internal,
+//						MainActv.dname_tt_internal}),
+//						File.separator);
+//						
+//    	File base_dir = new File(path);
+//
+//		File[] file_list = base_dir.listFiles();
+//		
+//		List<AI> ai_list = new ArrayList<AI>();
+//		
+//		if (file_list.length < 1) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file_list.length < 1");
+//			
+//			wdb.close();
+//			
+//			return -2;
+//			
+//		}//if (file_list.length == condition)
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "file_list.length=" + file_list.length);
+//		
+//		/*********************************
+//		 * If new files, then build a list
+//		 *********************************/
+//		int num_of_items = 0;
+//		
+//		for (File f : file_list) {
+//			
+//			if (f.lastModified() > last_refreshed_date) {
+////				String file_name, String title, String memo,
+////				long last_played_at,
+////				String table_name
+//				
+//				ai_list.add(new AI(
+//						f.getName(),
+//				    	StringUtils.join(
+//	    				new String[]{
+//	    						MainActv.dname_storage_internal,
+////	    						MainActv.dname_source_folder_tt},
+//	    						MainActv.dname_tt_internal},
+//	    						File.separator),
+//
+//						"",
+//						"",
+//						0,
+//						MainActv.tname_main,
+//						f.lastModified()
+//						));
+//				
+//				num_of_items += 1;
+//				
+//			}//if (f.lastModified() == condition)
+//			
+//		}//for (File f : file_list)
+//		
+//		if (ai_list.size() < 1) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "ai_list.size() < 1");
+//			
+//			wdb.close();
+//			
+//			return -3;
+//			
+//		}//if (ai_list.size() == condition)
+//		
+//		/*********************************
+//		 * Insert data => AI, history
+//		 *********************************/
+//		int i_res = DBUtils.insert_all_data_ai(wdb, dbu, ai_list);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "i_res=" + i_res);
+//		
+//		/*----------------------------
+//		 * 4. Insert data into db
+//			----------------------------*/
+////		int numOfItemsAdded;
+////		
+////		if (c.getCount() < 1) {
+////			
+////			// Log
+////			Log.d("Methods.java" + "["
+////					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////					+ "]", "Query result: 0");
+////			
+////			numOfItemsAdded = 0;
+////			
+////			// debug
+////			Toast.makeText(actv, "新規のファイルはありません", 2000).show();
+////			
+////		} else {//if (c.getCount() < 1)
+////			
+////			numOfItemsAdded = refreshMainDB_3_insert_data(actv, wdb, dbu, c);
+////			
+////		}//if (c.getCount() < 1)
+//		
+//		/*----------------------------
+//		 * 9. Close db
+//			----------------------------*/
+//		wdb.close();
+//		
+//		/*----------------------------
+//		 * 10. Return
+//			----------------------------*/
+//		return i_res;
+		
+	}//public static boolean refresh_main_db(Activity actv)
+
+	private static boolean refresh_main_db_2_set_up_table_refresh_history(
+			SQLiteDatabase wdb, DBUtils dbu) {
+		/*********************************
+		 * memo
+		 *********************************/
+		String tname = MainActv.tname_refresh_history;
+		
+		boolean result = dbu.tableExists(wdb, tname);
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "result=" + result);
+		
+		// If the table doesn't exist, create one
+		if (result == false) {
+		
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + tname);
+			
+			result = 
+//					dbu.createTable(wdb, tname, DBUtils.cols, DBUtils.col_types);
+					dbu.createTable(
+							wdb, tname,
+							MainActv.cols_refresh_history,
+							MainActv.col_types_refresh_history);
+			
+			if (result == false) {
+			
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Can't create a table: "+ tname);
+				
+				return false;
+				
+			} else {//if (result == false)
+				
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: "+ tname);
+				
+				return true;
+				
+			}//if (result == false)
+		
+		} else {//if (result == false)
+		
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: "+ tname);
+			
+			return true;
+		
+		}//if (result == false)
+	}//private static boolean refresh_main_db_2_set_up_table_refresh_history
+
+	private static boolean refresh_main_db_1_set_up_table(
+			SQLiteDatabase wdb, DBUtils dbu, String tname) {
+		/*----------------------------
+		* 2-1.1. baseDirName
+		----------------------------*/
+		
+		boolean result = dbu.tableExists(wdb, tname);
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "result=" + result);
+		
+		// If the table doesn't exist, create one
+		if (result == false) {
+		
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + tname);
+			
+			result = 
+//					dbu.createTable(wdb, tname, DBUtils.cols, DBUtils.col_types);
+					dbu.createTable(wdb, tname, MainActv.cols_item, MainActv.col_types_item);
+			
+			if (result == false) {
+			
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Can't create a table: "+ tname);
+				
+				return false;
+				
+			} else {//if (result == false)
+				
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: "+ tname);
+				
+				return true;
+				
+			}//if (result == false)
+		
+		} else {//if (result == false)
+		
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: "+ tname);
+			
+			return true;
+		
+		}//if (result == false)
+
+//		return false;
+		
+	}//private static boolean refreshMainDB_1_set_up_table(SQLiteDatabase wdb, DBUtils dbu)
+
+	private static long get_last_refreshed_date(SQLiteDatabase wdb, DBUtils dbu) {
+		/*********************************
+		 * memo
+		 *********************************/
+		String sql = "SELECT * FROM " + MainActv.tname_refresh_history
+					+ " ORDER BY " + android.provider.BaseColumns._ID
+					+ " DESC";
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = wdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+//			rdb.close();
+			
+			return -1;
+		}
+		
+		if (c.getCount() < 1) {
+			
+			return -2;
+			
+		} else {//if (condition)
+			
+			c.moveToFirst();
+			
+			return c.getLong(3);
+			
+		}//if (condition)
+		
+		
+//		return 0;
+	}//private static long get_last_refreshed_date(SQLiteDatabase wdb, DBUtils dbu)
 
 	public static boolean refreshMainDB(Activity actv, Dialog dlg) {
 		/*----------------------------

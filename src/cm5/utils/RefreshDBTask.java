@@ -13,9 +13,15 @@ public class RefreshDBTask extends AsyncTask<String, Integer, String> {
 	Activity actv;
 	Dialog dlg;
 	
+	long refreshed_date;
+	
+	int num_of_new_items;
+	
 	public RefreshDBTask(Activity actv) {
 		
 		this.actv = actv;
+		
+		this.refreshed_date = Methods.getMillSeconds_now();
 		
 	}//public RefreshDBTask(Activity actv)
 	
@@ -23,13 +29,16 @@ public class RefreshDBTask extends AsyncTask<String, Integer, String> {
 		// 
 		this.actv = actv;
 		this.dlg = dlg;
+		
+		this.refreshed_date = Methods.getMillSeconds_now();
 	}
 
 	@Override
 	protected String doInBackground(String... params) {
 		// TODO 自動生成されたメソッド・スタブ
 		
-		int result = Methods.refreshMainDB((ListActivity) actv);
+//		int result = Methods.refreshMainDB((ListActivity) actv);
+		int result = Methods.refresh_main_db((ListActivity) actv);
 //		boolean result = Methods.refreshMainDB((ListActivity) actv);
 //		boolean result = Methods.refreshMainDB_async((ListActivity) actv);
 //		boolean result = Methods.refreshMainDB_async((ListActivity) actv, this);
@@ -42,16 +51,22 @@ public class RefreshDBTask extends AsyncTask<String, Integer, String> {
 		
 		if (result > 0) {
 			
+			num_of_new_items = result;
+			
 			return "DB refreshed";
 			
 		} else if (result == -1){//if (result == true)
 
 			return "テーブルがなく、また、作ることもできませんでした";
 			
-		} else if (result == 0){//if (result == true)
+		} else if (result == -2){//if (result == true)
+			
+			return "ファイルがありません";
+
+		} else if (result == -3){//if (result == true)
 			
 			return "新規のファイルはありません";
-			
+
 		} else {//if (result == true)
 			
 			return "なにか不明の結果が生じました";
@@ -63,9 +78,21 @@ public class RefreshDBTask extends AsyncTask<String, Integer, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
-		// TODO 自動生成されたメソッド・スタブ
+		/*********************************
+		 * 1. super
+		 * 2. Save history
+		 * 3. Toast
+		 *********************************/
 		super.onPostExecute(result);
 
+//		/*********************************
+//		 * 2. Save history
+//		 *********************************/
+//		Methods.save_refresh_history(actv,
+//					MainActv.dbName, MainActv.tname_refresh_history,
+//					refreshed_date, num_of_new_items);
+		
+		
 		// debug
 		Toast.makeText(actv, result, 2000).show();
 		

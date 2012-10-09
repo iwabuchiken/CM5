@@ -114,7 +114,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				----------------------------*/
 			if (item.equals(actv.getString(R.string.dlg_db_admin_item_backup_db))) {
 				
-				Methods.db_backup(actv, dlg);
+//				Methods.db_backup(actv, dlg);
 				
 			} else if (item.equals(actv.getString(R.string.dlg_db_admin_item_refresh_db))){
 				

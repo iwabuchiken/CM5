@@ -105,6 +105,12 @@ public class MainActv extends ListActivity {
 
 //	public static String dirPath_current = null;
 	public static String dpath_current = null;
+
+	// tapeatalk
+	public static String dname_tt_sdcard = "tapeatalk_records";
+	
+	public static String dname_tt_internal = "tapeatalk_records";
+
 	
 	/*********************************
 	 * List-related
@@ -131,10 +137,20 @@ public class MainActv extends ListActivity {
 	public static String dbName = "cm5.db";
 	
 	// Table names
-	public static String tname_refresh_history = "refresh_history";
 	public static String tname_memo_patterns = "memo_patterns";
 
-	// show_history
+	// Table => main
+	public static String tname_main = "cm5";
+	
+	public static String[] cols_item = 
+		{"file_name", 	"file_path",	"title", "memo",
+			"last_played_at",	"table_name"};
+	
+	public static String[] col_types_item =
+		{"TEXT", 		"TEXT", 		"TEXT",	"TEXT",
+			"INTEGER",			"TEXT"};
+
+	// Table => show_history
 	public static String tname_show_history = "show_history";
 	
 	public static String[] cols_show_history = {
@@ -147,6 +163,17 @@ public class MainActv extends ListActivity {
 
 	public static String tname_separator = "__";
 
+	// Table => refresh_history
+	public static String tname_refresh_history = "refresh_history";
+	
+	public static String[] cols_refresh_history = {
+		"last_refreshed", "num_of_items_added"
+	};
+	
+	public static String[] col_types_refresh_history = {
+		"INTEGER", 			"INTEGER"
+	};
+	
 	// Backup
 	public static String dpath_db = "/data/data/cm5.main/databases";
 	
