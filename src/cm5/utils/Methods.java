@@ -1566,6 +1566,10 @@ public class Methods {
 			
 		}//if (ai_list.size() == condition)
 
+		/*********************************
+		 * 4. Insert data into db
+		 *********************************/
+		res = Methods.insert_data_into_db_ai_list(wdb, dbu, ai_list);
 
 		//debug
 		wdb.close();
@@ -1711,6 +1715,22 @@ public class Methods {
 //		return i_res;
 		
 	}//public static boolean refresh_main_db(Activity actv)
+
+	private static boolean insert_data_into_db_ai_list(SQLiteDatabase wdb,
+			DBUtils dbu, List<AI> ai_list) {
+		/*********************************
+		 * memo
+		 *********************************/
+		for (AI ai : ai_list) {
+			
+			boolean res = dbu.insert_data_ai(wdb, ai);
+			
+		}//for (AI ai : ai_list)
+		
+		
+		return false;
+		
+	}//private static boolean insert_data_into_db_ai_list()
 
 	private static boolean refresh_main_db_2_set_up_table_refresh_history(
 			SQLiteDatabase wdb, DBUtils dbu) {

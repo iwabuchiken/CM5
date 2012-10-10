@@ -5,6 +5,7 @@ package cm5.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cm5.items.AI;
 import cm5.items.TI;
 import cm5.main.MainActv;
 
@@ -489,6 +490,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//try
 	}//public insertData(SQLiteDatabase db, String tableName, ThumbnailItem ti)
 
+	
 	public static boolean insertData_history(
 							Activity actv, 
 							SQLiteDatabase wdb, 
@@ -939,5 +941,76 @@ public class DBUtils extends SQLiteOpenHelper{
 		return tiList;
 		
 	}//public List<TI> get_all_data_history()
+
+
+	public boolean insert_data_ai(SQLiteDatabase wdb, AI ai) {
+		/*********************************
+		 * memo
+		 *********************************/
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+
+//			Table =
+//			"created_at INTEGER, modified_at INTEGER, "
+//			{"file_name", 	"file_path",	"title", "memo",
+//				"last_played_at",	"table_name"};
+
+//			AI =
+//			String file_name, String file_path,
+//			String title, String memo,
+//			
+//			long last_played_at,
+//			
+//			String table_name, long created_at
+			
+//			val.put("file_id", ti.getFileId());
+			val.put("created_at", ai.getCreated_at());
+			
+			val.put("modified_at", ai.getModified_at());
+			
+			val.put("file_name", ai.getFile_name());
+			
+			val.put("file_path", ai.getFile_path());
+			
+			val.put("title", ai.getTitle());
+			
+			val.put("memo", ai.getMemo());
+			
+			val.put("last_played_at", ai.getLast_played_at());
+			
+			val.put("table_name", ai.getTable_name());
+			
+			// Insert data
+			wdb.insert(MainActv.tname_main, null, val);
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Data inserted => " + "(file_name => " + val.getAsString("file_name") + "), and others");
+			
+			return true;
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Exception! => " + e.toString());
+			
+			return false;
+		}//try		
+	}//public void insert_data_ai(SQLiteDatabase wdb, AI ai)
+	
 }//public class DBUtils
 
