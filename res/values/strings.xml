@@ -2,13 +2,17 @@
 <resources>
 
     <!-- Generic items -->
-    <string name="generic_bt_ok">OK</string>
-    <string name="generic_bt_cancel">キャンセル</string>
-    <string name="generic_tv_confirm">確認</string>
-    <string name="generic_tv_menu">メニュー</string>
-    <string name="generic_tv_register">登録</string>
-    <string name="generic_tv_edit">編集</string>
-    <string name="generic_tv_delete">削除</string>
+	    <string name="generic_bt_ok">OK</string>
+	    <string name="generic_bt_cancel">キャンセル</string>
+	    <string name="generic_bt_back">Back</string>
+	
+	    <string name="generic_tv_confirm">確認</string>
+	    <string name="generic_tv_menu">メニュー</string>
+	    <string name="generic_tv_register">登録</string>
+	    <string name="generic_tv_edit">編集</string>
+	    <string name="generic_tv_delete">削除</string>
+   		<string name="generic_tv_no_data">No data</string>
+    
     
     <string name="hello">Hello World, IFM9Activity!</string>
     <string name="app_name">CM5</string>
@@ -107,5 +111,8 @@
     <!-- dlg_confirm_delete_patterns.xml -->
     	<string name="dlg_confirm_delete_patterns_message">この定型句を削除しますか？</string>
     
-    
+    <!-- actv_play.xml -->
+    	<string name="actv_play_bt_play">Play</string>
+    	<string name="actv_play_bt_stop">Stop</string>
+    	
 </resources>

@@ -76,11 +76,18 @@ public class ButtonOnTouchListener implements OnTouchListener {
 				ib.setImageResource(R.drawable.ifm8_forward_disenabled);
 				
 				break;// case image_activity_next
-				
+
+			case actv_play_bt_play:
+			case actv_play_bt_stop:
+			case actv_play_bt_back:
+
+				v.setBackgroundColor(Color.GRAY);
+				break;
+
 			}//switch (tag)
 			
 			break;//case MotionEvent.ACTION_DOWN:
-			
+
 			
 		case MotionEvent.ACTION_UP:
 			switch (tag) {
@@ -120,7 +127,14 @@ public class ButtonOnTouchListener implements OnTouchListener {
 				ib.setImageResource(R.drawable.ifm8_forward);
 				
 				break;// case image_activity_next
-				
+
+			case actv_play_bt_play:
+			case actv_play_bt_stop:
+			case actv_play_bt_back:
+
+				v.setBackgroundColor(Color.WHITE);
+				break;
+
 			}//switch (tag)
 			
 			break;//case MotionEvent.ACTION_UP:

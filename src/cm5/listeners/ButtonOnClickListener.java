@@ -4,9 +4,11 @@ import cm5.main.R;
 
 import java.io.File;
 
+import cm5.items.AI;
 import cm5.items.TI;
 //import cm5.main.ImageActv;
 import cm5.main.MainActv;
+import cm5.main.PlayActv;
 import cm5.main.TNActv;
 import cm5.utils.Methods;
 
@@ -40,6 +42,9 @@ public class ButtonOnClickListener implements OnClickListener {
 	//
 	ListView lv;
 	
+	//
+	AI ai;
+	
 	public ButtonOnClickListener(Activity actv) {
 		//
 		this.actv = actv;
@@ -69,14 +74,62 @@ public class ButtonOnClickListener implements OnClickListener {
 	}
 
 //	@Override
+	public ButtonOnClickListener(Activity actv, AI ai) {
+		
+		this.actv = actv;
+		
+		this.ai = ai;
+		
+		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
+		
+	}//public ButtonOnClickListener(Activity actv, AI ai)
+
 	public void onClick(View v) {
 //		//
 		Methods.ButtonTags tag = (Methods.ButtonTags) v.getTag();
 //
 		vib.vibrate(Methods.vibLength_click);
 		
+		/*********************************
+		 * 1. actv_play.xml
+		 * 
+		 * 2. main.xml
+		 *********************************/
 		//
 		switch (tag) {
+		/*********************************
+		 * 1. actv_play.xml
+		 *********************************/
+		case actv_play_bt_play://----------------------------------------------------
+			
+			Methods.play_file(actv, ai);
+			
+			break;// case actv_play_bt_play
+			
+		case actv_play_bt_stop://----------------------------------------------------
+			
+			Methods.stop_player(actv);
+			
+//			if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
+//
+//				PlayActv.mp.stop();
+//				
+//				
+//				
+//			}//if (mp.isPlaying())
+
+			
+			break;// case actv_play_bt_stop
+			
+		case actv_play_bt_back://----------------------------------------------------
+			
+			actv.finish();
+			
+			break;// case actv_play_bt_back
+		
+		/*********************************
+		 * 2. main.xml
+		 *********************************/
 		case ib_up://---------------------------------------------------------
 			
 			Methods.upDir(actv);
@@ -107,11 +160,11 @@ public class ButtonOnClickListener implements OnClickListener {
 			
 			vib.vibrate(Methods.vibLength_click);
 			
-			int numOfGroups = TNActv.tiList.size() / lv.getChildCount();
-			
-			int indexOfLastChild = lv.getChildCount() * numOfGroups;
-			
-			lv.setSelection(indexOfLastChild);
+//			int numOfGroups = TNActv.tiList.size() / lv.getChildCount();
+//			
+//			int indexOfLastChild = lv.getChildCount() * numOfGroups;
+//			
+//			lv.setSelection(indexOfLastChild);
 
 			break;// case thumb_activity_ib_bottom 
 			
@@ -135,6 +188,8 @@ public class ButtonOnClickListener implements OnClickListener {
 			image_activity_next();
 			
 			break;// case image_activity_next
+
+		
 			
 		default:
 			break;

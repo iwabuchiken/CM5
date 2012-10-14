@@ -23,7 +23,8 @@
         <activity android:name=".TNActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".ImageActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".PrefActv"></activity>
-        <activity android:name=".ALActv"></activity>
+        <activity android:name=".ALActv" android:screenOrientation="portrait"></activity>
+        <activity android:name=".PlayActv" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

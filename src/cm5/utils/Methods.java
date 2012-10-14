@@ -35,6 +35,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -65,8 +66,10 @@ import cm5.listeners.DialogButtonOnTouchListener;
 import cm5.listeners.DialogListener;
 import cm5.listeners.DialogOnItemClickListener;
 import cm5.listeners.DialogOnItemLongClickListener;
+import cm5.listeners.MPOnCompletionListener;
 import cm5.main.ALActv;
 import cm5.main.MainActv;
+import cm5.main.PlayActv;
 import cm5.main.PrefActv;
 import cm5.main.TNActv;
 
@@ -173,6 +176,10 @@ public class Methods {
 		
 		// TIListAdapter.java
 		tilist_cb,
+		
+		// actv_play.xml
+		actv_play_bt_play, actv_play_bt_stop, actv_play_bt_back,
+		
 		
 	}//public static enum ButtonTags
 	
@@ -7140,6 +7147,275 @@ public class Methods {
 		return ai_list;
 		
 	}//public static List<AI> get_all_data_ai(Activity actv, String table_name)
+
+	
+	/*********************************
+	 * <Return>
+	 * null		=> 
+	 *********************************/
+	public static AI get_data_ai(Activity actv, long db_id, String table_name) {
+		/*********************************
+		 * 0. Table exists?
+		 * 1. DB setup
+		 * 2. Get data
+		 * 		2.1. Get cursor
+		 * 		2.2. Add to list
+		 * 
+		 * 9. Close db
+		 * 10. Return value
+		 *********************************/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]",
+				"Methods.get_data_ai(Activity actv, long db_id, String table_name)");
+		
+		/*********************************
+		 * 1. DB setup
+		 *********************************/
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/****************************
+		 * 0. Table exists?
+			****************************/
+		boolean res = dbu.tableExists(rdb, table_name);
+		
+		if (res == false) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + table_name);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (res == false)
+		
+		/****************************
+		 * 2. Get data
+		 * 		2.1. Get cursor
+		 * 		2.1-2. Data exists?
+		 * 
+		 * 		2.2. Add to list
+			****************************/
+		//
+		String sql = "SELECT * FROM " + table_name
+					+ " WHERE " + android.provider.BaseColumns._ID
+					+ " = '" + db_id + "'";
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+			return null;
+		}
+		
+		/*********************************
+		 * 2.2.1-2. Data exists?
+		 *********************************/
+		if (c.getCount() < 1) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "c.getCount() < 1");
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (c.getCount() == condition)
+		
+		/****************************
+		 * 2.2. Add to list
+			****************************/
+		c.moveToFirst();
+		
+		AI ai = new AI(
+				c.getString(3),	// file_name
+				c.getString(4),	// file_path
+				
+				c.getString(5),	// title
+				c.getString(6),	// memo
+				
+				c.getLong(7),
+				
+				c.getString(8),	// table_name
+				
+				c.getLong(0),	// id
+				c.getLong(1),	// created_at
+				c.getLong(2)	// modified_at
+		);
+		
+		/****************************
+		 * 9. Close db
+			****************************/
+		rdb.close();
+		
+		/****************************
+		 * 10. Return value
+			****************************/
+		return ai;
+	}//public static AI get_data_ai(Activity actv, long db_id, String table_name)
+
+	
+	public static void play_file(Activity actv, AI ai) {
+		/*********************************
+		 * 1. Media player is playing?
+		 * 2. OnCompletionListener
+		 * 
+		 * 3. Set data source
+		 * 4. Prepare mp
+		 * 
+		 * 5. Start
+		 * 
+		 *********************************/
+		/*********************************
+		 * 1. Media player is playing?
+		 *********************************/
+		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
+
+			PlayActv.mp.stop();
+			
+		}//if (mp.isPlaying())
+
+		/*********************************
+		 * 2. OnCompletionListener
+		 *********************************/
+		PlayActv.mp = new MediaPlayer();
+		
+		PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(actv));
+
+		/*********************************
+		 * 3. Set data source
+		 *********************************/
+		String file_full_path = StringUtils.join(
+				new String[]{ai.getFile_path(), ai.getFile_name()},
+				File.separator);
+
+		try {
+
+			PlayActv.mp.setDataSource(file_full_path);
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data source => Set");
+			
+		} catch (IllegalArgumentException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+			
+			
+		} catch (IllegalStateException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+
+		} catch (IOException e) {
+
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+
+		}//try
+
+		/*********************************
+		 * 4. Prepare mp
+		 *********************************/
+		try {
+
+			PlayActv.mp.prepare();
+			
+		} catch (IllegalStateException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+
+		} catch (IOException e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception: " + e.toString());
+
+		}//try
+
+		/*********************************
+		 * 5. Start
+		 *********************************/
+		PlayActv.mp.start();
+		
+//		if (file_full_path != null) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file_full_path=" + file_full_path);
+//			
+//		} else {//if (file_full_path == condition)
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file_full_path == null");
+//			
+//		}//if (file_full_path == condition)
+		
+	}//public static void play_file(Activity actv, AI ai)
+
+	public static void stop_player(Activity actv) {
+		/*********************************
+		 * memo
+		 *********************************/
+		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
+
+			PlayActv.mp.stop();
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Player => Stopped");
+			
+		} else if (PlayActv.mp == null) {//if (mp.isPlaying())
+
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "PlayActv.mp != null");
+
+		} else if (!PlayActv.mp.isPlaying()) {//if (mp.isPlaying())
+
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "PlayActv.mp => Not playing");
+
+		}//if (mp.isPlaying())
+
+	}//public static void stop_player(Activity actv)
 
 
 	

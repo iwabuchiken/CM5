@@ -99,10 +99,10 @@ public class AILAdapter extends ArrayAdapter<AI> {
 		 * 
 		 * 9. Return view
 			****************************/
-    	// Log
-		Log.d("AILAdapter.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "getView()");
+//    	// Log
+//		Log.d("AILAdapter.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "getView()");
 		
     	
     	/****************************

@@ -75,9 +75,9 @@ public class ALActv extends ListActivity {
 	
 	public static ArrayAdapter<String> dirListAdapter;
 	
-	/*----------------------------
+	/****************************
 	 * Preference names
-		----------------------------*/
+		****************************/
 	public static String tnactv_selected_item = "tnactv_selected_item";
 
 	/*********************************
@@ -90,7 +90,7 @@ public class ALActv extends ListActivity {
 	 ****************************************/
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Super
 		 * 2. Set content
@@ -98,7 +98,7 @@ public class ALActv extends ListActivity {
 		 * 
 		 * 4. Set up
 		 * 5. Initialize vars
-		----------------------------*/
+		****************************/
 		super.onCreate(savedInstanceState);
 
 		// Log
@@ -107,33 +107,34 @@ public class ALActv extends ListActivity {
 				+ "]", "onCreate()");
 		
 		//
-		setContentView(R.layout.thumb_activity);
+//		setContentView(R.layout.thumb_activity);
+		setContentView(R.layout.actv_al);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Basics
-			----------------------------*/
+			****************************/
 		this.setTitle(this.getClass().getName());
 		
-		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
-		
-		/*----------------------------
-		 * 4. Set up
-			----------------------------*/
-//		//debug
-//		Methods.update_prefs_currentPath(this, MainActv.dirName_base);
-		
-		setup_1_set_listeners();
-		
-		setup_2_set_list();
+//		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
+//		
+//		/****************************
+//		 * 4. Set up
+//			****************************/
+////		//debug
+////		Methods.update_prefs_currentPath(this, MainActv.dirName_base);
+//		
+//		setup_1_set_listeners();
+//		
+//		setup_2_set_list();
 
 //		// Log
 //		Log.d("ALActv.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "Table name: " + Methods.convert_path_into_table_name(this));
 		
-		/*----------------------------
+		/****************************
 		 * 5. Initialize vars
-			----------------------------*/
+			****************************/
 		checkedPositions = new ArrayList<Integer>();
 
 		//debug
@@ -263,14 +264,14 @@ public class ALActv extends ListActivity {
 
 
 	private List<TI> prep_list() {
-		/*----------------------------
+		/****************************
 		 * Get ThumbnailItem list
 		 * 1. Get intent data
 		 * 2. Build tiList
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Get intent data
-			----------------------------*/
+			****************************/
 		Intent i = this.getIntent();
 		
 //		long_searchedItems = i.getLongArrayExtra("long_searchedItems");
@@ -282,9 +283,9 @@ public class ALActv extends ListActivity {
 //		string_searchedItems_table_names = 
 //					i.getStringArrayExtra(MainActv.intent_label_searchedItems_table_names);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Build tiList
-			----------------------------*/
+			****************************/
 		String tableName = Methods.convert_path_into_table_name(this);
 		
 		// Log
@@ -383,15 +384,15 @@ public class ALActv extends ListActivity {
 
 
 	private void setup_1_set_listeners() {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. "Back" button
 		 * 2. LongClick
 		 * 3. "Bottom"
 		 * 4. "Top"
-			----------------------------*/
+			****************************/
 		//
-		ImageButton ib_back = (ImageButton) findViewById(R.id.thumb_activity_ib_back);
+		ImageButton ib_back = (ImageButton) findViewById(R.id.actv_al_ib_back);
 		
 		ib_back.setEnabled(true);
 		ib_back.setImageResource(R.drawable.ifm8_thumb_back_50x50);
@@ -401,9 +402,9 @@ public class ALActv extends ListActivity {
 		ib_back.setOnTouchListener(new ButtonOnTouchListener(this));
 		ib_back.setOnClickListener(new ButtonOnClickListener(this));
 		
-		/*----------------------------
+		/****************************
 		 * 2. LongClick
-			----------------------------*/
+			****************************/
 //		ListView lv = (ListView) findViewById(android.R.layout.activity_list_item);
 		ListView lv = this.getListView();
 		
@@ -411,12 +412,12 @@ public class ALActv extends ListActivity {
 		
 		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
-		/*----------------------------
+		/****************************
 		 * 3. "Bottom"
 		 * 		1. Set up
 		 * 		2. Listeners
-			----------------------------*/
-		ImageButton bt_bottom = (ImageButton) findViewById(R.id.thumb_activity_ib_toBottom);
+			****************************/
+		ImageButton bt_bottom = (ImageButton) findViewById(R.id.actv_al_ib_toBottom);
 		
 		bt_bottom.setEnabled(true);
 		bt_bottom.setImageResource(R.drawable.ifm8_thumb_bottom_50x50);
@@ -427,12 +428,12 @@ public class ALActv extends ListActivity {
 		bt_bottom.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_bottom.setOnClickListener(new ButtonOnClickListener(this, lv));
 		
-		/*----------------------------
+		/****************************
 		 * 4. "Top"
 		 * 		1. Set up
 		 * 		2. Listeners
-			----------------------------*/
-		ImageButton bt_top = (ImageButton) findViewById(R.id.thumb_activity_ib_toTop);
+			****************************/
+		ImageButton bt_top = (ImageButton) findViewById(R.id.actv_al_ib_toTop);
 		
 		bt_top.setEnabled(true);
 		bt_top.setImageResource(R.drawable.ifm8_thumb_top_50x50);
@@ -440,9 +441,9 @@ public class ALActv extends ListActivity {
 		// Tag
 		bt_top.setTag(Methods.ButtonTags.thumb_activity_ib_top);
 		
-		/*----------------------------
+		/****************************
 		 * 4.2. Listeners
-			----------------------------*/
+			****************************/
 		bt_top.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_top.setOnClickListener(new ButtonOnClickListener(this, lv));
 		
@@ -523,7 +524,8 @@ public class ALActv extends ListActivity {
 	protected void onStart() {
 		/*********************************
 		 * 1. super
-		 * 2. Set selection
+		 * 
+		 * 2. Set up
 		 *********************************/
 		super.onStart();
 		
@@ -532,6 +534,18 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "onStart()");
 		
+		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
+		
+		/****************************
+		 * 2. Set up
+			****************************/
+//		//debug
+//		Methods.update_prefs_currentPath(this, MainActv.dirName_base);
+		
+		setup_1_set_listeners();
+		
+		setup_2_set_list();
+
 //		/*********************************
 //		 * 2. Set selection
 //		 *********************************/
@@ -595,9 +609,9 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "onDestroy()");
 		
-		/*----------------------------
+		/****************************
 		 * 2. move_mode => falsify
-			----------------------------*/
+			****************************/
 		if (move_mode == true) {
 			
 			move_mode = false;
@@ -670,9 +684,9 @@ public class ALActv extends ListActivity {
 
 	@Override
 	public void onBackPressed() {
-		/*----------------------------
+		/****************************
 		 * memo
-			----------------------------*/
+			****************************/
 		this.finish();
 		
 		overridePendingTransition(0, 0);
@@ -709,42 +723,73 @@ public class ALActv extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView lv, View v, int position, long id) {
-//		/*----------------------------
-//		 * Steps
+		/*********************************
+		 * 0. Vibrate
+		 * 
+		 * 1. Get item
+		 * 2. Intent
+		 * 		2.1. Set data
+		 * 
+		 * 9. Start intent
+		 *********************************/
+		/****************************
+		 * 0. Vibrate
+			****************************/
+		vib.vibrate(Methods.vibLength_click);
+
+		/****************************
+		 * 1. Get item
+			****************************/
+		AI ai = (AI) lv.getItemAtPosition(position);
+		
+		/****************************
+		 * 2. Intent
+		 * 		2.1. Set data
+			****************************/
+		Intent i = new Intent();
+		
+		i.setClass(this, PlayActv.class);
+		
+		i.putExtra("db_id", ai.getDb_id());
+		
+		i.putExtra("table_name", ai.getTable_name());
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+		
+		/*********************************
+		 * 9. Start intent
+		 *********************************/
+		startActivity(i);
+		
+//		if (ai != null) {
+//			
+//			// debug
+//			Toast.makeText(this, ai.getFile_name(), Toast.LENGTH_SHORT).show();
+//			
+//		} else {//if (ai != null)
+//
+//			// debug
+//			Toast.makeText(this, "ai == null", Toast.LENGTH_SHORT).show();
+//			
+//		}//if (ai != null)
+		
+
+//		/****************************
 //		 * 0. Vibrate
-//		 * 1. Get item
-//		 * 2. Intent
-//		 * 		2.1. Set data
-//		 * 
-//		 * 2-2. Record history
-//		 * 2-2-a. Update data
-//		 * 
-//		 * 2-3. Save preferences
-//		 * 
-//		 * 3. Start intent
-//			----------------------------*/
-//		//debug
-////		// Log
-////		Log.d("ALActv.java" + "["
-////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////				+ "]", "v.getId()=" + v.getId());
-//		
-//		
-//		/*----------------------------
-//		 * 0. Vibrate
-//			----------------------------*/
+//			****************************/
 //		vib.vibrate(Methods.vibLength_click);
 //		
 //		if (MainActv.move_mode == false) {
-//			/*----------------------------
+//			/****************************
 //			 * 1. Get item
-//				----------------------------*/
+//				****************************/
 //			TI ti = (TI) lv.getItemAtPosition(position);
 //			
-//			/*----------------------------
+//			/****************************
 //			 * 2. Intent
 //			 * 		2.1. Set data
-//				----------------------------*/
+//				****************************/
 //			Intent i = new Intent();
 //			
 //			i.setClass(this, ImageActv.class);
@@ -857,9 +902,9 @@ public class ALActv extends ListActivity {
 //			
 //		} else if (MainActv.move_mode == true) {//if (move_mode == false)
 //			
-//			/*----------------------------
+//			/****************************
 //			 * CheckBox on, then click on the item, then nothing happens (20120717_221403)
-//				----------------------------*/
+//				****************************/
 //			
 //			TNActv.checkedPositions.add(position);
 //			
@@ -894,11 +939,11 @@ public class ALActv extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. R.id.thumb_actv_menu_move_mode
 		 * 2. R.id.thumb_actv_menu_move_files
-			----------------------------*/
+			****************************/
 		
 		
 		case R.id.thumb_actv_menu_move_mode://---------------------------------------
@@ -925,11 +970,11 @@ public class ALActv extends ListActivity {
 				return false;
 				
 			} else if (move_mode == true) {
-				/*----------------------------
+				/****************************
 				 * Steps
 				 * 1. checkedPositions => Has contents?
 				 * 2. If yes, show dialog
-					----------------------------*/
+					****************************/
 				if (checkedPositions.size() < 1) {
 					
 					// debug
@@ -940,9 +985,9 @@ public class ALActv extends ListActivity {
 				}//if (checkedPositions.size() < 1)
 				
 				
-				/*----------------------------
+				/****************************
 				 * 2. If yes, show dialog
-					----------------------------*/
+					****************************/
 				Methods.dlg_moveFiles(this);
 				
 			}//if (move_mode == false)
@@ -960,7 +1005,7 @@ public class ALActv extends ListActivity {
 
 	private void move_mode_false(MenuItem item) {
 		
-		/*----------------------------
+		/****************************
 		 * Steps: Current mode => false
 		 * 1. Set icon => On
 		 * 2. move_mode => true
@@ -969,7 +1014,7 @@ public class ALActv extends ListActivity {
 		 * 
 		 * 3. Update aAdapter
 		 * 4. Re-set tiList
-			----------------------------*/
+			****************************/
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_on);
 		
@@ -981,9 +1026,9 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2]
 						.getLineNumber() + "]", "move_mode => Now true");
 		
-		/*----------------------------
+		/****************************
 		 * 2-1. Set position to preference
-			----------------------------*/
+			****************************/
 		// Log
 		Log.d("ALActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -993,9 +1038,9 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "this.getSelectedItemId(): " + this.getSelectedItemId());
 
-		/*----------------------------
+		/****************************
 		 * 4. Re-set tiList
-			----------------------------*/
+			****************************/
 //		String tableName = Methods.convertPathIntoTableName(this);
 
 		String currentPath = Methods.get_currentPath_from_prefs(this);
@@ -1045,9 +1090,9 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2]
 						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
 		
-		/*----------------------------
+		/****************************
 		 * 3. Update aAdapter
-			----------------------------*/
+			****************************/
 		Methods.sort_tiList(tiList);
 		
 //		bAdapter =
@@ -1063,7 +1108,7 @@ public class ALActv extends ListActivity {
 
 
 	private void move_mode_true(MenuItem item) {
-		/*----------------------------
+		/****************************
 		 * Steps: Current mode => false
 		 * 1. Set icon => On
 		 * 2. move_mode => false
@@ -1073,7 +1118,7 @@ public class ALActv extends ListActivity {
 		 * 
 		 * 3. Re-set tiList
 		 * 4. Update aAdapter
-			----------------------------*/
+			****************************/
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_off);
 		
@@ -1084,19 +1129,19 @@ public class ALActv extends ListActivity {
 				+ "["
 				+ Thread.currentThread().getStackTrace()[2]
 						.getLineNumber() + "]", "move_mode => Now false");
-		/*----------------------------
+		/****************************
 		 * 2-2. TNActv.checkedPositions => clear()
-			----------------------------*/
+			****************************/
 		ALActv.checkedPositions.clear();
 		
-		/*----------------------------
+		/****************************
 		 * 2-3. Get position from preference
-			----------------------------*/
+			****************************/
 		int selected_position = Methods.get_pref(this, tnactv_selected_item, 0);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Re-set tiList
-			----------------------------*/
+			****************************/
 //		String tableName = Methods.convertPathIntoTableName(this);
 		String currentPath = Methods.get_currentPath_from_prefs(this);
 		
@@ -1133,9 +1178,9 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2]
 						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
 		
-		/*----------------------------
+		/****************************
 		 * 4. Update aAdapter
-			----------------------------*/
+			****************************/
 		Methods.sort_tiList(tiList);
 		
 //		aAdapter = 
