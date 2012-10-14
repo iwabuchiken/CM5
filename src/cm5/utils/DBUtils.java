@@ -329,6 +329,74 @@ public class DBUtils extends SQLiteOpenHelper{
 
 	}//public boolean dropTable(String tableName) 
 
+	public boolean drop_table(Activity actv, SQLiteDatabase db, String tableName) {
+		// Log
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Starting: dropTable()");
+		
+		/*------------------------------
+		 * The table exists?
+		 *------------------------------*/
+		// The table exists?
+		boolean tempBool = tableExists(db, tableName);
+		
+		if (tempBool == true) {
+		
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + tableName);
+
+		} else {//if (tempBool == true)
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + tableName);
+
+			return false;
+		}//if (tempBool == true)
+
+		/*------------------------------
+		 * Drop the table
+		 *------------------------------*/
+		// Define the sql
+        String sql 
+             = "DROP TABLE " + tableName;
+        
+        // Execute
+        try {
+			db.execSQL(sql);
+			
+			// Vacuum
+			db.execSQL("VACUUM");
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "The table dropped => " + tableName);
+			
+			// Return
+			return true;
+			
+		} catch (SQLException e) {
+			// TODO Ž©“®¶¬‚³‚ê‚½ catch ƒuƒƒbƒN
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "DROP TABLE => failed (table=" + tableName + "): " + e.toString());
+			
+			// debug
+			Toast.makeText(actv, 
+						"DROP TABLE => failed(table=" + tableName, 
+						3000).show();
+			
+			// Return
+			return false;
+		}//try
+
+	}//public boolean dropTable(String tableName) 
+
 	public boolean insertData(SQLiteDatabase db, String tableName, 
 												String[] columnNames, String[] values) {
 		
@@ -1011,6 +1079,58 @@ public class DBUtils extends SQLiteOpenHelper{
 			return false;
 		}//try		
 	}//public void insert_data_ai(SQLiteDatabase wdb, AI ai)
+
+	public boolean insert_data_refresh_history(SQLiteDatabase wdb,
+			String tableName, long[] data) {
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+//			// Put values
+//			for (int i = 0; i < columnNames.length; i++) {
+//				val.put(columnNames[i], values[i]);
+//			}//for (int i = 0; i < columnNames.length; i++)
+			
+//			"last_refreshed", "num_of_items_added"
+			
+			val.put("last_refreshed", data[0]);
+			
+			val.put("num_of_items_added", data[1]);
+			
+			// Insert data
+			wdb.insert(tableName, null, val);
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			// Log
+//			Log.d("DBUtils.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Data inserted => " + "(" + columnNames[0] + " => " + values[0] + 
+//				" / " + columnNames[3] + " => " + values[3] + ")");
+			
+			return true;
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Exception! => " + e.toString());
+			
+			return false;
+			
+		}//try
+		
+	}//public boolean insert_data_refresh_history
 	
 }//public class DBUtils
 

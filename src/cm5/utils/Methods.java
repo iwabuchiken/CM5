@@ -1031,6 +1031,11 @@ public class Methods {
 		 * 
 		 * 3. Return
 		 *********************************/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.convert_path_into_table_name(Activity actv)");
+		
 		SharedPreferences prefs_main = 
 				actv.getSharedPreferences(MainActv.pname_current_path, Activity.MODE_PRIVATE);	
 
@@ -1050,7 +1055,8 @@ public class Methods {
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "value=" + value);
+//				+ "]", "value=" + value);
+				+ "]", "MainActv.pkey_current_path=" + value);
 		
 		/*********************************
 		 * 2. Process path into table name
@@ -1060,10 +1066,10 @@ public class Methods {
 		// Detect the position of the "dname_base"
 		int loc = Methods.get_position_from_array(a_path, MainActv.dname_base);
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "loc=" + loc);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "loc=" + loc);
 		
 		// REF=> http://stackoverflow.com/questions/4439595/how-to-create-a-sub-array-from-another-array-in-java
 		String[] sub_array = Arrays.copyOfRange(a_path, loc, a_path.length);
@@ -1377,6 +1383,14 @@ public class Methods {
 		
 	}//public static int refreshMainDB(Activity actv)
 
+	/*********************************
+	 * <Return>
+	 * -1	=> Table setup failed
+	 * -2	=> "Get file list" failed
+	 * -3	=> "Get ai_list" failed
+	 * 
+	 * 0<	=> Number of items added
+	 *********************************/
 	public static int refresh_main_db(Activity actv) {
 		/*********************************
 		 * 1. Set up DB(writable)
@@ -1479,102 +1493,162 @@ public class Methods {
 		 * 	2. If no files in the dir, return
 		 * 	3. If new files, then build a list
 		 *********************************/
-		// Build a path
-		String path = StringUtils.join(
-				(new String[]{
-					MainActv.dpath_storage_internal,
-					MainActv.dname_tt_internal}),
-					File.separator);
-
-		/*********************************
-		 * 3.2.2. If no files in the dir, return
-		 *********************************/
-		// Files list
-		File[] file_list = new File(path).listFiles();
+		File[] file_list = Methods.refresh_main_db_3_get_file_list();
 		
-		if (file_list.length < 1) {
+		if (file_list == null) {
 			
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "file_list.length < 1");
+					+ "]", "file_list == null");
 			
 			wdb.close();
 			
 			return -2;
 			
-		}//if (file_list.length == condition)
-
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "file_list.length=" + file_list.length);
+		}//if (file_list == null)
+		
+//		// Build a path
+//		String path = StringUtils.join(
+//				(new String[]{
+//					MainActv.dpath_storage_internal,
+//					MainActv.dname_tt_internal}),
+//					File.separator);
+//
+//		/*********************************
+//		 * 3.2.2. If no files in the dir, return
+//		 *********************************/
+//		// Files list
+//		File[] file_list = new File(path).listFiles();
+//		
+//		if (file_list.length < 1) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file_list.length < 1");
+//			
+//			wdb.close();
+//			
+//			return -2;
+//			
+//		}//if (file_list.length == condition)
+//
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "file_list.length=" + file_list.length);
 
 		/*********************************
 		 * 3.3. If new files, then build a list
 		 *********************************/
-		List<AI> ai_list = new ArrayList<AI>();
+//		List<AI> ai_list = new ArrayList<AI>();
+		List<AI> ai_list = Methods.refresh_main_db_4_get_ai_list(
+									file_list,
+									last_refreshed_date);
 		
-		int num_of_items = 0;
-		
-		for (File f : file_list) {
-			
-			if (f.lastModified() > last_refreshed_date) {
-//				String file_name, String title, String memo,
-//				long last_played_at,
-//				String table_name
-				
-				AI ai = new AI(
-						f.getName(),
-				    	StringUtils.join(
-		    				new String[]{
-		    						MainActv.dpath_storage_internal,
-	//	    						MainActv.dname_source_folder_tt},
-		    						MainActv.dname_tt_internal},
-    						File.separator),
-
-    						"", "", 0,
-    						MainActv.tname_main,
-    						f.lastModified()
-    						);
-				
-				ai_list.add(ai);
-				
-				num_of_items += 1;
-				
-			}//if (f.lastModified() == condition)
-			
-		}//for (File f : file_list)
-		
-		if (ai_list.size() < 1) {
+		if (ai_list == null) {
 			
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "ai_list.size() < 1");
+					+ "]", "ai_list == null");
 			
 			wdb.close();
 			
 			return -3;
 			
-		} else {//if (ai_list.size() == condition)
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "ai_list.size()=" + ai_list.size());
-			
-		}//if (ai_list.size() == condition)
+		}//if (ai_list == null)
+		
+//		int num_of_items = 0;
+//		
+//		for (File f : file_list) {
+//			
+//			if (f.lastModified() > last_refreshed_date) {
+////				String file_name, String title, String memo,
+////				long last_played_at,
+////				String table_name
+//				
+//				AI ai = new AI(
+//						f.getName(),
+//				    	StringUtils.join(
+//		    				new String[]{
+//		    						MainActv.dpath_storage_internal,
+//	//	    						MainActv.dname_source_folder_tt},
+//		    						MainActv.dname_tt_internal},
+//    						File.separator),
+//
+//    						"", "", 0,
+//    						MainActv.tname_main,
+//    						f.lastModified()
+//    						);
+//				
+//				ai_list.add(ai);
+//				
+//				num_of_items += 1;
+//				
+//			}//if (f.lastModified() == condition)
+//			
+//		}//for (File f : file_list)
+//		
+//		if (ai_list.size() < 1) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "ai_list.size() < 1");
+//			
+//			wdb.close();
+//			
+//			return -3;
+//			
+//		} else {//if (ai_list.size() == condition)
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "ai_list.size()=" + ai_list.size());
+//			
+//		}//if (ai_list.size() == condition)
 
 		/*********************************
 		 * 4. Insert data into db
 		 *********************************/
-		res = Methods.insert_data_into_db_ai_list(wdb, dbu, ai_list);
+//		int i_res = Methods.insert_data_into_db_ai_list(wdb, dbu, ai_list);
+		int i_res = Methods.refresh_main_db_5_insert_data_into_db_ai_list(wdb, dbu, ai_list);
 
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "i_res=" + i_res);
+		
+		/*********************************
+		 * 5. Update table "refresh_log"
+		 * => If data is -1, then the current date is inserted into data
+		 *********************************/
+		long data = Methods.get_latest_date_from_ai_list(ai_list);
+		
+		if (data == -1) {
+			
+			data = Methods.getMillSeconds_now();
+			
+		}//if (data == -1)
+		
+		res = Methods.refresh_main_db_6_update_refresh_history(
+									wdb, dbu,
+									i_res,
+//									ai_list.get(ai_list.size() - 1).getCreated_at());
+									data);
+		
 		//debug
 		wdb.close();
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "wdb => Closed");
 		
-		return -3;
+		return i_res;
 		
 //		/*----------------------------
 //		 * 3. Execute query for audio files
@@ -1716,21 +1790,272 @@ public class Methods {
 		
 	}//public static boolean refresh_main_db(Activity actv)
 
-	private static boolean insert_data_into_db_ai_list(SQLiteDatabase wdb,
+	private static long get_latest_date_from_ai_list(List<AI> ai_list) {
+		
+		long last_one = -1;
+		
+		for (AI ai : ai_list) {
+			
+			if (last_one < ai.getCreated_at()) {
+				
+				last_one = ai.getCreated_at();
+				
+			}//if (last_one == condition)
+			
+		}//for (AI ai : ai_list)
+		
+		return last_one;
+		
+	}//private static long get_latest_date_from_ai_list(List<AI> ai_list)
+
+	private static boolean refresh_main_db_6_update_refresh_history(
+								SQLiteDatabase wdb, DBUtils dbu,
+								int i_res,
+								long date_of_last_ai_item) {
+		/*********************************
+		* 1. Table exists?
+		* 2. If no, create one
+		* 2-2. Create table failed => Return
+		* 3. Insert data
+		 *********************************/
+		/*********************************
+		 * 1. Table exists?
+		 *********************************/
+		String tableName = MainActv.tname_refresh_history;
+		
+		if(!dbu.tableExists(wdb, tableName)) {
+		
+			Log.d("Methods.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Table doesn't exitst: " + tableName);
+		
+			/*----------------------------
+			* 2. If no, create one
+			----------------------------*/
+			if(dbu.createTable(wdb, tableName, 
+				DBUtils.cols_refresh_log, DBUtils.col_types_refresh_log)) {
+				
+				// Log
+				Log.d("Methods.java"
+				+ "["
+				+ Thread.currentThread().getStackTrace()[2]
+				.getLineNumber() + "]", "Table created: " + tableName);
+			
+			} else {//if
+				/*----------------------------
+				* 2-2. Create table failed => Return
+				----------------------------*/
+				//toastAndLog(actv, "Create table failed: " + tableName, 3000);
+				
+				// Log
+				Log.d("Methods.java"
+				+ "["
+				+ Thread.currentThread().getStackTrace()[2]
+				.getLineNumber() + "]", "Create table failed: " + tableName);
+				
+				
+				return false;
+			
+			}//if
+		
+		} else {//if(dbu.tableExists(wdb, ImageFileManager8Activity.refreshLogTableName))
+		
+			//toastAndLog(actv, "Table exitsts: " + tableName, 2000);
+			
+			// Log
+			Log.d("Methods.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Table exitsts: " + tableName);
+		
+		
+		}//if(dbu.tableExists(wdb, ImageFileManager8Activity.refreshLogTableName))
+		
+		/*----------------------------
+		* 3. Insert data
+		----------------------------*/
+		boolean res;
+		
+		try {
+			res = dbu.insert_data_refresh_history(
+							wdb, 
+							tableName, 
+							new long[] {date_of_last_ai_item, (long) i_res});
+
+			if (res == true) {
+				
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "refresh history => Updated");
+				
+				wdb.close();
+				
+				return true;
+				
+			} else {//if (res == false)
+
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Updated refresh history => Failed");
+				
+				wdb.close();
+				
+				return false;
+				
+			}//if (res == false)
+			
+		} catch (Exception e) {
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Insert data failed");
+			
+			return false;
+			
+		}//try
+		
+	}//private static boolean refresh_main_db_6_update_refresh_history(int i_res)
+
+	private static List<AI> refresh_main_db_4_get_ai_list(
+							File[] file_list, long last_refreshed_date) {
+		
+		
+		
+		List<AI> ai_list = new ArrayList<AI>();
+		
+		int num_of_items = 0;
+		
+		for (File f : file_list) {
+
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "f.lastModified()=" + f.lastModified());
+			
+			if (f.lastModified() > last_refreshed_date) {
+
+				AI ai = new AI(
+						f.getName(),
+				    	StringUtils.join(
+		    				new String[]{
+		    						MainActv.dpath_storage_internal,
+	//	    						MainActv.dname_source_folder_tt},
+		    						MainActv.dname_tt_internal},
+    						File.separator),
+
+    						"", "", 0,
+    						MainActv.tname_main,
+    						f.lastModified()
+    						);
+				
+				ai_list.add(ai);
+				
+				num_of_items += 1;
+				
+			}//if (f.lastModified() == condition)
+			
+		}//for (File f : file_list)
+		
+		if (ai_list.size() < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list.size() < 1");
+			
+			return null;
+			
+		} else {//if (ai_list.size() == condition)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list.size()=" + ai_list.size());
+
+			return ai_list;
+			
+		}//if (ai_list.size() == condition)
+		
+	}//private static List<AI> refresh_main_db_4_get_ai_list(File[] file_list)
+
+	private static File[] refresh_main_db_3_get_file_list() {
+		// Build a path
+		String path = StringUtils.join(
+				(new String[]{
+					MainActv.dpath_storage_internal,
+					MainActv.dname_tt_internal}),
+					File.separator);
+
+		/*********************************
+		 * 3.2.2. If no files in the dir, return
+		 *********************************/
+		// Files list
+		File[] file_list = new File(path).listFiles();
+		
+		if (file_list.length < 1) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "file_list.length < 1");
+			
+			return null;
+			
+		}//if (file_list.length == condition)
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "file_list.length=" + file_list.length);
+
+		return file_list;
+		
+	}//private static File[] refresh_main_db_3_get_file_list()
+
+	/*********************************
+	 * 20121013_072459
+	 * 
+	 * <Return>
+	 * => Number of items inserted
+	 * 
+	 *********************************/
+	private static int refresh_main_db_5_insert_data_into_db_ai_list(SQLiteDatabase wdb,
 			DBUtils dbu, List<AI> ai_list) {
 		/*********************************
 		 * memo
 		 *********************************/
-		for (AI ai : ai_list) {
+		int i_res = 0;
+		
+		int failed_items = 0;
+		
+//		for (AI ai : ai_list) {
+		for (int i = 0; i < ai_list.size(); i++) {
 			
-			boolean res = dbu.insert_data_ai(wdb, ai);
+			boolean res = dbu.insert_data_ai(wdb, ai_list.get(i));
+			
+			if (res == true) {
+				
+				i_res += 1;
+				
+			} else {//if (res == true)
+				
+				failed_items += 1;
+				
+			}//if (res == true)
+			
 			
 		}//for (AI ai : ai_list)
 		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Data insertion => Inserted: " + i_res + "/"
+				+ "Failed: " + failed_items);
 		
-		return false;
+		return i_res;
 		
-	}//private static boolean insert_data_into_db_ai_list()
+	}//private static boolean refresh_main_db_5_insert_data_into_db_ai_list()
 
 	private static boolean refresh_main_db_2_set_up_table_refresh_history(
 			SQLiteDatabase wdb, DBUtils dbu) {

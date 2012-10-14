@@ -1,3 +1,7 @@
+/*********************************
+ * ALACtv.java (Audio list activity)
+ * 
+ *********************************/
 package cm5.main;
 
 import java.util.ArrayList;
@@ -5,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cm5.items.AI;
 import cm5.items.TI;
 import cm5.listeners.ButtonOnClickListener;
 import cm5.listeners.ButtonOnTouchListener;
@@ -63,6 +68,9 @@ public class ALActv extends ListActivity {
 
 	public static List<String> fileNameList;
 	
+	public static List<AI> ai_list;
+
+	
 	public static ArrayAdapter<String> dirListAdapter;
 	
 	/*----------------------------
@@ -112,14 +120,14 @@ public class ALActv extends ListActivity {
 //		//debug
 //		Methods.update_prefs_currentPath(this, MainActv.dirName_base);
 		
-		set_listeners();
+		setup_1_set_listeners();
 		
-		set_list();
+		setup_2_set_list();
 
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Table name: " + Methods.convert_path_into_table_name(this));
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Table name: " + Methods.convert_path_into_table_name(this));
 		
 		/*----------------------------
 		 * 5. Initialize vars
@@ -202,153 +210,31 @@ public class ALActv extends ListActivity {
 	}//private void get_data_from_table_AAA()
 
 
-	private void set_list() {
-		/*----------------------------
+	private void setup_2_set_list() {
+		/*********************************
 		 * 1. Get table name
 		 * 2. Prep list
 		 * 3. Sort list
 		 * 
 		 * 4. Prep adapter
 		 * 5. Set adapter
-			----------------------------*/
-		/*----------------------------
+		 *********************************/
+		/*********************************
 		 * 1. Get table name
-			----------------------------*/
-		String tableName = Methods.convert_path_into_table_name(this);
+		 *********************************/
+		String table_name = Methods.convert_path_into_table_name(this);
 		
 		// Log
 		Log.d("ALActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "tableName: " + tableName);
+				+ "]", "table_name=" + table_name);
+
+		/*********************************
+		 * 2. Prep list
+		 *********************************/
+		ai_list = Methods.get_all_data_ai(this, table_name);
 		
-		//debug
-//		Methods.getTableList(this);
-		
-		
-//		/*----------------------------
-//		 * 2. Prep list
-//			----------------------------*/
-//		tiList = prep_list();
-////		tiList = Methods.getAllData(this, tableName);
-////		
-////		if (tiList == null) {
-//		if (tiList == null || tiList.size() < 1) {
-//			// Log
-//			Log.d("ALActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "tiList => null");
-//			
-//			show_message_no_data();
-//
-//			return;
-////			// debug
-////			Toast.makeText(this, 
-////							"このフォルダには、ファイルはありません。他のフォルダから、オプション・メニューの「移動」を使って、もってこれます", 
-////							7000).show();
-//			
-//		} else {//if (tiList == null)
-//
-//			// Log
-//			Log.d("ALActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "tiList.size(): " + tiList.size());
-//			
-//		}//if (tiList == null)
-//		
-//		/*----------------------------
-//		 * 3. Sort list
-//			----------------------------*/
-//		int current_history_mode = Methods.get_pref(
-//				this, 
-//				MainActv.pname_mainActv, 
-//				MainActv.pname_mainActv_history_mode,
-//				-1);
-//
-//		if (current_history_mode == MainActv.HISTORY_MODE_OFF) {
-//
-//			// Log
-//			Log.d("ALActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "MainActv.HISTORY_MODE => OFF");
-//			
-//			Collections.sort(tiList, new Comparator<TI>(){
-//
-////				@Override
-//				public int compare(TI lhs, TI rhs) {
-//					// TODO 自動生成されたメソッド・スタブ
-//					
-////					return (int) (lhs.getDate_added() - rhs.getDate_added());
-//					
-//					return (int) (lhs.getFile_name().compareToIgnoreCase(rhs.getFile_name()));
-//				}
-//				
-//			});
-//			
-//		} else if (current_history_mode == MainActv.HISTORY_MODE_ON) {
-//
-//			// Log
-//			Log.d("ALActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "MainActv.HISTORY_MODE => ON");
-//
-//			Methods.sort_tiList_last_viewed_at(tiList);
-//			
-//		}
-//
-////		Collections.sort(tiList, new Comparator<TI>(){
-////
-//////			@Override
-////			public int compare(TI lhs, TI rhs) {
-////				// TODO 自動生成されたメソッド・スタブ
-////				
-//////				return (int) (lhs.getDate_added() - rhs.getDate_added());
-////				
-////				return (int) (lhs.getFile_name().compareToIgnoreCase(rhs.getFile_name()));
-////			}
-////			
-////		});
-//
-//		// Log
-//		Log.d("ALActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "tiList => Sort done");
-//		
-////		Log.d("ALActv.java" + "["
-////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-////				+ "]", "After sort => tiList.size(): " + tiList.size());
-//		
-//		/*----------------------------
-//		 * 4. Prep adapter
-//			----------------------------*/
-//		aAdapter = 
-//				new TIListAdapter(
-//						this, 
-//						R.layout.thumb_activity, 
-////						ThumbnailActivity.tiList);
-//						tiList);
-//		
-//		/*----------------------------
-//		 * 5. Set adapter
-//			----------------------------*/
-//		setListAdapter(aAdapter);
-//		
-//		ArrayList<String> list = new ArrayList<String>();
-//		
-//		for (TI item : tiList) {
-//			
-//			list.add(item.getFile_name());
-//			
-//		}
-//		
-//		ArrayAdapter<String> adp = new ArrayAdapter<String>(
-//				this,
-//				android.R.layout.simple_list_item_1,
-//				list
-//				);
-//		
-////		setListAdapter(adp);
-		
-	}//private void set_list()
+	}//private void setup_2_set_list()
 
 
 	private List<TI> prep_list() {
@@ -362,14 +248,14 @@ public class ALActv extends ListActivity {
 			----------------------------*/
 		Intent i = this.getIntent();
 		
-		long_searchedItems = i.getLongArrayExtra("long_searchedItems");
-		
-		history_file_ids = i.getLongArrayExtra(MainActv.intent_label_file_ids);
-		
-		history_table_names = i.getStringArrayExtra(MainActv.intent_label_table_names);
-		
-		string_searchedItems_table_names = 
-					i.getStringArrayExtra(MainActv.intent_label_searchedItems_table_names);
+//		long_searchedItems = i.getLongArrayExtra("long_searchedItems");
+//		
+//		history_file_ids = i.getLongArrayExtra(MainActv.intent_label_file_ids);
+//		
+//		history_table_names = i.getStringArrayExtra(MainActv.intent_label_table_names);
+//		
+//		string_searchedItems_table_names = 
+//					i.getStringArrayExtra(MainActv.intent_label_searchedItems_table_names);
 		
 		/*----------------------------
 		 * 2. Build tiList
@@ -471,7 +357,7 @@ public class ALActv extends ListActivity {
 	}//private List<TI> prep_list()
 
 
-	private void set_listeners() {
+	private void setup_1_set_listeners() {
 		/*----------------------------
 		 * Steps
 		 * 1. "Back" button
@@ -536,7 +422,7 @@ public class ALActv extends ListActivity {
 		bt_top.setOnClickListener(new ButtonOnClickListener(this, lv));
 		
 		
-	}//private void set_listeners()
+	}//private void setup_1_set_listeners()
 	
 	@Override
 	protected void onPause() {

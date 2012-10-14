@@ -251,6 +251,11 @@ public class MainActv extends ListActivity {
 //				+ "]", "onCreate: current_history_mode=" + current_history_mode);
 		
 		//debug
+//        drop_table(MainActv.tname_main);
+//        
+//        drop_table(MainActv.tname_refresh_history);
+        
+        
 //		do_debug();
 //		copy_db_file();
 //		test_simple_format();
@@ -260,6 +265,21 @@ public class MainActv extends ListActivity {
 		
         
     }//public void onCreate(Bundle savedInstanceState)
+
+    private void drop_table(String table_name) {
+    	
+		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		boolean res = dbu.dropTable(this, wdb, table_name);
+		
+//		res = dbu.dropTable(this, wdb, MainActv.tableName_refreshLog);
+
+		wdb.close();
+		
+	}//private void drop_table(String tableName_root) {
 
     private void do_debug() {
 		/*********************************
