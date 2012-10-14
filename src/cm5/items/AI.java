@@ -43,6 +43,9 @@ public class AI {
 		
 	}//public ThumbnailItem(long fileId, String file_path, long date_added, long date_modified)
 
+	/*********************************
+	 * Data in DB into an AI object
+	 *********************************/
 	public AI(
 			String file_name, String file_path,
 			String title, String memo,

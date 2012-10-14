@@ -228,21 +228,21 @@ public class Methods {
 	 ****************************************/
 	public static void sortFileList(File[] files) {
 		// REF=> http://android-coding.blogspot.jp/2011/10/sort-file-list-in-order-by-implementing.html
-		/*----------------------------
+		/****************************
 		 * 1. Prep => Comparator
 		 * 2. Sort
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Prep => Comparator
-			----------------------------*/
+			****************************/
 		Comparator<? super File> filecomparator = new Comparator<File>(){
 			
 			public int compare(File file1, File file2) {
-				/*----------------------------
+				/****************************
 				 * 1. Prep => Directory
 				 * 2. Calculate
 				 * 3. Return
-					----------------------------*/
+					****************************/
 				
 				int pad1=0;
 				int pad2=0;
@@ -256,9 +256,9 @@ public class Methods {
 			} 
 		 };//Comparator<? super File> filecomparator = new Comparator<File>()
 		 
-		/*----------------------------
+		/****************************
 		 * 2. Sort
-			----------------------------*/
+			****************************/
 		Arrays.sort(files, filecomparator);
 
 	}//public static void sortFileList(File[] files)
@@ -275,17 +275,17 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static void enterDir(Activity actv, File newDir) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Update the current path
 		 * 2. Refresh list view
 		 * 3. Update path view
 		 * 
 		 * 
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Update the current path
-			----------------------------*/
+			****************************/
 		
 //		MainActv.dirPath_current = newDir.getAbsolutePath();
 		MainActv.dpath_current = newDir.getAbsolutePath();
@@ -303,14 +303,14 @@ public class Methods {
 		
 		Methods.update_prefs_currentPath(actv, MainActv.dpath_current);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Refresh list view
-			----------------------------*/
+			****************************/
 		refreshListView(actv);
 		
-		/*----------------------------
+		/****************************
 		 * 3. "Up" button => Enable
-			----------------------------*/
+			****************************/
 		String currentPath = MainActv.dpath_current;
 		
 		Methods.update_image_buttons(actv, currentPath);
@@ -328,9 +328,9 @@ public class Methods {
 //			
 //		}//if (!ib.isEnabled())
 		
-		/*----------------------------
+		/****************************
 		 * 3. Update path view
-			----------------------------*/
+			****************************/
 		updatePathLabel(actv);
 		
 		
@@ -354,14 +354,14 @@ public class Methods {
 						MainActv.pname_current_path,
 						MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * 2. Get editor
-			----------------------------*/
+			****************************/
 		SharedPreferences.Editor editor = prefs.edit();
 
-		/*----------------------------
+		/****************************
 		 * 3. Set value
-			----------------------------*/
+			****************************/
 		editor.putString(MainActv.pkey_current_path, newPath);
 		
 		try {
@@ -372,7 +372,7 @@ public class Methods {
 		} catch (Exception e) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Excption: " + e.toString());
 			
@@ -400,14 +400,14 @@ public class Methods {
 						MainActv.pname_current_path,
 						MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * 2. Get editor
-			----------------------------*/
+			****************************/
 		SharedPreferences.Editor editor = prefs.edit();
 
-		/*----------------------------
+		/****************************
 		 * 3. Clear
-			----------------------------*/
+			****************************/
 		try {
 			
 			editor.clear();
@@ -423,7 +423,7 @@ public class Methods {
 		} catch (Exception e) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Excption: " + e.toString());
 			
@@ -473,7 +473,7 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static void refreshListView(Activity actv) {
-//		/*----------------------------
+//		/****************************
 //		 * Steps
 //		 * 1. Get currentPath
 //		 * 2. Get file array
@@ -493,10 +493,10 @@ public class Methods {
 //		 * 
 //		 * 
 //		 * 6. Update image buttons
-//			----------------------------*/
-//		/*----------------------------
+//			****************************/
+//		/****************************
 //		 * 1. Get currentPath
-//			----------------------------*/
+//			****************************/
 //		String currentPath = Methods.get_currentPath_from_prefs(actv);
 //		
 //		if (currentPath == null) {
@@ -510,21 +510,21 @@ public class Methods {
 //			
 //		}//if (currentPath == null)
 //		// 
-//		/*----------------------------
+//		/****************************
 //		 * 2. Get file array
-//			----------------------------*/
+//			****************************/
 //		File currentDir = new File(currentPath);
 //		
 //		File[] files = currentDir.listFiles();
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 3. Sort file array
-//			----------------------------*/
+//			****************************/
 //		sortFileList(files);
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 4. Add file names to list
-//			----------------------------*/
+//			****************************/
 //		// Reset file_names
 //		if(MainActv.file_names != null) {
 //			
@@ -543,9 +543,9 @@ public class Methods {
 //			
 //		}
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 5. Notify adapter of changes
-//			----------------------------*/
+//			****************************/
 //		if (MainActv.adapter != null) {
 //			
 //			MainActv.adapter.notifyDataSetChanged();
@@ -562,9 +562,9 @@ public class Methods {
 //
 //		}//if (condition)
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 6. Update image buttons
-//			----------------------------*/
+//			****************************/
 //		// Log
 //		Log.d("Methods.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -639,11 +639,11 @@ public class Methods {
 	 ****************************************/
 //	public static String getCurrentPathLabel(Activity actv) {
 	public static String convert_prefs_into_path_label(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * 1. Prep => pathArray, currentBaseDirName
 		 * 2. Detect loation of "IFM8"
 		 * 3. Build path label
-			----------------------------*/
+			****************************/
 		
 		String currentPath = Methods.get_currentPath_from_prefs(actv);
 		
@@ -651,9 +651,9 @@ public class Methods {
 		
 		String currentBaseDirName = pathArray[pathArray.length - 1];
 		
-		/*----------------------------
+		/****************************
 		 * 2. Detect loation of "IFM8"
-			----------------------------*/
+			****************************/
 		int location = -1;
 		
 		for (int i = 0; i < pathArray.length; i++) {
@@ -663,9 +663,9 @@ public class Methods {
 			}//if (pathArray[i].equals(ImageFileManager8Activity.baseDirName))
 		}//for (int i = 0; i < pathArray.length; i++)
 		
-		/*----------------------------
+		/****************************
 		 * 3. Build path label
-			----------------------------*/
+			****************************/
 		//REF=> http://stackoverflow.com/questions/4439595/how-to-create-a-sub-array-from-another-array-in-java
 		String[] newPath = Arrays.copyOfRange(pathArray, location, pathArray.length);
 		
@@ -680,11 +680,11 @@ public class Methods {
 	}//public static String getCurrentPathLabel(Activity actv)
 
 	public static String convert_prefs_into_path_label(Activity actv, String path) {
-		/*----------------------------
+		/****************************
 		 * 1. Prep => pathArray, currentBaseDirName
 		 * 2. Detect loation of "IFM8"
 		 * 3. Build path label
-			----------------------------*/
+			****************************/
 		
 		String currentPath = path;
 		
@@ -692,9 +692,9 @@ public class Methods {
 		
 		String currentBaseDirName = pathArray[pathArray.length - 1];
 		
-		/*----------------------------
+		/****************************
 		 * 2. Detect loation of "IFM8"
-			----------------------------*/
+			****************************/
 		int location = -1;
 		
 		for (int i = 0; i < pathArray.length; i++) {
@@ -704,9 +704,9 @@ public class Methods {
 			}//if (pathArray[i].equals(ImageFileManager8Activity.baseDirName))
 		}//for (int i = 0; i < pathArray.length; i++)
 		
-		/*----------------------------
+		/****************************
 		 * 3. Build path label
-			----------------------------*/
+			****************************/
 		//REF=> http://stackoverflow.com/questions/4439595/how-to-create-a-sub-array-from-another-array-in-java
 		String[] newPath = Arrays.copyOfRange(pathArray, location, pathArray.length);
 		
@@ -721,7 +721,7 @@ public class Methods {
 	}//public static String getCurrentPathLabel(Activity actv)
 
 	public static void upDir(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get the current path from preference
 		 * 2. Is the current path "roof"?
@@ -731,15 +731,15 @@ public class Methods {
 		 * 4. Refresh list
 		 * 4-2. Update buttons
 		 * 5. Update path view
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Get the current path from preference
-			----------------------------*/
+			****************************/
 		String currentPath = Methods.get_currentPath_from_prefs(actv);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Is the current path "roof"?
-			----------------------------*/
+			****************************/
 		if (currentPath.equals(MainActv.dpath_base)) {
 			
 			// debug
@@ -748,9 +748,9 @@ public class Methods {
 			return;
 		}//if (ImageFileManager8Activity.currentDirPath == ImageFileManager8Activity.baseDirPath)
 		
-		/*----------------------------
+		/****************************
 		 * 3. Update the current path
-			----------------------------*/
+			****************************/
 		Methods.update_prefs_currentPath(actv, new File(currentPath).getParent());
 		
 //		ImageFileManager8Activity.currentDirPath = 
@@ -762,19 +762,19 @@ public class Methods {
 //		
 //		Methods.toastAndLog(actv, "f.getParent() => " + f.getParent(), 3000);
 		
-//		/*----------------------------
+//		/****************************
 //		 * 3-2. New path => Equal to base dir path?
-//			----------------------------*/
+//			****************************/
 //		
 //		
-		/*----------------------------
+		/****************************
 		 * 4. Refresh list
-			----------------------------*/
+			****************************/
 		Methods.refreshListView(actv);
 		
-		/*----------------------------
+		/****************************
 		 * 4-2. Update buttons
-			----------------------------*/
+			****************************/
 		currentPath = Methods.get_pref(
 							actv,
 							MainActv.pname_current_path,
@@ -788,20 +788,20 @@ public class Methods {
 		}//if (currentPath != null)
 //			Methods.update_image_buttons(actv, currentPath);
 		
-		/*----------------------------
+		/****************************
 		 * 5. Update path view
-			----------------------------*/
+			****************************/
 		Methods.updatePathLabel(actv);
 		
 	}//public static void upDir(Activity actv)
 
 	public static void startThumbnailActivity(
 						Activity actv, String targetFileName) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. "list.txt"?
 		 * 2. If yes, start activity
-			----------------------------*/
+			****************************/
 //		if (!targetFileName.equals(MainActv.listFileName)) {
 		if (!targetFileName.equals(MainActv.fname_list)) {
 			
@@ -811,9 +811,9 @@ public class Methods {
 			return;
 		}//if (!target.getName().equals(ImageFileManager8Activity.fname_list))
 		
-		/*----------------------------
+		/****************************
 		 * 2. If yes, start activity
-			----------------------------*/
+			****************************/
 		Intent i = new Intent();
 		
 		i.setClass(actv, TNActv.class);
@@ -897,7 +897,7 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static List<TI> getAllData(Activity actv, String tableName) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 0. Table exists?
 		 * 1. DB setup
@@ -907,28 +907,28 @@ public class Methods {
 		 * 
 		 * 9. Close db
 		 * 10. Return value
-			----------------------------*/
+			****************************/
 
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "getAllData() => Starts");
-		/*----------------------------
+		/****************************
 		 * 1. DB setup
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 		
-		/*----------------------------
+		/****************************
 		 * 0. Table exists?
-			----------------------------*/
+			****************************/
 		boolean res = dbu.tableExists(rdb, tableName);
 		
 		if (res == false) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "getAllData() => Table doesn't exist: " + tableName);
 			
@@ -945,11 +945,11 @@ public class Methods {
 		
 		
 		
-		/*----------------------------
+		/****************************
 		 * 2. Get data
 		 * 		2.1. Get cursor
 		 * 		2.2. Add to list
-			----------------------------*/
+			****************************/
 		//
 		String sql = "SELECT * FROM " + tableName;
 		
@@ -961,7 +961,7 @@ public class Methods {
 			
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 			
@@ -975,9 +975,9 @@ public class Methods {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "c.getCount() => " + c.getCount());
 
-		/*----------------------------
+		/****************************
 		 * 2.2. Add to list
-			----------------------------*/
+			****************************/
 		c.moveToNext();
 		
 		List<TI> tiList = new ArrayList<TI>();
@@ -1006,14 +1006,14 @@ public class Methods {
 		
 		
 		
-		/*----------------------------
+		/****************************
 		 * 9. Close db
-			----------------------------*/
+			****************************/
 		rdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 10. Return value
-			----------------------------*/
+			****************************/
 		
 		
 		return tiList;
@@ -1044,7 +1044,7 @@ public class Methods {
 		if (value == null) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "value == null");
 			
@@ -1154,11 +1154,11 @@ public class Methods {
 	}//private static int get_position_from_array()
 
 	public static String convert_path_into_table_name(Activity actv, String newPath) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get table name => Up to the current path
 		 * 2. Add name => Target folder name
-			----------------------------*/
+			****************************/
 		String tableName = null;
 		StringBuilder sb = new StringBuilder();
 
@@ -1245,7 +1245,7 @@ public class Methods {
 
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 		}
@@ -1274,7 +1274,7 @@ public class Methods {
 			}//for (int i = 0; i < c.getCount(); i++)
 
 		} else {//if (c != null)
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "c => null");
 		}//if (c != null)
@@ -1301,7 +1301,7 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static int refreshMainDB(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up DB(writable)
 		 * 2. Table exists?
@@ -1313,28 +1313,28 @@ public class Methods {
 		 * 
 		 * 9. Close db
 		 * 10. Return
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Set up DB(writable)
-			----------------------------*/
+			****************************/
 		//
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		//
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 2. Table exists?
 		 * 2-1. If no, then create one
 		 * 		1. baseDirName
 		 * 		2. backupTableName
-			----------------------------*/
+			****************************/
 		boolean res = refreshMainDB_1_set_up_table(wdb, dbu);
 
 		if (res == false) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Can't  create table");
 			
@@ -1343,20 +1343,20 @@ public class Methods {
 			return -1;
 			
 		}//if (res == false)
-		/*----------------------------
+		/****************************
 		 * 3. Execute query for image files
-			----------------------------*/
+			****************************/
 		Cursor c = refreshMainDB_2_exec_query(actv, wdb, dbu);
 		
-		/*----------------------------
+		/****************************
 		 * 4. Insert data into db
-			----------------------------*/
+			****************************/
 		int numOfItemsAdded;
 		
 		if (c.getCount() < 1) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Query result: 0");
 			
@@ -1371,14 +1371,14 @@ public class Methods {
 			
 		}//if (c.getCount() < 1)
 		
-		/*----------------------------
+		/****************************
 		 * 9. Close db
-			----------------------------*/
+			****************************/
 		wdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 10. Return
-			----------------------------*/
+			****************************/
 		return numOfItemsAdded;
 		
 	}//public static int refreshMainDB(Activity actv)
@@ -1408,28 +1408,28 @@ public class Methods {
 		 * 9. Close db
 		 * 10. Return
 		 *********************************/
-		/*----------------------------
+		/****************************
 		 * 1. Set up DB(writable)
-			----------------------------*/
+			****************************/
 		//
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		//
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 2. Table exists?
 		 * 2-1. If no, then create one
 		 * 		1. baseDirName
 		 * 		2. backupTableName
-			----------------------------*/
+			****************************/
 //		boolean res = Methods.refreshMainDB_1_set_up_table(wdb, dbu, MainActv.tname_item);
 		boolean res = Methods.refresh_main_db_1_set_up_table(wdb, dbu, MainActv.tname_main);
 		
 		if (res == false) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "res == false");
 			
@@ -1459,7 +1459,7 @@ public class Methods {
 		if (res == false) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "res == false");
 			
@@ -1498,7 +1498,7 @@ public class Methods {
 		if (file_list == null) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "file_list == null");
 			
@@ -1550,7 +1550,7 @@ public class Methods {
 		if (ai_list == null) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "ai_list == null");
 			
@@ -1650,10 +1650,10 @@ public class Methods {
 		
 		return i_res;
 		
-//		/*----------------------------
+//		/****************************
 //		 * 3. Execute query for audio files
 //		 * 	1. Get value => Last refreshed date
-//			----------------------------*/
+//			****************************/
 ////		Cursor c = Methods.refreshMainDB_2_exec_query(actv, wdb, dbu);
 //		/*********************************
 //		 * 3.1. Get value => Last refreshed date
@@ -1755,9 +1755,9 @@ public class Methods {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "i_res=" + i_res);
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 4. Insert data into db
-//			----------------------------*/
+//			****************************/
 ////		int numOfItemsAdded;
 ////		
 ////		if (c.getCount() < 1) {
@@ -1778,14 +1778,14 @@ public class Methods {
 ////			
 ////		}//if (c.getCount() < 1)
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 9. Close db
-//			----------------------------*/
+//			****************************/
 //		wdb.close();
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 10. Return
-//			----------------------------*/
+//			****************************/
 //		return i_res;
 		
 	}//public static boolean refresh_main_db(Activity actv)
@@ -1825,13 +1825,13 @@ public class Methods {
 		
 		if(!dbu.tableExists(wdb, tableName)) {
 		
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 			+ "]", "Table doesn't exitst: " + tableName);
 		
-			/*----------------------------
+			/****************************
 			* 2. If no, create one
-			----------------------------*/
+			****************************/
 			if(dbu.createTable(wdb, tableName, 
 				DBUtils.cols_refresh_log, DBUtils.col_types_refresh_log)) {
 				
@@ -1842,13 +1842,13 @@ public class Methods {
 				.getLineNumber() + "]", "Table created: " + tableName);
 			
 			} else {//if
-				/*----------------------------
+				/****************************
 				* 2-2. Create table failed => Return
-				----------------------------*/
+				****************************/
 				//toastAndLog(actv, "Create table failed: " + tableName, 3000);
 				
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 				+ "["
 				+ Thread.currentThread().getStackTrace()[2]
 				.getLineNumber() + "]", "Create table failed: " + tableName);
@@ -1870,9 +1870,9 @@ public class Methods {
 		
 		}//if(dbu.tableExists(wdb, ImageFileManager8Activity.refreshLogTableName))
 		
-		/*----------------------------
+		/****************************
 		* 3. Insert data
-		----------------------------*/
+		****************************/
 		boolean res;
 		
 		try {
@@ -1895,7 +1895,7 @@ public class Methods {
 			} else {//if (res == false)
 
 				// Log
-				Log.d("Methods.java" + "["
+				Log.e("Methods.java" + "["
 						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 						+ "]", "Updated refresh history => Failed");
 				
@@ -1907,7 +1907,7 @@ public class Methods {
 			
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Insert data failed");
 			
@@ -1960,7 +1960,7 @@ public class Methods {
 		if (ai_list.size() < 1) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "ai_list.size() < 1");
 			
@@ -1996,7 +1996,7 @@ public class Methods {
 		if (file_list.length < 1) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "file_list.length < 1");
 			
@@ -2048,7 +2048,7 @@ public class Methods {
 		}//for (AI ai : ai_list)
 		
 		// Log
-		Log.d("Methods.java" + "["
+		Log.e("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Data insertion => Inserted: " + i_res + "/"
 				+ "Failed: " + failed_items);
@@ -2074,7 +2074,7 @@ public class Methods {
 		// If the table doesn't exist, create one
 		if (result == false) {
 		
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tname);
 			
@@ -2087,7 +2087,7 @@ public class Methods {
 			
 			if (result == false) {
 			
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Can't create a table: "+ tname);
@@ -2118,9 +2118,9 @@ public class Methods {
 
 	private static boolean refresh_main_db_1_set_up_table(
 			SQLiteDatabase wdb, DBUtils dbu, String tname) {
-		/*----------------------------
+		/****************************
 		* 2-1.1. baseDirName
-		----------------------------*/
+		****************************/
 		
 		boolean result = dbu.tableExists(wdb, tname);
 		
@@ -2132,7 +2132,7 @@ public class Methods {
 		// If the table doesn't exist, create one
 		if (result == false) {
 		
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tname);
 			
@@ -2142,7 +2142,7 @@ public class Methods {
 			
 			if (result == false) {
 			
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Can't create a table: "+ tname);
@@ -2190,7 +2190,7 @@ public class Methods {
 			
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 			
@@ -2216,7 +2216,7 @@ public class Methods {
 	}//private static long get_last_refreshed_date(SQLiteDatabase wdb, DBUtils dbu)
 
 	public static boolean refreshMainDB(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up DB(writable)
 		 * 2. Table exists?
@@ -2228,38 +2228,38 @@ public class Methods {
 		 * 
 		 * 9. Close db
 		 * 10. Return
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Set up DB(writable)
-			----------------------------*/
+			****************************/
 		//
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		//
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 2. Table exists?
 		 * 2-1. If no, then create one
 		 * 		1. baseDirName
 		 * 		2. backupTableName
-			----------------------------*/
+			****************************/
 		boolean res = refreshMainDB_1_set_up_table(wdb, dbu);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Execute query for image files
-			----------------------------*/
+			****************************/
 		Cursor c = refreshMainDB_2_exec_query(actv, wdb, dbu);
 		
-		/*----------------------------
+		/****************************
 		 * 4. Insert data into db
-			----------------------------*/
+			****************************/
 		int numOfItemsAdded;
 		
 		if (c.getCount() < 1) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Query result: 0");
 			
@@ -2274,29 +2274,29 @@ public class Methods {
 			
 		}//if (c.getCount() < 1)
 		
-		/*----------------------------
+		/****************************
 		 * 9. Close db
-			----------------------------*/
+			****************************/
 		wdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 10. Return
-			----------------------------*/
+			****************************/
 		return true;
 		
 	}//public static boolean refreshMainDB(Activity actv)
 
 	private static int refreshMainDB_3_insert_data(Activity actv, SQLiteDatabase wdb, DBUtils dbu, Cursor c) {
-		/*----------------------------
+		/****************************
 		 * 4. Insert data into db
-			----------------------------*/
+			****************************/
 		int numOfItemsAdded = insertDataIntoDB(actv, MainActv.dpath_base, c);
 			
 //		int numOfItemsAdded = -1;
 		
-		/*----------------------------
+		/****************************
 		 * 5. Update table "refresh_log"
-			----------------------------*/
+			****************************/
 		c.moveToPrevious();
 		
 		long lastItemDate = c.getLong(3);
@@ -2315,26 +2315,26 @@ public class Methods {
 
 	private static Cursor refreshMainDB_2_exec_query(
 					Activity actv, SQLiteDatabase wdb, DBUtils dbu) {
-		/*----------------------------
+		/****************************
 		 * 3. Execute query for image files
 		 * 		1. ContentResolver
 		 * 		2. Uri
 		 * 		3. proj
 		 * 		4. Last refreshed date
 		 * 		5. Execute query
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 3.1. ContentResolver, Uri, proj
-			----------------------------*/
+			****************************/
 		ContentResolver cr = actv.getContentResolver();
 		
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         
 		String[] proj = DBUtils.proj;
 
-		/*----------------------------
+		/****************************
 		 * 3.4. Last refreshed date
-			----------------------------*/
+			****************************/
 		long lastRefreshedDate = 0;		// Initial value => 0
 
 		boolean result = dbu.tableExists(
@@ -2376,7 +2376,7 @@ public class Methods {
 		} else {//if (result != false)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + MainActv.tname_refresh_history);
 			
@@ -2396,7 +2396,7 @@ public class Methods {
 				
 			} else {//if (result == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create table failed: " + MainActv.tname_refresh_history);
@@ -2405,9 +2405,9 @@ public class Methods {
 			
 		}//if (result != false)
 		
-		/*----------------------------
+		/****************************
 		 * 3.5. Execute query
-			----------------------------*/
+			****************************/
 		// REF=> http://blog.csdn.net/uoyevoli/article/details/4970860
 		Cursor c = actv.managedQuery(
 											uri, 
@@ -2444,16 +2444,16 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	private static boolean refreshMainDB_1_set_up_table(SQLiteDatabase wdb, DBUtils dbu) {
-		/*----------------------------
+		/****************************
 		 * 2-1.1. baseDirName
-			----------------------------*/
+			****************************/
 		String tableName = MainActv.dpath_base;
 		boolean result = dbu.tableExists(wdb, tableName);
 		
 		// If the table doesn't exist, create one
 		if (result == false) {
 
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tableName);
 			
@@ -2462,7 +2462,7 @@ public class Methods {
 			
 			if (result == false) {
 
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Can't create a table: "+ tableName);
@@ -2492,7 +2492,7 @@ public class Methods {
 	}//private static boolean refreshMainDB_1_set_up_table(SQLiteDatabase wdb, DBUtils dbu)
 
 	public static boolean refreshMainDB_async(Activity actv, AsyncTask asy) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up DB(writable)
 		 * 2. Table exists?
@@ -2504,38 +2504,38 @@ public class Methods {
 		 * 
 		 * 9. Close db
 		 * 10. Return
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Set up DB(writable)
-			----------------------------*/
+			****************************/
 		//
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		//
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 2. Table exists?
 		 * 2-1. If no, then create one
 		 * 		1. baseDirName
 		 * 		2. backupTableName
-			----------------------------*/
+			****************************/
 		boolean res = refreshMainDB_async_1_set_up_table(wdb, dbu);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Execute query for image files
-			----------------------------*/
+			****************************/
 		Cursor c = refreshMainDB_async_2_exec_query(actv, wdb, dbu);
 		
-		/*----------------------------
+		/****************************
 		 * 4. Insert data into db
-			----------------------------*/
+			****************************/
 		int numOfItemsAdded;
 		
 		if (c.getCount() < 1) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Query result: 0");
 			
@@ -2547,30 +2547,30 @@ public class Methods {
 			
 		}//if (c.getCount() < 1)
 		
-		/*----------------------------
+		/****************************
 		 * 9. Close db
-			----------------------------*/
+			****************************/
 		wdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 10. Return
-			----------------------------*/
+			****************************/
 		return true;
 		
 	}//public static boolean refreshMainDB(Activity actv)
 
 	private static int refreshMainDB_async_3_insert_data(
 										Activity actv, SQLiteDatabase wdb, DBUtils dbu, Cursor c, AsyncTask asy) {
-		/*----------------------------
+		/****************************
 		 * 4. Insert data into db
-			----------------------------*/
+			****************************/
 		int numOfItemsAdded = insertDataIntoDB_async(actv, MainActv.dpath_base, c, asy);
 
 //		int numOfItemsAdded = -1;
 		
-		/*----------------------------
+		/****************************
 		 * 5. Update table "refresh_log"
-			----------------------------*/
+			****************************/
 		c.moveToPrevious();
 		
 		long lastItemDate = c.getLong(3);
@@ -2588,26 +2588,26 @@ public class Methods {
 	}//private static int refreshMainDB_3_insert_data(Cursor c)
 
 	private static Cursor refreshMainDB_async_2_exec_query(Activity actv, SQLiteDatabase wdb, DBUtils dbu) {
-		/*----------------------------
+		/****************************
 		 * 3. Execute query for image files
 		 * 		1. ContentResolver
 		 * 		2. Uri
 		 * 		3. proj
 		 * 		4. Last refreshed date
 		 * 		5. Execute query
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 3.1. ContentResolver, Uri, proj
-			----------------------------*/
+			****************************/
 		ContentResolver cr = actv.getContentResolver();
 		
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         
 		String[] proj = DBUtils.proj;
 
-		/*----------------------------
+		/****************************
 		 * 3.4. Last refreshed date
-			----------------------------*/
+			****************************/
 		long lastRefreshedDate = 0;		// Initial value => 0
 
 		boolean result = dbu.tableExists(wdb, MainActv.tname_refresh_history);
@@ -2646,7 +2646,7 @@ public class Methods {
 		} else {//if (result != false)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + MainActv.tname_refresh_history);
 			
@@ -2666,7 +2666,7 @@ public class Methods {
 				
 			} else {//if (result == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create table failed: " + MainActv.tname_refresh_history);
@@ -2675,9 +2675,9 @@ public class Methods {
 			
 		}//if (result != false)
 		
-		/*----------------------------
+		/****************************
 		 * 3.5. Execute query
-			----------------------------*/
+			****************************/
 		// REF=> http://blog.csdn.net/uoyevoli/article/details/4970860
 		Cursor c = actv.managedQuery(
 											uri, 
@@ -2703,16 +2703,16 @@ public class Methods {
 	}//private static Cursor refreshMainDB_2_exec_query()
 
 	private static boolean refreshMainDB_async_1_set_up_table(SQLiteDatabase wdb, DBUtils dbu) {
-		/*----------------------------
+		/****************************
 		 * 2-1.1. baseDirName
-			----------------------------*/
+			****************************/
 		String tableName = MainActv.dpath_base;
 		boolean result = dbu.tableExists(wdb, tableName);
 		
 		// If the table doesn't exist, create one
 		if (result == false) {
 
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tableName);
 			
@@ -2721,7 +2721,7 @@ public class Methods {
 			
 			if (result == false) {
 
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Can't create a table: "+ tableName);
@@ -2763,7 +2763,7 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	private static int insertDataIntoDB(Activity actv, String tableName, Cursor c) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 0. Set up db
 		 * 1. Move to first
@@ -2772,28 +2772,28 @@ public class Methods {
 		 * 4. Insert data
 		 * 5. Close db
 		 * 6. Return => counter
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 0. Set up db
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 		
-		/*----------------------------
+		/****************************
 		 * 1. Move to first
-			----------------------------*/
+			****************************/
 		c.moveToFirst();
 
-		/*----------------------------
+		/****************************
 		 * 2. Set variables
-			----------------------------*/
+			****************************/
 		int counter = 0;
 		int counter_failed = 0;
 		
-		/*----------------------------
+		/****************************
 		 * 3. Obtain data
-			----------------------------*/
+			****************************/
 		for (int i = 0; i < c.getCount(); i++) {
 
 			String[] values = {
@@ -2804,13 +2804,13 @@ public class Methods {
 					String.valueOf(c.getLong(4))
 			};
 
-			/*----------------------------
+			/****************************
 			 * 4. Insert data
 			 * 		1. Insert data to tableName
 			 * 		2. Record result
 			 * 		3. Insert data to backupTableName
 			 * 		4. Record result
-				----------------------------*/
+				****************************/
 			boolean blResult = 
 						dbu.insertData(wdb, tableName, DBUtils.cols_for_insert_data, values);
 				
@@ -2845,14 +2845,14 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "All data inserted: " + counter);
 		
-		/*----------------------------
+		/****************************
 		 * 5. Close db
-			----------------------------*/
+			****************************/
 		wdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 6. Return => counter
-			----------------------------*/
+			****************************/
 		//debug
 		// Log
 		Log.d("Methods.java" + "["
@@ -2865,36 +2865,36 @@ public class Methods {
 
 	private static boolean insertDataIntoDB(
 			Activity actv, String tableName, String[] types, String[] values) {
-		/*----------------------------
+		/****************************
 		* Steps
 		* 1. Set up db
 		* 2. Insert data
 		* 3. Show message
 		* 4. Close db
-		----------------------------*/
-		/*----------------------------
+		****************************/
+		/****************************
 		* 1. Set up db
-		----------------------------*/
+		****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 		
-		/*----------------------------
+		/****************************
 		* 2. Insert data
-		----------------------------*/
+		****************************/
 		boolean result = dbu.insertData(wdb, tableName, types, values);
 		
-		/*----------------------------
+		/****************************
 		* 3. Show message
-		----------------------------*/
+		****************************/
 		if (result == true) {
 		
 			// debug
 			Toast.makeText(actv, "Data stored", 2000).show();
 			
-			/*----------------------------
+			/****************************
 			* 4. Close db
-			----------------------------*/
+			****************************/
 			wdb.close();
 			
 			return true;
@@ -2904,18 +2904,18 @@ public class Methods {
 			// debug
 			Toast.makeText(actv, "Store data => Failed", 200).show();
 			
-			/*----------------------------
+			/****************************
 			* 4. Close db
-			----------------------------*/
+			****************************/
 			wdb.close();
 			
 			return false;
 		
 		}//if (result == true)
 		
-		/*----------------------------
+		/****************************
 		* 4. Close db
-		----------------------------*/
+		****************************/
 	
 	}//private static int insertDataIntoDB()
 
@@ -2933,7 +2933,7 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	private static int insertDataIntoDB_async(Activity actv, String tableName, Cursor c, AsyncTask asy) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 0. Set up db
 		 * 1. Move to first
@@ -2942,28 +2942,28 @@ public class Methods {
 		 * 4. Insert data
 		 * 5. Close db
 		 * 6. Return => counter
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 0. Set up db
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 		
-		/*----------------------------
+		/****************************
 		 * 1. Move to first
-			----------------------------*/
+			****************************/
 		c.moveToFirst();
 
-		/*----------------------------
+		/****************************
 		 * 2. Set variables
-			----------------------------*/
+			****************************/
 		int counter = 0;
 		int counter_failed = 0;
 		
-		/*----------------------------
+		/****************************
 		 * 3. Obtain data
-			----------------------------*/
+			****************************/
 		for (int i = 0; i < c.getCount(); i++) {
 
 			String[] values = {
@@ -2974,19 +2974,19 @@ public class Methods {
 					String.valueOf(c.getLong(4))
 			};
 
-			/*----------------------------
+			/****************************
 			 * 4. Insert data
 			 * 		1. Insert data to tableName
 			 * 		2. Record result
 			 * 		3. Insert data to backupTableName
 			 * 		4. Record result
-				----------------------------*/
+				****************************/
 			boolean blResult = 
 						dbu.insertData(wdb, tableName, DBUtils.cols_for_insert_data, values);
 				
 			if (blResult == false) {
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "i => " + i + "/" + "c.getLong(0) => " + c.getLong(0));
@@ -3015,14 +3015,14 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "All data inserted: " + counter);
 		
-		/*----------------------------
+		/****************************
 		 * 5. Close db
-			----------------------------*/
+			****************************/
 		wdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 6. Return => counter
-			----------------------------*/
+			****************************/
 		//debug
 		// Log
 		Log.d("Methods.java" + "["
@@ -3036,27 +3036,27 @@ public class Methods {
 	private static boolean updateRefreshLog(
 				Activity actv, SQLiteDatabase wdb, 
 				DBUtils dbu, long lastItemDate, int numOfItemsAdded) {
-		/*----------------------------
+		/****************************
 		* Steps
 		* 1. Table exists?
 		* 2. If no, create one
 		* 2-2. Create table failed => Return
 		* 3. Insert data
-		----------------------------*/
-		/*----------------------------
+		****************************/
+		/****************************
 		 * 1. Table exists?
-			----------------------------*/
+			****************************/
 		String tableName = MainActv.tname_refresh_history;
 		
 		if(!dbu.tableExists(wdb, tableName)) {
 		
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 			+ "]", "Table doesn't exitst: " + tableName);
 		
-			/*----------------------------
+			/****************************
 			* 2. If no, create one
-			----------------------------*/
+			****************************/
 			if(dbu.createTable(wdb, tableName, 
 				DBUtils.cols_refresh_log, DBUtils.col_types_refresh_log)) {
 				
@@ -3069,13 +3069,13 @@ public class Methods {
 				.getLineNumber() + "]", "Table created: " + tableName);
 			
 			} else {//if
-				/*----------------------------
+				/****************************
 				* 2-2. Create table failed => Return
-				----------------------------*/
+				****************************/
 				//toastAndLog(actv, "Create table failed: " + tableName, 3000);
 				
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 				+ "["
 				+ Thread.currentThread().getStackTrace()[2]
 				.getLineNumber() + "]", "Create table failed: " + tableName);
@@ -3097,9 +3097,9 @@ public class Methods {
 		
 		}//if(dbu.tableExists(wdb, ImageFileManager8Activity.refreshLogTableName))
 		
-		/*----------------------------
+		/****************************
 		* 3. Insert data
-		----------------------------*/
+		****************************/
 		try {
 			dbu.insertData(
 							wdb, 
@@ -3112,7 +3112,7 @@ public class Methods {
 			
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Insert data failed");
 			
@@ -3122,14 +3122,14 @@ public class Methods {
 	}//private static boolean updateRefreshLog(SQLiteDatabase wdb, long lastItemDate)
 
 	public static void dlg_createFolder(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up
 		 * 2. Add listeners => OnTouch
 		 * 3. Add listeners => OnClick
 		 * 
 		 * 4. CheckBox
-			----------------------------*/
+			****************************/
 		
 		// 
 		Dialog dlg = new Dialog(actv);
@@ -3143,9 +3143,9 @@ public class Methods {
 		//
 		
 		
-		/*----------------------------
+		/****************************
 		 * 2. Add listeners => OnTouch
-			----------------------------*/
+			****************************/
 		//
 		Button btn_ok = (Button) dlg.findViewById(R.id.dlg_create_folder_bt_ok);
 		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_create_folder_cancel);
@@ -3158,16 +3158,16 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 3. Add listeners => OnClick
-			----------------------------*/
+			****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 4. CheckBox
-			----------------------------*/
+			****************************/
 //		CheckBox cb = (CheckBox) dlg.findViewById(R.id.dlg_create_folder_cb_folder_set);
 		
 		//
@@ -3186,31 +3186,31 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static void dlg_isEmpty(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * 1. Check if the input exists. If not, show a dialog
 		 * 2. If yes, go to Methods.createFolder()
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Check if the input exists. If not, show a dialog
-			----------------------------*/
+			****************************/
 		//
 		EditText et = (EditText) dlg.findViewById(R.id.dlg_create_folder_et);
 		String folderName = et.getText().toString();
 		
 		//
 		if (!folderName.equals("")) {
-			/*----------------------------
+			/****************************
 			 * 2. If yes, go to Methods.createFolder()
-				----------------------------*/
+				****************************/
 			dlg_confirm_createFolder(actv, dlg);
 			
 			return;
 			
 		}//if (!folderName.equals(""))
 		
-		/*----------------------------
+		/****************************
 		 * If not, show a dialog
-			----------------------------*/
+			****************************/
 		// 
 		Dialog dlg2 = new Dialog(actv);
 		
@@ -3223,9 +3223,9 @@ public class Methods {
 		//
 		
 		
-		/*----------------------------
+		/****************************
 		 * 2. Add listeners => OnTouch
-			----------------------------*/
+			****************************/
 		//
 		Button btn_ok = (Button) dlg2.findViewById(R.id.dlg_input_empty_btn_reenter);
 		Button btn_cancel = (Button) dlg2.findViewById(R.id.dlg_input_empty_btn_cancel);
@@ -3238,9 +3238,9 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		
-		/*----------------------------
+		/****************************
 		 * 3. Add listeners => OnClick
-			----------------------------*/
+			****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
@@ -3251,11 +3251,11 @@ public class Methods {
 	}//public static void dlg_isEmpty(Activity actv, Dialog dlg)
 
 	private static void dlg_confirm_createFolder(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up
 		 * 2. Set folder name to text view
-			----------------------------*/
+			****************************/
 		
 		// 
 		Dialog dlg2 = new Dialog(actv);
@@ -3266,18 +3266,18 @@ public class Methods {
 		// Title
 		dlg2.setTitle(R.string.generic_tv_confirm);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Set folder name to text view
-			----------------------------*/
+			****************************/
 		EditText et = (EditText) dlg.findViewById(R.id.dlg_create_folder_et);
 		
 		TextView tv = (TextView) dlg2.findViewById(R.id.dlg_confirm_create_folder_tv_table_name);
 		
 		tv.setText(et.getText().toString());
 		
-		/*----------------------------
+		/****************************
 		 * 3. Add listeners => OnTouch
-			----------------------------*/
+			****************************/
 		//
 		Button btn_ok = (Button) dlg2.findViewById(R.id.dlg_confirm_create_folder_btn_ok);
 		Button btn_cancel = (Button) dlg2.findViewById(R.id.dlg_confirm_create_folder_btn_cancel);
@@ -3290,22 +3290,22 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		
-		/*----------------------------
+		/****************************
 		 * 4. Add listeners => OnClick
-			----------------------------*/
+			****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		
-		/*----------------------------
+		/****************************
 		 * 5. Show dialog
-			----------------------------*/
+			****************************/
 		dlg2.show();
 		
 	}//private static void dlg_confirm_createFolder
 
 	public static void createFolder(Activity actv, Dialog dlg, Dialog dlg2) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get folder name from dlg2
 		 * 1-1. CheckBox => Checked?
@@ -3321,7 +3321,7 @@ public class Methods {
 		 * 7. Refresh list view 
 		 * 
 		 * 8. Create a new table
-			----------------------------*/
+			****************************/
 		File newDir = createFolder_1(actv, dlg, dlg2);
 		
 		boolean res = createFolder_2(actv, dlg, newDir);
@@ -3333,7 +3333,7 @@ public class Methods {
 		} else {//if (res == true)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "createFolder_2() => false");
 			
@@ -3344,7 +3344,7 @@ public class Methods {
 	}//public static void createFolder(Activity actv, Dialog dlg, Dialog dlg2)
 
 	public static File createFolder_1(Activity actv, Dialog dlg, Dialog dlg2) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get folder name from dlg2
 
@@ -3361,7 +3361,7 @@ public class Methods {
 		 * 7. Refresh list view 
 		 * 
 		 * 8. Create a new table
-			----------------------------*/
+			****************************/
 		//
 		TextView tv_folderName = (TextView) dlg2.findViewById(R.id.dlg_confirm_create_folder_tv_table_name);
 		String folderName = tv_folderName.getText().toString();
@@ -3371,15 +3371,15 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Folder name => " + tv_folderName.getText().toString());
 		
-		/*----------------------------
+		/****************************
 		 * 1-2. Dismiss dlg2
-			----------------------------*/
+			****************************/
 		dlg2.dismiss();
 		
-		/*----------------------------
+		/****************************
 		 * 2. Get current directory path
 		 * 3. Create a file object
-			----------------------------*/
+			****************************/
 		String currentDirPath = Methods.get_currentPath_from_prefs(actv);
 		
 		File newDir = new File(currentDirPath, folderName);
@@ -3389,9 +3389,9 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "currentDirPath: " + currentDirPath + " | " + "newDir: " + newDir.getAbsolutePath());
 		
-		/*----------------------------
+		/****************************
 		 * 4. Create a file => Use BufferedWriter
-			----------------------------*/
+			****************************/
 		//
 		if (newDir.exists()) {
 			// debug
@@ -3404,9 +3404,9 @@ public class Methods {
 			try {
 				newDir.mkdir();
 				
-				/*----------------------------
+				/****************************
 				 * 5. If successful, dismiss dialog. 
-					----------------------------*/
+					****************************/
 				dlg.dismiss();
 				
 				// debug
@@ -3423,7 +3423,7 @@ public class Methods {
 				Toast.makeText(actv, "フォルダを作れませんでした : " + newDir.getName(), 3000).show();
 				
 				// Log
-				Log.d("Methods.java" + "["
+				Log.e("Methods.java" + "["
 						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 						+ "]", "newDir.getName() => " + newDir.getName());
 				
@@ -3432,9 +3432,9 @@ public class Methods {
 			
 		}//if (newDir.exists())
 		
-		/*----------------------------
+		/****************************
 		 * 6. Create a "list.txt"
-			----------------------------*/
+			****************************/
 		File listFile = new File(newDir, MainActv.fname_list);
 		
 		// Log
@@ -3468,7 +3468,7 @@ public class Methods {
 				
 			} catch (IOException e) {
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create listFile => Failed: " + listFile.getAbsolutePath());
@@ -3481,16 +3481,16 @@ public class Methods {
 		
 		return newDir;
 		
-		/*----------------------------
+		/****************************
 		 * 6-2. Create a folder set if checked
-			----------------------------*/
+			****************************/
 		
 	}//public static File createFolder(Activity actv, Dialog dlg, Dialog dlg2)
 
 	public static boolean createFolder_2(Activity actv, Dialog dlg, File newDir) {
-		/*----------------------------
+		/****************************
 		 * 6-2. Create a folder set if checked
-			----------------------------*/
+			****************************/
 		CheckBox cb = (CheckBox) dlg.findViewById(R.id.dlg_create_folder_cb_folder_set);
 		
 		boolean checked = cb.isChecked();
@@ -3500,20 +3500,20 @@ public class Methods {
 			String[] folder_set = {"DO", "DONE", "LATER", "SENT_TO_PC"};
 			
 			for (String eachFolder : folder_set) {
-				/*----------------------------
+				/****************************
 				 * 1. Create a folder
 				 * 2. list.txt
-					----------------------------*/
-				/*----------------------------
+					****************************/
+				/****************************
 				 * 1. Create a folder
-					----------------------------*/
+					****************************/
 				File f = new File(newDir, eachFolder);
 				
 				boolean res = f.mkdir();
 				
-				/*----------------------------
+				/****************************
 				 * 2. list.txt
-					----------------------------*/
+					****************************/
 				File listFile;
 				
 				if (res) {
@@ -3542,7 +3542,7 @@ public class Methods {
 						
 					} catch (IOException e) {
 						// Log
-						Log.d("Methods.java"
+						Log.e("Methods.java"
 								+ "["
 								+ Thread.currentThread().getStackTrace()[2]
 										.getLineNumber() + "]", "Create listFile => Failed: " + listFile.getAbsolutePath());
@@ -3559,26 +3559,26 @@ public class Methods {
 		
 		return true;
 		
-		/*----------------------------
+		/****************************
 		 * 7. Refresh list viewFile 
-			----------------------------*/
+			****************************/
 		
 	}//public static boolean createFolder(Activity actv, Dialog dlg, Dialog dlg2)
 
 	public static boolean createFolder_3(Activity actv, Dialog dlg, File newDir) {
-		/*----------------------------
+		/****************************
 		 * 7. Refresh list view
-			----------------------------*/
+			****************************/
 		refreshListView(actv);
 		
-		/*----------------------------
+		/****************************
 		 * 8. Create a new table
 		 * 		8.1. Build a table name
 		 * 		8.2. Create a table
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 8.1. Build a table name
-			----------------------------*/
+			****************************/
 		String newPath = newDir.getAbsolutePath();
 
 		String convertedPath = Methods.convert_prefs_into_path_label(actv, newPath);
@@ -3591,9 +3591,9 @@ public class Methods {
 				+ "]", "New table name => " + tableName);
 		
 
-		/*----------------------------
+		/****************************
 		 * 8.2. Create a table
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
@@ -3614,11 +3614,11 @@ public class Methods {
 	}//public static boolean createFolder(Activity actv, Dialog dlg, Dialog dlg2)
 
 	public static void dlg_removeFolder(Activity actv, String folderName) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up
 		 * 2. Set folder name to text view
-			----------------------------*/
+			****************************/
 		// 
 		Dialog dlg = new Dialog(actv);
 		
@@ -3628,16 +3628,16 @@ public class Methods {
 		// Title
 		dlg.setTitle(R.string.generic_tv_confirm);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Set folder name to text view
-			----------------------------*/
+			****************************/
 		TextView tv = (TextView) dlg.findViewById(R.id.dlg_confirm_remove_folder_tv_table_name);
 		
 		tv.setText(folderName);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Add listeners => OnTouch
-			----------------------------*/
+			****************************/
 		//
 		Button btn_ok = (Button) dlg.findViewById(R.id.dlg_confirm_remove_folder_btn_ok);
 		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_confirm_remove_folder_btn_cancel);
@@ -3650,23 +3650,23 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 4. Add listeners => OnClick
-			----------------------------*/
+			****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 5. Show dialog
-			----------------------------*/
+			****************************/
 		dlg.show();
 
 		
 	}//public static void dlg_removeFolder(Activity actv)
 
 	public static void removeFolder(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get folder name
 		 * 2. Validate
@@ -3675,10 +3675,10 @@ public class Methods {
 		 * 5. Dismiss dialog
 		 * 
 		 * 6. Drop table
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Get folder name
-			----------------------------*/
+			****************************/
 		TextView tv = (TextView) dlg.findViewById(R.id.dlg_confirm_remove_folder_tv_table_name);
 		String folderName = tv.getText().toString();
 		
@@ -3699,9 +3699,9 @@ public class Methods {
 			return;
 		}//if (!targetDir.exists() || !targetDir.isDirectory())
 		
-		/*----------------------------
+		/****************************
 		 * 3. Remove
-			----------------------------*/
+			****************************/
 		String path = targetDir.getAbsolutePath();
 		
 		boolean result = deleteDirectory(targetDir);
@@ -3712,9 +3712,9 @@ public class Methods {
 				+ "]", "result => " + result);
 
 		if (result == true) {
-			/*----------------------------
+			/****************************
 			 * 5. Dismiss dialog
-				----------------------------*/
+				****************************/
 			dlg.dismiss();
 			// Log
 			Log.d("Methods.java" + "["
@@ -3725,7 +3725,7 @@ public class Methods {
 			Toast.makeText(actv, "削除しました" + path, 3000).show();
 		} else {//if (result == true)
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Remove dir => Failed: " + path);
 			
@@ -3735,14 +3735,14 @@ public class Methods {
 			return;
 		}//if (result == true)
 		
-		/*----------------------------
+		/****************************
 		 * 4. Refresh list
-			----------------------------*/
+			****************************/
 		refreshListView(actv);
 		
-		/*----------------------------
+		/****************************
 		 * 6. Drop table
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase db = dbu.getWritableDatabase();
@@ -3766,11 +3766,11 @@ public class Methods {
 		
 	}//public static void removeFolder(Activity actv, Dialog dlg)
 
-	/*----------------------------
+	/****************************
 	 * deleteDirectory(File target)()
 	 * 
 	 * 1. REF=> http://www.rgagnon.com/javadetails/java-0483.html
-		----------------------------*/
+		****************************/
 	public static boolean deleteDirectory(File target) {
 		
 		if(target.exists()) {
@@ -3859,14 +3859,14 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * 2. Get editor
-			----------------------------*/
+			****************************/
 		SharedPreferences.Editor editor = prefs.edit();
 
-		/*----------------------------
+		/****************************
 		 * 3. Set value
-			----------------------------*/
+			****************************/
 		editor.putString(pref_name, value);
 		
 		try {
@@ -3877,7 +3877,7 @@ public class Methods {
 		} catch (Exception e) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Excption: " + e.toString());
 			
@@ -3893,9 +3893,9 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * Return
-			----------------------------*/
+			****************************/
 		return prefs.getString(pref_name, defValue);
 
 	}//public static boolean set_pref(String pref_name, String value)
@@ -3908,9 +3908,9 @@ public class Methods {
 		SharedPreferences prefs = 
 			actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 		
-		/*----------------------------
+		/****************************
 		* Return
-		----------------------------*/
+		****************************/
 		return prefs.getString(pref_key, defValue);
 		
 	}//public static boolean set_pref(String pref_name, String value)
@@ -3919,14 +3919,14 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * 2. Get editor
-			----------------------------*/
+			****************************/
 		SharedPreferences.Editor editor = prefs.edit();
 
-		/*----------------------------
+		/****************************
 		 * 3. Set value
-			----------------------------*/
+			****************************/
 		editor.putInt(pref_name, value);
 		
 		try {
@@ -3937,7 +3937,7 @@ public class Methods {
 		} catch (Exception e) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Excption: " + e.toString());
 			
@@ -3950,14 +3950,14 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * 2. Get editor
-			----------------------------*/
+			****************************/
 		SharedPreferences.Editor editor = prefs.edit();
 
-		/*----------------------------
+		/****************************
 		 * 3. Set value
-			----------------------------*/
+			****************************/
 		editor.putInt(pref_key, value);
 		
 		try {
@@ -3968,7 +3968,7 @@ public class Methods {
 		} catch (Exception e) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Excption: " + e.toString());
 			
@@ -3984,14 +3984,14 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * 2. Get editor
-			----------------------------*/
+			****************************/
 		SharedPreferences.Editor editor = prefs.edit();
 
-		/*----------------------------
+		/****************************
 		 * 3. Set value
-			----------------------------*/
+			****************************/
 		editor.putString(pref_key, value);
 		
 		try {
@@ -4007,7 +4007,7 @@ public class Methods {
 		} catch (Exception e) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Excption: " + e.toString());
 			
@@ -4020,9 +4020,9 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * Return
-			----------------------------*/
+			****************************/
 		return prefs.getInt(pref_name, defValue);
 
 	}//public static boolean set_pref(String pref_name, String value)
@@ -4031,15 +4031,15 @@ public class Methods {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
 
-		/*----------------------------
+		/****************************
 		 * Return
-			----------------------------*/
+			****************************/
 		return prefs.getInt(pref_key, defValue);
 
 	}//public static boolean set_pref(String pref_name, String value)
 
 	public static void dlg_moveFiles(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get generic dialog
 		 * 2. Get dir list
@@ -4048,7 +4048,7 @@ public class Methods {
 		 * 4. Set listener to the view
 		 * 
 		 * 9. Show dialog
-			----------------------------*/
+			****************************/
 		
 		Dialog dlg = dlg_template_cancel(
 				// Activity, layout, title
@@ -4059,9 +4059,9 @@ public class Methods {
 				DialogTags.dlg_generic_dismiss
 							);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Get dir list
-			----------------------------*/
+			****************************/
 		File[] files = new File(MainActv.dpath_base).listFiles(new FileFilter(){
 
 //			@Override
@@ -4085,35 +4085,35 @@ public class Methods {
 		
 		Collections.sort(TNActv.fileNameList);
 		
-		/*----------------------------
+		/****************************
 		 * 2-1. Set list to the adapter
-			----------------------------*/
+			****************************/
 		TNActv.dirListAdapter = new ArrayAdapter<String>(
 												actv,
 												android.R.layout.simple_list_item_1,
 												TNActv.fileNameList
 											);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Set adapter to the list view
-			----------------------------*/
+			****************************/
 		//
 		ListView lv = (ListView) dlg.findViewById(R.id.dlg_move_files_lv_list);
 		
 		lv.setAdapter(TNActv.dirListAdapter);
 		
-		/*----------------------------
+		/****************************
 		 * 4. Set listener to the view
 		 * 		1. onClick
 		 * 		2. onLongClick
-			----------------------------*/
+			****************************/
 		lv.setTag(Methods.DialogItemTags.dlg_move_files);
 
 		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 4.2. onLongClick
-			----------------------------*/
+			****************************/
 //		lv.setTag(Methods.DialogItemTags.dlg_move_files);
 		
 		lv.setOnItemLongClickListener(
@@ -4122,21 +4122,21 @@ public class Methods {
 												dlg,
 												TNActv.dirListAdapter, TNActv.fileNameList));
 		
-		/*----------------------------
+		/****************************
 		 * 9. Show dialog
-			----------------------------*/
+			****************************/
 		dlg.show();
 		
 	}//public static void dlg_moveFiles(Activity actv)
 
 	public static Dialog dlg_template_cancel(Activity actv, int layoutId, int titleStringId,
 			int cancelButtonId, DialogTags cancelTag) {
-		/*----------------------------
+		/****************************
 		* Steps
 		* 1. Set up
 		* 2. Add listeners => OnTouch
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		
 		// 
 		Dialog dlg = new Dialog(actv);
@@ -4147,9 +4147,9 @@ public class Methods {
 		// Title
 		dlg.setTitle(titleStringId);
 		
-		/*----------------------------
+		/****************************
 		* 2. Add listeners => OnTouch
-		----------------------------*/
+		****************************/
 		//
 		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
 		
@@ -4159,9 +4159,9 @@ public class Methods {
 		//
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		//
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		
@@ -4174,12 +4174,12 @@ public class Methods {
 
 	public static Dialog dlg_template_okCancel(Activity actv, int layoutId, int titleStringId,
 			int okButtonId, int cancelButtonId, DialogTags okTag, DialogTags cancelTag) {
-		/*----------------------------
+		/****************************
 		* Steps
 		* 1. Set up
 		* 2. Add listeners => OnTouch
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		
 		// 
 		Dialog dlg = new Dialog(actv);
@@ -4190,9 +4190,9 @@ public class Methods {
 		// Title
 		dlg.setTitle(titleStringId);
 		
-		/*----------------------------
+		/****************************
 		* 2. Add listeners => OnTouch
-		----------------------------*/
+		****************************/
 		//
 		Button btn_ok = (Button) dlg.findViewById(okButtonId);
 		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
@@ -4205,9 +4205,9 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
@@ -4220,18 +4220,18 @@ public class Methods {
 	}//public static Dialog dlg_template_okCancel()
 
 	public static void dlg_confirm_moveFiles(Activity actv, Dialog dlg, String folderPath) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get a confirm dialog
 		 * 2. Set a chosen folder name to the view
 		 * 9. Show dialog
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		* 1. Get a confirm dialog
 			* 1. Set up
 			* 2. Add listeners => OnTouch
 			* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		
 		// 
 		Dialog dlg2 = new Dialog(actv);
@@ -4242,9 +4242,9 @@ public class Methods {
 		// Title
 		dlg2.setTitle(R.string.generic_tv_confirm);
 		
-		/*----------------------------
+		/****************************
 		* 2. Add listeners => OnTouch
-		----------------------------*/
+		****************************/
 		//
 		Button btn_ok = (Button) dlg2.findViewById(R.id.dlg_confirm_move_files_btn_ok);
 		Button btn_cancel = (Button) dlg2.findViewById(R.id.dlg_confirm_move_files_btn_cancel);
@@ -4257,47 +4257,47 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		
-		/*----------------------------
+		/****************************
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 				
-		/*----------------------------
+		/****************************
 		 * 2. Set a chosen folder name to the view
-			----------------------------*/
+			****************************/
 		TextView tv_folder_name = (TextView) dlg2.findViewById(R.id.dlg_confirm_move_files_tv_table_name);
 		
 		tv_folder_name.setText(folderPath);
 		
-		/*----------------------------
+		/****************************
 		 * 9. Show dialog
-			----------------------------*/
+			****************************/
 		dlg2.show();
 		
 	}//public static void dlg_confirm_moveFiles(Activity actv, Dialog dlg)
 
 	public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Move files
 		 * 2. Update the list view
 		 * 2-2. Update preference for highlighting a chosen item
 		 * 3. Dismiss dialogues
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Move files
 		 * 		1.1. Prepare toMoveFiles
 		 * 		1.2. Get target dir path from dlg2
 		 * 		1.3. Insert items in toMoveFiles to the new table
 		 * 		1.4. Delete the items from the source table
-			----------------------------*/
+			****************************/
 		List<TI> toMoveFiles = Methods.moveFiles_1_get_toMoveFiles();
 		
-		/*----------------------------
+		/****************************
 		 * 1.2. Get target dir path from dlg2
-			----------------------------*/
+			****************************/
 		TextView tv = (TextView) dlg2.findViewById(R.id.dlg_confirm_move_files_tv_table_name);
 		
 		String folderPath = tv.getText().toString();
@@ -4337,11 +4337,11 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "f.getAbsolutePath(): " + f.getAbsolutePath());
 		
-		/*----------------------------
+		/****************************
 		 * 1.3. Insert items in toMoveFiles to the new table
 		 * 		1.3.1. Insert data to the new table
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1.3.1. Insert data to the new table
 		 * 		1. Set up db
 		 * 		2. Table exists?
@@ -4349,14 +4349,14 @@ public class Methods {
 		 * 		3. Get item from toMoveFiles
 		 * 
 		 * 		4. Insert data into the new table
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 1.3.1.2. Table exists?
-			----------------------------*/
+			****************************/
 		boolean res = moveFiles_2_table_exists(actv, wdb, dbu, targetTableName);
 		
 		if (res == false) {
@@ -4365,14 +4365,14 @@ public class Methods {
 			
 		}//if (res == false)
 		
-		/*----------------------------
+		/****************************
 		 * 1.3.1.3. Get item from toMoveFiles
-			----------------------------*/
+			****************************/
 		for (TI ti : toMoveFiles) {
 			
-			/*----------------------------
+			/****************************
 			 * 1.3.4. Insert data into the new table
-				----------------------------*/
+				****************************/
 			dbu.insertData(wdb, targetTableName, ti);
 			
 			deleteItem_fromTable(actv, sourceTableName, ti);
@@ -4380,16 +4380,16 @@ public class Methods {
 		}//for (ThumbnailItem thumbnailItem : toMoveFiles)
 		
 		
-		/*----------------------------
+		/****************************
 		 * 1.4. Delete the items from the source table
 		 * 		1. Delete data from the source table
 		 * 		2. Delete the item from tiList
 		 * 
 		 * 		9. Close db
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1.4.2. Delete the item from tiList
-			----------------------------*/
+			****************************/
 		for (Integer position : TNActv.checkedPositions) {
 			
 			TNActv.tiList.remove(position);
@@ -4402,9 +4402,9 @@ public class Methods {
 			
 		}//for (Integer position : ThumbnailActivity.checkedPositions)
 		
-		/*----------------------------
+		/****************************
 		 * 1.4.9. Close wdb
-			----------------------------*/
+			****************************/
 		wdb.close();
 //		
 //		// Log
@@ -4412,9 +4412,9 @@ public class Methods {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "wdb => Closed");
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 2. Update the list view
-//			----------------------------*/
+//			****************************/
 //		ThumbnailActivity.checkedPositions.clear();
 //		
 //		// Log
@@ -4448,9 +4448,9 @@ public class Methods {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "aAdapter => Notified");
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 2-2. Update preference for highlighting a chosen item
-//			----------------------------*/
+//			****************************/
 ////		SharedPreferences prefs = 
 ////				actv.getSharedPreferences(
 //////						"thumb_actv", 
@@ -4461,9 +4461,9 @@ public class Methods {
 ////
 ////		int savedPosition = prefs.getInt(Methods.PrefenceLabels.chosen_list_item.name(), -1);
 //		
-		/*----------------------------
+		/****************************
 		 * 3. Dismiss dialogues
-			----------------------------*/
+			****************************/
 		dlg1.dismiss();
 		dlg2.dismiss();
 		
@@ -4477,7 +4477,7 @@ public class Methods {
 		if (result == false) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + targetTableName);
 			
@@ -4485,9 +4485,9 @@ public class Methods {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Now I create one");
 			
-			/*----------------------------
+			/****************************
 			 * 1.3.2-2. If no, create one
-				----------------------------*/
+				****************************/
 			result = dbu.createTable(
 								wdb, targetTableName, 
 								dbu.get_cols(), dbu.get_col_types());
@@ -4495,7 +4495,7 @@ public class Methods {
 			if (result == false) {
 				
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Can't create a table: " + targetTableName);
@@ -4529,13 +4529,13 @@ public class Methods {
 	}//private static boolean moveFiles_2_table_exists()
 
 	public static List<TI> moveFiles_1_get_toMoveFiles() {
-		/*----------------------------
+		/****************************
 		 * 1. Move files
 		 * 		1.1. Prepare toMoveFiles
 		 * 		1.2. Get target dir path from dlg2
 		 * 		1.3. Insert items in toMoveFiles to the new table
 		 * 		1.4. Delete the items from the source table
-			----------------------------*/
+			****************************/
 		//
 		List<TI> toMoveFiles = new ArrayList<TI>();
 		
@@ -4562,7 +4562,7 @@ public class Methods {
 	}//public static List<TI> moveFiles_1_get_toMoveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
 
 	public static void deleteItem_fromTable(Activity actv, String tableName, TI ti) {
-		/*----------------------------
+		/****************************
 		 * 1. db setup
 		 * 2. Delete data
 		 * 3. Close db
@@ -4570,18 +4570,18 @@ public class Methods {
 		 * 4-2. If successful, delete the item from tiList, as well, and,
 		 * #4-3. Notify adapter
 		 * 5. Dismiss dialog
-			----------------------------*/
+			****************************/
 		
-		/*----------------------------
+		/****************************
 		 * 1. db setup
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 		
-		/*----------------------------
+		/****************************
 		 * 2. Delete data
-			----------------------------*/
+			****************************/
 		boolean result = dbu.deleteData(
 							actv,
 							wdb, 
@@ -4589,25 +4589,25 @@ public class Methods {
 							tableName,
 							ti.getFileId());
 		
-		/*----------------------------
+		/****************************
 		 * 3. Close db
-			----------------------------*/
+			****************************/
 		wdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 4. If unsuccesful, toast a message (Not dismiss the dialog)
-			----------------------------*/
+			****************************/
 		if (result == false) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Data wasn't deleted: " + ti.getFile_name());
 			
 		} else if (result == true) {//if (result == true)
-			/*----------------------------
+			/****************************
 			 * 4-2. If successful, delete the item from tiList, as well
-				----------------------------*/
+				****************************/
 			// Log
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -4621,27 +4621,27 @@ public class Methods {
 //					+ Thread.currentThread().getStackTrace()[2]
 //							.getLineNumber() + "]", "Data removed from tiList => " + ti.getFile_name());
 			
-//			/*----------------------------
+//			/****************************
 //			 * 4-3. Notify adapter
-//				----------------------------*/
+//				****************************/
 //			ThumbnailActivity.aAdapter.notifyDataSetChanged();
 			
 		}//if (result == true)
 		
-//		/*----------------------------
+//		/****************************
 //		 * 5. Notify adapter
-//			----------------------------*/
+//			****************************/
 //		ThumbnailActivity.aAdapter.notifyDataSetChanged();
 //		
-//		/*----------------------------
+//		/****************************
 //		 * 5. Dismiss dialog
-//			----------------------------*/
+//			****************************/
 //		dlg.dismiss();
 
 	}//public static void deleteItem_fileId(Activity actv, TI ti, int position)
 
 	public static void dlg_addMemo(Activity actv, long file_id, String tableName) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up
 		 * 1-2. Set text to edit text
@@ -4652,10 +4652,10 @@ public class Methods {
 		 * 
 		 * 8. Close db
 		 * 9. Show dialog
-			----------------------------*/
+			****************************/
 		Dialog dlg = Methods.dlg_addMemo_1_get_dialog(actv, file_id, tableName);
 
-		/*----------------------------
+		/****************************
 		 * 4. GridView
 		 * 	1. Set up db
 		 * 	2. Get cursor
@@ -4663,7 +4663,7 @@ public class Methods {
 		 * 	4. Adapter
 		 * 	5. Set adapter to view
 		 * 6. Set listener
-			----------------------------*/
+			****************************/
 		dlg = dlg_addMemo_2_set_gridview(actv, dlg);
 		
 		dlg.show();
@@ -4673,7 +4673,7 @@ public class Methods {
 	
 	
 	public static Dialog dlg_addMemo_1_get_dialog(Activity actv, long file_id, String tableName) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Set up
 		 * 1-2. Set text to edit text
@@ -4684,7 +4684,7 @@ public class Methods {
 		 * 
 		 * 8. Close db
 		 * 9. Show dialog
-			----------------------------*/
+			****************************/
 		
 		// 
 		Dialog dlg = new Dialog(actv);
@@ -4695,9 +4695,9 @@ public class Methods {
 		// Title
 		dlg.setTitle(R.string.dlg_add_memos_tv_title);
 		
-		/*----------------------------
+		/****************************
 		 * 1-2. Set text to edit text
-			----------------------------*/
+			****************************/
 		TI ti = getData(actv, tableName, file_id);
 		
 		EditText et = (EditText) dlg.findViewById(R.id.dlg_add_memos_et_content);
@@ -4714,9 +4714,9 @@ public class Methods {
 			
 		}//if (ti.getMemo() != null)
 		
-		/*----------------------------
+		/****************************
 		 * 2. Add listeners => OnTouch
-			----------------------------*/
+			****************************/
 		//
 		Button btn_add = (Button) dlg.findViewById(R.id.dlg_add_memos_bt_add);
 		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_add_memos_cancel);
@@ -4735,9 +4735,9 @@ public class Methods {
 		
 		btn_patterns.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 3. Add listeners => OnClick
-			----------------------------*/
+			****************************/
 		
 		// Log
 		Log.d("Methods.java" + "["
@@ -4759,23 +4759,23 @@ public class Methods {
 
 	public static Dialog
 	dlg_addMemo_2_set_gridview(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * 4.1. Set up db
-			----------------------------*/
+			****************************/
 		GridView gv = (GridView) dlg.findViewById(R.id.dlg_add_memos_gv);
 		
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 4.2. Get cursor
 		 * 		1. Table exists?
 		 * 		2. Get cursor
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 4.2.1. Table exists?
-			----------------------------*/
+			****************************/
 //		String tableName = MainActv.tableName_memo_patterns;
 		String tableName = MainActv.tname_memo_patterns;
 		
@@ -4794,7 +4794,7 @@ public class Methods {
 			
 		} else {//if (res == false)
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tableName);
 			
@@ -4815,7 +4815,7 @@ public class Methods {
 				
 			} else {//if (res == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create table failed: " + tableName);
@@ -4830,9 +4830,9 @@ public class Methods {
 		}//if (res == false)
 		
 		
-		/*----------------------------
+		/****************************
 		 * 4.2.2. Get cursor
-			----------------------------*/
+			****************************/
 		rdb = dbu.getReadableDatabase();
 		
 		String sql = "SELECT * FROM " + tableName + " ORDER BY word ASC";
@@ -4843,9 +4843,9 @@ public class Methods {
 		
 		c.moveToFirst();
 		
-		/*----------------------------
+		/****************************
 		 * 4.3. Get list
-			----------------------------*/
+			****************************/
 		List<String> patternList = new ArrayList<String>();
 		
 		if (c.getCount() > 0) {
@@ -4861,7 +4861,7 @@ public class Methods {
 		} else {//if (c.getCount() > 0)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "!c.getCount() > 0");
 			
@@ -4870,23 +4870,23 @@ public class Methods {
 		
 		Collections.sort(patternList);
 
-		/*----------------------------
+		/****************************
 		 * 4.4. Adapter
-			----------------------------*/
+			****************************/
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 										actv,
 										R.layout.add_memo_grid_view,
 										patternList
 										);
 		
-		/*----------------------------
+		/****************************
 		 * 4.5. Set adapter to view
-			----------------------------*/
+			****************************/
 		gv.setAdapter(adapter);
 		
-		/*----------------------------
+		/****************************
 		 * 4.6. Set listener
-			----------------------------*/
+			****************************/
 //		gv.setTag(DialogTags.dlg_add_memos_gv);
 		gv.setTag(Methods.DialogItemTags.dlg_add_memos_gv);
 		
@@ -4898,14 +4898,14 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "GridView setup => Done");
 		
-		/*----------------------------
+		/****************************
 		 * 8. Close db
-			----------------------------*/
+			****************************/
 		rdb.close();
 		
-		/*----------------------------
+		/****************************
 		 * 9. Show dialog
-			----------------------------*/
+			****************************/
 //		dlg.show();
 		
 		return dlg;
@@ -4927,7 +4927,7 @@ public class Methods {
 	}//public ThumbnailItem getData(Activity actv, String tableName, long file_id)
 
 	public static void addMemo(Activity actv, Dialog dlg, long file_id, String tableName) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get tuhumbnail item
 		 * 1-2. Get text from edit text
@@ -4935,7 +4935,7 @@ public class Methods {
 		 * 3. Update db
 		 * 
 		 * 4. Refresh thumbnails list
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
@@ -4951,14 +4951,14 @@ public class Methods {
 //		
 //		toastAndLog(actv, ti.getFile_name() + "/" + "memo=" + ti.getMemo(), 2000);
 		
-		/*----------------------------
+		/****************************
 		 * 1-2. Get text from edit text
-			----------------------------*/
+			****************************/
 		EditText et = (EditText) dlg.findViewById(R.id.dlg_add_memos_et_content);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Set memo
-			----------------------------*/
+			****************************/
 //		ti.setMemo("abcdefg");
 //		ti.setMemo("123456");
 //		ti.setMemo("WHERE句を省略した場合はテーブルに含まれる全てのデータの指定のカラムの値が指定の値で更新されます。");
@@ -4970,9 +4970,9 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "New memo => " + et.getText().toString());
 		
-		/*----------------------------
+		/****************************
 		 * 3. Update db
-			----------------------------*/
+			****************************/
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
 		boolean result = dbu.updateData_memos(actv, wdb, tableName, ti);
@@ -4997,9 +4997,9 @@ public class Methods {
 			
 		}//if (result)
 		
-		/*----------------------------
+		/****************************
 		 * 4. Refresh thumbnails list
-			----------------------------*/
+			****************************/
 //		refreshTIList(actv);
 		
 		// Log
@@ -5020,14 +5020,14 @@ public class Methods {
 	}//public static void addMemo()
 
 	private static void refresh_tilist(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * 1. Get table name
 		 * 2. Clear tiList
 		 * 3. Get data to list
 		 * 
 		 * 4. Sort list
 		 * 5. Notify to adapter
-			----------------------------*/
+			****************************/
 		
 		String currentPath = Methods.get_currentPath_from_prefs(actv);
 		
@@ -5044,14 +5044,14 @@ public class Methods {
 				+ "]", "tableName: " + tableName);
 		
 		
-		/*----------------------------
+		/****************************
 		 * 2. Clear tiList
-			----------------------------*/
+			****************************/
 		TNActv.tiList.clear();
 		
-		/*----------------------------
+		/****************************
 		 * 3. Get data to list
-			----------------------------*/
+			****************************/
 		if (TNActv.long_searchedItems == null) {
 
 			// Log
@@ -5073,43 +5073,43 @@ public class Methods {
 			
 		}//if (long_searchedItems == null)
 
-		/*----------------------------
+		/****************************
 		 * 4. Sort list
-			----------------------------*/
+			****************************/
 		Methods.sort_tiList(TNActv.tiList);
 		
 		
-		/*----------------------------
+		/****************************
 		 * 5. Notify to adapter
-			----------------------------*/
+			****************************/
 		TNActv.aAdapter.notifyDataSetChanged();
 		
 	}//private static void refresh_tilist(Activity actv)
 
 	public static void dlg_register_patterns(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Dialog
 		 * 9. Show
-			----------------------------*/
+			****************************/
 		Dialog dlg = dlg_template_okCancel(
 					actv, R.layout.dlg_register_patterns, R.string.dlg_register_patterns_title,
 				R.id.dlg_register_patterns_btn_create, R.id.dlg_register_patterns_btn_cancel, 
 				DialogTags.dlg_register_patterns_register, DialogTags.dlg_generic_dismiss);
 		
 		
-		/*----------------------------
+		/****************************
 		 * 9. Show
-			----------------------------*/
+			****************************/
 		dlg.show();
 	}//public static void dlg_register_patterns(Activity actv)
 
 	public static void dlg_register_patterns(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Dialog
 		 * 9. Show
-			----------------------------*/
+			****************************/
 //		Dialog dlg2 = dlg_template_okCancel(
 //					actv, , ,
 //				, , 
@@ -5123,9 +5123,9 @@ public class Methods {
 		// Title
 		dlg2.setTitle(R.string.dlg_register_patterns_title);
 		
-		/*----------------------------
+		/****************************
 		* 2. Add listeners => OnTouch
-		----------------------------*/
+		****************************/
 		//
 		Button btn_ok = (Button) dlg2.findViewById(R.id.dlg_register_patterns_btn_create);
 		Button btn_cancel = (Button) dlg2.findViewById(R.id.dlg_register_patterns_btn_cancel);
@@ -5138,28 +5138,28 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		
-		/*----------------------------
+		/****************************
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		
-		/*----------------------------
+		/****************************
 		 * 9. Show
-			----------------------------*/
+			****************************/
 		dlg2.show();
 		
 	}//public static void dlg_register_patterns(Activity actv)
 
 	public static void dlg_register_patterns_isInputEmpty(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get views
 		 * 2. Prepare data
 		 * 3. Register data
 		 * 4. Dismiss dialog
-			----------------------------*/
+			****************************/
 		// Get views
 		EditText et_word = (EditText) dlg.findViewById(R.id.dlg_register_patterns_et_word);
 		EditText et_table_name = 
@@ -5172,22 +5172,22 @@ public class Methods {
 			return;
 		}// else {//if (et_column_name.getText().length() == 0)
 		
-		/*----------------------------
+		/****************************
 		 * 2. Prepare data
-			----------------------------*/
+			****************************/
 		//
 		String word = et_word.getText().toString();
 		String table_name = et_table_name.getText().toString();
 		
-		/*----------------------------
+		/****************************
 		 * 3. Register data
-			----------------------------*/
+			****************************/
 		boolean result = insertDataIntoDB(actv, DBUtils.table_name_memo_patterns, 
 								DBUtils.cols_memo_patterns, new String[]{word, table_name});
 		
-		/*----------------------------
+		/****************************
 		 * 4. Dismiss dialog
-			----------------------------*/
+			****************************/
 		if (result == true) {
 		
 			dlg.dismiss();
@@ -5203,13 +5203,13 @@ public class Methods {
 	}//public static void dlg_register_patterns_isInputEmpty(Activity actv, Dialog dlg)
 
 	public static void dlg_register_patterns_isInputEmpty(Activity actv, Dialog dlg, Dialog dlg2) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get views
 		 * 2. Prepare data
 		 * 3. Register data
 		 * 4. Dismiss dialog
-			----------------------------*/
+			****************************/
 		// Get views
 		EditText et_word = (EditText) dlg2.findViewById(R.id.dlg_register_patterns_et_word);
 		EditText et_table_name = 
@@ -5222,22 +5222,22 @@ public class Methods {
 			return;
 		}// else {//if (et_column_name.getText().length() == 0)
 		
-		/*----------------------------
+		/****************************
 		 * 2. Prepare data
-			----------------------------*/
+			****************************/
 		//
 		String word = et_word.getText().toString();
 		String table_name = et_table_name.getText().toString();
 		
-		/*----------------------------
+		/****************************
 		 * 3. Register data
-			----------------------------*/
+			****************************/
 		boolean result = insertDataIntoDB(actv, DBUtils.table_name_memo_patterns, 
 								DBUtils.cols_memo_patterns, new String[]{word, table_name});
 		
-		/*----------------------------
+		/****************************
 		 * 4. Dismiss dialog
-			----------------------------*/
+			****************************/
 		if (result == true) {
 		
 			dlg.dismiss();
@@ -5271,7 +5271,7 @@ public class Methods {
 	}//public static void add_pattern_to_text(Dialog dlg, int position, String word)
 
 	public static void dlg_db_activity(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * 1. Dialog
 		 * 2. Prep => List
 		 * 3. Adapter
@@ -5279,16 +5279,16 @@ public class Methods {
 		 * 
 		 * 5. Set listener to list
 		 * 6. Show dialog
-			----------------------------*/
+			****************************/
 		Dialog dlg = Methods.dlg_template_cancel(
 									actv, R.layout.dlg_db_admin, 
 									R.string.dlg_db_admin_title, 
 									R.id.dlg_db_admin_bt_cancel, 
 									Methods.DialogTags.dlg_generic_dismiss);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Prep => List
-			----------------------------*/
+			****************************/
 		String[] choices = {
 										actv.getString(R.string.dlg_db_admin_item_backup_db),
 										actv.getString(R.string.dlg_db_admin_item_refresh_db)
@@ -5302,9 +5302,9 @@ public class Methods {
 			
 		}
 		
-		/*----------------------------
+		/****************************
 		 * 3. Adapter
-			----------------------------*/
+			****************************/
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				actv,
 //				R.layout.dlg_db_admin,
@@ -5312,35 +5312,35 @@ public class Methods {
 				list
 				);
 
-		/*----------------------------
+		/****************************
 		 * 4. Set adapter
-			----------------------------*/
+			****************************/
 		ListView lv = (ListView) dlg.findViewById(R.id.dlg_db_admin_lv);
 		
 		lv.setAdapter(adapter);
 		
-		/*----------------------------
+		/****************************
 		 * 5. Set listener to list
-			----------------------------*/
+			****************************/
 		lv.setTag(Methods.DialogItemTags.dlg_db_admin_lv);
 		
 		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 6. Show dialog
-			----------------------------*/
+			****************************/
 		dlg.show();
 		
 		
 	}//public static void dlg_db_activity(Activity actv)
 
 	public static void db_backup(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * 1. Prep => File names
 		 * 2. Prep => Files
 		 * 2-2. Folder exists?
 		 * 3. Copy
-			----------------------------*/
+			****************************/
 		String time_label = Methods.get_TimeLabel(Methods.getMillSeconds_now());
 		
 		String db_src = StringUtils.join(
@@ -5365,15 +5365,15 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Prep => Files
-			----------------------------*/
+			****************************/
 		File src = new File(db_src);
 		File dst = new File(db_dst);
 		
-		/*----------------------------
+		/****************************
 		 * 2-2. Folder exists?
-			----------------------------*/
+			****************************/
 		File db_backup = new File(MainActv.dpath_db_backup);
 		
 		if (!db_backup.exists()) {
@@ -5388,7 +5388,7 @@ public class Methods {
 			} catch (Exception e) {
 				
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create folder => Failed");
@@ -5406,9 +5406,9 @@ public class Methods {
 			
 		}//if (!db_backup.exists())
 		
-		/*----------------------------
+		/****************************
 		 * 3. Copy
-			----------------------------*/
+			****************************/
 		try {
 			FileChannel iChannel = new FileInputStream(src).getChannel();
 			FileChannel oChannel = new FileOutputStream(dst).getChannel();
@@ -5428,13 +5428,13 @@ public class Methods {
 			
 		} catch (FileNotFoundException e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception: " + e.toString());
 			
 		} catch (IOException e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception: " + e.toString());
 		}//try
@@ -5443,18 +5443,18 @@ public class Methods {
 	}//public static void db_backup(Activity actv, Dialog dlg, String item)
 
 	public static void dlg_seratchItem(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Dialog
 		 * 9. Show
-			----------------------------*/
+			****************************/
 		Dialog dlg = dlg_template_okCancel(
 								actv, R.layout.dlg_search, R.string.dlg_search_title,
 				R.id.dlg_search_bt_ok, R.id.dlg_search_cancel, DialogTags.dlg_search_ok, DialogTags.dlg_generic_dismiss);
 		
-		/*----------------------------
+		/****************************
 		 * 9. Show
-			----------------------------*/
+			****************************/
 		dlg.show();
 		
 	}//public static void dlg_seratchItem(Activity actv)
@@ -5502,18 +5502,18 @@ public class Methods {
 	}//public static String get_TimeLabel(long millSec)
 
 	public static void dlg_patterns(Activity actv) {
-		/*----------------------------
+		/****************************
 		 * memo
-			----------------------------*/
+			****************************/
 		Dialog dlg = Methods.dlg_template_cancel(
 													actv, R.layout.dlg_admin_patterns, 
 													R.string.dlg_memo_patterns_title, 
 													R.id.dlg_admin_patterns_bt_cancel, 
 													Methods.DialogTags.dlg_generic_dismiss);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Prep => List
-			----------------------------*/
+			****************************/
 		String[] choices = {
 				actv.getString(R.string.generic_tv_register),
 				actv.getString(R.string.generic_tv_edit),
@@ -5528,9 +5528,9 @@ public class Methods {
 			
 		}
 		
-		/*----------------------------
+		/****************************
 		 * 3. Adapter
-			----------------------------*/
+			****************************/
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				actv,
 //				R.layout.dlg_db_admin,
@@ -5538,30 +5538,30 @@ public class Methods {
 				list
 				);
 
-		/*----------------------------
+		/****************************
 		 * 4. Set adapter
-			----------------------------*/
+			****************************/
 		ListView lv = (ListView) dlg.findViewById(R.id.dlg_admin_patterns_lv);
 		
 		lv.setAdapter(adapter);
 
-		/*----------------------------
+		/****************************
 		 * 5. Set listener to list
-			----------------------------*/
+			****************************/
 		lv.setTag(Methods.DialogItemTags.dlg_admin_patterns_lv);
 		
 		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
 		
-		/*----------------------------
+		/****************************
 		 * 6. Show dialog
-			----------------------------*/
+			****************************/
 		dlg.show();
 		
 	}//public static void dlg_patterns(Activity actv)
 
 	
 	public static void dlg_delete_patterns(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * 1. Set up
 		 * 2. Add listeners => OnTouch
 		 * 3. Add listeners => OnClick
@@ -5571,7 +5571,7 @@ public class Methods {
 		 * 6. Set adapter
 		 * 
 		 * 7. Show dialog
-			----------------------------*/
+			****************************/
 		Dialog dlg2 = new Dialog(actv);
 		
 		//
@@ -5580,9 +5580,9 @@ public class Methods {
 		// Title
 		dlg2.setTitle(R.string.dlg_delete_patterns_title);
 		
-		/*----------------------------
+		/****************************
 		* 2. Add listeners => OnTouch
-		----------------------------*/
+		****************************/
 		//
 		Button btn_cancel = (Button) dlg2.findViewById(R.id.dlg_delete_patterns_bt_cancel);
 		
@@ -5592,28 +5592,28 @@ public class Methods {
 		//
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
 		
-		/*----------------------------
+		/****************************
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		//
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
 		
-		/*----------------------------
+		/****************************
 		 * 4. Prep => List
 		 * 5. Prep => Adapter
 		 * 6. Set adapter
-			----------------------------*/
+			****************************/
 		GridView gv = dlg_delete_patterns_2_grid_view(actv, dlg, dlg2);
 
-		/*----------------------------
+		/****************************
 		 * 7. Show dialog
-			----------------------------*/
+			****************************/
 		dlg2.show();
 		
 	}//public static void dlg_delete_patterns(Activity actv, Dialog dlg)
 
 	private static GridView dlg_delete_patterns_2_grid_view(Activity actv, Dialog dlg, Dialog dlg2) {
-		/*----------------------------
+		/****************************
 		 * 1. Set up db
 		 * 1-1. Get grid view
 		 * 2. Table exists?
@@ -5624,19 +5624,19 @@ public class Methods {
 		 * 6. Set adapter to view
 		 * 
 		 * 7. Set listener
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 1-1. Get grid view
-			----------------------------*/
+			****************************/
 		GridView gv = (GridView) dlg2.findViewById(R.id.dlg_delete_patterns_gv);
 		
-		/*----------------------------
+		/****************************
 		 * 2. Table exists?
-			----------------------------*/
+			****************************/
 		String tableName = MainActv.tname_memo_patterns;
 		
 		boolean res = dbu.tableExists(rdb, tableName);
@@ -5654,7 +5654,7 @@ public class Methods {
 			
 		} else {//if (res == false)
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + tableName);
 			
@@ -5675,7 +5675,7 @@ public class Methods {
 				
 			} else {//if (res == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create table failed: " + tableName);
@@ -5689,9 +5689,9 @@ public class Methods {
 			
 		}//if (res == false)
 		
-		/*----------------------------
+		/****************************
 		 * 3. Get cursor
-			----------------------------*/
+			****************************/
 		rdb = dbu.getReadableDatabase();
 		
 		String sql = "SELECT * FROM " + tableName + " ORDER BY word ASC";
@@ -5702,9 +5702,9 @@ public class Methods {
 		
 		c.moveToFirst();
 		
-		/*----------------------------
+		/****************************
 		 * 4. Get list
-			----------------------------*/
+			****************************/
 		List<String> patternList = new ArrayList<String>();
 		
 		if (c.getCount() > 0) {
@@ -5720,7 +5720,7 @@ public class Methods {
 		} else {//if (c.getCount() > 0)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "!c.getCount() > 0");
 			
@@ -5729,23 +5729,23 @@ public class Methods {
 		
 		Collections.sort(patternList);
 
-		/*----------------------------
+		/****************************
 		 * 5. Prep => Adapter
-			----------------------------*/
+			****************************/
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 										actv,
 										R.layout.add_memo_grid_view,
 										patternList
 										);
 		
-		/*----------------------------
+		/****************************
 		 * 6. Set adapter to view
-			----------------------------*/
+			****************************/
 		gv.setAdapter(adapter);
 		
-		/*----------------------------
+		/****************************
 		 * 7. Set listener
-			----------------------------*/
+			****************************/
 //		gv.setTag(DialogTags.dlg_add_memos_gv);
 		gv.setTag(Methods.DialogItemTags.dlg_delete_patterns_gv);
 		
@@ -5757,9 +5757,9 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "GridView setup => Done");
 		
-		/*----------------------------
+		/****************************
 		 * 8. Close db
-			----------------------------*/
+			****************************/
 		rdb.close();
 
 		return gv;
@@ -5783,17 +5783,17 @@ public class Methods {
 	 ****************************************/
 	public static void dlg_confirm_delete_patterns(Activity actv, Dialog dlg,
 			Dialog dlg2, String item) {
-		/*----------------------------
+		/****************************
 		 * 1. Set up dialog
 		 * 2. Add listeners => OnTouch
 		 * 3. Add listeners => OnClick
 		 * 
 		 * 4. Set pattern name
 		 * 5. Show dialog
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 1. Set up dialog
-			----------------------------*/
+			****************************/
 		Dialog dlg3 = new Dialog(actv);
 		
 		//
@@ -5802,9 +5802,9 @@ public class Methods {
 		// Title
 		dlg3.setTitle(R.string.generic_tv_confirm);
 		
-		/*----------------------------
+		/****************************
 		* 2. Add listeners => OnTouch
-		----------------------------*/
+		****************************/
 		//
 		Button btn_ok = (Button) dlg3.findViewById(R.id.dlg_confirm_delete_patterns_btn_ok);
 		Button btn_cancel = (Button) dlg3.findViewById(R.id.dlg_confirm_delete_patterns_btn_cancel);
@@ -5817,52 +5817,52 @@ public class Methods {
 		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg3));
 		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg3));
 		
-		/*----------------------------
+		/****************************
 		* 3. Add listeners => OnClick
-		----------------------------*/
+		****************************/
 		//
 		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2, dlg3));
 		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2, dlg3));
 		
-		/*----------------------------
+		/****************************
 		 * 4. Set pattern name
-			----------------------------*/
+			****************************/
 		TextView tv = (TextView) dlg3.findViewById(R.id.dlg_confirm_delete_patterns_tv_pattern_name);
 		
 		tv.setText(item);
 		
-		/*----------------------------
+		/****************************
 		 * 5. Show dialog
-			----------------------------*/
+			****************************/
 		dlg3.show();
 		
 	}//public static void dlg_confirm_delete_patterns()
 
 	public static void delete_patterns(Activity actv, Dialog dlg, Dialog dlg2,
 			Dialog dlg3) {
-		/*----------------------------
+		/****************************
 		 * 0. Get pattern name
 		 * 1. Set up db
 		 * 2. Query
 		 * 3. Dismiss dialogues
-			----------------------------*/
-		/*----------------------------
+			****************************/
+		/****************************
 		 * 0. Get pattern name
-			----------------------------*/
+			****************************/
 		TextView tv = (TextView) dlg3.findViewById(R.id.dlg_confirm_delete_patterns_tv_pattern_name);
 		
 		String item = tv.getText().toString();
 		
-		/*----------------------------
+		/****************************
 		 * 1. Set up db
-			----------------------------*/
+			****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/*----------------------------
+		/****************************
 		 * 2. Query
-			----------------------------*/
+			****************************/
 		String sql = "DELETE FROM " + MainActv.tname_memo_patterns +
 							" WHERE word='" + item + "'";
 		
@@ -5878,9 +5878,9 @@ public class Methods {
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Pattern deleted: " + item);
 
-			/*----------------------------
+			/****************************
 			 * 3. Dismiss dialogues
-				----------------------------*/
+				****************************/
 			dlg3.dismiss();
 			dlg2.dismiss();
 			dlg.dismiss();
@@ -5891,7 +5891,7 @@ public class Methods {
 			Toast.makeText(actv, "パターン削除　=>　できませんでした", 3000).show();
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Pattern deletion => Failed:  " + item);
 			
@@ -5904,7 +5904,7 @@ public class Methods {
 	}//public static void delete_patterns()
 
 	public static void searchItem(Activity actv, Dialog dlg) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. Get search words
 		 * 2. Format words
@@ -5913,7 +5913,7 @@ public class Methods {
 		 * 3. Search task
 		 * 
 		 * 9. Dismiss dialog
-			----------------------------*/
+			****************************/
 		EditText et = (EditText) dlg.findViewById(R.id.dlg_search_et);
 		
 		String words = et.getText().toString();
@@ -5927,9 +5927,9 @@ public class Methods {
 			
 		}//if (words.equals(""))
 		
-		/*----------------------------
+		/****************************
 		 * 2. Format words
-			----------------------------*/
+			****************************/
 		words = words.replace('　', ' ');
 		
 		String[] a_words = words.split(" ");
@@ -5939,14 +5939,14 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "a_words.length => " + a_words.length);
 		
-		/*----------------------------
+		/****************************
 		 * 2-2. Get table name from current path
-			----------------------------*/
+			****************************/
 		String tableName = Methods.convert_path_into_table_name(actv);
 		
-		/*----------------------------
+		/****************************
 		 * 3. Search task
-			----------------------------*/
+			****************************/
 		CheckBox cb_all_table = (CheckBox) dlg.findViewById(R.id.dlg_search_cb_all_table);
 		
 		int search_mode = 0;	// 0 => Specific table (default)
@@ -5967,32 +5967,32 @@ public class Methods {
 //		st.execute(a_words, new String[]{"aaa", "bbb", "ccc"});
 		st.execute(a_words, new String[]{tableName});
 		
-		/*----------------------------
+		/****************************
 		 * 9. Dismiss dialog
-			----------------------------*/
+			****************************/
 		dlg.dismiss();
 		
 	}//public static void searchItem(Activity actv, Dialog dlg)
 
 	public static List<TI> convert_fileIdArray2tiList(
 			Activity actv, String tableName, long[] long_file_id) {
-		/*----------------------------
+		/****************************
 		* Steps
 		* 1. DB setup
 		* 2. Get ti list
 		* 3. Close db
 		* 4. Return
-		----------------------------*/
-		/*----------------------------
+		****************************/
+		/****************************
 		* 1. DB setup
-		----------------------------*/
+		****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 		
-		/*----------------------------
+		/****************************
 		* 2. Get ti list
-		----------------------------*/
+		****************************/
 		List<TI> tilist = new ArrayList<TI>();
 		
 		for (long file_id : long_file_id) {
@@ -6018,15 +6018,15 @@ public class Methods {
 		+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 		+ "]", "tilist.size() => " + tilist.size());
 		
-		/*----------------------------
+		/****************************
 		* 3. Close db
-		----------------------------*/
+		****************************/
 		rdb.close();
 		
 		
-		/*----------------------------
+		/****************************
 		* 4. Return
-		----------------------------*/
+		****************************/
 //		return tilist.size() > 0 ? tilist : null;
 		return tilist;
 	
@@ -6037,23 +6037,23 @@ public class Methods {
 		/*********************************
 		 * memo
 		 *********************************/
-		/*----------------------------
+		/****************************
 		* Steps
 		* 1. DB setup
 		* 2. Get ti list
 		* 3. Close db
 		* 4. Return
-		----------------------------*/
-		/*----------------------------
+		****************************/
+		/****************************
 		* 1. DB setup
-		----------------------------*/
+		****************************/
 		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 		
-		/*----------------------------
+		/****************************
 		* 2. Get ti list
-		----------------------------*/
+		****************************/
 		List<TI> tilist = new ArrayList<TI>();
 		
 		for (int i = 0; i < long_searchedItems.length; i++) {
@@ -6081,15 +6081,15 @@ public class Methods {
 		+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 		+ "]", "tilist.size() => " + tilist.size());
 		
-		/*----------------------------
+		/****************************
 		* 3. Close db
-		----------------------------*/
+		****************************/
 		rdb.close();
 		
 		
-		/*----------------------------
+		/****************************
 		* 4. Return
-		----------------------------*/
+		****************************/
 		return tilist;
 		
 	}//public static List<TI> convert_fileIdArray2tiList_all_table()
@@ -6110,10 +6110,10 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static TI convertCursorToThumbnailItem(Cursor c) {
-		/*----------------------------
+		/****************************
 		 * Steps
 		 * 1. 
-			----------------------------*/
+			****************************/
 		return new TI(
 				c.getLong(1),	// file_id
 				c.getString(2),	// file_path
@@ -6184,7 +6184,7 @@ public class Methods {
 
 		} catch (FileNotFoundException e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception: " + e.toString());
 			
@@ -6192,7 +6192,7 @@ public class Methods {
 			
 		} catch (IOException e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception: " + e.toString());
 			
@@ -6229,7 +6229,7 @@ public class Methods {
 		
 		if (result == false) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]",
 					"Table doesn't exist: "
@@ -6252,7 +6252,7 @@ public class Methods {
 				
 			} else {//if (result == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create table failed: " + MainActv.tname_show_history);
@@ -6292,7 +6292,7 @@ public class Methods {
 		if (c.getCount() < 1) {
 			
 			// Log
-			Log.d("Methods.java"
+			Log.e("Methods.java"
 					+ "["
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]", "No history data");
@@ -6337,7 +6337,7 @@ public class Methods {
 		} else {//if (result == true)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Set pref => Failed");
 			
@@ -6469,7 +6469,7 @@ public class Methods {
 		
 		if (result == false) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Table doesn't exist: " + MainActv.tname_show_history);
 			
@@ -6489,7 +6489,7 @@ public class Methods {
 				
 			} else {//if (result == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create table failed: " + MainActv.tname_show_history);
@@ -6527,7 +6527,7 @@ public class Methods {
 		} else {//if (res == true)
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Save history => Failed: " + fileId);
 			
@@ -6623,7 +6623,7 @@ public class Methods {
 
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 			
@@ -6667,7 +6667,7 @@ public class Methods {
 		} else {//if (res == true)
 
 			// Log
-			Log.d("MainActv.java" + "["
+			Log.e("MainActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Drop table => Failed: " + tableName);
 			
@@ -6815,7 +6815,7 @@ public class Methods {
 
 		} catch (Exception e) {
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 		}
@@ -6864,7 +6864,7 @@ public class Methods {
 			}//for (int i = 0; i < c.getCount(); i++)
 
 		} else {//if (c != null)
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "c => null");
 		}//if (c != null)
@@ -6928,7 +6928,7 @@ public class Methods {
 								.getLineNumber() + "]", "Data updated: " + ti.getFile_name());
 			} else {//if (res == true)
 				// Log
-				Log.d("Methods.java"
+				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]",
@@ -6941,7 +6941,7 @@ public class Methods {
 		} else {//if (current_move_mode == MainActv.HISTORY_MODE_OFF)
 			
 			// Log
-			Log.d("Methods.java"
+			Log.e("Methods.java"
 					+ "["
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]", "History not saved");
@@ -6970,7 +6970,7 @@ public class Methods {
 		if (!dpath.exists()) {
 			
 			// Log
-			Log.d("Methods.java" + "["
+			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Dir doesn't exist");
 			
@@ -6997,6 +6997,149 @@ public class Methods {
 		return list_dir;
 		
 	}//public static List<String> get_file_list(File dpath)
+
+	/*********************************
+	 * <Return>
+	 * null		=> Table doesn't exist
+	 *********************************/
+	public static List<AI> get_all_data_ai(Activity actv, String table_name) {
+		/*********************************
+		 * 0. Table exists?
+		 * 1. DB setup
+		 * 2. Get data
+		 * 		2.1. Get cursor
+		 * 		2.2. Add to list
+		 * 
+		 * 9. Close db
+		 * 10. Return value
+		 *********************************/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.get_all_data_ai(Activity actv, String table_name)");
+		
+		/*********************************
+		 * 1. DB setup
+		 *********************************/
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/****************************
+		 * 0. Table exists?
+			****************************/
+		boolean res = dbu.tableExists(rdb, table_name);
+		
+		if (res == false) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "getAllData() => Table doesn't exist: " + table_name);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (res == false)
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "rdb.getPath(): " + rdb.getPath());
+		
+		
+		
+		/****************************
+		 * 2. Get data
+		 * 		2.1. Get cursor
+		 * 		2.2. Add to list
+			****************************/
+		//
+		String sql = "SELECT * FROM " + table_name;
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+			return null;
+		}
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "c.getCount() => " + c.getCount());
+
+		/****************************
+		 * 2.2. Add to list
+			****************************/
+		c.moveToFirst();
+		
+		List<AI> ai_list = new ArrayList<AI>();
+		
+		for (int i = 0; i < c.getCount(); i++) {
+//		for (int i = 0; i < c.getCount() / 200; i++) {
+
+//			String file_name, String file_path,
+//			String title, String memo,
+//			
+//			long last_played_at,
+//			
+//			String table_name,
+//			
+//			long db_id, long created_at, long modified_at
+			
+//			{"file_name", 	"file_path",	"title", "memo",
+//				"last_played_at",	"table_name"}
+			
+			AI ti = new AI(
+					c.getString(3),	// file_name
+					c.getString(4),	// file_path
+					
+					c.getString(5),	// title
+					c.getString(6),	// memo
+					
+					c.getLong(7),
+					
+					c.getString(8),	// table_name
+					
+					c.getLong(0),	// id
+					c.getLong(1),	// created_at
+					c.getLong(2)	// modified_at
+			);
+	
+			// Add to the list
+			ai_list.add(ti);
+			
+			//
+			c.moveToNext();
+			
+		}//for (int i = 0; i < c.getCount(); i++)
+		
+		
+		
+		/****************************
+		 * 9. Close db
+			****************************/
+		rdb.close();
+		
+		/****************************
+		 * 10. Return value
+			****************************/
+		
+		return ai_list;
+		
+	}//public static List<AI> get_all_data_ai(Activity actv, String table_name)
 
 
 	

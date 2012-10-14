@@ -15,6 +15,7 @@ import cm5.listeners.ButtonOnClickListener;
 import cm5.listeners.ButtonOnTouchListener;
 import cm5.listeners.CustomOnItemLongClickListener;
 import cm5.listeners.DialogListener;
+import cm5.utils.AILAdapter;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
 import cm5.utils.TIListAdapter;
@@ -45,8 +46,8 @@ public class ALActv extends ListActivity {
 
 	public static List<TI> tiList;
 
-	public static TIListAdapter aAdapter;
-	public static TIListAdapter bAdapter;
+//	public static TIListAdapter aAdapter;
+//	public static TIListAdapter bAdapter;
 
 	public static boolean move_mode = false;
 
@@ -70,6 +71,7 @@ public class ALActv extends ListActivity {
 	
 	public static List<AI> ai_list;
 
+	public static AILAdapter ail_adp;
 	
 	public static ArrayAdapter<String> dirListAdapter;
 	
@@ -213,10 +215,13 @@ public class ALActv extends ListActivity {
 	private void setup_2_set_list() {
 		/*********************************
 		 * 1. Get table name
+		 * 
 		 * 2. Prep list
+		 * 
 		 * 3. Sort list
 		 * 
 		 * 4. Prep adapter
+		 * 
 		 * 5. Set adapter
 		 *********************************/
 		/*********************************
@@ -233,6 +238,26 @@ public class ALActv extends ListActivity {
 		 * 2. Prep list
 		 *********************************/
 		ai_list = Methods.get_all_data_ai(this, table_name);
+		
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "ai_list.size()=" + ai_list.size());
+		
+		
+		/*********************************
+		 * 4. Prep adapter
+		 *********************************/
+		ail_adp = new AILAdapter(
+				this,
+				R.layout.list_row_ai_list,
+				ai_list
+				);
+		
+		/*********************************
+		 * 5. Set adapter
+		 *********************************/
+		this.setListAdapter(ail_adp);
 		
 	}//private void setup_2_set_list()
 
@@ -446,11 +471,11 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "onResume()");
 
-		if (ALActv.aAdapter != null) {
-					
-			ALActv.aAdapter.notifyDataSetChanged();
-			
-		}
+//		if (ALActv.aAdapter != null) {
+//					
+//			ALActv.aAdapter.notifyDataSetChanged();
+//			
+//		}
 //		TNActv.aAdapter.notifyDataSetChanged();
 
 //		/*********************************
@@ -1025,14 +1050,14 @@ public class ALActv extends ListActivity {
 			----------------------------*/
 		Methods.sort_tiList(tiList);
 		
-		bAdapter =
-				new TIListAdapter(
-						this, 
-						R.layout.thumb_activity, 
-						tiList,
-						Methods.MoveMode.ON);
-
-		setListAdapter(bAdapter);
+//		bAdapter =
+//				new TIListAdapter(
+//						this, 
+//						R.layout.thumb_activity, 
+//						tiList,
+//						Methods.MoveMode.ON);
+//
+//		setListAdapter(bAdapter);
 
 	}//private void move_mode_false(MenuItem item)
 
@@ -1113,14 +1138,14 @@ public class ALActv extends ListActivity {
 			----------------------------*/
 		Methods.sort_tiList(tiList);
 		
-		aAdapter = 
-				new TIListAdapter(
-						this, 
-						R.layout.thumb_activity, 
-						tiList,
-						Methods.MoveMode.OFF);
-		
-		setListAdapter(aAdapter);
+//		aAdapter = 
+//				new TIListAdapter(
+//						this, 
+//						R.layout.thumb_activity, 
+//						tiList,
+//						Methods.MoveMode.OFF);
+//		
+//		setListAdapter(aAdapter);
 		
 		this.setSelection(selected_position);
 		
