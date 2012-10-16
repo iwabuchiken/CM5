@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+// Audio item list => AIL
 public class AILAdapter extends ArrayAdapter<AI> {
 
 	/****************************
@@ -95,7 +96,7 @@ public class AILAdapter extends ArrayAdapter<AI> {
 		 * 
 		 * 4. Set file name
 		 * 
-		 * 5. Get memo, or, file name
+		 * 5. Set title
 		 * 
 		 * 9. Return view
 			****************************/
@@ -123,7 +124,7 @@ public class AILAdapter extends ArrayAdapter<AI> {
     	/*********************************
 		 * 2. Get view
 		 *********************************/
-    	TextView tv = (TextView) v.findViewById(R.id.list_row_ai_list_tv_file_name);
+    	TextView tv_file_name = (TextView) v.findViewById(R.id.list_row_ai_list_tv_file_name);
     	
     	/*********************************
 		 * 3. Get item
@@ -135,14 +136,31 @@ public class AILAdapter extends ArrayAdapter<AI> {
 		 *********************************/
     	if (ai != null && !ai.getFile_name().equals("")) {
 
-    		tv.setText(ai.getFile_name());
+    		tv_file_name.setText(ai.getFile_name());
     		
 		} else {//if (ai != null && ai.getFile_name()
 			
-			tv.setText("No data");
+			tv_file_name.setText("No data");
 			
 		}//if (ai != null && ai.getFile_name()
 		
+    	/*********************************
+		 * 5. Set title
+		 *********************************/
+    	TextView tv_title = (TextView) v.findViewById(R.id.list_row_ai_list_tv_title);
+    	
+    	if (ai != null && !ai.getTitle().equals("")) {
+
+    		tv_title.setText(ai.getTitle());
+    		
+		} else {//if (ai != null && ai.getFile_name()
+			
+//			tv.setText("No data");
+			tv_title.setText("");
+			
+		}//if (ai != null && ai.getFile_name()
+    	
+    	
     	
     	/*********************************
 		 * 9. Return view
