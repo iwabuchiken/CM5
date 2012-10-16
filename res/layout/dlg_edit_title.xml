@@ -11,7 +11,7 @@
     >
 
     <EditText
-        android:id="@+id/dlg_add_memos_et_content"
+        android:id="@+id/dlg_edit_title_et_content"
         
         android:layout_width="300dp"
         android:layout_height="200dp"
@@ -25,7 +25,7 @@
         
         />
 
-    <GridView android:id="@+id/dlg_add_memos_gv" android:layout_width="350dp" android:layout_height="200dp" android:layout_gravity="center_horizontal" android:layout_marginLeft="50dp" android:layout_marginRight="30dp" android:numColumns="3">
+    <GridView android:id="@+id/dlg_edit_title_gv" android:layout_width="350dp" android:layout_height="200dp" android:layout_gravity="center_horizontal" android:layout_marginLeft="50dp" android:layout_marginRight="30dp" android:numColumns="3">
     </GridView><LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         >
 
         <Button
-            android:id="@+id/dlg_add_memos_bt_add"
+            android:id="@+id/dlg_edit_title_bt_add"
             
             android:layout_width="80dp"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             />
 
         <Button
-            android:id="@+id/dlg_add_memos_cancel"
+            android:id="@+id/dlg_edit_title_bt_cancel"
 
             android:layout_width="80dp"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             />
 
         <Button
-            android:id="@+id/dlg_add_memos_bt_patterns"
+            android:id="@+id/dlg_edit_title_bt_patterns"
             
             android:layout_width="80dp"
             android:layout_height="wrap_content"

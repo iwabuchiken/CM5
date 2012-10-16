@@ -1131,6 +1131,104 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//try
 		
 	}//public boolean insert_data_refresh_history
+
+	
+	public static void update_data_ai(Activity actv,
+								String dbName, String table_name, AI ai) {
+//		/*********************************
+//		 * memo
+//		 *********************************/
+//		DBUtils dbu = new DBUtils(actv, dbName);
+//		
+//		//
+//		SQLiteDatabase wdb = dbu.getWritableDatabase();
+//
+//		
+//		String sql = "UPDATE " + table_name + " SET " + 
+//				"last_viewed_at='" + Methods.getMillSeconds_now() + "' " +
+//				
+//				" WHERE file_id = '" + String.valueOf(ti.getFileId()) + "'";
+//			
+//				
+//			//			"file_id", 		"file_path", "file_name", "date_added", "date_modified"
+//			//static String[] cols = 
+//			//{"file_id", 		"file_path", "file_name", "date_added",
+//			//"date_modified", "memos", "tags"};
+//			
+//			
+//			try {
+//			
+//				wdb.execSQL(sql);
+//				
+//				// Log
+//				Log.d("DBUtils.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "sql => Done: " + sql);
+//				
+//				//Methods.toastAndLog(actv, "Data updated", 2000);
+//				
+//				return true;
+//				
+//				
+//			} catch (SQLException e) {
+//				// Log
+//				Log.d("DBUtils.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+//				
+//				return false;
+//			}
+	}//public static void update_data_ai(String dbName, String table_name, AI ai)
+
+	public static boolean update_data_ai(Activity actv, String dbName,
+			long db_id, String col_name, String value) {
+		/*********************************
+		 * memo
+		 *********************************/
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		
+		String sql = "UPDATE " + MainActv.tname_main + " SET " + 
+//				"last_viewed_at='" + Methods.getMillSeconds_now() + "' " +
+				
+				col_name + " = '" + value + "' "
+				+ " WHERE " + android.provider.BaseColumns._ID + " = '"
+				+ db_id + "'";
+			
+				
+			//			"file_id", 		"file_path", "file_name", "date_added", "date_modified"
+			//static String[] cols = 
+			//{"file_id", 		"file_path", "file_name", "date_added",
+			//"date_modified", "memos", "tags"};
+			
+			
+			try {
+			
+				wdb.execSQL(sql);
+				
+				// Log
+				Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "sql => Done: " + sql);
+				
+				//Methods.toastAndLog(actv, "Data updated", 2000);
+				
+				return true;
+				
+				
+			} catch (SQLException e) {
+				// Log
+				Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+				
+				return false;
+			}
+		
+	}//public static boolean update_data_ai()
 	
 }//public class DBUtils
 

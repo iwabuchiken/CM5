@@ -139,6 +139,10 @@ public class Methods {
 		// dlg_confirm_delete_patterns.xml
 		dlg_confirm_delete_patterns_ok,
 		
+		// dlg_edit_title.xml
+		dlg_edit_title_bt_ok,
+		
+		
 	}//public static enum DialogTags
 	
 	public static enum DialogItemTags {
@@ -179,6 +183,7 @@ public class Methods {
 		
 		// actv_play.xml
 		actv_play_bt_play, actv_play_bt_stop, actv_play_bt_back,
+		actv_play_tv_title,
 		
 		
 	}//public static enum ButtonTags
@@ -7417,6 +7422,161 @@ public class Methods {
 
 	}//public static void stop_player(Activity actv)
 
+	
+	public static void dlg_edit_title(Activity actv, AI ai) {
+		/*********************************
+		 * 1. Build dialog
+		 * 2. Add listeners
+		 * 		1. OnTouch
+		 * 		2. OnClick
+		 * 
+		 * 3. Set text
+		 * 
+		 * 
+		 * 
+		 * 9. Show dialog
+		 *********************************/
+		/*********************************
+		 * 1. Build dialog
+		 *********************************/
+//		Dialog dlg = Methods.dlg_template_okCancel(
+//							actv, R.layout.dlg_edit_title,
+//							R.string.dlg_edit_title_title,
+//							R.id.dlg_edit_title_bt_add,
+//							R.id.dlg_edit_title_bt_cancel,
+//							Methods.DialogTags.dlg_edit_title_bt_ok,
+//							Methods.DialogTags.dlg_generic_dismiss);
+
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(R.layout.dlg_edit_title);
+		
+		// Title
+		dlg.setTitle(R.string.dlg_edit_title_title);
+		
+		/****************************
+		* 2. Add listeners
+		* 2.1. OnTouch
+		****************************/
+		//
+		Button btn_ok = (Button) dlg.findViewById(R.id.dlg_edit_title_bt_add);
+		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_edit_title_bt_cancel);
+		
+		//
+		btn_ok.setTag(Methods.DialogTags.dlg_edit_title_bt_ok);
+		btn_cancel.setTag(Methods.DialogTags.dlg_generic_dismiss);
+		
+		//
+		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		
+		/****************************
+		* 2.2. OnClick
+		****************************/
+		//
+		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, ai));
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+
+		
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_edit_title_et_content);
+		
+		/*********************************
+		 * 3. Set text
+		 *********************************/
+		String title = ai.getTitle();
+		
+		
+//		if (ai.getTitle().equals("")) {
+		if (title.equals("")) {
+
+			title = "";
+			
+//			et.setText("Title");
+			et.setText(title);
+			
+		} else {//if (ai.getTitle().equals(""))
+			
+//			et.setText(ai.getTitle());
+			et.setText(title);
+			
+		}//if (ai.getTitle().equals(""))
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "title.length()=" + title.length());
+		
+		et.setSelection(title.length());
+		
+		/*********************************
+		 * 9. Show dialog
+		 *********************************/
+		dlg.show();
+		
+	}//public static void dlg_edit_title(Activity actv, AI ai)
+
+	public static void edit_title(Activity actv, Dialog dlg, AI ai) {
+		/*********************************
+		 * 1. Get view
+		 * 2. Set title to the AI object
+		 * 
+		 * 3. Update data
+		 * 
+		 * 9. Dismiss dialog
+		 *********************************/
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "edit_title(Activity actv, Dialog dlg, AI ai)");
+		
+		/*********************************
+		 * 1. Get view
+		 *********************************/
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_edit_title_et_content);
+		
+		/*********************************
+		 * 2. Set title to the AI object
+		 *********************************/
+		ai.setTitle(et.getText().toString());
+		
+		/*********************************
+		 * 3. Update data
+		 *********************************/
+		boolean res = DBUtils.update_data_ai(actv, MainActv.dbName, ai.getDb_id(),
+							MainActv.cols_item[2], ai.getTitle());
+		
+		if (res == true) {
+			
+			// debug
+			Toast.makeText(actv, "Data updated", Toast.LENGTH_SHORT).show();
+			
+		} else {//if (res == true)
+
+			// debug
+			Toast.makeText(actv, "Update data => Failed", Toast.LENGTH_SHORT).show();
+
+		}//if (res == true)
+		
+		/*********************************
+		 * 9. Dismiss dialog
+		 *********************************/
+		dlg.dismiss();
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "et.getText().toString()=" + et.getText().toString());
+//
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "ai.getTitle()=" + ai.getTitle());
+		
+		
+	}//public static void edit_title(Activity actv, Dialog dlg, AI ai)
+
 
 	
 }//public class Methods
+

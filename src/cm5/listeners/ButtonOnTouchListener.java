@@ -7,10 +7,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class ButtonOnTouchListener implements OnTouchListener {
 
@@ -83,6 +85,26 @@ public class ButtonOnTouchListener implements OnTouchListener {
 
 				v.setBackgroundColor(Color.GRAY);
 				break;
+				
+			case actv_play_tv_title:
+				
+				v.setBackgroundColor(Color.BLACK);
+				
+//				// Log
+//				Log.d("ButtonOnTouchListener.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+////						"v.toString()=" + v.toString());
+//						"((TextView)v).getText()=" + ((TextView)v).getText());
+				
+//				TextView tv = (TextView) v;
+//				
+//				tv.setTextColor(Color.WHITE);
+				
+				((TextView)v).setTextColor(Color.WHITE);
+				
+				break;
 
 			}//switch (tag)
 			
@@ -133,6 +155,17 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			case actv_play_bt_back:
 
 				v.setBackgroundColor(Color.WHITE);
+				break;
+
+			case actv_play_tv_title:
+				
+				v.setBackgroundColor(Color.WHITE);
+				
+				TextView tv = (TextView) v;
+				
+				tv.setTextColor(Color.BLACK);
+//				tv.setTextColor(Color.BLUE);
+				
 				break;
 
 			}//switch (tag)

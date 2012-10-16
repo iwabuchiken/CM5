@@ -60,6 +60,9 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 				case dlg_register_patterns_register:
 
 				case dlg_confirm_delete_patterns_ok:
+					
+				case dlg_edit_title_bt_ok:
+					
 					//
 					v.setBackgroundColor(Color.GRAY);
 					
@@ -94,6 +97,8 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 			case dlg_register_patterns_register:
 				
 			case dlg_confirm_delete_patterns_ok:
+				
+			case dlg_edit_title_bt_ok:
 				
 				//
 					v.setBackgroundColor(Color.WHITE);

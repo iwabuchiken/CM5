@@ -1,5 +1,6 @@
 package cm5.listeners;
 
+import cm5.items.AI;
 import cm5.utils.Methods;
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,6 +20,8 @@ public class DialogButtonOnClickListener implements OnClickListener {
 	Dialog dlg;
 	Dialog dlg2;		//=> Used in dlg_input_empty_btn_XXX
 	Dialog dlg3;
+
+	AI ai;
 	
 	//
 	Vibrator vib;
@@ -73,6 +76,17 @@ public class DialogButtonOnClickListener implements OnClickListener {
 	}//public DialogButtonOnClickListener(Activity actv, Dialog dlg, long file_id, String tableName)
 
 //	@Override
+	public DialogButtonOnClickListener(Activity actv, Dialog dlg, AI ai) {
+
+		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
+		
+		this.actv = actv;
+		this.dlg = dlg;
+		
+		this.ai = ai;
+
+	}//public DialogButtonOnClickListener(Activity actv2, Dialog dlg4, AI ai)
+
 	public void onClick(View v) {
 		//
 		Methods.DialogTags tag_name = (Methods.DialogTags) v.getTag();
@@ -207,6 +221,12 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			Methods.searchItem(actv, dlg);
 			
 			break;// case dlg_search_ok
+
+		case dlg_edit_title_bt_ok://----------------------------------------
+			
+			Methods.edit_title(actv, dlg, ai);
+			
+			break;// case dlg_edit_title_bt_ok
 			
 		default: // ----------------------------------------------------
 			break;

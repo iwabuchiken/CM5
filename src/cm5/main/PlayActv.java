@@ -2,6 +2,7 @@ package cm5.main;
 
 import cm5.items.AI;
 import cm5.listeners.ButtonOnClickListener;
+import cm5.listeners.ButtonOnLongClickListener;
 import cm5.listeners.ButtonOnTouchListener;
 import cm5.utils.Methods;
 import android.app.Activity;
@@ -44,6 +45,8 @@ public class PlayActv extends Activity {
 		 * 1. Button => Play
 		 * 2. Button => Stop
 		 * 3. Button => Back
+		 * 
+		 * 4. TextView => Title
 		 *********************************/
 		/*********************************
 		 * 1. Button => Play
@@ -76,6 +79,17 @@ public class PlayActv extends Activity {
 		bt_back.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_back.setOnClickListener(new ButtonOnClickListener(this));
 
+		/*********************************
+		 * 4. TextView => Title
+		 *********************************/
+		TextView tv_title = (TextView) findViewById(R.id.actv_play_tv_title);
+		
+		tv_title.setTag(Methods.ButtonTags.actv_play_tv_title);
+		
+//		tv_title.setOnClickListener(new ButtonOnLongClickListener(this));
+
+		tv_title.setOnTouchListener(new ButtonOnTouchListener(this));
+		tv_title.setOnLongClickListener(new ButtonOnLongClickListener(this, ai));
 		
 	}//private void setup_2_set_listeners()
 
@@ -89,6 +103,8 @@ public class PlayActv extends Activity {
 		 * 4. Get an AI object from DB
 		 * 
 		 * 5. Set file name to the view
+		 * 
+		 * 6. Set title to the view
 		 *********************************/
 		Intent i = this.getIntent();
 		
@@ -165,6 +181,23 @@ public class PlayActv extends Activity {
 			tv_file_name.setText(this.getString(R.string.generic_tv_no_data));
 			
 		}//if (!ai.getFile_name().equals(""))
+		
+		/*********************************
+		 * 6. Set title to the view
+		 *********************************/
+		TextView tv_title = (TextView) findViewById(R.id.actv_play_tv_title);
+		
+		if (!ai.getTitle().equals("")) {
+			
+			tv_title.setText(ai.getTitle());
+			
+		} else {//if (!ai.getFile_name().equals(""))
+			
+//			tv_title.setText(this.getString(R.string.generic_tv_no_data));
+			tv_title.setText("Title!");
+			
+		}//if (!ai.getFile_name().equals(""))
+		
 		
 		
 	}//private void setup_1_set_file_name()

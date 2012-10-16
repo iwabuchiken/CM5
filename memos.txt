@@ -3,7 +3,6 @@ cd C:\WORKS\WS\WS_Android~\CM5
 C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android~\FM\CM5(A)\CM5(A).mm
 gitk
 
-
 C:\WORKS\WORKSPACES_ANDROID\FM\a
 
 
@@ -14,7 +13,7 @@ rd /q /s .git
 
 g init
 g a .
-gitk
+gitk-
 
 git remote add origin git@github.com:iwabuchiken/CM5.git
 
