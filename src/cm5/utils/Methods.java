@@ -69,6 +69,7 @@ import cm5.listeners.DialogOnItemLongClickListener;
 import cm5.listeners.MPOnCompletionListener;
 import cm5.main.ALActv;
 import cm5.main.MainActv;
+import cm5.main.MainActv.SORT_ORDER;
 import cm5.main.PlayActv;
 import cm5.main.PrefActv;
 import cm5.main.TNActv;
@@ -7576,6 +7577,50 @@ public class Methods {
 		
 	}//public static void edit_title(Activity actv, Dialog dlg, AI ai)
 
+	public static void sort_list_ai_created_at(List<AI> tiList, final MainActv.SORT_ORDER dec) {
+		
+		Collections.sort(tiList, new Comparator<AI>(){
+
+//			@Override
+			public int compare(AI a1, AI a2) {
+				// TODO 自動生成されたメソッド・スタブ
+				
+//				return (int) (lhs.getDate_added() - rhs.getDate_added());
+				
+//				return (int) (a1.getFile_name().compareToIgnoreCase(a2.getFile_name()));
+				
+				int res;
+				
+				switch (dec) {
+				
+				case ASC:
+					
+					res = (int) (a1.getCreated_at() - a2.getCreated_at());
+					
+					break;
+					
+				case DEC:
+					
+					res = (int) -(a1.getCreated_at() - a2.getCreated_at());
+					
+					break;
+					
+				default:
+					
+					res = 1;
+					
+					break;
+					
+				}
+				
+				return res;
+				
+//				return (int) (a1.getCreated_at() - a2.getCreated_at());
+			}
+			
+		});//Collections.sort()
+
+	}//public static void sort_tiList(List<ThumbnailItem> tiList)
 
 	
 }//public class Methods

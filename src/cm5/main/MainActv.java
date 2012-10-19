@@ -186,6 +186,9 @@ public class MainActv extends ListActivity {
 	public static String fname_db_backup_ext = ".bk";
 
 	
+	// Sort order
+	public static enum SORT_ORDER {ASC, DEC};
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {

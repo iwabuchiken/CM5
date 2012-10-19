@@ -245,6 +245,10 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "ai_list.size()=" + ai_list.size());
 		
+		/*********************************
+		 * 3. Sort list
+		 *********************************/
+		Methods.sort_list_ai_created_at(ai_list, MainActv.SORT_ORDER.DEC);
 		
 		/*********************************
 		 * 4. Prep adapter
