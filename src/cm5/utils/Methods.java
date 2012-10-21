@@ -486,42 +486,56 @@ public class Methods {
 	 * <Steps> 1.
 	 ****************************************/
 	public static void refreshListView(Activity actv) {
-//		/****************************
-//		 * Steps
-//		 * 1. Get currentPath
-//		 * 2. Get file array
-//		 * 3. Sort file array
-//		 * 
-//		 * 4. Add file names to list
-//		 * 5. Notify adapter of changes
-//		 * 6. Update image buttons
-//		 * 
-//		 * 
-//		 * 1. Get file list
-//		 * 1-2. Sort list
-//		 * 2. Clear => ImageFileManager8Activity.file_names
-//		 * 3. Add file names to => ImageFileManager8Activity.file_names
-//		 * 4. Notify adapter of changes
-//		 * 
-//		 * 
-//		 * 
-//		 * 6. Update image buttons
-//			****************************/
-//		/****************************
-//		 * 1. Get currentPath
-//			****************************/
-//		String currentPath = Methods.get_currentPath_from_prefs(actv);
-//		
-//		if (currentPath == null) {
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Methods.get_currentPath_from_prefs(actv) => null");
-//			
-//			return;
-//			
-//		}//if (currentPath == null)
+		/****************************
+		 * Steps
+		 * 1. Get currentPath
+		 * 2. Get file array
+		 * 3. Sort file array
+		 * 
+		 * 4. Add file names to list
+		 * 5. Notify adapter of changes
+		 * 6. Update image buttons
+		 * 
+		 * 
+		 * 1. Get file list
+		 * 1-2. Sort list
+		 * 2. Clear => ImageFileManager8Activity.file_names
+		 * 3. Add file names to => ImageFileManager8Activity.file_names
+		 * 4. Notify adapter of changes
+		 * 
+		 * 
+		 * 
+		 * 6. Update image buttons
+			****************************/
+		/****************************
+		 * 1. Get currentPath
+			****************************/
+		String currentPath = Methods.get_currentPath_from_prefs(actv);
+		
+		if (currentPath == null) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Methods.get_currentPath_from_prefs(actv) => null");
+			
+			return;
+			
+		}//if (currentPath == null)
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.refreshListView()");
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "currentPath=" + currentPath);
+
+		//debug
+		return;
+		
 //		// 
 //		/****************************
 //		 * 2. Get file array
@@ -3215,7 +3229,7 @@ public class Methods {
 			/****************************
 			 * 2. If yes, go to Methods.createFolder()
 				****************************/
-			dlg_confirm_createFolder(actv, dlg);
+			Methods.dlg_confirm_createFolder(actv, dlg);
 			
 			return;
 			
@@ -3335,20 +3349,23 @@ public class Methods {
 		 * 
 		 * 8. Create a new table
 			****************************/
-		File newDir = createFolder_1(actv, dlg, dlg2);
+		File newDir = Methods.createFolder_1_create_dir(actv, dlg, dlg2);
 		
-		boolean res = createFolder_2(actv, dlg, newDir);
+		boolean res = Methods.createFolder_2_create_folder_set(actv, dlg, newDir);
+		
+//		//debug
+//		return;
 		
 		if (res == true) {
 			
-			createFolder_3(actv, dlg, newDir);
+			Methods.createFolder_3_create_table(actv, dlg, newDir);
 			
 		} else {//if (res == true)
 			
 			// Log
 			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "createFolder_2() => false");
+					+ "]", "createFolder_2_create_folder_set() => false");
 			
 		}//if (res == true)
 		
@@ -3356,7 +3373,7 @@ public class Methods {
 		
 	}//public static void createFolder(Activity actv, Dialog dlg, Dialog dlg2)
 
-	public static File createFolder_1(Activity actv, Dialog dlg, Dialog dlg2) {
+	public static File createFolder_1_create_dir(Activity actv, Dialog dlg, Dialog dlg2) {
 		/****************************
 		 * Steps
 		 * 1. Get folder name from dlg2
@@ -3401,6 +3418,9 @@ public class Methods {
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "currentDirPath: " + currentDirPath + " | " + "newDir: " + newDir.getAbsolutePath());
+
+//		//debug
+//		return null;
 		
 		/****************************
 		 * 4. Create a file => Use BufferedWriter
@@ -3498,9 +3518,9 @@ public class Methods {
 		 * 6-2. Create a folder set if checked
 			****************************/
 		
-	}//public static File createFolder(Activity actv, Dialog dlg, Dialog dlg2)
+	}//public static File createFolder_1_create_dir(Activity actv, Dialog dlg, Dialog dlg2)
 
-	public static boolean createFolder_2(Activity actv, Dialog dlg, File newDir) {
+	public static boolean createFolder_2_create_folder_set(Activity actv, Dialog dlg, File newDir) {
 		/****************************
 		 * 6-2. Create a folder set if checked
 			****************************/
@@ -3576,55 +3596,58 @@ public class Methods {
 		 * 7. Refresh list viewFile 
 			****************************/
 		
-	}//public static boolean createFolder(Activity actv, Dialog dlg, Dialog dlg2)
+	}//public static boolean createFolder_2_create_folder_set(Activity actv, Dialog dlg, Dialog dlg2)
 
-	public static boolean createFolder_3(Activity actv, Dialog dlg, File newDir) {
+	public static boolean createFolder_3_create_table(Activity actv, Dialog dlg, File newDir) {
 		/****************************
 		 * 7. Refresh list view
 			****************************/
-		refreshListView(actv);
+		Methods.refreshListView(actv);
 		
-		/****************************
-		 * 8. Create a new table
-		 * 		8.1. Build a table name
-		 * 		8.2. Create a table
-			****************************/
-		/****************************
-		 * 8.1. Build a table name
-			****************************/
-		String newPath = newDir.getAbsolutePath();
-
-		String convertedPath = Methods.convert_prefs_into_path_label(actv, newPath);
+		//debug
+		return false;
 		
-		String tableName = Methods.convert_path_into_table_name(actv, convertedPath);
+//		/****************************
+//		 * 8. Create a new table
+//		 * 		8.1. Build a table name
+//		 * 		8.2. Create a table
+//			****************************/
+//		/****************************
+//		 * 8.1. Build a table name
+//			****************************/
+//		String newPath = newDir.getAbsolutePath();
+//
+//		String convertedPath = Methods.convert_prefs_into_path_label(actv, newPath);
+//		
+//		String tableName = Methods.convert_path_into_table_name(actv, convertedPath);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "New table name => " + tableName);
+//		
+//
+//		/****************************
+//		 * 8.2. Create a table
+//			****************************/
+//		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+//		
+//		SQLiteDatabase wdb = dbu.getWritableDatabase();
+//		
+//		boolean res = dbu.createTable(wdb, tableName, 
+////					dbu.get_cols(), dbu.get_col_types());
+//							DBUtils.cols, DBUtils.col_types);
+//		
+//		wdb.close();
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Methods.createFolder() => Done");
+//		
+//		return res;
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "New table name => " + tableName);
-		
-
-		/****************************
-		 * 8.2. Create a table
-			****************************/
-		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
-		
-		SQLiteDatabase wdb = dbu.getWritableDatabase();
-		
-		boolean res = dbu.createTable(wdb, tableName, 
-//					dbu.get_cols(), dbu.get_col_types());
-							DBUtils.cols, DBUtils.col_types);
-		
-		wdb.close();
-		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.createFolder() => Done");
-		
-		return res;
-		
-	}//public static boolean createFolder(Activity actv, Dialog dlg, Dialog dlg2)
+	}//public static boolean createFolder_3_create_table(Activity actv, Dialog dlg, Dialog dlg2)
 
 	public static void dlg_removeFolder(Activity actv, String folderName) {
 		/****************************
@@ -6998,6 +7021,19 @@ public class Methods {
 		
 		File[] files_list = dpath.listFiles();
 		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Starts => get_file_list()");
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]",
+				"dpath=" + dpath.getAbsolutePath()
+				+ "/size=" + files_list.length);
+		
+		
 		for (File f : files_list) {
 			
 			list_dir.add(f.getName());
@@ -7583,6 +7619,27 @@ public class Methods {
 
 //			@Override
 			public int compare(AI a1, AI a2) {
+				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+//						"sort_list_ai_created_at() # compare()");
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "a1(" + a1.getFile_name() + ")=" + a1.getCreated_at()
+//								+ "/a2(" + a2.getFile_name() + ")=" + a2.getCreated_at());
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "(a1.getCreated_at() - a2.getCreated_at())=" + (a1.getCreated_at() - a2.getCreated_at()));
+				
 				// TODO 自動生成されたメソッド・スタブ
 				
 //				return (int) (lhs.getDate_added() - rhs.getDate_added());
@@ -7595,13 +7652,15 @@ public class Methods {
 				
 				case ASC:
 					
-					res = (int) (a1.getCreated_at() - a2.getCreated_at());
+//					res = (int) (a1.getCreated_at() - a2.getCreated_at());
+					res = a1.getFile_name().compareTo(a2.getFile_name());
 					
 					break;
 					
 				case DEC:
 					
-					res = (int) -(a1.getCreated_at() - a2.getCreated_at());
+//					res = (int) -(a1.getCreated_at() - a2.getCreated_at());
+					res = a2.getFile_name().compareTo(a1.getFile_name());
 					
 					break;
 					

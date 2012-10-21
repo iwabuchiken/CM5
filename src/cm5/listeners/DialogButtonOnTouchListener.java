@@ -63,6 +63,7 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 					
 				case dlg_edit_title_bt_ok:
 					
+
 					//
 					v.setBackgroundColor(Color.GRAY);
 					

@@ -887,6 +887,11 @@ public class MainActv extends ListActivity {
 		
 	}//private boolean create_list_file()
 
+	/*********************************
+	 * <Return>
+	 * File object(directory)
+	 * null	=> Can't create directory
+	 *********************************/
 	private File create_root_dir() {
 		
 		String dpath_base = StringUtils.join(
@@ -1091,6 +1096,10 @@ public class MainActv extends ListActivity {
 		 * 3. Clear => prefs_main
 		 * 4. Clear => list_root_dir
 			----------------------------*/
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "MainActv.onDestrou()");
 		
 		super.onDestroy();
 		
@@ -1166,11 +1175,11 @@ public class MainActv extends ListActivity {
 //			
 //			break;// case R.id.main_opt_menu_refresh_db
 		
-//		case R.id.main_opt_menu_create_folder://----------------------------------
-//			
-//			Methods.dlg_createFolder(this);
-//			
-//			break;// case R.id.main_opt_menu_create_folder
+		case R.id.main_opt_menu_create_folder://----------------------------------
+			
+			Methods.dlg_createFolder(this);
+			
+			break;// case R.id.main_opt_menu_create_folder
 			
 		case R.id.main_opt_menu_db_activity://----------------------------------
 			

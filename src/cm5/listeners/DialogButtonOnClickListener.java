@@ -158,6 +158,9 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			Methods.createFolder(actv, dlg, dlg2);
 			
+			// debug
+//			Toast.makeText(actv, "Create folder", Toast.LENGTH_SHORT).show();
+			
 			break;
 
 		case dlg_confirm_remove_folder_cancel://---------------------------------------------
