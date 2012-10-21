@@ -239,12 +239,13 @@ public class Methods {
 	/****************************************
 	 * Methods
 	 ****************************************/
-	public static void sortFileList(File[] files) {
+	public static void sort_list_files(File[] files) {
 		// REF=> http://android-coding.blogspot.jp/2011/10/sort-file-list-in-order-by-implementing.html
 		/****************************
 		 * 1. Prep => Comparator
 		 * 2. Sort
 			****************************/
+		
 		/****************************
 		 * 1. Prep => Comparator
 			****************************/
@@ -274,7 +275,7 @@ public class Methods {
 			****************************/
 		Arrays.sort(files, filecomparator);
 
-	}//public static void sortFileList(File[] files)
+	}//public static void sort_list_files(File[] files)
 
 	/****************************************
 	 *
@@ -319,7 +320,7 @@ public class Methods {
 		/****************************
 		 * 2. Refresh list view
 			****************************/
-		refreshListView(actv);
+		refresh_list_view(actv);
 		
 		/****************************
 		 * 3. "Up" button => Enable
@@ -470,7 +471,7 @@ public class Methods {
 
 	
 	/****************************************
-	 * 		refreshListView(Activity actv)
+	 * 		refresh_list_view(Activity actv)
 	 * 
 	 * <Caller> 
 	 * 1. Methods.enterDir()
@@ -485,7 +486,7 @@ public class Methods {
 	 * 
 	 * <Steps> 1.
 	 ****************************************/
-	public static void refreshListView(Activity actv) {
+	public static void refresh_list_view(Activity actv) {
 		/****************************
 		 * Steps
 		 * 1. Get currentPath
@@ -507,6 +508,11 @@ public class Methods {
 		 * 
 		 * 6. Update image buttons
 			****************************/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.refresh_list_view()");
+		
 		/****************************
 		 * 1. Get currentPath
 			****************************/
@@ -521,73 +527,71 @@ public class Methods {
 			
 			return;
 			
+		} else {//if (currentPath == null)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "currentPath=" + currentPath);
+			
 		}//if (currentPath == null)
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.refreshListView()");
+//		//debug
+//		return;
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "currentPath=" + currentPath);
-
-		//debug
-		return;
+		// 
+		/****************************
+		 * 2. Get file array
+			****************************/
+		File currentDir = new File(currentPath);
 		
-//		// 
-//		/****************************
-//		 * 2. Get file array
-//			****************************/
-//		File currentDir = new File(currentPath);
-//		
-//		File[] files = currentDir.listFiles();
+		File[] files = currentDir.listFiles();
 //		
 //		/****************************
 //		 * 3. Sort file array
 //			****************************/
 //		sortFileList(files);
-//		
-//		/****************************
-//		 * 4. Add file names to list
-//			****************************/
-//		// Reset file_names
-//		if(MainActv.file_names != null) {
-//			
-//			MainActv.file_names.clear();
-//			
-//		} else {
-//			
-//			MainActv.file_names = new ArrayList<String>();
-//			
-//		}
-//		
-//		// Add names
-//		for (File item : files) {
-//			
-//			MainActv.file_names.add(item.getName());
-//			
-//		}
-//		
-//		/****************************
-//		 * 5. Notify adapter of changes
-//			****************************/
-//		if (MainActv.adapter != null) {
-//			
-//			MainActv.adapter.notifyDataSetChanged();
-//			
-//		} else {//if (condition)
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "MainActv.adapter => null");
-//			
-//			// debug
-//			Toast.makeText(actv, "MainActv.adapter => null", 3000).show();
-//
-//		}//if (condition)
+		Methods.sort_list_files(files);
+		
+		/****************************
+		 * 4. Add file names to list
+			****************************/
+		// Reset file_names
+		if(MainActv.list_root_dir != null) {
+			
+			MainActv.list_root_dir.clear();
+			
+		} else {
+			
+			MainActv.list_root_dir = new ArrayList<String>();
+			
+		}
+		
+		// Add names
+		for (File item : files) {
+			
+			MainActv.list_root_dir.add(item.getName());
+			
+		}
+		
+		/****************************
+		 * 5. Notify adapter of changes
+			****************************/
+		if (MainActv.adp_dir_list != null) {
+			
+			MainActv.adp_dir_list.notifyDataSetChanged();
+			
+		} else {//if (condition)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "MainActv.adp_dir_list => null");
+			
+			// debug
+			Toast.makeText(actv, "MainActv.adp_dir_list => null", 3000).show();
+
+		}//if (condition)
 //		
 //		/****************************
 //		 * 6. Update image buttons
@@ -612,7 +616,7 @@ public class Methods {
 ////		update_image_buttons(actv, currentPath);
 		
 		
-	}//private static void refreshListView()
+	}//private static void refresh_list_view()
 
 	private static void update_image_buttons(
 					Activity actv, String currentPath) {
@@ -797,7 +801,7 @@ public class Methods {
 		/****************************
 		 * 4. Refresh list
 			****************************/
-		Methods.refreshListView(actv);
+		Methods.refresh_list_view(actv);
 		
 		/****************************
 		 * 4-2. Update buttons
@@ -3412,6 +3416,16 @@ public class Methods {
 			****************************/
 		String currentDirPath = Methods.get_currentPath_from_prefs(actv);
 		
+		if (currentDirPath == null) {
+			
+			currentDirPath = StringUtils.join(
+						new String[]{
+								MainActv.dpath_storage_sdcard, MainActv.dname_base
+						},
+						File.separator);
+			
+		}//if (currentDirPath == null)
+		
 		File newDir = new File(currentDirPath, folderName);
 //		
 		// Log
@@ -3599,10 +3613,16 @@ public class Methods {
 	}//public static boolean createFolder_2_create_folder_set(Activity actv, Dialog dlg, Dialog dlg2)
 
 	public static boolean createFolder_3_create_table(Activity actv, Dialog dlg, File newDir) {
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.createFolder_3_create_table()");
+		
 		/****************************
 		 * 7. Refresh list view
 			****************************/
-		Methods.refreshListView(actv);
+		Methods.refresh_list_view(actv);
 		
 		//debug
 		return false;
@@ -3774,7 +3794,7 @@ public class Methods {
 		/****************************
 		 * 4. Refresh list
 			****************************/
-		refreshListView(actv);
+		refresh_list_view(actv);
 		
 		/****************************
 		 * 6. Drop table
@@ -5041,11 +5061,11 @@ public class Methods {
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "Calling: Methods.refreshListView(actv)");
+//				+ "]", "Calling: Methods.refresh_list_view(actv)");
 				+ "]", "Calling: Methods.refresh_tilist(actv)");
 		
 		
-//		Methods.refreshListView(actv);
+//		Methods.refresh_list_view(actv);
 		Methods.refresh_tilist(actv);
 		
 		// Log
@@ -6990,6 +7010,9 @@ public class Methods {
 	}//public static boolean record_history(Activity actv, long fileId)
 
 	/*********************************
+	 * <Notes>
+	 * 1. File names => Sorted alphabetico-ascendantly
+	 * 
 	 * <Return>
 	 * null		=> File "dpath" doesn't exist
 	 *********************************/
@@ -6997,9 +7020,16 @@ public class Methods {
 		/*********************************
 		 * 1. Directory exists?
 		 * 2. Build list
+		 * 2-1. Sort list
 		 * 
 		 * 3. Return
 		 *********************************/
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.get_file_list(File dpath)");
+		
 		/*********************************
 		 * 1. Directory exists?
 		 *********************************/
@@ -7012,6 +7042,13 @@ public class Methods {
 			
 			return null;
 			
+		} else {//if (!dpath.exists() == condition)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Dir exists: " + dpath.getAbsolutePath());
+			
 		}//if (!dpath.exists() == condition)
 		
 		/*********************************
@@ -7020,6 +7057,11 @@ public class Methods {
 		List<String> list_dir = new ArrayList<String>();
 		
 		File[] files_list = dpath.listFiles();
+		
+		/*********************************
+		 * 2-1. Sort list
+		 *********************************/
+		Methods.sort_list_files(files_list);
 		
 		// Log
 		Log.d("Methods.java" + "["
@@ -7031,7 +7073,7 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]",
 				"dpath=" + dpath.getAbsolutePath()
-				+ "/size=" + files_list.length);
+				+ " // size=" + files_list.length);
 		
 		
 		for (File f : files_list) {

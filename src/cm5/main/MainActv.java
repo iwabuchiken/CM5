@@ -655,7 +655,7 @@ public class MainActv extends ListActivity {
 		/*********************************
 		 * 2. Set variables => currentDirPath, baseDirPath
 		 *********************************/
-//		init_prefs_current_path();
+		this.init_prefs_current_path();
 
 		/*********************************
 		 * 3. Get file list
@@ -667,8 +667,17 @@ public class MainActv extends ListActivity {
 			
 //			init_file_list(root_dir);
 			
+		} else {//if (this.list_root_dir == null)
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "list_root_dir != null");
+			
 		}//if (this.list_root_dir == null)
 
+		
+		
 		/*----------------------------
 		 * 4. Set list to adapter
 			----------------------------*/
@@ -797,7 +806,10 @@ public class MainActv extends ListActivity {
 		 * 2. Get editor
 		 * 3. Set value
 			----------------------------*/
-		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "MainActv.init_prefs_current_path()");
 		
 		/*----------------------------
 		 * 1. Get preference
@@ -833,7 +845,19 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 3. Set value
 			----------------------------*/
-		editor.putString(pkey_current_path, dname_base);
+
+		String base_path = StringUtils.join(
+				new String[]{
+						MainActv.dpath_storage_sdcard, MainActv.dname_base
+				},
+				File.separator);
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "base_path=" + base_path);
+		
+		editor.putString(pkey_current_path, base_path);
 		
 		editor.commit();
 		
@@ -1099,7 +1123,7 @@ public class MainActv extends ListActivity {
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "MainActv.onDestrou()");
+				+ "]", "MainActv.onDestroy()");
 		
 		super.onDestroy();
 		
@@ -1108,7 +1132,7 @@ public class MainActv extends ListActivity {
 			----------------------------*/
 		prefs_main = 
 				this.getSharedPreferences(pname_current_path, MODE_PRIVATE);
-		
+
 		SharedPreferences.Editor editor = prefs_main.edit();
 
 		editor.clear();
