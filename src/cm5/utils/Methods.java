@@ -743,6 +743,7 @@ public class Methods {
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+
 				+ "]", "currentPath");
 		
 		// Log
@@ -3637,35 +3638,43 @@ public class Methods {
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.createFolder_3_create_table()");
+				+ "]", "Starts => createFolder_3_create_table()");
 		
 		/****************************
 		 * 7. Refresh list view
 			****************************/
 		Methods.refresh_list_view(actv);
 		
+//		//debug
+//		return false;
+		
+		/****************************
+		 * 8. Create a new table
+		 * 		8.1. Build a table name
+		 * 		8.2. Create a table
+			****************************/
+		/****************************
+		 * 8.1. Build a table name
+			****************************/
+		String newPath = newDir.getAbsolutePath();
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "newPath=" + newPath);
+		
+		String convertedPath = Methods.convert_prefs_into_path_label(actv, newPath);
+		
+		String tableName = Methods.convert_path_into_table_name(actv, convertedPath);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "New table name => " + tableName);
+
 		//debug
 		return false;
-		
-//		/****************************
-//		 * 8. Create a new table
-//		 * 		8.1. Build a table name
-//		 * 		8.2. Create a table
-//			****************************/
-//		/****************************
-//		 * 8.1. Build a table name
-//			****************************/
-//		String newPath = newDir.getAbsolutePath();
-//
-//		String convertedPath = Methods.convert_prefs_into_path_label(actv, newPath);
-//		
-//		String tableName = Methods.convert_path_into_table_name(actv, convertedPath);
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "New table name => " + tableName);
-//		
+
 //
 //		/****************************
 //		 * 8.2. Create a table
