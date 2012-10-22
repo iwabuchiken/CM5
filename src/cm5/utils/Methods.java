@@ -716,6 +716,10 @@ public class Methods {
 		 * 2. Detect loation of "IFM8"
 		 * 3. Build path label
 			****************************/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Starting => convert_prefs_into_path_label()");
 		
 		String currentPath = path;
 		
@@ -729,11 +733,27 @@ public class Methods {
 		int location = -1;
 		
 		for (int i = 0; i < pathArray.length; i++) {
-			if (pathArray[i].equals(MainActv.dpath_base)) {
+//			if (pathArray[i].equals(MainActv.dpath_base)) {
+			if (pathArray[i].equals(MainActv.dname_base)) {
 				location = i;
 				break;
 			}//if (pathArray[i].equals(ImageFileManager8Activity.baseDirName))
 		}//for (int i = 0; i < pathArray.length; i++)
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "currentPath");
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "MainActv.dpath_base=" + MainActv.dpath_base);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "location=" + location);
 		
 		/****************************
 		 * 3. Build path label
@@ -3732,14 +3752,27 @@ public class Methods {
 		 * 
 		 * 6. Drop table
 			****************************/
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "removeFolder()");
+		
 		/****************************
 		 * 1. Get folder name
 			****************************/
 		TextView tv = (TextView) dlg.findViewById(R.id.dlg_confirm_remove_folder_tv_table_name);
 		String folderName = tv.getText().toString();
 		
+		String current_path = Methods.get_currentPath_from_prefs(actv);
 		//
-		File targetDir = new File(Methods.get_currentPath_from_prefs(actv), folderName);
+//		File targetDir = new File(Methods.get_currentPath_from_prefs(actv), folderName);
+		File targetDir = new File(current_path, folderName);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "current_path=" + current_path);
+		
 		
 		if (!targetDir.exists()) {
 			// debug

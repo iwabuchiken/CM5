@@ -225,7 +225,7 @@ public class MainActv extends ListActivity {
         /*----------------------------
 		 * 5. Set listener => Image buttons
 			----------------------------*/
-//		set_listeners();
+		set_listeners();
 		
 		/*----------------------------
 		 * 6. Set path label
@@ -597,6 +597,18 @@ public class MainActv extends ListActivity {
 		ib_up.setOnTouchListener(new ButtonOnTouchListener(this));
 		ib_up.setOnClickListener(new ButtonOnClickListener(this));
 		
+		/*********************************
+		 * 4. Set listener => Long click
+		 *********************************/
+		ListView lv = this.getListView();
+		
+//		lv.setTag(Methods.ItemTags.dir_list);
+		lv.setTag(Methods.ListTags.actv_main_lv);
+		
+		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
+
+		
+
 	}//private void set_listeners()
 
 	private boolean set_initial_dir_list() {
