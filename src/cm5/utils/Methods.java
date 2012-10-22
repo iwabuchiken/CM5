@@ -3657,29 +3657,30 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "New table name => " + tableName);
 
-		//debug
-		return false;
+//		//debug
+//		return false;
 
-//
-//		/****************************
-//		 * 8.2. Create a table
-//			****************************/
-//		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
-//		
-//		SQLiteDatabase wdb = dbu.getWritableDatabase();
-//		
-//		boolean res = dbu.createTable(wdb, tableName, 
-////					dbu.get_cols(), dbu.get_col_types());
+
+		/****************************
+		 * 8.2. Create a table
+			****************************/
+		DBUtils dbu = new DBUtils(actv, MainActv.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		boolean res = dbu.createTable(wdb, tableName, 
+//					dbu.get_cols(), dbu.get_col_types());
 //							DBUtils.cols, DBUtils.col_types);
-//		
-//		wdb.close();
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "Methods.createFolder() => Done");
-//		
-//		return res;
+					MainActv.cols_item, MainActv.col_types_item);
+		
+		wdb.close();
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods.createFolder() => Done");
+		
+		return res;
 		
 	}//public static boolean createFolder_3_create_table(Activity actv, Dialog dlg, Dialog dlg2)
 

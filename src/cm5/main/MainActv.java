@@ -225,7 +225,7 @@ public class MainActv extends ListActivity {
         /*----------------------------
 		 * 5. Set listener => Image buttons
 			----------------------------*/
-//		set_listeners();
+		set_listeners();
 		
 		/*----------------------------
 		 * 6. Set path label
@@ -566,37 +566,49 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 1. Get view
 		 * 2. Set enables
+		 * 
+		 * 4. Listener => Long click
 			----------------------------*/
+//		
+//		ImageButton ib_up = (ImageButton) findViewById(R.id.v1_bt_up);
+//		
+//		/*----------------------------
+//		 * 2. Set enables
+//			----------------------------*/
+//		String curDirPath = Methods.get_currentPath_from_prefs(this);
+//		
+//		if (curDirPath.equals(dname_base)) {
+//			
+//			ib_up.setEnabled(false);
+//			
+//			ib_up.setImageResource(R.drawable.ifm8_up_disenabled);
+//			
+//		} else {//if (this.currentDirPath == this.baseDirPath)
+//		
+//			ib_up.setEnabled(true);
+//			
+//			ib_up.setImageResource(R.drawable.ifm8_up);
+//		
+//		}//if (this.currentDirPath == this.baseDirPath)
+//		
+//		/*----------------------------
+//		 * 3. Listeners => Click
+//			----------------------------*/
+//		ib_up.setTag(Methods.ButtonTags.ib_up);
+//		
+//		ib_up.setOnTouchListener(new ButtonOnTouchListener(this));
+//		ib_up.setOnClickListener(new ButtonOnClickListener(this));
 		
-		ImageButton ib_up = (ImageButton) findViewById(R.id.v1_bt_up);
+		/*********************************
+		 * 4. Listener => Long click
+		 *********************************/
+		ListView lv = this.getListView();
 		
-		/*----------------------------
-		 * 2. Set enables
-			----------------------------*/
-		String curDirPath = Methods.get_currentPath_from_prefs(this);
+//		lv.setTag(Methods.ItemTags.dir_list);
+		lv.setTag(Methods.ListTags.actv_main_lv);
 		
-		if (curDirPath.equals(dname_base)) {
-			
-			ib_up.setEnabled(false);
-			
-			ib_up.setImageResource(R.drawable.ifm8_up_disenabled);
-			
-		} else {//if (this.currentDirPath == this.baseDirPath)
-		
-			ib_up.setEnabled(true);
-			
-			ib_up.setImageResource(R.drawable.ifm8_up);
-		
-		}//if (this.currentDirPath == this.baseDirPath)
-		
-		/*----------------------------
-		 * 3. Listeners => Click
-			----------------------------*/
-		ib_up.setTag(Methods.ButtonTags.ib_up);
-		
-		ib_up.setOnTouchListener(new ButtonOnTouchListener(this));
-		ib_up.setOnClickListener(new ButtonOnClickListener(this));
-		
+		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
+
 	}//private void set_listeners()
 
 	private boolean set_initial_dir_list() {
