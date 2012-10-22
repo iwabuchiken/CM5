@@ -729,7 +729,8 @@ public class Methods {
 		int location = -1;
 		
 		for (int i = 0; i < pathArray.length; i++) {
-			if (pathArray[i].equals(MainActv.dpath_base)) {
+//			if (pathArray[i].equals(MainActv.dpath_base)) {
+			if (pathArray[i].equals(MainActv.dname_base)) {
 				location = i;
 				break;
 			}//if (pathArray[i].equals(ImageFileManager8Activity.baseDirName))
