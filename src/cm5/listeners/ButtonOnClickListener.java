@@ -189,13 +189,26 @@ public class ButtonOnClickListener implements OnClickListener {
 			
 			break;// case image_activity_next
 
-		
+		case thumb_activity_ib_back://----------------------------------------------------
+
+			thumb_activity_ib_back();
+			
+			break;// case thumb_activity_ib_back
+					
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void thumb_activity_ib_back() {
+		/*********************************
+		 * memo
+		 *********************************/
+		actv.finish();
+		
+	}//private void thumb_activity_ib_back()
 
 	private void image_activity_next() {
 //		/*********************************
