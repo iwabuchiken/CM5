@@ -144,11 +144,11 @@ public class MainActv extends ListActivity {
 	
 	public static String[] cols_item = 
 		{"file_name", 	"file_path",	"title", "memo",
-			"last_played_at",	"table_name"};
+			"last_played_at",	"table_name",	"length"};
 	
 	public static String[] col_types_item =
 		{"TEXT", 		"TEXT", 		"TEXT",	"TEXT",
-			"INTEGER",			"TEXT"};
+			"INTEGER",			"TEXT", 		"INTEGER"};
 
 	// Table => show_history
 	public static String tname_show_history = "show_history";

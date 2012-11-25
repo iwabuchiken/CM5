@@ -7150,7 +7150,7 @@ public class Methods {
 		// Log
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.get_all_data_ai(Activity actv, String table_name)");
+				+ "]", "get_all_data_ai(Activity actv, String table_name)");
 		
 		/*********************************
 		 * 1. DB setup
@@ -7255,6 +7255,82 @@ public class Methods {
 			// Add to the list
 			ai_list.add(ti);
 			
+//			// Log
+//			String file_full_path = StringUtils.join(
+//						new String[]{
+//								c.getString(4),
+//								c.getString(3)
+//						}, File.separator);
+//			
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file_full_path=" + file_full_path);
+			
+////			File f = new File(file_full_path);
+//			
+//			MediaPlayer mp = new MediaPlayer();
+//			
+//			try {
+//				mp.setDataSource(file_full_path);
+//				
+//				mp.prepare();
+//				
+//				int len = mp.getDuration() / 1000;
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+//						"len=" + len
+//						+ "(" + c.getString(3) + ")");
+//
+//				// REF=> http://stackoverflow.com/questions/9609479/android-mediaplayer-went-away-with-unhandled-events
+//				mp.reset();
+//				
+//				// REF=> http://stackoverflow.com/questions/3761305/android-mediaplayer-throwing-prepare-failed-status-0x1-on-2-1-works-on-2-2
+//				mp.release();
+//				
+//			} catch (IllegalArgumentException e) {
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception=" + e.toString());
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "message" + c.getString(3));
+//				
+//			} catch (IllegalStateException e) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception=" + e.toString());
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "message" + c.getString(3));
+//				
+//			} catch (IOException e) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception=" + e.toString());
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "message" + c.getString(3));
+//
+//			}
+//			
 			//
 			c.moveToNext();
 			

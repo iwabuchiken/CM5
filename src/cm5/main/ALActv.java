@@ -4,10 +4,13 @@
  *********************************/
 package cm5.main;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import cm5.items.AI;
 import cm5.items.TI;
@@ -530,6 +533,8 @@ public class ALActv extends ListActivity {
 		 * 1. super
 		 * 
 		 * 2. Set up
+		 * 
+		 * 3. Debug: Store file length data
 		 *********************************/
 		super.onStart();
 		
@@ -550,6 +555,11 @@ public class ALActv extends ListActivity {
 		
 		setup_2_set_list();
 
+		/*********************************
+		 * 3. Debug: Store file length data
+		 *********************************/
+		debug_1_store_file_length();
+		
 //		/*********************************
 //		 * 2. Set selection
 //		 *********************************/
@@ -584,6 +594,124 @@ public class ALActv extends ListActivity {
 //		lv_main.setSelection(target_position);
 		
 	}//protected void onStart()
+
+	private void debug_1_store_file_length() {
+		/*********************************
+		 * 1. DB setup
+		 * 2. Table exists?
+		 *********************************/
+		/*********************************
+		 * 1. DB setup
+		 *********************************/
+		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		String tname = MainActv.tname_main;
+		
+		/****************************
+		 * 2. Table exists?
+			****************************/
+		boolean res = dbu.tableExists(rdb, tname);
+		
+		if (res == false) {
+			
+			// Log
+			Log.e("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]",
+				"debug_1_store_file_length() => Table doesn't exist: " + tname);
+			
+			rdb.close();
+			
+			return;
+			
+		} else {//if (res == false)
+			
+			// Log
+			Log.d("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists => " + tname);
+			
+		}
+		
+		/*********************************
+		 * Query
+		 *********************************/
+		String sql = "SELECT * FROM " + tname;
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+			startManagingCursor(c);
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+			return;
+		}
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "c.getCount() => " + c.getCount());
+
+		/****************************
+		 * 
+			****************************/
+//		int data_num = c.getCount();
+//		
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "data_num=" + data_num);
+		
+		c.moveToFirst();
+		
+//		String file_full_path = StringUtils.join(
+//				(new String[]{
+//					c.getString(4),
+//					c.getString(3)}),
+//				File.separator);
+
+		String[] col_names = 
+				Methods.get_column_list(this, MainActv.dbName, tname);
+		
+		for (String col_name : col_names) {
+			
+			// Log
+			Log.d("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "col_name=" + col_name);
+			
+		}
+		
+		
+		/*********************************
+		 * Add column
+		 *********************************/
+		res = 
+				Methods.add_column_to_table(
+						this, MainActv.dbName, tname, "length", "INTEGER");
+		
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "res=" + res);
+		
+		rdb.close();
+		
+	}//private void debug_1_store_file_length()
+	
+
 
 	@Override
 	protected void onStop() {
