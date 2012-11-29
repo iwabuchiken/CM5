@@ -5438,6 +5438,8 @@ public class Methods {
 		 * 1. Prep => File names
 		 * 2. Prep => Files
 		 * 2-2. Folder exists?
+		 * 
+		 * 2-3. Dst folder => Files within the limit?
 		 * 3. Copy
 			****************************/
 		String time_label = Methods.get_TimeLabel(Methods.getMillSeconds_now());
@@ -5448,21 +5450,27 @@ public class Methods {
 							MainActv.fname_db},
 					File.separator);
 		
-		String db_dst = StringUtils.join(
+		String db_dst_folder = StringUtils.join(
 					new String[]{
 							MainActv.dpath_db_backup,
 							MainActv.fname_db_backup_trunk},
 					File.separator);
 		
-		db_dst = db_dst + "_"
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
+//		
+		String db_dst = db_dst_folder + "_"
 				+ time_label
 //				+ MainActv.fileName_db_backup_ext;
-				+ MainActv.fname_db_backup_trunk;
+				+ MainActv.fname_db_backup_ext;
+//				+ MainActv.fname_db_backup_trunk;
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
 		
 		/****************************
 		 * 2. Prep => Files
@@ -5504,6 +5512,18 @@ public class Methods {
 					+ "]", "Folder exists: ");
 			
 		}//if (!db_backup.exists())
+		
+		/*********************************
+		 * 2-3. Dst folder => Files within the limit?
+		 *********************************/
+		File[] files_dst_folder = new File(MainActv.dpath_db_backup).listFiles();
+		
+		int num_of_files = files_dst_folder.length;
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "num_of_files=" + num_of_files);
 		
 		/****************************
 		 * 3. Copy
