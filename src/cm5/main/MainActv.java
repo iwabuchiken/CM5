@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -116,35 +117,91 @@ public class MainActv extends ListActivity {
 		 * 8. Refresh DB
 		 *********************************/
 //		refresh_db();
-		
-//		int current_history_mode = Methods.get_pref(
-//				this, 
-//				MainActv.pname_mainActv, 
-//				MainActv.pname_mainActv_history_mode,
-//				-1);
-//
-//		// Log
-//		Log.d("MainActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "onCreate: current_history_mode=" + current_history_mode);
-		
-		//debug
-//        drop_table(MainActv.tname_main);
-//        
-//        drop_table(MainActv.tname_refresh_history);
-        
-        
-//		do_debug();
-//		copy_db_file();
-//		test_simple_format();
-//		restore_db();
-//		check_db();
-//		show_column_list();
+
+//		B14_v_1_2_verify_table_name_in_record();
 		
         
     }//public void onCreate(Bundle savedInstanceState)
 
-    private void B13_v_1_0_reset_pref_current_path() {
+    private void B14_v_1_2_verify_table_name_in_record() {
+		
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
+
+		//
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		String sql = "SELECT * FROM " + CONS.tname_main;
+		
+		Cursor c = null;
+		
+		int count_null = 0;
+		int count_in = 0;
+		int count_others = 0;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+			if (c.getCount() > 0) {
+				
+				c.moveToFirst();
+				
+				for (int i = 0; i < c.getCount(); i++) {
+					
+					String s = c.getString(8);
+					
+					if (s == null || s.equals("") || s.equals("null")) {
+
+						count_null += 1;
+						
+					} else if (s.equals(CONS.tname_main)) {//if (s == null || s.equals("") || s.equals("null"))
+						
+						count_in += 1;
+						
+					} else {//if (s == null || s.equals("") || s.equals("null"))
+						
+						count_others += 1;
+						
+					}//if (s == null || s.equals("") || s.equals("null"))
+					
+					c.moveToNext();
+					
+				}//for (int i = 0; i < c.getCount(); i++)
+				
+			} else {//if (c.getCount() > 0)
+				
+				// Log
+				Log.d("MainActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "!c.getCount() > 0");
+				
+			}//if (c.getCount() > 0)
+			
+			
+		} catch (Exception e) {
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+		}//try
+
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]",
+				"count_null=" + count_null + "/"
+				+ "count_in=" + count_in + "/"
+				+ "count_others=" + count_others);
+		
+		rdb.close();
+		
+	}//private void B14_v_1_2_verify_table_name_in_record()
+
+	private void B13_v_1_0_reset_pref_current_path() {
 		// TODO Auto-generated method stub
     	Methods.set_pref(this,
 				CONS.pname_current_path,
