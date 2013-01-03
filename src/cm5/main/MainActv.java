@@ -20,6 +20,7 @@ import cm5.tasks.RefreshDBTask;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
+import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 
 import android.app.Activity;
@@ -1098,13 +1099,13 @@ public class MainActv extends ListActivity {
 		
 		case R.id.main_opt_menu_create_folder://----------------------------------
 			
-			Methods.dlg_createFolder(this);
+			Methods_dialog.dlg_createFolder(this);
 			
 			break;// case R.id.main_opt_menu_create_folder
 			
 		case R.id.main_opt_menu_db_activity://----------------------------------
 			
-			Methods.dlg_db_activity(this);
+			Methods_dialog.dlg_db_activity(this);
 			
 			break;// case R.id.main_opt_menu_db_activity
 
