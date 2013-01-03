@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cm5.utils.Methods;
+import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 
 import android.app.Activity;
@@ -124,7 +125,7 @@ public class CustomOnItemLongClickListener implements OnItemLongClickListener {
 			/*----------------------------
 			 * 5.1.2. If yes, call a method
 				----------------------------*/
-			Methods.dlg_removeFolder(actv, folderName);
+			Methods_dialog.dlg_removeFolder(actv, folderName);
 						
 			break;
 		

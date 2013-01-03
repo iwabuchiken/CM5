@@ -2,6 +2,7 @@ package cm5.listeners.button;
 
 import cm5.items.AI;
 import cm5.utils.Methods;
+import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 import android.app.Activity;
 import android.content.Context;
@@ -46,7 +47,7 @@ public class ButtonOnLongClickListener implements OnLongClickListener {
 		
 		case actv_play_tv_title://---------------------------------
 			
-			Methods.dlg_edit_title(actv, ai);
+			Methods_dialog.dlg_edit_title(actv, ai);
 			
 			break;// case actv_play_tv_title
 			

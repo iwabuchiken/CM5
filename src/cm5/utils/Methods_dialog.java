@@ -852,133 +852,133 @@ public class Methods_dialog {
 		
 	}//public static void dlg_db_activity(Activity actv)
 
-	public static void db_backup(Activity actv, Dialog dlg) {
-		/****************************
-		 * 1. Prep => File names
-		 * 2. Prep => Files
-		 * 2-2. Folder exists?
-		 * 
-		 * 2-3. Dst folder => Files within the limit?
-		 * 3. Copy
-			****************************/
-		String time_label = Methods.get_TimeLabel(Methods.getMillSeconds_now());
-		
-		String db_src = StringUtils.join(
-					new String[]{
-							CONS.dpath_db,
-							CONS.fname_db},
-					File.separator);
-		
-		String db_dst_folder = StringUtils.join(
-					new String[]{
-							CONS.dpath_db_backup,
-							CONS.fname_db_backup_trunk},
-					File.separator);
-		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
+//	public static void db_backup(Activity actv, Dialog dlg) {
+//		/****************************
+//		 * 1. Prep => File names
+//		 * 2. Prep => Files
+//		 * 2-2. Folder exists?
+//		 * 
+//		 * 2-3. Dst folder => Files within the limit?
+//		 * 3. Copy
+//			****************************/
+//		String time_label = Methods.get_TimeLabel(Methods.getMillSeconds_now());
 //		
-		String db_dst = db_dst_folder + "_"
-				+ time_label
-//				+ MainActv.fileName_db_backup_ext;
-				+ CONS.fname_db_backup_ext;
-//				+ MainActv.fname_db_backup_trunk;
-		
+//		String db_src = StringUtils.join(
+//					new String[]{
+//							CONS.dpath_db,
+//							CONS.fname_db},
+//					File.separator);
+//		
+//		String db_dst_folder = StringUtils.join(
+//					new String[]{
+//							CONS.dpath_db_backup,
+//							CONS.fname_db_backup_trunk},
+//					File.separator);
+//		
+////		// Log
+////		Log.d("Methods.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
+////		
+//		String db_dst = db_dst_folder + "_"
+//				+ time_label
+////				+ MainActv.fileName_db_backup_ext;
+//				+ CONS.fname_db_backup_ext;
+////				+ MainActv.fname_db_backup_trunk;
+//		
+////		// Log
+////		Log.d("Methods.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
+//		
+//		/****************************
+//		 * 2. Prep => Files
+//			****************************/
+//		File src = new File(db_src);
+//		File dst = new File(db_dst);
+//		
+//		/****************************
+//		 * 2-2. Folder exists?
+//			****************************/
+//		File db_backup = new File(CONS.dpath_db_backup);
+//		
+//		if (!db_backup.exists()) {
+//			
+//			try {
+//				db_backup.mkdir();
+//				
+//				// Log
+//				Log.d("Methods.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", "Folder created: " + db_backup.getAbsolutePath());
+//			} catch (Exception e) {
+//				
+//				// Log
+//				Log.e("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Create folder => Failed");
+//				
+//				return;
+//				
+//			}
+//			
+//		} else {//if (!db_backup.exists())
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Folder exists: ");
+//			
+//		}//if (!db_backup.exists())
+//		
+//		/*********************************
+//		 * 2-3. Dst folder => Files within the limit?
+//		 *********************************/
+//		File[] files_dst_folder = new File(CONS.dpath_db_backup).listFiles();
+//		
+//		int num_of_files = files_dst_folder.length;
+//		
 //		// Log
 //		Log.d("Methods.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "db_src: " + db_src + " * " + "db_dst: " + db_dst);
-		
-		/****************************
-		 * 2. Prep => Files
-			****************************/
-		File src = new File(db_src);
-		File dst = new File(db_dst);
-		
-		/****************************
-		 * 2-2. Folder exists?
-			****************************/
-		File db_backup = new File(CONS.dpath_db_backup);
-		
-		if (!db_backup.exists()) {
-			
-			try {
-				db_backup.mkdir();
-				
-				// Log
-				Log.d("Methods.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", "Folder created: " + db_backup.getAbsolutePath());
-			} catch (Exception e) {
-				
-				// Log
-				Log.e("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Create folder => Failed");
-				
-				return;
-				
-			}
-			
-		} else {//if (!db_backup.exists())
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Folder exists: ");
-			
-		}//if (!db_backup.exists())
-		
-		/*********************************
-		 * 2-3. Dst folder => Files within the limit?
-		 *********************************/
-		File[] files_dst_folder = new File(CONS.dpath_db_backup).listFiles();
-		
-		int num_of_files = files_dst_folder.length;
-		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "num_of_files=" + num_of_files);
-		
-		/****************************
-		 * 3. Copy
-			****************************/
-		try {
-			FileChannel iChannel = new FileInputStream(src).getChannel();
-			FileChannel oChannel = new FileOutputStream(dst).getChannel();
-			iChannel.transferTo(0, iChannel.size(), oChannel);
-			iChannel.close();
-			oChannel.close();
-			
-			// Log
-			Log.d("ThumbnailActivity.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "File copied");
-			
-			// debug
-			Toast.makeText(actv, "DB backup => Done", 3000).show();
-
-			dlg.dismiss();
-			
-		} catch (FileNotFoundException e) {
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-			
-		} catch (IOException e) {
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-		}//try
-
-		
-	}//public static void db_backup(Activity actv, Dialog dlg, String item)
+//				+ "]", "num_of_files=" + num_of_files);
+//		
+//		/****************************
+//		 * 3. Copy
+//			****************************/
+//		try {
+//			FileChannel iChannel = new FileInputStream(src).getChannel();
+//			FileChannel oChannel = new FileOutputStream(dst).getChannel();
+//			iChannel.transferTo(0, iChannel.size(), oChannel);
+//			iChannel.close();
+//			oChannel.close();
+//			
+//			// Log
+//			Log.d("ThumbnailActivity.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "File copied");
+//			
+//			// debug
+//			Toast.makeText(actv, "DB backup => Done", 3000).show();
+//
+//			dlg.dismiss();
+//			
+//		} catch (FileNotFoundException e) {
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//			
+//		} catch (IOException e) {
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//		}//try
+//
+//		
+//	}//public static void db_backup(Activity actv, Dialog dlg, String item)
 
 	public static void dlg_seratchItem(Activity actv) {
 		/****************************

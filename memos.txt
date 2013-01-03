@@ -5,6 +5,8 @@ gitk
 
 C:\WORKS\WORKSPACES_ANDROID\FM\a
 
+pushd C:\Users\IwabuchiKen\Desktop
+
 
 [Git]
 copy ..\ImageFileManager6\.gitignore .

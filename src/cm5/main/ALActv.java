@@ -23,6 +23,7 @@ import cm5.listeners.dialog.DialogListener;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
+import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 
 import cm5.main.R;
@@ -1122,7 +1123,7 @@ public class ALActv extends ListActivity {
 				/****************************
 				 * 2. If yes, show dialog
 					****************************/
-				Methods.dlg_moveFiles(this);
+				Methods_dialog.dlg_moveFiles(this);
 				
 			}//if (move_mode == false)
 			

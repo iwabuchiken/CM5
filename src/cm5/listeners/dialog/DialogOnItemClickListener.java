@@ -2,6 +2,7 @@ package cm5.listeners.dialog;
 
 import cm5.tasks.RefreshDBTask;
 import cm5.utils.Methods;
+import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 import cm5.main.R;
 import android.app.Activity;
@@ -68,7 +69,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 
 			String folderPath = (String) parent.getItemAtPosition(position);
 			
-			Methods.dlg_confirm_moveFiles(actv, dlg, folderPath);
+			Methods_dialog.dlg_confirm_moveFiles(actv, dlg, folderPath);
 
 //			// debug
 //			Toast.makeText(actv, "Move files to: " + folderPath, 2000)
@@ -158,11 +159,11 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				----------------------------*/
 			if (item.equals(actv.getString(R.string.generic_tv_register))) {
 				
-				Methods.dlg_register_patterns(actv, dlg);
+				Methods_dialog.dlg_register_patterns(actv, dlg);
 				
 			} else if (item.equals(actv.getString(R.string.generic_tv_delete))) {
 
-				Methods.dlg_delete_patterns(actv, dlg);
+				Methods_dialog.dlg_delete_patterns(actv, dlg);
 				
 			} else if (item.equals(actv.getString(R.string.generic_tv_edit))) {
 				
@@ -177,7 +178,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 //			// debug
 //			Toast.makeText(actv, item, 2000).show();
 			
-			Methods.dlg_confirm_delete_patterns(actv, dlg, dlg2, item);
+			Methods_dialog.dlg_confirm_delete_patterns(actv, dlg, dlg2, item);
 			
 			break;// case dlg_delete_patterns_gv
 			
