@@ -54,59 +54,59 @@ public class DBUtils extends SQLiteOpenHelper{
 	SQLiteDatabase db = null;
 
 	//
-	String[] cols_with_index = 
-				{android.provider.BaseColumns._ID, 
-					"file_id", 		"file_path", "file_name", "date_added",
-					"date_modified", "memos", "tags"};
-	
-	String[] col_types_with_index =
-				{	"INTEGER", "TEXT", 	"TEXT",		"INTEGER",
-					"INTEGER",		"TEXT",	"TEXT"};
-
-	// Main data
-	public static String[] cols = 
-		{"file_id", "file_path", "file_name", 	"date_added",
-		"date_modified",	"memos", "tags", 	"last_viewed_at"};
-//	"date_modified", "memos", "tags"};
-
-	public static String[] col_types =
-		{"INTEGER", "TEXT", 	"TEXT",			"INTEGER",
-		"INTEGER",			"TEXT",	"TEXT",		"INTEGER"};
-
-	static String[] cols_for_insert_data = 
-		{"file_id", 		"file_path", "file_name", "date_added", "date_modified"};
-
-	// Proj
-	static String[] proj = {
-		MediaStore.Images.Media._ID, 
-		MediaStore.Images.Media.DATA,
-		MediaStore.Images.Media.DISPLAY_NAME,
-		MediaStore.Images.Media.DATE_ADDED,
-		MediaStore.Images.Media.DATE_MODIFIED,
-		};
-
-	static String[] proj_for_get_data = {
-		MediaStore.Images.Media._ID, 
-		MediaStore.Images.Media.DATA,
-		MediaStore.Images.Media.DISPLAY_NAME,
-		MediaStore.Images.Media.DATE_ADDED,
-		MediaStore.Images.Media.DATE_MODIFIED,
-		"memos",
-		"tags"
-		};
-
-	static String[] cols_refresh_log = {
-		"last_refreshed", "num_of_items_added"
-	};
-	
-	static String[] col_types_refresh_log = {
-		"INTEGER", 			"INTEGER"
-	};
-
-	static String[] cols_memo_patterns = {"word", "table_name"};
-	static String[] col_types_memo_patterns = {"TEXT", "TEXT"};
-	
-	static String table_name_memo_patterns = "memo_patterns";
+//	String[] cols_with_index = 
+//				{android.provider.BaseColumns._ID, 
+//					"file_id", 		"file_path", "file_name", "date_added",
+//					"date_modified", "memos", "tags"};
+//	
+//	String[] col_types_with_index =
+//				{	"INTEGER", "TEXT", 	"TEXT",		"INTEGER",
+//					"INTEGER",		"TEXT",	"TEXT"};
+//
+//	// Main data
+//	public static String[] cols = 
+//		{"file_id", "file_path", "file_name", 	"date_added",
+//		"date_modified",	"memos", "tags", 	"last_viewed_at"};
+////	"date_modified", "memos", "tags"};
+//
+//	public static String[] col_types =
+//		{"INTEGER", "TEXT", 	"TEXT",			"INTEGER",
+//		"INTEGER",			"TEXT",	"TEXT",		"INTEGER"};
+//
+//	static String[] cols_for_insert_data = 
+//		{"file_id", 		"file_path", "file_name", "date_added", "date_modified"};
+//
+//	// Proj
+//	static String[] proj = {
+//		MediaStore.Images.Media._ID, 
+//		MediaStore.Images.Media.DATA,
+//		MediaStore.Images.Media.DISPLAY_NAME,
+//		MediaStore.Images.Media.DATE_ADDED,
+//		MediaStore.Images.Media.DATE_MODIFIED,
+//		};
+//
+//	static String[] proj_for_get_data = {
+//		MediaStore.Images.Media._ID, 
+//		MediaStore.Images.Media.DATA,
+//		MediaStore.Images.Media.DISPLAY_NAME,
+//		MediaStore.Images.Media.DATE_ADDED,
+//		MediaStore.Images.Media.DATE_MODIFIED,
+//		"memos",
+//		"tags"
+//		};
+//
+//	static String[] cols_refresh_log = {
+//		"last_refreshed", "num_of_items_added"
+//	};
+//	
+//	static String[] col_types_refresh_log = {
+//		"INTEGER", 			"INTEGER"
+//	};
+//
+//	static String[] cols_memo_patterns = {"word", "table_name"};
+//	static String[] col_types_memo_patterns = {"TEXT", "TEXT"};
+//	
+//	static String table_name_memo_patterns = "memo_patterns";
 	
 	/*****************************************************************
 	 * Constructor
@@ -246,19 +246,19 @@ public class DBUtils extends SQLiteOpenHelper{
 	}//public boolean tableExists(String tableName)
 
 	public String[] get_cols_with_index() {
-		return cols_with_index;
+		return CONS.cols_with_index;
 	}
 	
 	public String[] get_col_types_with_index() {
-		return col_types_with_index;
+		return CONS.col_types_with_index;
 	}
 
 	public String[] get_cols() {
-		return cols;
+		return CONS.cols;
 	}
 	
 	public String[] get_col_types() {
-		return col_types;
+		return CONS.col_types;
 	}
 
 	public boolean dropTable(Activity actv, SQLiteDatabase db, String tableName) {
@@ -586,7 +586,7 @@ public class DBUtils extends SQLiteOpenHelper{
 
 			// Insert data
 //			wdb.insert(MainActv.tableName_show_history, null, val);
-			wdb.insert(MainActv.tname_show_history, null, val);
+			wdb.insert(CONS.tname_show_history, null, val);
 			
 			// Set as successful
 			wdb.setTransactionSuccessful();
@@ -1056,7 +1056,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			val.put("table_name", ai.getTable_name());
 			
 			// Insert data
-			wdb.insert(MainActv.tname_main, null, val);
+			wdb.insert(CONS.tname_main, null, val);
 			
 			// Set as successful
 			wdb.setTransactionSuccessful();
@@ -1191,7 +1191,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
 		
-		String sql = "UPDATE " + MainActv.tname_main + " SET " + 
+		String sql = "UPDATE " + CONS.tname_main + " SET " + 
 //				"last_viewed_at='" + Methods.getMillSeconds_now() + "' " +
 				
 				col_name + " = '" + value + "' "

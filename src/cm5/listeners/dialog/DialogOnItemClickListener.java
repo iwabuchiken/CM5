@@ -1,7 +1,8 @@
-package cm5.listeners;
+package cm5.listeners.dialog;
 
+import cm5.tasks.RefreshDBTask;
 import cm5.utils.Methods;
-import cm5.utils.RefreshDBTask;
+import cm5.utils.Tags;
 import cm5.main.R;
 import android.app.Activity;
 import android.app.Dialog;
@@ -54,7 +55,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		 * 3. Switching
 			----------------------------*/
 		
-		Methods.DialogItemTags tag = (Methods.DialogItemTags) parent.getTag();
+		Tags.DialogItemTags tag = (Tags.DialogItemTags) parent.getTag();
 //		
 		vib.vibrate(Methods.vibLength_click);
 		

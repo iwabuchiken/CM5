@@ -5,14 +5,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cm5.adapters.TIListAdapter;
 import cm5.items.TI;
-import cm5.listeners.ButtonOnClickListener;
-import cm5.listeners.ButtonOnTouchListener;
 import cm5.listeners.CustomOnItemLongClickListener;
-import cm5.listeners.DialogListener;
+import cm5.listeners.button.ButtonOnClickListener;
+import cm5.listeners.button.ButtonOnTouchListener;
+import cm5.listeners.dialog.DialogListener;
+import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
-import cm5.utils.TIListAdapter;
+import cm5.utils.Tags;
 
 import cm5.main.R;
 
@@ -141,7 +143,7 @@ public class TNActv extends ListActivity {
 
 	private void get_tables_from_db() {
 		
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
@@ -182,7 +184,7 @@ public class TNActv extends ListActivity {
 
 	private void get_data_from_table_AAA() {
 		
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
@@ -260,11 +262,11 @@ public class TNActv extends ListActivity {
 			----------------------------*/
 		int current_history_mode = Methods.get_pref(
 				this, 
-				MainActv.pname_mainActv, 
-				MainActv.pname_mainActv_history_mode,
+				CONS.pname_mainActv, 
+				CONS.pname_mainActv_history_mode,
 				-1);
 
-		if (current_history_mode == MainActv.HISTORY_MODE_OFF) {
+		if (current_history_mode == CONS.HISTORY_MODE_OFF) {
 
 			// Log
 			Log.d("TNActv.java" + "["
@@ -284,7 +286,7 @@ public class TNActv extends ListActivity {
 				
 			});
 			
-		} else if (current_history_mode == MainActv.HISTORY_MODE_ON) {
+		} else if (current_history_mode == CONS.HISTORY_MODE_ON) {
 
 			// Log
 			Log.d("TNActv.java" + "["
@@ -364,12 +366,12 @@ public class TNActv extends ListActivity {
 		
 		long_searchedItems = i.getLongArrayExtra("long_searchedItems");
 		
-		history_file_ids = i.getLongArrayExtra(MainActv.intent_label_file_ids);
+		history_file_ids = i.getLongArrayExtra(CONS.intent_label_file_ids);
 		
-		history_table_names = i.getStringArrayExtra(MainActv.intent_label_table_names);
+		history_table_names = i.getStringArrayExtra(CONS.intent_label_table_names);
 		
 		string_searchedItems_table_names = 
-					i.getStringArrayExtra(MainActv.intent_label_searchedItems_table_names);
+					i.getStringArrayExtra(CONS.intent_label_searchedItems_table_names);
 		
 		/*----------------------------
 		 * 2. Build tiList
@@ -485,7 +487,7 @@ public class TNActv extends ListActivity {
 		ib_back.setEnabled(true);
 		ib_back.setImageResource(R.drawable.ifm8_thumb_back_50x50);
 		
-		ib_back.setTag(Methods.ButtonTags.thumb_activity_ib_back);
+		ib_back.setTag(Tags.ButtonTags.thumb_activity_ib_back);
 		
 		ib_back.setOnTouchListener(new ButtonOnTouchListener(this));
 		ib_back.setOnClickListener(new ButtonOnClickListener(this));
@@ -496,7 +498,7 @@ public class TNActv extends ListActivity {
 //		ListView lv = (ListView) findViewById(android.R.layout.activity_list_item);
 		ListView lv = this.getListView();
 		
-		lv.setTag(Methods.ItemTags.dir_list_thumb_actv);
+		lv.setTag(Tags.ItemTags.dir_list_thumb_actv);
 		
 		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
@@ -511,7 +513,7 @@ public class TNActv extends ListActivity {
 		bt_bottom.setImageResource(R.drawable.ifm8_thumb_bottom_50x50);
 		
 		// Tag
-		bt_bottom.setTag(Methods.ButtonTags.thumb_activity_ib_bottom);
+		bt_bottom.setTag(Tags.ButtonTags.thumb_activity_ib_bottom);
 		
 		bt_bottom.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_bottom.setOnClickListener(new ButtonOnClickListener(this, lv));
@@ -527,7 +529,7 @@ public class TNActv extends ListActivity {
 		bt_top.setImageResource(R.drawable.ifm8_thumb_top_50x50);
 		
 		// Tag
-		bt_top.setTag(Methods.ButtonTags.thumb_activity_ib_top);
+		bt_top.setTag(Tags.ButtonTags.thumb_activity_ib_top);
 		
 		/*----------------------------
 		 * 4.2. Listeners
@@ -701,7 +703,7 @@ public class TNActv extends ListActivity {
 		SharedPreferences prefs = 
 				this.getSharedPreferences(
 //						MainActv.prefName_tnActv,
-						MainActv.pname_tnActv,
+						CONS.pname_tnActv,
 						MODE_PRIVATE);
 		
 		SharedPreferences.Editor editor = prefs.edit();
@@ -713,7 +715,7 @@ public class TNActv extends ListActivity {
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "Prefs cleared: " + MainActv.prefName_tnActv);
-				+ "]", "Prefs cleared: " + MainActv.pname_tnActv);
+				+ "]", "Prefs cleared: " + CONS.pname_tnActv);
 
 		/*********************************
 		 * 3. History mode => Off
@@ -722,28 +724,28 @@ public class TNActv extends ListActivity {
 							this, 
 //							MainActv.prefName_mainActv, 
 //							MainActv.prefName_mainActv_history_mode,
-							MainActv.pname_mainActv, 
-							MainActv.pname_mainActv_history_mode,
+							CONS.pname_mainActv, 
+							CONS.pname_mainActv_history_mode,
 
 							-1);
 		
-		if (current_move_mode == MainActv.HISTORY_MODE_ON) {
+		if (current_move_mode == CONS.HISTORY_MODE_ON) {
 			
 			boolean result = Methods.set_pref(
 					this, 
 //					MainActv.prefName_mainActv, 
 //					MainActv.prefName_mainActv_history_mode,
-					MainActv.pname_mainActv, 
-					MainActv.pname_mainActv_history_mode,
+					CONS.pname_mainActv, 
+					CONS.pname_mainActv_history_mode,
 
-					MainActv.HISTORY_MODE_OFF);
+					CONS.HISTORY_MODE_OFF);
 
 			if (result == true) {
 				// Log
 				Log.d("TNActv.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Pref set: " + MainActv.HISTORY_MODE_OFF);
+								.getLineNumber() + "]", "Pref set: " + CONS.HISTORY_MODE_OFF);
 			} else {//if (result == true)
 				// Log
 				Log.d("TNActv.java"
@@ -1144,7 +1146,7 @@ public class TNActv extends ListActivity {
 						this, 
 						R.layout.thumb_activity, 
 						tiList,
-						Methods.MoveMode.ON);
+						CONS.MoveMode.ON);
 
 		setListAdapter(bAdapter);
 
@@ -1232,7 +1234,7 @@ public class TNActv extends ListActivity {
 						this, 
 						R.layout.thumb_activity, 
 						tiList,
-						Methods.MoveMode.OFF);
+						CONS.MoveMode.OFF);
 		
 		setListAdapter(aAdapter);
 		

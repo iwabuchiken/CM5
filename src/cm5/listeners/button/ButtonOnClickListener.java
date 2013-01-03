@@ -1,4 +1,4 @@
-package cm5.listeners;
+package cm5.listeners.button;
 
 import cm5.main.R;
 
@@ -11,6 +11,7 @@ import cm5.main.MainActv;
 import cm5.main.PlayActv;
 import cm5.main.TNActv;
 import cm5.utils.Methods;
+import cm5.utils.Tags;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -86,7 +87,7 @@ public class ButtonOnClickListener implements OnClickListener {
 
 	public void onClick(View v) {
 //		//
-		Methods.ButtonTags tag = (Methods.ButtonTags) v.getTag();
+		Tags.ButtonTags tag = (Tags.ButtonTags) v.getTag();
 //
 		vib.vibrate(Methods.vibLength_click);
 		

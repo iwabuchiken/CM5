@@ -1,10 +1,11 @@
 package cm5.main;
 
 import cm5.items.AI;
-import cm5.listeners.ButtonOnClickListener;
-import cm5.listeners.ButtonOnLongClickListener;
-import cm5.listeners.ButtonOnTouchListener;
+import cm5.listeners.button.ButtonOnClickListener;
+import cm5.listeners.button.ButtonOnLongClickListener;
+import cm5.listeners.button.ButtonOnTouchListener;
 import cm5.utils.Methods;
+import cm5.utils.Tags;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -53,7 +54,7 @@ public class PlayActv extends Activity {
 		 *********************************/
 		Button bt_play = (Button) findViewById(R.id.actv_play_bt_play);
 		
-		bt_play.setTag(Methods.ButtonTags.actv_play_bt_play);
+		bt_play.setTag(Tags.ButtonTags.actv_play_bt_play);
 		
 		bt_play.setOnTouchListener(new ButtonOnTouchListener(this));
 //		bt_play.setOnClickListener(new ButtonOnClickListener(this));
@@ -64,7 +65,7 @@ public class PlayActv extends Activity {
 		 *********************************/
 		Button bt_stop = (Button) findViewById(R.id.actv_play_bt_stop);
 		
-		bt_stop.setTag(Methods.ButtonTags.actv_play_bt_stop);
+		bt_stop.setTag(Tags.ButtonTags.actv_play_bt_stop);
 		
 		bt_stop.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_stop.setOnClickListener(new ButtonOnClickListener(this));
@@ -74,7 +75,7 @@ public class PlayActv extends Activity {
 		 *********************************/
 		Button bt_back = (Button) findViewById(R.id.actv_play_bt_back);
 		
-		bt_back.setTag(Methods.ButtonTags.actv_play_bt_back);
+		bt_back.setTag(Tags.ButtonTags.actv_play_bt_back);
 		
 		bt_back.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_back.setOnClickListener(new ButtonOnClickListener(this));
@@ -84,7 +85,7 @@ public class PlayActv extends Activity {
 		 *********************************/
 		TextView tv_title = (TextView) findViewById(R.id.actv_play_tv_title);
 		
-		tv_title.setTag(Methods.ButtonTags.actv_play_tv_title);
+		tv_title.setTag(Tags.ButtonTags.actv_play_tv_title);
 		
 //		tv_title.setOnClickListener(new ButtonOnLongClickListener(this));
 

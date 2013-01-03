@@ -12,16 +12,18 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import cm5.adapters.AILAdapter;
+import cm5.adapters.TIListAdapter;
 import cm5.items.AI;
 import cm5.items.TI;
-import cm5.listeners.ButtonOnClickListener;
-import cm5.listeners.ButtonOnTouchListener;
 import cm5.listeners.CustomOnItemLongClickListener;
-import cm5.listeners.DialogListener;
-import cm5.utils.AILAdapter;
+import cm5.listeners.button.ButtonOnClickListener;
+import cm5.listeners.button.ButtonOnTouchListener;
+import cm5.listeners.dialog.DialogListener;
+import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
-import cm5.utils.TIListAdapter;
+import cm5.utils.Tags;
 
 import cm5.main.R;
 
@@ -155,7 +157,7 @@ public class ALActv extends ListActivity {
 
 	private void get_tables_from_db() {
 		
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
@@ -196,7 +198,7 @@ public class ALActv extends ListActivity {
 
 	private void get_data_from_table_AAA() {
 		
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
@@ -251,7 +253,7 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * 3. Sort list
 		 *********************************/
-		Methods.sort_list_ai_created_at(ai_list, MainActv.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
 		
 		/*********************************
 		 * 4. Prep adapter
@@ -404,7 +406,7 @@ public class ALActv extends ListActivity {
 		ib_back.setEnabled(true);
 		ib_back.setImageResource(R.drawable.ifm8_thumb_back_50x50);
 		
-		ib_back.setTag(Methods.ButtonTags.thumb_activity_ib_back);
+		ib_back.setTag(Tags.ButtonTags.thumb_activity_ib_back);
 		
 		ib_back.setOnTouchListener(new ButtonOnTouchListener(this));
 		ib_back.setOnClickListener(new ButtonOnClickListener(this));
@@ -415,7 +417,7 @@ public class ALActv extends ListActivity {
 //		ListView lv = (ListView) findViewById(android.R.layout.activity_list_item);
 		ListView lv = this.getListView();
 		
-		lv.setTag(Methods.ItemTags.dir_list_thumb_actv);
+		lv.setTag(Tags.ItemTags.dir_list_thumb_actv);
 		
 		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
@@ -430,7 +432,7 @@ public class ALActv extends ListActivity {
 		bt_bottom.setImageResource(R.drawable.ifm8_thumb_bottom_50x50);
 		
 		// Tag
-		bt_bottom.setTag(Methods.ButtonTags.thumb_activity_ib_bottom);
+		bt_bottom.setTag(Tags.ButtonTags.thumb_activity_ib_bottom);
 		
 		bt_bottom.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_bottom.setOnClickListener(new ButtonOnClickListener(this, lv));
@@ -446,7 +448,7 @@ public class ALActv extends ListActivity {
 		bt_top.setImageResource(R.drawable.ifm8_thumb_top_50x50);
 		
 		// Tag
-		bt_top.setTag(Methods.ButtonTags.thumb_activity_ib_top);
+		bt_top.setTag(Tags.ButtonTags.thumb_activity_ib_top);
 		
 		/****************************
 		 * 4.2. Listeners
@@ -603,11 +605,11 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * 1. DB setup
 		 *********************************/
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 		
-		String tname = MainActv.tname_main;
+		String tname = CONS.tname_main;
 		
 		/****************************
 		 * 2. Table exists?
@@ -683,7 +685,7 @@ public class ALActv extends ListActivity {
 //				File.separator);
 
 		String[] col_names = 
-				Methods.get_column_list(this, MainActv.dbName, tname);
+				Methods.get_column_list(this, CONS.dbName, tname);
 		
 		for (String col_name : col_names) {
 			
@@ -700,7 +702,7 @@ public class ALActv extends ListActivity {
 		 *********************************/
 		res = 
 				Methods.add_column_to_table(
-						this, MainActv.dbName, tname, "length", "INTEGER");
+						this, CONS.dbName, tname, "length", "INTEGER");
 		
 		// Log
 		Log.d("ALActv.java" + "["
@@ -758,7 +760,7 @@ public class ALActv extends ListActivity {
 		SharedPreferences prefs = 
 				this.getSharedPreferences(
 //						MainActv.prefName_tnActv,
-						MainActv.pname_tnActv,
+						CONS.pname_tnActv,
 						MODE_PRIVATE);
 		
 		SharedPreferences.Editor editor = prefs.edit();
@@ -770,7 +772,7 @@ public class ALActv extends ListActivity {
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "Prefs cleared: " + MainActv.prefName_tnActv);
-				+ "]", "Prefs cleared: " + MainActv.pname_tnActv);
+				+ "]", "Prefs cleared: " + CONS.pname_tnActv);
 
 		/*********************************
 		 * 3. History mode => Off
@@ -779,28 +781,28 @@ public class ALActv extends ListActivity {
 							this, 
 //							MainActv.prefName_mainActv, 
 //							MainActv.prefName_mainActv_history_mode,
-							MainActv.pname_mainActv, 
-							MainActv.pname_mainActv_history_mode,
+							CONS.pname_mainActv, 
+							CONS.pname_mainActv_history_mode,
 
 							-1);
 		
-		if (current_move_mode == MainActv.HISTORY_MODE_ON) {
+		if (current_move_mode == CONS.HISTORY_MODE_ON) {
 			
 			boolean result = Methods.set_pref(
 					this, 
 //					MainActv.prefName_mainActv, 
 //					MainActv.prefName_mainActv_history_mode,
-					MainActv.pname_mainActv, 
-					MainActv.pname_mainActv_history_mode,
+					CONS.pname_mainActv, 
+					CONS.pname_mainActv_history_mode,
 
-					MainActv.HISTORY_MODE_OFF);
+					CONS.HISTORY_MODE_OFF);
 
 			if (result == true) {
 				// Log
 				Log.d("ALActv.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Pref set: " + MainActv.HISTORY_MODE_OFF);
+								.getLineNumber() + "]", "Pref set: " + CONS.HISTORY_MODE_OFF);
 			} else {//if (result == true)
 				// Log
 				Log.d("ALActv.java"

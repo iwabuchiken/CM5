@@ -12,13 +12,15 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import cm5.items.AI;
-import cm5.listeners.ButtonOnClickListener;
-import cm5.listeners.ButtonOnTouchListener;
 import cm5.listeners.CustomOnItemLongClickListener;
-import cm5.listeners.DialogListener;
+import cm5.listeners.button.ButtonOnClickListener;
+import cm5.listeners.button.ButtonOnTouchListener;
+import cm5.listeners.dialog.DialogListener;
+import cm5.tasks.RefreshDBTask;
+import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
-import cm5.utils.RefreshDBTask;
+import cm5.utils.Tags;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,70 +51,6 @@ public class MainActv extends ListActivity {
 	public static Vibrator vib;
 
 	/*********************************
-	 * Intent data labels
-	 *********************************/
-	public static String intent_label_file_ids = "file_ids";		// Methods.show_history()
-	
-	public static String intent_label_table_names = "table_names";	// Methods.show_history()
-
-	public static String
-	intent_label_searchedItems_table_names =
-					"string_searchedItems_table_names";
-	
-	/*********************************
-	 * Prefs
-	 *********************************/
-//	private static SharedPreferences prefs;
-	private static SharedPreferences prefs_main;
-
-//	public static String prefs_current_path = "current_path";
-//	public static String prefs_current_path = "ifm9_master_current_path";
-	public static String pname_current_path = "current_path";
-	public static String pkey_current_path = "current_path";
-	
-	public static String pname_tnActv = "pref_tn_actv";
-	
-	public static String
-	pname_tnActv_current_image_position = 
-					"pref_tn_actv_current_image_position";
-	
-	// MainActv
-	// history
-	public static String pname_mainActv = "pref_main_actv";
-	
-	public static String pname_mainActv_history_mode = "history_mode";
-	
-	public static final int HISTORY_MODE_ON = 1;
-	
-	public static final int HISTORY_MODE_OFF = 0;
-	
-	/*********************************
-	 * Paths and names
-	 *********************************/
-	public static String dpath_storage_sdcard = "/mnt/sdcard-ext";
-	
-	public static String dpath_storage_internal = "/mnt/sdcard";
-
-	public static String  dname_base = "cm5";
-
-//	public static String dirPath_base = dirName_ExternalStorage + File.separator + dirName_base;
-	public static String dpath_base = 
-					dpath_storage_sdcard
-					+ File.separator
-					+ dname_base;
-	
-	public static String fname_list = "list.txt";
-
-//	public static String dirPath_current = null;
-	public static String dpath_current = null;
-
-	// tapeatalk
-	public static String dname_tt_sdcard = "tapeatalk_records";
-	
-	public static String dname_tt_internal = "tapeatalk_records";
-
-	
-	/*********************************
 	 * List-related
 	 *********************************/
 	// Used => 
@@ -120,74 +58,7 @@ public class MainActv extends ListActivity {
 
 	public static ArrayAdapter<String> adp_dir_list = null;
 
-//	public static List<String> file_names = null;
 	public static List<String> list_root_dir = null;
-	
-	/*********************************
-	 * Others
-	 *********************************/
-	// Used => create_list_file()
-//	public static String listFileName = "list.txt";
-
-	public static boolean move_mode = false;
-	
-	/*********************************
-	 * DB
-	 *********************************/
-	public static String dbName = "cm5.db";
-	
-	// Table names
-	public static String tname_memo_patterns = "memo_patterns";
-
-	// Table => main
-	public static String tname_main = "cm5";
-	
-	public static String[] cols_item = 
-		{"file_name", 	"file_path",	"title", "memo",
-			"last_played_at",	"table_name",	"length"};
-	
-	public static String[] col_types_item =
-		{"TEXT", 		"TEXT", 		"TEXT",	"TEXT",
-			"INTEGER",			"TEXT", 		"INTEGER"};
-
-	// Table => show_history
-	public static String tname_show_history = "show_history";
-	
-	public static String[] cols_show_history = {
-		"file_id", "table_name"
-	};
-	
-	public static String[] col_types_show_history = {
-		"INTEGER", "TEXT"
-	};
-
-	public static String tname_separator = "__";
-
-	// Table => refresh_history
-	public static String tname_refresh_history = "refresh_history";
-	
-	public static String[] cols_refresh_history = {
-		"last_refreshed", "num_of_items_added"
-	};
-	
-	public static String[] col_types_refresh_history = {
-		"INTEGER", 			"INTEGER"
-	};
-	
-	// Backup
-	public static String dpath_db = "/data/data/cm5.main/databases";
-	
-	public static String fname_db = "cm5.db";
-
-	public static String dpath_db_backup = 
-						dpath_storage_sdcard + "/cm5_backup";
-	
-	public static String fname_db_backup_trunk = "cm5_backup";
-	public static String fname_db_backup_ext = ".bk";
-
-	
-	// Sort order
-	public static enum SORT_ORDER {ASC, DEC};
 	
     /** Called when the activity is first created. */
     @Override
@@ -216,6 +87,9 @@ public class MainActv extends ListActivity {
 		this.setTitle(this.getClass().getName());
         
         vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
+        
+        //
+//        B13_v_1_0_reset_pref_current_path();
         
         /*----------------------------
 		 * 4. Set list
@@ -269,9 +143,18 @@ public class MainActv extends ListActivity {
         
     }//public void onCreate(Bundle savedInstanceState)
 
-    private void drop_table(String table_name) {
+    private void B13_v_1_0_reset_pref_current_path() {
+		// TODO Auto-generated method stub
+    	Methods.set_pref(this,
+				CONS.pname_current_path,
+				CONS.pkey_current_path,
+//				MainActv.dname_base);
+				CONS.dpath_base);
+	}//private void B13_v_1_0_reset_pref_current_path()
+
+	private void drop_table(String table_name) {
     	
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 
 		//
 		SQLiteDatabase wdb = dbu.getWritableDatabase();
@@ -333,7 +216,7 @@ public class MainActv extends ListActivity {
 			
 			boolean res = Methods.add_column_to_table(
 									this,
-									MainActv.dbName,
+									CONS.dbName,
 									t_name,
 									"last_viewed_at",
 									"INTEGER");
@@ -411,16 +294,16 @@ public class MainActv extends ListActivity {
 		
 		boolean res = Methods.set_pref(
 				this, 
-				MainActv.pname_mainActv, 
-				MainActv.pname_mainActv_history_mode,
-				MainActv.HISTORY_MODE_OFF);
+				CONS.pname_mainActv, 
+				CONS.pname_mainActv_history_mode,
+				CONS.HISTORY_MODE_OFF);
 
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", 
 				"history_mode set => MainActv.HISTORY_MODE_OFF"
-				+ "(" + MainActv.HISTORY_MODE_OFF + ")");
+				+ "(" + CONS.HISTORY_MODE_OFF + ")");
 		
 	}//private void init_prefs()
 
@@ -428,7 +311,7 @@ public class MainActv extends ListActivity {
 		/*********************************
 		 * memo
 		 *********************************/
-    	String[] col_names = Methods.get_column_list(this, MainActv.dbName, "IFM9");
+    	String[] col_names = Methods.get_column_list(this, CONS.dbName, "IFM9");
     	
     	for (String name : col_names) {
 			
@@ -445,7 +328,7 @@ public class MainActv extends ListActivity {
 		/*********************************
 		 * memo
 		 *********************************/
-    	String[] col_names = Methods.get_column_list(this, MainActv.dbName, table_name);
+    	String[] col_names = Methods.get_column_list(this, CONS.dbName, table_name);
     	
     	// Log
 		Log.d("MainActv.java" + "["
@@ -517,10 +400,10 @@ public class MainActv extends ListActivity {
 				+ "]", "Starting: restore_db()");
     	
 		String src = "/mnt/sdcard-ext/IFM9_backup/ifm9_backup_20120929_075009.bk";
-		String dst = StringUtils.join(new String[]{"/data/data/ifm9.main/databases", MainActv.dbName}, File.separator);
+		String dst = StringUtils.join(new String[]{"/data/data/ifm9.main/databases", CONS.dbName}, File.separator);
 		
 //		String dst = "/data/data/ifm9.main/databases" + MainActv.dbName;
-		boolean res = Methods.restore_db(this, MainActv.dbName, src, dst);
+		boolean res = Methods.restore_db(this, CONS.dbName, src, dst);
 		
 		// Log
 		Log.d("MainActv.java" + "["
@@ -537,10 +420,10 @@ public class MainActv extends ListActivity {
 				+ "]", "Starting: restore_db()");
     	
 		String src = "/mnt/sdcard-ext/IFM9_backup/" + dbFile_name;
-		String dst = StringUtils.join(new String[]{"/data/data/ifm9.main/databases", MainActv.dbName}, File.separator);
+		String dst = StringUtils.join(new String[]{"/data/data/ifm9.main/databases", CONS.dbName}, File.separator);
 		
 //		String dst = "/data/data/ifm9.main/databases" + MainActv.dbName;
-		boolean res = Methods.restore_db(this, MainActv.dbName, src, dst);
+		boolean res = Methods.restore_db(this, CONS.dbName, src, dst);
 		
 		// Log
 		Log.d("MainActv.java" + "["
@@ -569,35 +452,39 @@ public class MainActv extends ListActivity {
 		 * 
 		 * 4. Listener => Long click
 			----------------------------*/
-//		
-//		ImageButton ib_up = (ImageButton) findViewById(R.id.v1_bt_up);
-//		
-//		/*----------------------------
-//		 * 2. Set enables
-//			----------------------------*/
-//		String curDirPath = Methods.get_currentPath_from_prefs(this);
-//		
-//		if (curDirPath.equals(dname_base)) {
-//			
-//			ib_up.setEnabled(false);
-//			
-//			ib_up.setImageResource(R.drawable.ifm8_up_disenabled);
-//			
-//		} else {//if (this.currentDirPath == this.baseDirPath)
-//		
-//			ib_up.setEnabled(true);
-//			
-//			ib_up.setImageResource(R.drawable.ifm8_up);
-//		
-//		}//if (this.currentDirPath == this.baseDirPath)
-//		
-//		/*----------------------------
-//		 * 3. Listeners => Click
-//			----------------------------*/
-//		ib_up.setTag(Methods.ButtonTags.ib_up);
-//		
-//		ib_up.setOnTouchListener(new ButtonOnTouchListener(this));
-//		ib_up.setOnClickListener(new ButtonOnClickListener(this));
+		
+		ImageButton ib_up = (ImageButton) findViewById(R.id.v1_bt_up);
+		
+		/*----------------------------
+		 * 2. Set enables
+			----------------------------*/
+		String curDirPath = Methods.get_currentPath_from_prefs(this);
+//		=> curDirPath: /mnt/sdcard-ext/cm5
+
+//		=> CONS.dpath_base: /mnt/sdcard-ext/cm5
+		
+//		if (curDirPath.equals(CONS.dname_base)) {
+		if (curDirPath.equals(CONS.dpath_base)) {
+			
+			ib_up.setEnabled(false);
+			
+			ib_up.setImageResource(R.drawable.ifm8_up_disenabled);
+			
+		} else {//if (this.currentDirPath == this.baseDirPath)
+		
+			ib_up.setEnabled(true);
+			
+			ib_up.setImageResource(R.drawable.ifm8_up);
+		
+		}//if (this.currentDirPath == this.baseDirPath)
+		
+		/*----------------------------
+		 * 3. Listeners => Click
+			----------------------------*/
+		ib_up.setTag(Tags.ButtonTags.ib_up);
+		
+		ib_up.setOnTouchListener(new ButtonOnTouchListener(this));
+		ib_up.setOnClickListener(new ButtonOnClickListener(this));
 		
 		/*********************************
 		 * 4. Set listener => Long click
@@ -605,7 +492,7 @@ public class MainActv extends ListActivity {
 		ListView lv = this.getListView();
 		
 //		lv.setTag(Methods.ItemTags.dir_list);
-		lv.setTag(Methods.ListTags.actv_main_lv);
+		lv.setTag(Tags.ListTags.actv_main_lv);
 		
 		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 
@@ -681,10 +568,10 @@ public class MainActv extends ListActivity {
 			
 		} else {//if (this.list_root_dir == null)
 			
-			// Log
-			Log.d("MainActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "list_root_dir != null");
+//			// Log
+//			Log.d("MainActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "list_root_dir != null");
 			
 		}//if (this.list_root_dir == null)
 
@@ -709,7 +596,7 @@ public class MainActv extends ListActivity {
 		ListView lv = this.getListView();
 		
 //		lv.setTag(Methods.ItemTags.dir_list);
-		lv.setTag(Methods.ListTags.actv_main_lv);
+		lv.setTag(Tags.ListTags.actv_main_lv);
 		
 		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
@@ -818,31 +705,31 @@ public class MainActv extends ListActivity {
 		 * 2. Get editor
 		 * 3. Set value
 			----------------------------*/
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "MainActv.init_prefs_current_path()");
+//		// Log
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "MainActv.init_prefs_current_path()");
 		
 		/*----------------------------
 		 * 1. Get preference
 			----------------------------*/
-		prefs_main = 
+		CONS.prefs_main = 
 				this.getSharedPreferences(
-						pname_current_path,
+						CONS.pname_current_path,
 						MODE_PRIVATE);
 
 		/*----------------------------
 		 * 0. Prefs set already?
 			----------------------------*/
-		String temp = prefs_main.getString(pkey_current_path, null);
+		String temp = CONS.prefs_main.getString(CONS.pkey_current_path, null);
 		
 //		if (temp != null && !temp.equals("IFM8")) {
 		if (temp != null && !temp.equals("IFM8")) {
 			
-			// Log
-			Log.d("MainActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Prefs already set: " + temp);
+//			// Log
+//			Log.d("MainActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Prefs already set: " + temp);
 			
 			return;
 			
@@ -852,7 +739,7 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 2. Get editor
 			----------------------------*/
-		SharedPreferences.Editor editor = prefs_main.edit();
+		SharedPreferences.Editor editor = CONS.prefs_main.edit();
 
 		/*----------------------------
 		 * 3. Set value
@@ -860,7 +747,7 @@ public class MainActv extends ListActivity {
 
 		String base_path = StringUtils.join(
 				new String[]{
-						MainActv.dpath_storage_sdcard, MainActv.dname_base
+						CONS.dpath_storage_sdcard, CONS.dname_base
 				},
 				File.separator);
 		
@@ -869,7 +756,7 @@ public class MainActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "base_path=" + base_path);
 		
-		editor.putString(pkey_current_path, base_path);
+		editor.putString(CONS.pkey_current_path, base_path);
 		
 		editor.commit();
 		
@@ -881,13 +768,13 @@ public class MainActv extends ListActivity {
 	}//private void init_prefs_current_path()
 
 	private boolean create_list_file(File root_dir) {
-		File list_file = new File(root_dir, MainActv.fname_list);
+		File list_file = new File(root_dir, CONS.fname_list);
 		
 		if (list_file.exists()) {
-			// Log
-			Log.d("MainActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "\"list.txt\" => Exists");
+//			// Log
+//			Log.d("MainActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "\"list.txt\" => Exists");
 			
 			return true;
 			
@@ -903,7 +790,7 @@ public class MainActv extends ListActivity {
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]",
-						"File created => " + MainActv.fname_list);
+						"File created => " + CONS.fname_list);
 				
 				return true;
 				
@@ -913,7 +800,7 @@ public class MainActv extends ListActivity {
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]",
-						"Create file => Failed: " + MainActv.fname_list
+						"Create file => Failed: " + CONS.fname_list
 						+ "(" + e.toString() + ")");
 				
 				return false;
@@ -932,7 +819,7 @@ public class MainActv extends ListActivity {
 		
 		String dpath_base = StringUtils.join(
 				new String[]{
-						dpath_storage_sdcard, dname_base},
+						CONS.dpath_storage_sdcard, CONS.dname_base},
 				File.separator);
 
 		File file = new File(dpath_base);
@@ -1015,6 +902,11 @@ public class MainActv extends ListActivity {
 		 *********************************/
 		File target = get_file_object(item);
 		
+//		// Log
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "target=" + target.getAbsolutePath());
+		
 		/*********************************
 		 * 2-2. File object exists?
 		 *********************************/
@@ -1046,19 +938,24 @@ public class MainActv extends ListActivity {
 		 *********************************/
 		if (target.isDirectory()) {
 			
-//			Methods.enterDir(this, target);
+//			// Log
+//			Log.d("MainActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "target=" + target.getAbsolutePath());
 			
-			// debug
-			Toast.makeText(this, "Enter directory: " + item, 
-					2000)
-					.show();
+			Methods.enterDir(this, target);
+			
+//			// debug
+//			Toast.makeText(this, "Enter directory: " + item, 
+//					2000)
+//					.show();
 			
 		} else if (target.isFile()) {//if (target.isDirectory())
 			
 			/*********************************
 			 * 4. Is a "list.txt"?
 			 *********************************/
-			if (!target.getName().equals(MainActv.fname_list)) {
+			if (!target.getName().equals(CONS.fname_list)) {
 				
 				// debug
 				Toast.makeText(this, "list.txt ‚Å‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
@@ -1068,18 +965,6 @@ public class MainActv extends ListActivity {
 
 //			Methods.startThumbnailActivity(this, target.getName());
 			Methods.start_actv_allist(this);
-			
-//			// Log
-//			Log.d("MainActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "target.getName()=" + target.getName());
-			
-//			Methods.toastAndLog(this, "This is a file: " + item, 2000);
-			
-//			// debug
-//			Toast.makeText(this, "This is a file: " + item, 
-//					2000)
-//					.show();
 			
 		}//if (target.isDirectory())
 		
@@ -1092,20 +977,20 @@ public class MainActv extends ListActivity {
 		 * 1. 
 			----------------------------*/
 		SharedPreferences prefs = 
-				this.getSharedPreferences(pname_current_path, MODE_PRIVATE);
+				this.getSharedPreferences(CONS.pname_current_path, MODE_PRIVATE);
 
-		String path = prefs.getString(pkey_current_path, null);
+		String path = prefs.getString(CONS.pkey_current_path, null);
 		
 		if (path == null) {
 			
 //			init_prefs_current_path();
 			Methods.set_pref(this,
-					MainActv.pname_current_path,
-					MainActv.pkey_current_path,
+					CONS.pname_current_path,
+					CONS.pkey_current_path,
 //					MainActv.dname_base);
-					MainActv.dpath_base);
+					CONS.dpath_base);
 			
-			path = MainActv.dpath_base;
+			path = CONS.dpath_base;
 			
 //			path = prefs.getString(prefs_current_path, null);
 			
@@ -1142,10 +1027,10 @@ public class MainActv extends ListActivity {
 		/*----------------------------
 		 * 3. Clear => prefs_main
 			----------------------------*/
-		prefs_main = 
-				this.getSharedPreferences(pname_current_path, MODE_PRIVATE);
+		CONS.prefs_main = 
+				this.getSharedPreferences(CONS.pname_current_path, MODE_PRIVATE);
 
-		SharedPreferences.Editor editor = prefs_main.edit();
+		SharedPreferences.Editor editor = CONS.prefs_main.edit();
 
 		editor.clear();
 		editor.commit();
@@ -1276,10 +1161,6 @@ public class MainActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "onResume()");
 
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "prefs_main: " + Methods.get_currentPath_from_prefs(this));
 		
 		/*********************************
 		 * 2. Set enables
@@ -1311,7 +1192,7 @@ public class MainActv extends ListActivity {
 		 * 2. Setup files
 			----------------------------*/
 		
-		DBUtils dbu = new DBUtils(this, MainActv.dbName);
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
 		SQLiteDatabase rdb = dbu.getReadableDatabase();
 
