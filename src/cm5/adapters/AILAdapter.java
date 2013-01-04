@@ -114,16 +114,163 @@ public class AILAdapter extends ArrayAdapter<AI> {
 			****************************/
     	View v = null;
 
+    	if (CONS.move_mode == false) {
+
+    		// Log
+			Log.d("AILAdapter.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "move_mode => " + CONS.move_mode);
+
+    		v = move_mode_off(v, position, convertView);
+    		
+    	} else {
+
+    		// Log
+			Log.d("AILAdapter.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "move_mode => " + CONS.move_mode);
+
+			v = move_mode_on(v, position, convertView);
+			
+    	}//if (moveMode == null || moveMode == Methods.MoveMode.OFF)
+
+    	
+//    	/*********************************
+//		 * 1. Set layout
+//		 *********************************/
+//    	if (convertView != null) {
+//			v = convertView;
+//		} else {//if (convertView != null)
+////			v = inflater.inflate(R.layout.list_row, null);
+//			v = inflater.inflate(R.layout.list_row_ai_list, null);
+//		}//if (convertView != null)
+//    	
+//    	/*********************************
+//		 * 2. Get view
+//		 *********************************/
+//    	TextView tv_file_name = (TextView) v.findViewById(R.id.list_row_ai_list_tv_file_name);
+//    	
+//    	/*********************************
+//		 * 3. Get item
+//		 *********************************/
+//    	AI ai = (AI) getItem(position);
+//    	
+//    	/*********************************
+//		 * 4. Set file name
+//		 *********************************/
+//    	if (ai != null && !ai.getFile_name().equals("")) {
+//
+//    		tv_file_name.setText(ai.getFile_name());
+//    		
+//		} else {//if (ai != null && ai.getFile_name()
+//			
+//			tv_file_name.setText("No data");
+//			
+//		}//if (ai != null && ai.getFile_name()
+//		
+//    	/*********************************
+//		 * 5. Set title
+//		 *********************************/
+//    	TextView tv_title = (TextView) v.findViewById(R.id.list_row_ai_list_tv_title);
+//    	
+//    	if (ai != null && !ai.getTitle().equals("")) {
+//
+//    		tv_title.setText(ai.getTitle());
+//    		
+//		} else {//if (ai != null && ai.getFile_name()
+//			
+////			tv.setText("No data");
+//			tv_title.setText("");
+//			
+//		}//if (ai != null && ai.getFile_name()
+//    	
+//    	
+    	
+    	/*********************************
+		 * 9. Return view
+		 *********************************/
+		return v;
+		
+    }//public View getView(int position, View convertView, ViewGroup parent)
+
+
+	private View move_mode_on(View v, int position, View convertView) {
+		
     	/*********************************
 		 * 1. Set layout
 		 *********************************/
     	if (convertView != null) {
-			v = convertView;
+
+    		v = convertView;
+    		
 		} else {//if (convertView != null)
-//			v = inflater.inflate(R.layout.list_row, null);
-			v = inflater.inflate(R.layout.list_row_ai_list, null);
+
+			v = inflater.inflate(R.layout.list_row_checked_box, null);
+			
 		}//if (convertView != null)
     	
+    	/*********************************
+		 * 2. Get view
+		 *********************************/
+    	TextView tv_file_name = (TextView) v.findViewById(R.id.list_row_checked_box_tv_file_name);
+    	
+    	/*********************************
+		 * 3. Get item
+		 *********************************/
+    	AI ai = (AI) getItem(position);
+    	
+    	/*********************************
+		 * 4. Set file name
+		 *********************************/
+    	if (ai != null && !ai.getFile_name().equals("")) {
+
+    		tv_file_name.setText(ai.getFile_name());
+    		
+		} else {//if (ai != null && ai.getFile_name()
+			
+			tv_file_name.setText("No data");
+			
+		}//if (ai != null && ai.getFile_name()
+		
+    	/*********************************
+		 * 5. Set title
+		 *********************************/
+    	TextView tv_title = (TextView) v.findViewById(R.id.list_row_checked_box_tv_title);
+    	
+    	if (ai != null && !ai.getTitle().equals("")) {
+
+    		tv_title.setText(ai.getTitle());
+    		
+		} else {//if (ai != null && ai.getFile_name()
+			
+//			tv.setText("No data");
+			tv_title.setText("");
+			
+		}//if (ai != null && ai.getFile_name()
+    	
+    	
+    	
+    	/*********************************
+		 * 9. Return view
+		 *********************************/
+		return v;
+		
+	}//private View move_mode_on(View v, int position, View convertView)
+
+
+	private View move_mode_off(View v, int position, View convertView) {
+		
+    	if (convertView != null) {
+    		
+			v = convertView;
+			
+		} else {//if (convertView != null)
+
+			v = inflater.inflate(R.layout.list_row_ai_list, null);
+			
+		}//if (convertView != null)
+
+
     	/*********************************
 		 * 2. Get view
 		 *********************************/
@@ -162,14 +309,9 @@ public class AILAdapter extends ArrayAdapter<AI> {
 			tv_title.setText("");
 			
 		}//if (ai != null && ai.getFile_name()
-    	
-    	
-    	
-    	/*********************************
-		 * 9. Return view
-		 *********************************/
+
 		return v;
 		
-    }//public View getView(int position, View convertView, ViewGroup parent)
+	}//private View move_mode_off(View v, int position, View convertView)
 
 }//public class AIListAdapter extends ArrayAdapter<AI>

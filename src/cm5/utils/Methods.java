@@ -555,10 +555,10 @@ public class Methods {
 		 * 2. Detect loation of "IFM8"
 		 * 3. Build path label
 			****************************/
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Starting => convert_prefs_into_path_label()");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Starting => convert_prefs_into_path_label()");
 		
 		String currentPath = path;
 		
@@ -579,21 +579,21 @@ public class Methods {
 			}//if (pathArray[i].equals(ImageFileManager8Activity.baseDirName))
 		}//for (int i = 0; i < pathArray.length; i++)
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-
-				+ "]", "currentPath");
-		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "MainActv.dpath_base=" + CONS.dpath_base);
-		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "location=" + location);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//
+//				+ "]", "currentPath");
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "MainActv.dpath_base=" + CONS.dpath_base);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "location=" + location);
 		
 		/****************************
 		 * 3. Build path label
@@ -603,9 +603,9 @@ public class Methods {
 		
 		String s_newPath = StringUtils.join(newPath, File.separator);
 		
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "s_newPath => " + s_newPath);
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "s_newPath => " + s_newPath);
 		
 		return s_newPath;
 		
@@ -1057,10 +1057,10 @@ public class Methods {
 		}//if (currentPathArray.length > 1)
 		
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "tableName => " + tableName);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "tableName => " + tableName);
 		
 		
 		return tableName;
@@ -5452,10 +5452,10 @@ public class Methods {
 		 * 3. Return
 		 *********************************/
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.get_file_list(File dpath)");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Methods.get_file_list(File dpath)");
 		
 		/*********************************
 		 * 1. Directory exists?
@@ -5531,10 +5531,10 @@ public class Methods {
 		 * 9. Close db
 		 * 10. Return value
 		 *********************************/
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "get_all_data_ai(Activity actv, String table_name)");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "get_all_data_ai(Activity actv, String table_name)");
 		
 		/*********************************
 		 * 1. DB setup

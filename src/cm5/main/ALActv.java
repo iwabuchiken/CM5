@@ -57,7 +57,7 @@ public class ALActv extends ListActivity {
 //	public static TIListAdapter aAdapter;
 //	public static TIListAdapter bAdapter;
 
-	public static boolean move_mode = false;
+//	public static boolean move_mode = false;
 
 	/*********************************
 	 * Special intent data
@@ -83,7 +83,9 @@ public class ALActv extends ListActivity {
 
 	public static AILAdapter ail_adp;
 	
-	public static AILAdapter_move ail_adp_move;
+	public static AILAdapter ail_adp_move;
+	
+//	public static AILAdapter_move ail_adp_move;
 	
 	public static ArrayAdapter<String> dirListAdapter;
 	
@@ -284,6 +286,7 @@ public class ALActv extends ListActivity {
 		ail_adp = new AILAdapter(
 				this,
 				R.layout.list_row_ai_list,
+//				R.layout.actv_al,
 				ai_list
 				);
 		
@@ -442,7 +445,7 @@ public class ALActv extends ListActivity {
 		
 		lv.setTag(Tags.ItemTags.dir_list_thumb_actv);
 		
-		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
+//		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
 		/****************************
 		 * 3. "Bottom"
@@ -769,9 +772,9 @@ public class ALActv extends ListActivity {
 		/****************************
 		 * 2. move_mode => falsify
 			****************************/
-		if (move_mode == true) {
+		if (CONS.move_mode == true) {
 			
-			move_mode = false;
+			CONS.move_mode = false;
 			
 			// Log
 			Log.d("ALActv.java" + "["
@@ -1115,7 +1118,7 @@ public class ALActv extends ListActivity {
 		
 //		case R.id.thumb_actv_menu_move_mode://---------------------------------------
 		case R.id.al_actv_menu_move_mode://---------------------------------------
-			if (move_mode == true) {
+			if (CONS.move_mode == true) {
 				
 				move_mode_true(item);
 				
@@ -1187,7 +1190,7 @@ public class ALActv extends ListActivity {
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_on);
 		
-		move_mode = true;
+		CONS.move_mode = true;
 		
 		/****************************
 		 * 4. Re-set tiList
@@ -1198,16 +1201,16 @@ public class ALActv extends ListActivity {
 		
 		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
 		
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tableName: " + tableName);
-		
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "currentPath=" + currentPath);
+//		// Log
+//		Log.d("ALActv.java"
+//				+ "["
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getLineNumber() + "]", "tableName: " + tableName);
+//		
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "currentPath=" + currentPath);
 		
 //		if (long_searchedItems == null) {
 //
@@ -1227,29 +1230,41 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * List
 		 *********************************/
-		if (ai_list_move != null) {
+		if (ai_list != null) {
 			
-			ai_list_move.clear();
+			ai_list.clear();
 			
-			ai_list_move.addAll(Methods.get_all_data_ai(this, tableName));
+			// Log
+			Log.d("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list => Cleared");
+			
+			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
 			
 		} else {//if (move_mode)
 			
-			ai_list_move = Methods.get_all_data_ai(this, tableName);
+			ai_list = Methods.get_all_data_ai(this, tableName);
+			
+			// Log
+			Log.d("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list => Initialized");
 			
 		}//if (move_mode)
 		
 		// Sort list
-		Methods.sort_list_ai_created_at(ai_list_move, CONS.SORT_ORDER.ASC);
+		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
 		
 		/****************************
 		 * 3. Update aAdapter
 			****************************/
 
-		ail_adp_move = new AILAdapter_move(
+//		ail_adp_move = new AILAdapter_move(
+		ail_adp_move = new AILAdapter(
 				this,
-				R.layout.actv_al,
-				ai_list_move
+				R.layout.list_row_checked_box,
+//				ai_list_move
+				ai_list
 				);
 		
 //		ail_adp.clear();
@@ -1278,7 +1293,7 @@ public class ALActv extends ListActivity {
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_off);
 		
-		move_mode = false;
+		CONS.move_mode = false;
 
 //		/****************************
 //		 * 2-2. TNActv.checkedPositions => clear()
