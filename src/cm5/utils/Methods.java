@@ -5178,15 +5178,15 @@ public class Methods {
 		 *********************************/
 		String[] cols = Methods.get_column_list(actv, dbName, tableName);
 		
-		//debug
-		for (String col_name : cols) {
-
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "col: " + col_name);
-			
-		}//for (String col_name : cols)
+//		//debug
+//		for (String col_name : cols) {
+//
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "col: " + col_name);
+//			
+//		}//for (String col_name : cols)
 
 		
 		for (String col_name : cols) {
