@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import cm5.adapters.AILAdapter;
+import cm5.adapters.AILAdapter_move;
 import cm5.adapters.TIListAdapter;
 import cm5.items.AI;
 import cm5.items.TI;
@@ -37,6 +38,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -76,8 +78,12 @@ public class ALActv extends ListActivity {
 	public static List<String> fileNameList;
 	
 	public static List<AI> ai_list;
+	
+	public static List<AI> ai_list_move;
 
 	public static AILAdapter ail_adp;
+	
+	public static AILAdapter_move ail_adp_move;
 	
 	public static ArrayAdapter<String> dirListAdapter;
 	
@@ -143,6 +149,8 @@ public class ALActv extends ListActivity {
 			****************************/
 		checkedPositions = new ArrayList<Integer>();
 
+		B16_v_1_0();
+		
 		//debug
 //		get_data_from_table_AAA();
 		
@@ -153,7 +161,21 @@ public class ALActv extends ListActivity {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "prefs_current_path: " + Methods.get_pref(this, MainActv.prefs_current_path, "NO DATA"));
 		
+		
+		
 	}//public void onCreate(Bundle savedInstanceState)
+
+
+	private void B16_v_1_0() {
+		
+		Display disp = this.getWindowManager().getDefaultDisplay();
+		
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "width=" + disp.getWidth());
+		
+	}//private void B16_v_1_0()
 
 
 	private void get_tables_from_db() {
@@ -1066,7 +1088,7 @@ public class ALActv extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// 
 		MenuInflater mi = getMenuInflater();
-		mi.inflate(R.menu.thumb_actv_menu, menu);
+		mi.inflate(R.menu.al_actv_menu, menu);
 		
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -1081,7 +1103,8 @@ public class ALActv extends ListActivity {
 			****************************/
 		
 		
-		case R.id.thumb_actv_menu_move_mode://---------------------------------------
+//		case R.id.thumb_actv_menu_move_mode://---------------------------------------
+		case R.id.al_actv_menu_move_mode://---------------------------------------
 			if (move_mode == true) {
 				
 				move_mode_true(item);
@@ -1094,38 +1117,39 @@ public class ALActv extends ListActivity {
 			
 			break;// case R.id.thumb_actv_menu_move_files
 		
-		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
+//		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
+		case R.id.al_actv_menu_move_files:	//------------------------------------------
 			
-			if (move_mode == false) {
-				
-				// debug
-				Toast.makeText(this, "Move mode is not on", 2000)
-						.show();
-				
-				return false;
-				
-			} else if (move_mode == true) {
-				/****************************
-				 * Steps
-				 * 1. checkedPositions => Has contents?
-				 * 2. If yes, show dialog
-					****************************/
-				if (checkedPositions.size() < 1) {
-					
-					// debug
-					Toast.makeText(ALActv.this, "No item selected", 2000).show();
-					
-					return false;
-					
-				}//if (checkedPositions.size() < 1)
-				
-				
-				/****************************
-				 * 2. If yes, show dialog
-					****************************/
-				Methods_dialog.dlg_moveFiles(this);
-				
-			}//if (move_mode == false)
+//			if (move_mode == false) {
+//				
+//				// debug
+//				Toast.makeText(this, "Move mode is not on", 2000)
+//						.show();
+//				
+//				return false;
+//				
+//			} else if (move_mode == true) {
+//				/****************************
+//				 * Steps
+//				 * 1. checkedPositions => Has contents?
+//				 * 2. If yes, show dialog
+//					****************************/
+//				if (checkedPositions.size() < 1) {
+//					
+//					// debug
+//					Toast.makeText(ALActv.this, "No item selected", 2000).show();
+//					
+//					return false;
+//					
+//				}//if (checkedPositions.size() < 1)
+//				
+//				
+//				/****************************
+//				 * 2. If yes, show dialog
+//					****************************/
+//				Methods_dialog.dlg_moveFiles(this);
+//				
+//			}//if (move_mode == false)
 			
 			break;// case R.id.thumb_actv_menu_move_files
 			
@@ -1155,24 +1179,6 @@ public class ALActv extends ListActivity {
 		
 		move_mode = true;
 		
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "move_mode => Now true");
-		
-		/****************************
-		 * 2-1. Set position to preference
-			****************************/
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "this.getSelectedItemPosition(): " + this.getSelectedItemPosition());
-
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "this.getSelectedItemId(): " + this.getSelectedItemId());
-
 		/****************************
 		 * 4. Re-set tiList
 			****************************/
@@ -1188,56 +1194,52 @@ public class ALActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2]
 						.getLineNumber() + "]", "tableName: " + tableName);
 		
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "currentPath=" + currentPath);
 		
-		//
-		tiList.clear();
+//		if (long_searchedItems == null) {
+//
+//			tiList = Methods.getAllData(this, tableName);
+//			
+//		} else {//if (long_searchedItems == null)
+//
+//			// Log
+//			Log.d("ALActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "long_searchedItems != null");
+//			
+//			tiList = Methods.convert_fileIdArray2tiList(this, tableName, long_searchedItems);
+//			
+//		}//if (long_searchedItems == null)
 
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList => Cleared");
-
-//		Log.d("ALActv.java"
-//				+ "["
-//				+ Thread.currentThread().getStackTrace()[2]
-//						.getLineNumber() + "]", "checkedPositions.size() => " + checkedPositions.size());
-
-		if (long_searchedItems == null) {
-
-			tiList = Methods.getAllData(this, tableName);
+		/*********************************
+		 * List
+		 *********************************/
+		if (ai_list_move != null) {
 			
-		} else {//if (long_searchedItems == null)
-
-			// Log
-			Log.d("ALActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "long_searchedItems != null");
+			ai_list_move.clear();
 			
-			tiList = Methods.convert_fileIdArray2tiList(this, tableName, long_searchedItems);
+			ai_list_move.addAll(Methods.get_all_data_ai(this, tableName));
 			
-		}//if (long_searchedItems == null)
-
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
+		} else {//if (move_mode)
+			
+			ai_list_move = Methods.get_all_data_ai(this, tableName);
+			
+		}//if (move_mode)
 		
 		/****************************
 		 * 3. Update aAdapter
 			****************************/
-		Methods.sort_tiList(tiList);
-		
-//		bAdapter =
-//				new TIListAdapter(
-//						this, 
-//						R.layout.thumb_activity, 
-//						tiList,
-//						Methods.MoveMode.ON);
-//
-//		setListAdapter(bAdapter);
+
+		ail_adp_move = new AILAdapter_move(
+				this,
+				R.layout.actv_al,
+				ai_list_move
+				);
+
+		setListAdapter(ail_adp_move);
 
 	}//private void move_mode_false(MenuItem item)
 
@@ -1259,75 +1261,75 @@ public class ALActv extends ListActivity {
 		
 		move_mode = false;
 
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "move_mode => Now false");
-		/****************************
-		 * 2-2. TNActv.checkedPositions => clear()
-			****************************/
-		ALActv.checkedPositions.clear();
-		
-		/****************************
-		 * 2-3. Get position from preference
-			****************************/
-		int selected_position = Methods.get_pref(this, tnactv_selected_item, 0);
-		
-		/****************************
-		 * 3. Re-set tiList
-			****************************/
-//		String tableName = Methods.convertPathIntoTableName(this);
-		String currentPath = Methods.get_currentPath_from_prefs(this);
-		
-		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
-
-
-		tiList.clear();
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList => Cleared");
-
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "checkedPositions.size() => " + checkedPositions.size());
-		
-		if (long_searchedItems == null) {
-
-			tiList.addAll(Methods.getAllData(this, tableName));
-			
-		} else {//if (long_searchedItems == null)
-
-//			tiList = Methods.getAllData(this, tableName);
-//			tiList = Methods.convert_fileIdArray2tiList(this, "IFM8", long_searchedItems);
-			
-		}//if (long_searchedItems == null)
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
-		
-		/****************************
-		 * 4. Update aAdapter
-			****************************/
-		Methods.sort_tiList(tiList);
-		
-//		aAdapter = 
-//				new TIListAdapter(
-//						this, 
-//						R.layout.thumb_activity, 
-//						tiList,
-//						Methods.MoveMode.OFF);
+//		// Log
+//		Log.d("ALActv.java"
+//				+ "["
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getLineNumber() + "]", "move_mode => Now false");
+//		/****************************
+//		 * 2-2. TNActv.checkedPositions => clear()
+//			****************************/
+//		ALActv.checkedPositions.clear();
 //		
-//		setListAdapter(aAdapter);
-		
-		this.setSelection(selected_position);
+//		/****************************
+//		 * 2-3. Get position from preference
+//			****************************/
+//		int selected_position = Methods.get_pref(this, tnactv_selected_item, 0);
+//		
+//		/****************************
+//		 * 3. Re-set tiList
+//			****************************/
+////		String tableName = Methods.convertPathIntoTableName(this);
+//		String currentPath = Methods.get_currentPath_from_prefs(this);
+//		
+//		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
+//
+//
+//		tiList.clear();
+//
+//		// Log
+//		Log.d("ALActv.java"
+//				+ "["
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getLineNumber() + "]", "tiList => Cleared");
+//
+//		Log.d("ALActv.java"
+//				+ "["
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getLineNumber() + "]", "checkedPositions.size() => " + checkedPositions.size());
+//		
+//		if (long_searchedItems == null) {
+//
+//			tiList.addAll(Methods.getAllData(this, tableName));
+//			
+//		} else {//if (long_searchedItems == null)
+//
+////			tiList = Methods.getAllData(this, tableName);
+////			tiList = Methods.convert_fileIdArray2tiList(this, "IFM8", long_searchedItems);
+//			
+//		}//if (long_searchedItems == null)
+//
+//		// Log
+//		Log.d("ALActv.java"
+//				+ "["
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
+//		
+//		/****************************
+//		 * 4. Update aAdapter
+//			****************************/
+//		Methods.sort_tiList(tiList);
+//		
+////		aAdapter = 
+////				new TIListAdapter(
+////						this, 
+////						R.layout.thumb_activity, 
+////						tiList,
+////						Methods.MoveMode.OFF);
+////		
+////		setListAdapter(aAdapter);
+//		
+//		this.setSelection(selected_position);
 		
 	}//private void move_mode_true()
 

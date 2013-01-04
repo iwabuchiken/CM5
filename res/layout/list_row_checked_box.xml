@@ -12,7 +12,7 @@
 	>
 
 	<ImageView
-		android:id="@+id/list_row_checked_box_iv_thumbnail"
+		android:id="@+id/list_row_checked_box_iv"
 		
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -20,12 +20,14 @@
 	</ImageView>
 
 	<LinearLayout
-	    android:layout_width="wrap_content"
+	    android:layout_width="300dp"
 	    android:layout_height="wrap_content"
-	    android:orientation="vertical" >
+	    android:orientation="vertical"
+	    
+	     >
 
 	    <TextView
-	        android:id="@+id/list_row_checked_box_textView1"
+	        android:id="@+id/list_row_checked_box_tv_file_name"
 	        android:layout_width="250dp"
 	        android:layout_height="wrap_content"
 	        android:paddingBottom="5dp"
@@ -35,7 +37,7 @@
 	        android:textSize="20dp" />
 
 	    <TextView
-	        android:id="@+id/list_row_checked_box_textView2"
+	        android:id="@+id/list_row_checked_box_tv_title"
 	        
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
@@ -53,7 +55,7 @@
 	</LinearLayout>
 
 	<CheckBox
-	    android:id="@+id/list_row_checked_box_checkBox1"
+	    android:id="@+id/list_row_checked_box_cb"
 	    
 	    android:layout_width="50dp"
 	    android:layout_height="50dp"

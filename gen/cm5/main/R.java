@@ -77,6 +77,8 @@ public final class R {
         public static final int actv_play_tv_length=0x7f09000c;
         public static final int actv_play_tv_memo=0x7f09000a;
         public static final int actv_play_tv_title=0x7f090008;
+        public static final int al_actv_menu_move_files=0x7f090080;
+        public static final int al_actv_menu_move_mode=0x7f09007f;
         public static final int db_manager_btn_create_table=0x7f090010;
         public static final int db_manager_btn_drop_table=0x7f090011;
         public static final int db_manager_btn_register_patterns=0x7f090012;
@@ -161,21 +163,21 @@ public final class R {
         public static final int image_activity_iv_image=0x7f090061;
         public static final int image_activity_sv_image=0x7f090060;
         public static final int image_activity_tv_message=0x7f090062;
-        public static final int image_actv_menu_add_memo=0x7f09007f;
-        public static final int image_actv_menu_add_patterns=0x7f090080;
+        public static final int image_actv_menu_add_memo=0x7f090081;
+        public static final int image_actv_menu_add_patterns=0x7f090082;
         public static final int iv_thumbnail=0x7f090068;
         public static final int list_row_ai_list_tv_file_length=0x7f09006c;
         public static final int list_row_ai_list_tv_file_name=0x7f09006b;
         public static final int list_row_ai_list_tv_title=0x7f09006d;
-        public static final int list_row_checked_box_checkBox1=0x7f090071;
-        public static final int list_row_checked_box_iv_thumbnail=0x7f09006e;
-        public static final int list_row_checked_box_textView1=0x7f09006f;
-        public static final int list_row_checked_box_textView2=0x7f090070;
-        public static final int main_opt_menu_create_folder=0x7f090081;
-        public static final int main_opt_menu_db_activity=0x7f090082;
-        public static final int main_opt_menu_history=0x7f090085;
-        public static final int main_opt_menu_preferences=0x7f090084;
-        public static final int main_opt_menu_search=0x7f090083;
+        public static final int list_row_checked_box_cb=0x7f090071;
+        public static final int list_row_checked_box_iv=0x7f09006e;
+        public static final int list_row_checked_box_tv_file_name=0x7f09006f;
+        public static final int list_row_checked_box_tv_title=0x7f090070;
+        public static final int main_opt_menu_create_folder=0x7f090083;
+        public static final int main_opt_menu_db_activity=0x7f090084;
+        public static final int main_opt_menu_history=0x7f090087;
+        public static final int main_opt_menu_preferences=0x7f090086;
+        public static final int main_opt_menu_search=0x7f090085;
         public static final int row_dlg_item_menu_tv=0x7f090078;
         public static final int tableRow1=0x7f090052;
         public static final int tableRow2=0x7f090055;
@@ -188,8 +190,6 @@ public final class R {
         public static final int thumb_activity_ib_prev_page=0x7f09007b;
         public static final int thumb_activity_ib_toBottom=0x7f09007e;
         public static final int thumb_activity_ib_toTop=0x7f09007a;
-        public static final int thumb_actv_menu_move_files=0x7f090087;
-        public static final int thumb_actv_menu_move_mode=0x7f090086;
         public static final int v1_LL_debug=0x7f090074;
         public static final int v1_bt_back=0x7f090075;
         public static final int v1_bt_forward=0x7f090077;
@@ -235,15 +235,19 @@ public final class R {
         public static final int v2_2=0x7f030022;
     }
     public static final class menu {
-        public static final int image_actv_menu=0x7f080000;
-        public static final int main_menu=0x7f080001;
-        public static final int thumb_actv_menu=0x7f080002;
+        public static final int al_actv_menu=0x7f080000;
+        public static final int image_actv_menu=0x7f080001;
+        public static final int main_menu=0x7f080002;
     }
     public static final class string {
         /**  actv_play.xml 
          */
         public static final int actv_play_bt_play=0x7f06003d;
         public static final int actv_play_bt_stop=0x7f06003e;
+        public static final int al_actv_menu_move_files=0x7f060041;
+        /**  ALActv.java 
+         */
+        public static final int al_actv_menu_move_mode=0x7f060040;
         public static final int app_name=0x7f06000a;
         /**  db_manager.xml 
          */
