@@ -7,6 +7,7 @@ import java.io.File;
 import cm5.items.AI;
 import cm5.items.TI;
 //import cm5.main.ImageActv;
+import cm5.main.ALActv;
 import cm5.main.MainActv;
 import cm5.main.PlayActv;
 import cm5.main.TNActv;
@@ -137,7 +138,7 @@ public class ButtonOnClickListener implements OnClickListener {
 			
 			break;
 
-		case tilist_cb://------------------------------------------------------------------------------
+		case ailist_cb://------------------------------------------------------------------------------
 			/*----------------------------
 			 * Steps
 			 * 1. If already checked, unlist from ThumbnailActivity.checkedPositions
@@ -147,15 +148,14 @@ public class ButtonOnClickListener implements OnClickListener {
 			/*----------------------------
 			 * 1. If already checked, unlist from ThumbnailActivity.checkedPositions
 				----------------------------*/
-			case_tilist_cb();
+			case_ailist_cb();
 			
 			/*----------------------------
 			 * 3. Then, notify to adapter
 				----------------------------*/
-			TNActv.aAdapter.notifyDataSetChanged();
-			TNActv.bAdapter.notifyDataSetChanged();
+			ALActv.ail_adp_move.notifyDataSetChanged();
 			
-			break;
+			break;// case ailist_cb
 
 		case thumb_activity_ib_bottom: //----------------------------------------------
 			
@@ -417,55 +417,40 @@ public class ButtonOnClickListener implements OnClickListener {
 		
 	}//private void image_activity_prev()
 
-	private void case_tilist_cb() {
-		if (TNActv.checkedPositions.contains((int)position)) {
+	private void case_ailist_cb() {
+		if (ALActv.checkedPositions.contains((int)position)) {
+
+			ALActv.checkedPositions.remove((Integer) position);
+			
 			// Log
 			Log.d("ButtonOnClickListener.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "position exists => " + position);
+					+ "]", "position removed => " + position);
 			
-//			TNActv.checkedPositions.add(position);
-//			TNActv.checkedPositions.remove(position);
-			TNActv.checkedPositions.remove((Integer) position);
-			
-			// Log
-			Log.d("ButtonOnClickListener.java"
-					+ "["
-					+ Thread.currentThread().getStackTrace()[2]
-							.getLineNumber() + "]", "position removed => " + position);
-			
-			
-//			// Log
-//			Log.d("TNActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "New position => " + position +
-//					" / " + "(length=" + TNActv.checkedPositions.size() + ")");
-//
-//			Log.d("TNActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", 
-//					"tiList(position=" + position + ") => " + 
-//					TNActv.tiList.get(position).getFile_name());
+//			ALActv.ail_adp_move.notifyDataSetChanged();
 
 		} else {//if (TNActv.checkedPositions.contains((int)position))
 			/*----------------------------
 			 * 2. If not yet, enlist into it
 				----------------------------*/
 			
-			TNActv.checkedPositions.add(position);
+			ALActv.checkedPositions.add(position);
+			
+//			ALActv.ail_adp_move.notifyDataSetChanged();
 			
 			// Log
 			String temp = "new position added => " + String.valueOf(position) +
-					"(size=" + TNActv.checkedPositions.size() + ")" + "[";
+					"(size=" + ALActv.checkedPositions.size() + ")" + "[";
 			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(temp);
-			for (int i = 0; i < TNActv.checkedPositions.size(); i++) {
+			
+			for (int i = 0; i < ALActv.checkedPositions.size(); i++) {
 				
-				sb.append(TNActv.checkedPositions.get(i) + ",");
+				sb.append(ALActv.checkedPositions.get(i) + ",");
 				
-			}//for (int i = 0; i < TNActv.checkedPositions.size(); i++)
+			}//for (int i = 0; i < ALActv.checkedPositions.size(); i++)
 			sb.append("]");
 			
 			
@@ -474,10 +459,11 @@ public class ButtonOnClickListener implements OnClickListener {
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]", sb.toString());
 //							.getLineNumber() + "]", "new position added => " + String.valueOf(position) +
-//							"(size=" + TNActv.checkedPositions.size() + ")" + "[" +);
+//							"(size=" + ALActv.checkedPositions.size() + ")" + "[" +);
 			
 			
-		}//if (TNActv.checkedPositions.contains((int)position))
-	}//private void case_tilist_cb()
+		}//if (ALActv.checkedPositions.contains((int)position))
+		
+	}//private void case_ailist_cb()
 
 }//public class ButtonOnClickListener implements OnClickListener

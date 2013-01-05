@@ -94,8 +94,8 @@ public class Tags {
 		// image_activity.xml
 		image_activity_back, image_activity_prev, image_activity_next,
 		
-		// TIListAdapter.java
-		tilist_cb,
+		// AILAdapter.java
+		ailist_cb,
 		
 		// actv_play.xml
 		actv_play_bt_play, actv_play_bt_stop, actv_play_bt_back,

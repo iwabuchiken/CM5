@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import cm5.adapters.AILAdapter;
+import cm5.adapters.AILAdapter_move;
 import cm5.adapters.TIListAdapter;
 import cm5.items.AI;
 import cm5.items.TI;
@@ -37,6 +38,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,7 +57,7 @@ public class ALActv extends ListActivity {
 //	public static TIListAdapter aAdapter;
 //	public static TIListAdapter bAdapter;
 
-	public static boolean move_mode = false;
+//	public static boolean move_mode = false;
 
 	/*********************************
 	 * Special intent data
@@ -76,8 +78,14 @@ public class ALActv extends ListActivity {
 	public static List<String> fileNameList;
 	
 	public static List<AI> ai_list;
+	
+	public static List<AI> ai_list_move;
 
 	public static AILAdapter ail_adp;
+	
+	public static AILAdapter ail_adp_move;
+	
+//	public static AILAdapter_move ail_adp_move;
 	
 	public static ArrayAdapter<String> dirListAdapter;
 	
@@ -143,6 +151,8 @@ public class ALActv extends ListActivity {
 			****************************/
 		checkedPositions = new ArrayList<Integer>();
 
+		B16_v_1_0();
+		
 		//debug
 //		get_data_from_table_AAA();
 		
@@ -153,7 +163,21 @@ public class ALActv extends ListActivity {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "prefs_current_path: " + Methods.get_pref(this, MainActv.prefs_current_path, "NO DATA"));
 		
+		
+		
 	}//public void onCreate(Bundle savedInstanceState)
+
+
+	private void B16_v_1_0() {
+		
+		Display disp = this.getWindowManager().getDefaultDisplay();
+		
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "width=" + disp.getWidth());
+		
+	}//private void B16_v_1_0()
 
 
 	private void get_tables_from_db() {
@@ -262,6 +286,7 @@ public class ALActv extends ListActivity {
 		ail_adp = new AILAdapter(
 				this,
 				R.layout.list_row_ai_list,
+//				R.layout.actv_al,
 				ai_list
 				);
 		
@@ -420,7 +445,7 @@ public class ALActv extends ListActivity {
 		
 		lv.setTag(Tags.ItemTags.dir_list_thumb_actv);
 		
-		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
+//		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
 		/****************************
 		 * 3. "Bottom"
@@ -688,15 +713,15 @@ public class ALActv extends ListActivity {
 		String[] col_names = 
 				Methods.get_column_list(this, CONS.dbName, tname);
 		
-		for (String col_name : col_names) {
-			
-			// Log
-			Log.d("ALActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "col_name=" + col_name);
-			
-		}
-		
+//		for (String col_name : col_names) {
+//			
+//			// Log
+//			Log.d("ALActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "col_name=" + col_name);
+//			
+//		}
+//		
 		
 		/*********************************
 		 * Add column
@@ -747,9 +772,9 @@ public class ALActv extends ListActivity {
 		/****************************
 		 * 2. move_mode => falsify
 			****************************/
-		if (move_mode == true) {
+		if (CONS.move_mode == true) {
 			
-			move_mode = false;
+			CONS.move_mode = false;
 			
 			// Log
 			Log.d("ALActv.java" + "["
@@ -872,43 +897,54 @@ public class ALActv extends ListActivity {
 			****************************/
 		vib.vibrate(Methods.vibLength_click);
 
-		/****************************
-		 * 1. Get item
-			****************************/
-		AI ai = (AI) lv.getItemAtPosition(position);
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "CONS.move_mode=" + CONS.move_mode);
 		
-		/****************************
-		 * 2. Intent
-		 * 		2.1. Set data
-			****************************/
-		Intent i = new Intent();
-		
-		i.setClass(this, PlayActv.class);
-		
-		i.putExtra("db_id", ai.getDb_id());
-		
-		i.putExtra("table_name", ai.getTable_name());
-		
-		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		
-		
-		/*********************************
-		 * 9. Start intent
-		 *********************************/
-		startActivity(i);
-		
-//		if (ai != null) {
-//			
-//			// debug
-//			Toast.makeText(this, ai.getFile_name(), Toast.LENGTH_SHORT).show();
-//			
-//		} else {//if (ai != null)
-//
-//			// debug
-//			Toast.makeText(this, "ai == null", Toast.LENGTH_SHORT).show();
-//			
-//		}//if (ai != null)
-		
+		//
+		if (CONS.move_mode == true) {
+			
+			checkedPositions.add(position);
+			
+			// Log
+			Log.d("TNActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "New position => " + position +
+					" / " + "(length=" + checkedPositions.size() + ")");
+			
+//			ail_adp_move.notifyDataSetChanged();
+			ail_adp_move.notifyDataSetChanged();
+
+			
+		} else if (CONS.move_mode == false) {//if (CONS.move_mode == true)
+			
+			/****************************
+			 * 1. Get item
+				****************************/
+			AI ai = (AI) lv.getItemAtPosition(position);
+			
+			/****************************
+			 * 2. Intent
+			 * 		2.1. Set data
+				****************************/
+			Intent i = new Intent();
+			
+			i.setClass(this, PlayActv.class);
+			
+			i.putExtra("db_id", ai.getDb_id());
+			
+			i.putExtra("table_name", ai.getTable_name());
+			
+			i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			
+			
+			/*********************************
+			 * 9. Start intent
+			 *********************************/
+			startActivity(i);
+			
+		}//if (CONS.move_mode == true)
 
 //		/****************************
 //		 * 0. Vibrate
@@ -1066,7 +1102,7 @@ public class ALActv extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// 
 		MenuInflater mi = getMenuInflater();
-		mi.inflate(R.menu.thumb_actv_menu, menu);
+		mi.inflate(R.menu.al_actv_menu, menu);
 		
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -1081,8 +1117,9 @@ public class ALActv extends ListActivity {
 			****************************/
 		
 		
-		case R.id.thumb_actv_menu_move_mode://---------------------------------------
-			if (move_mode == true) {
+//		case R.id.thumb_actv_menu_move_mode://---------------------------------------
+		case R.id.al_actv_menu_move_mode://---------------------------------------
+			if (CONS.move_mode == true) {
 				
 				move_mode_true(item);
 				
@@ -1094,9 +1131,10 @@ public class ALActv extends ListActivity {
 			
 			break;// case R.id.thumb_actv_menu_move_files
 		
-		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
+//		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
+		case R.id.al_actv_menu_move_files:	//------------------------------------------
 			
-			if (move_mode == false) {
+			if (CONS.move_mode == false) {
 				
 				// debug
 				Toast.makeText(this, "Move mode is not on", 2000)
@@ -1104,7 +1142,7 @@ public class ALActv extends ListActivity {
 				
 				return false;
 				
-			} else if (move_mode == true) {
+			} else if (CONS.move_mode == true) {
 				/****************************
 				 * Steps
 				 * 1. checkedPositions => Has contents?
@@ -1153,26 +1191,8 @@ public class ALActv extends ListActivity {
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_on);
 		
-		move_mode = true;
+		CONS.move_mode = true;
 		
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "move_mode => Now true");
-		
-		/****************************
-		 * 2-1. Set position to preference
-			****************************/
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "this.getSelectedItemPosition(): " + this.getSelectedItemPosition());
-
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "this.getSelectedItemId(): " + this.getSelectedItemId());
-
 		/****************************
 		 * 4. Re-set tiList
 			****************************/
@@ -1182,62 +1202,79 @@ public class ALActv extends ListActivity {
 		
 		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
 		
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tableName: " + tableName);
-		
-		
-		//
-		tiList.clear();
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList => Cleared");
-
+//		// Log
 //		Log.d("ALActv.java"
 //				+ "["
 //				+ Thread.currentThread().getStackTrace()[2]
-//						.getLineNumber() + "]", "checkedPositions.size() => " + checkedPositions.size());
+//						.getLineNumber() + "]", "tableName: " + tableName);
+//		
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "currentPath=" + currentPath);
+		
+//		if (long_searchedItems == null) {
+//
+//			tiList = Methods.getAllData(this, tableName);
+//			
+//		} else {//if (long_searchedItems == null)
+//
+//			// Log
+//			Log.d("ALActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "long_searchedItems != null");
+//			
+//			tiList = Methods.convert_fileIdArray2tiList(this, tableName, long_searchedItems);
+//			
+//		}//if (long_searchedItems == null)
 
-		if (long_searchedItems == null) {
-
-			tiList = Methods.getAllData(this, tableName);
+		/*********************************
+		 * List
+		 *********************************/
+		if (ai_list != null) {
 			
-		} else {//if (long_searchedItems == null)
-
+			ai_list.clear();
+			
 			// Log
 			Log.d("ALActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "long_searchedItems != null");
+					+ "]", "ai_list => Cleared");
 			
-			tiList = Methods.convert_fileIdArray2tiList(this, tableName, long_searchedItems);
+			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
 			
-		}//if (long_searchedItems == null)
-
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
+		} else {//if (move_mode)
+			
+			ai_list = Methods.get_all_data_ai(this, tableName);
+			
+			// Log
+			Log.d("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "ai_list => Initialized");
+			
+		}//if (move_mode)
+		
+		// Sort list
+		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
 		
 		/****************************
 		 * 3. Update aAdapter
 			****************************/
-		Methods.sort_tiList(tiList);
+
+//		ail_adp_move = new AILAdapter_move(
+		ail_adp_move = new AILAdapter(
+				this,
+				R.layout.list_row_checked_box,
+//				ai_list_move
+				ai_list
+				);
 		
-//		bAdapter =
-//				new TIListAdapter(
-//						this, 
-//						R.layout.thumb_activity, 
-//						tiList,
-//						Methods.MoveMode.ON);
-//
-//		setListAdapter(bAdapter);
+//		ail_adp.clear();
+		
+//		ListView lv_move = this.getListView();
+//		
+//		lv_move.setAdapter(ail_adp_move);
+		
+		setListAdapter(ail_adp_move);
 
 	}//private void move_mode_false(MenuItem item)
 
@@ -1257,67 +1294,76 @@ public class ALActv extends ListActivity {
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_off);
 		
-		move_mode = false;
+		CONS.move_mode = false;
 
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "move_mode => Now false");
-		/****************************
-		 * 2-2. TNActv.checkedPositions => clear()
-			****************************/
-		ALActv.checkedPositions.clear();
-		
-		/****************************
-		 * 2-3. Get position from preference
-			****************************/
-		int selected_position = Methods.get_pref(this, tnactv_selected_item, 0);
-		
-		/****************************
-		 * 3. Re-set tiList
-			****************************/
+//		/****************************
+//		 * 2-2. TNActv.checkedPositions => clear()
+//			****************************/
+//		ALActv.checkedPositions.clear();
+//		
+//		/****************************
+//		 * 2-3. Get position from preference
+//			****************************/
+//		int selected_position = Methods.get_pref(this, tnactv_selected_item, 0);
+//		
+//		/****************************
+//		 * 3. Re-set tiList
+//			****************************/
 //		String tableName = Methods.convertPathIntoTableName(this);
 		String currentPath = Methods.get_currentPath_from_prefs(this);
 		
 		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
 
-
-		tiList.clear();
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList => Cleared");
-
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "checkedPositions.size() => " + checkedPositions.size());
-		
-		if (long_searchedItems == null) {
-
-			tiList.addAll(Methods.getAllData(this, tableName));
+		if (ai_list != null) {
 			
-		} else {//if (long_searchedItems == null)
-
-//			tiList = Methods.getAllData(this, tableName);
-//			tiList = Methods.convert_fileIdArray2tiList(this, "IFM8", long_searchedItems);
+			ai_list.clear();
 			
-		}//if (long_searchedItems == null)
-
-		// Log
-		Log.d("ALActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber() + "]", "tiList.size() => " + tiList.size());
+			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
+			
+		} else {//if (move_mode)
+			
+			ai_list = Methods.get_all_data_ai(this, tableName);
+			
+		}//if (move_mode)
 		
+		// Sort list
+//		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.ASC);
+		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+
+//		if (long_searchedItems == null) {
+//
+//			tiList.addAll(Methods.getAllData(this, tableName));
+//			
+//		} else {//if (long_searchedItems == null)
+//
+////			tiList = Methods.getAllData(this, tableName);
+////			tiList = Methods.convert_fileIdArray2tiList(this, "IFM8", long_searchedItems);
+//			
+//		}//if (long_searchedItems == null)
+
 		/****************************
 		 * 4. Update aAdapter
 			****************************/
-		Methods.sort_tiList(tiList);
+
+		if (ail_adp != null) {
+			
+			ail_adp.notifyDataSetChanged();
+			
+			this.setListAdapter(ail_adp);
+			
+		} else {//if (ail_adp != null)
+			
+			ail_adp = new AILAdapter(
+					this,
+					R.layout.list_row_ai_list,
+					ai_list
+					);
+			
+			this.setListAdapter(ail_adp);
+			
+		}//if (ail_adp != null)
 		
+
 //		aAdapter = 
 //				new TIListAdapter(
 //						this, 
@@ -1327,7 +1373,7 @@ public class ALActv extends ListActivity {
 //		
 //		setListAdapter(aAdapter);
 		
-		this.setSelection(selected_position);
+//		this.setSelection(selected_position);
 		
 	}//private void move_mode_true()
 

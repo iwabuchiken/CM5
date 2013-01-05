@@ -165,60 +165,60 @@ public class TIListAdapter extends ArrayAdapter<TI> {
 
 		}//if (convertView != null)
 
-    	/*----------------------------
-		 * 2.2. Get view
-			----------------------------*/
-    	ImageView iv = (ImageView) v.findViewById(R.id.list_row_checked_box_iv_thumbnail);
-
-    	/*----------------------------
-		 * 2.3. Get item
-			----------------------------*/
-    	TI ti = getItem(position);
-
-    	/*----------------------------
-		 * 2.4. Get bitmap
-			----------------------------*/
-    	// ContentResolver
-    	ContentResolver cr = con.getContentResolver();
+//    	/*----------------------------
+//		 * 2.2. Get view
+//			----------------------------*/
+//    	ImageView iv = (ImageView) v.findViewById(R.id.list_row_checked_box_iv_thumbnail);
+//
+//    	/*----------------------------
+//		 * 2.3. Get item
+//			----------------------------*/
+//    	TI ti = getItem(position);
+//
+//    	/*----------------------------
+//		 * 2.4. Get bitmap
+//			----------------------------*/
+//    	// ContentResolver
+//    	ContentResolver cr = con.getContentResolver();
+//    	
+//    	// Bitmap
+//    	Bitmap bmp = 
+//				MediaStore.Images.Thumbnails.getThumbnail(
+//							cr, ti.getFileId(), MediaStore.Images.Thumbnails.MICRO_KIND, null);
+//    	
+//    	// Set bitmap
+//    	iv.setImageBitmap(bmp);
     	
-    	// Bitmap
-    	Bitmap bmp = 
-				MediaStore.Images.Thumbnails.getThumbnail(
-							cr, ti.getFileId(), MediaStore.Images.Thumbnails.MICRO_KIND, null);
-    	
-    	// Set bitmap
-    	iv.setImageBitmap(bmp);
-    	
-    	/*----------------------------
-		 * 2.5. Get memo, or, file name
-			----------------------------*/
-		TextView tv = (TextView) v.findViewById(R.id.list_row_checked_box_textView1);
-		
-		tv.setText(ti.getFile_name());
-		
-		// move_mode
-		if (TNActv.move_mode == true &&
-				TNActv.checkedPositions.contains((Integer) position)) {
-			
-			tv.setBackgroundColor(Color.BLUE);
-			
-		} else {//if (ThumbnailActivity.move_mode == true)
-				
-				tv.setBackgroundColor(Color.BLACK);
-				
-		}
-		
-		TextView tv_memo = (TextView) v.findViewById(R.id.list_row_checked_box_textView2);
-		
-		String memo = ti.getMemo();
-		
-		if (memo != null) {
-			tv_memo.setText(memo);
-			
-		} else {//if (memo)
-
-			tv_memo.setText("");
-		}//if (memo)
+//    	/*----------------------------
+//		 * 2.5. Get memo, or, file name
+//			----------------------------*/
+//		TextView tv = (TextView) v.findViewById(R.id.list_row_checked_box_textView1);
+//		
+//		tv.setText(ti.getFile_name());
+//		
+//		// move_mode
+//		if (TNActv.move_mode == true &&
+//				TNActv.checkedPositions.contains((Integer) position)) {
+//			
+//			tv.setBackgroundColor(Color.BLUE);
+//			
+//		} else {//if (ThumbnailActivity.move_mode == true)
+//				
+//				tv.setBackgroundColor(Color.BLACK);
+//				
+//		}
+//		
+//		TextView tv_memo = (TextView) v.findViewById(R.id.list_row_checked_box_textView2);
+//		
+//		String memo = ti.getMemo();
+//		
+//		if (memo != null) {
+//			tv_memo.setText(memo);
+//			
+//		} else {//if (memo)
+//
+//			tv_memo.setText("");
+//		}//if (memo)
 		
 		/*----------------------------
 		 * 2.6. CheckedBox => Set listener
@@ -226,34 +226,34 @@ public class TIListAdapter extends ArrayAdapter<TI> {
 		 * 		2. OnClick
 		 * 		3. 
 			----------------------------*/
-		CheckBox cb = (CheckBox) v.findViewById(R.id.list_row_checked_box_checkBox1);
-		
-		cb.setTag(Tags.ButtonTags.tilist_cb);
-		
-		if (TNActv.checkedPositions.contains((Integer) position)) {
-			
-			cb.setChecked(true);
-			
-			// Log
-			Log.d("TIListAdapter.java"
-					+ "["
-					+ Thread.currentThread().getStackTrace()[2]
-							.getLineNumber() + "]", 
-					"cb => true" + "(position => " + TNActv.checkedPositions.size() + ")");
-			
-			
-		} else {//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
-			
-			cb.setChecked(false);
-			
-		}//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
-		
-		cb.setOnClickListener(new ButtonOnClickListener((Activity) con, position));
-		
-		
-		cb.setOnLongClickListener(
-					new CustomOnLongClickListener(
-									(Activity) con, position, Tags.ItemTags.tilist_checkbox));
+//		CheckBox cb = (CheckBox) v.findViewById(R.id.list_row_checked_box_checkBox1);
+//		
+//		cb.setTag(Tags.ButtonTags.tilist_cb);
+//		
+//		if (TNActv.checkedPositions.contains((Integer) position)) {
+//			
+//			cb.setChecked(true);
+//			
+//			// Log
+//			Log.d("TIListAdapter.java"
+//					+ "["
+//					+ Thread.currentThread().getStackTrace()[2]
+//							.getLineNumber() + "]", 
+//					"cb => true" + "(position => " + TNActv.checkedPositions.size() + ")");
+//			
+//			
+//		} else {//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
+//			
+//			cb.setChecked(false);
+//			
+//		}//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
+//		
+//		cb.setOnClickListener(new ButtonOnClickListener((Activity) con, position));
+//		
+//		
+//		cb.setOnLongClickListener(
+//					new CustomOnLongClickListener(
+//									(Activity) con, position, Tags.ItemTags.tilist_checkbox));
 
 		/*----------------------------
 		 * 2.7. Return

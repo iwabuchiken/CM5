@@ -555,10 +555,10 @@ public class Methods {
 		 * 2. Detect loation of "IFM8"
 		 * 3. Build path label
 			****************************/
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Starting => convert_prefs_into_path_label()");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Starting => convert_prefs_into_path_label()");
 		
 		String currentPath = path;
 		
@@ -579,21 +579,21 @@ public class Methods {
 			}//if (pathArray[i].equals(ImageFileManager8Activity.baseDirName))
 		}//for (int i = 0; i < pathArray.length; i++)
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-
-				+ "]", "currentPath");
-		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "MainActv.dpath_base=" + CONS.dpath_base);
-		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "location=" + location);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//
+//				+ "]", "currentPath");
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "MainActv.dpath_base=" + CONS.dpath_base);
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "location=" + location);
 		
 		/****************************
 		 * 3. Build path label
@@ -603,9 +603,9 @@ public class Methods {
 		
 		String s_newPath = StringUtils.join(newPath, File.separator);
 		
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "s_newPath => " + s_newPath);
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "s_newPath => " + s_newPath);
 		
 		return s_newPath;
 		
@@ -1057,10 +1057,10 @@ public class Methods {
 		}//if (currentPathArray.length > 1)
 		
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "tableName => " + tableName);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "tableName => " + tableName);
 		
 		
 		return tableName;
@@ -3744,8 +3744,156 @@ public class Methods {
 		 * 		1.3. Insert items in toMoveFiles to the new table
 		 * 		1.4. Delete the items from the source table
 			****************************/
-		List<TI> toMoveFiles = Methods.moveFiles_1_get_toMoveFiles();
+		List<AI> toMoveFiles = Methods.moveFiles_1_get_toMoveFiles();
 		
+		String[] tnames = Methods.moveFiles_2_setup_paths(actv, dlg2);
+		
+		String sourceTableName = tnames[0];
+		
+		String targetTableName = tnames[1];
+		
+		/****************************
+		 * 1.3. Insert items in toMoveFiles to the new table
+		 * 		1.3.1. Insert data to the new table
+			****************************/
+		/****************************
+		 * 1.3.1. Insert data to the new table
+		 * 		1. Set up db
+		 * 		2. Table exists?
+		 * 		2-2. If no, create one
+		 * 		3. Get item from toMoveFiles
+		 * 
+		 * 		4. Insert data into the new table
+			****************************/
+		
+		Methods.moveFiles_3_db(actv, sourceTableName, targetTableName, toMoveFiles);
+
+		Methods.moveFiles_4_refresh_list(actv, sourceTableName);
+		
+//		ALActv.ail_adp_move.notifyDataSetChanged();
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "ALActv.ail_adp_move => Notified");
+		
+
+//		/****************************
+//		 * 2-2. Update preference for highlighting a chosen item
+//			****************************/
+////		SharedPreferences prefs = 
+////				actv.getSharedPreferences(
+//////						"thumb_actv", 
+////						Methods.PrefenceLabels.thumb_actv.name(),
+////						ThumbnailActivity.MODE_PRIVATE);
+////
+////		SharedPreferences.Editor editor = prefs.edit();
+////
+////		int savedPosition = prefs.getInt(Methods.PrefenceLabels.chosen_list_item.name(), -1);
+//		
+		/****************************
+		 * 3. Dismiss dialogues
+			****************************/
+		dlg1.dismiss();
+		dlg2.dismiss();
+		
+	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+
+	private static void moveFiles_4_refresh_list(
+						Activity actv, String sourceTableName) {
+		
+		ALActv.ai_list.clear();
+		
+		ALActv.ai_list.addAll(Methods.get_all_data_ai(actv, sourceTableName));
+		
+		Methods.sort_list_ai_created_at(ALActv.ai_list, CONS.SORT_ORDER.DEC);
+		
+		ALActv.ail_adp_move.notifyDataSetChanged();
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "ALActv.ail_adp_move => Notified");
+		
+	}//private static void moveFiles_4_refresh_list
+
+	private static void moveFiles_3_db(Activity actv,
+			String sourceTableName, String targetTableName, List<AI> toMoveFiles) {
+		
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		/****************************
+		 * 1.3.1.2. Table exists?
+			****************************/
+		boolean res = moveFiles_2_table_exists(actv, wdb, dbu, targetTableName);
+		
+		if (res == false) {
+			
+			return;
+			
+		}//if (res == false)
+		
+		/****************************
+		 * 1.3.1.3. Get item from toMoveFiles
+			****************************/
+		for (AI ai : toMoveFiles) {
+			
+			/****************************
+			 * 1.3.4. Insert data into the new table
+				****************************/
+			// Change the table name
+			ai.setTable_name(targetTableName);
+			
+			// Insert into the target table
+			dbu.insertData_ai(wdb, targetTableName, ai);
+			
+			// Delete from the source table
+			Methods.deleteItem_fromTable_ai(actv, sourceTableName, ai);
+			
+		}//for (ThumbnailItem thumbnailItem : toMoveFiles)
+		
+		
+		/****************************
+		 * 1.4. Delete the items from the source table
+		 * 		1. Delete data from the source table
+		 * 		2. Delete the item from tiList
+		 * 
+		 * 		9. Close db
+			****************************/
+		/****************************
+		 * 1.4.2. Delete the item from tiList
+			****************************/
+		for (Integer position : ALActv.checkedPositions) {
+			
+//			ALActv.ai_list_move.remove(position);
+			ALActv.ai_list.remove(position);
+			
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Removed from ai_list at position=" + position);
+			
+			
+		}//for (Integer position : ThumbnailActivity.checkedPositions)
+		
+		//
+		ALActv.checkedPositions.clear();
+		
+		//
+//		ALActv.ail_adp_move.notifyDataSetChanged();
+		
+		/****************************
+		 * 1.4.9. Close wdb
+			****************************/
+		wdb.close();
+
+	}//private static void moveFiles_3_db
+
+	private static String[] moveFiles_2_setup_paths(Activity actv, Dialog dlg2) {
+		// TODO Auto-generated method stub
 		/****************************
 		 * 1.2. Get target dir path from dlg2
 			****************************/
@@ -3787,138 +3935,10 @@ public class Methods {
 		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "f.getAbsolutePath(): " + f.getAbsolutePath());
-		
-		/****************************
-		 * 1.3. Insert items in toMoveFiles to the new table
-		 * 		1.3.1. Insert data to the new table
-			****************************/
-		/****************************
-		 * 1.3.1. Insert data to the new table
-		 * 		1. Set up db
-		 * 		2. Table exists?
-		 * 		2-2. If no, create one
-		 * 		3. Get item from toMoveFiles
-		 * 
-		 * 		4. Insert data into the new table
-			****************************/
-		DBUtils dbu = new DBUtils(actv, CONS.dbName);
-		
-		SQLiteDatabase wdb = dbu.getWritableDatabase();
 
-		/****************************
-		 * 1.3.1.2. Table exists?
-			****************************/
-		boolean res = moveFiles_2_table_exists(actv, wdb, dbu, targetTableName);
+		return new String[]{sourceTableName, targetTableName};
 		
-		if (res == false) {
-			
-			return;
-			
-		}//if (res == false)
-		
-		/****************************
-		 * 1.3.1.3. Get item from toMoveFiles
-			****************************/
-		for (TI ti : toMoveFiles) {
-			
-			/****************************
-			 * 1.3.4. Insert data into the new table
-				****************************/
-			dbu.insertData(wdb, targetTableName, ti);
-			
-			deleteItem_fromTable(actv, sourceTableName, ti);
-			
-		}//for (ThumbnailItem thumbnailItem : toMoveFiles)
-		
-		
-		/****************************
-		 * 1.4. Delete the items from the source table
-		 * 		1. Delete data from the source table
-		 * 		2. Delete the item from tiList
-		 * 
-		 * 		9. Close db
-			****************************/
-		/****************************
-		 * 1.4.2. Delete the item from tiList
-			****************************/
-		for (Integer position : TNActv.checkedPositions) {
-			
-			TNActv.tiList.remove(position);
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Removed from tiList at position=" + position);
-			
-			
-		}//for (Integer position : ThumbnailActivity.checkedPositions)
-		
-		/****************************
-		 * 1.4.9. Close wdb
-			****************************/
-		wdb.close();
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "wdb => Closed");
-//		
-//		/****************************
-//		 * 2. Update the list view
-//			****************************/
-//		ThumbnailActivity.checkedPositions.clear();
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "checkedPositions => Cleared");
-//		
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", 
-//				"ThumbnailActivity.checkedPositions.size() => " + 
-//				ThumbnailActivity.checkedPositions.size());
-//		
-//		ThumbnailActivity.aAdapter.notifyDataSetChanged();
-//		
-////		ThumbnailActivity.bAdapter.notifyDataSetChanged();
-//		ThumbnailActivity.bAdapter =
-//				new TIListAdapter(
-//						actv, 
-//						ifm8.main.R.layout.thumb_activity, 
-////						ThumbnailActivity.tiList);
-//						ThumbnailActivity.tiList,
-//						Methods.MoveMode.ON);
-//
-//		((ListActivity) actv).setListAdapter(ThumbnailActivity.bAdapter);
-//		
-//		
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "aAdapter => Notified");
-//		
-//		/****************************
-//		 * 2-2. Update preference for highlighting a chosen item
-//			****************************/
-////		SharedPreferences prefs = 
-////				actv.getSharedPreferences(
-//////						"thumb_actv", 
-////						Methods.PrefenceLabels.thumb_actv.name(),
-////						ThumbnailActivity.MODE_PRIVATE);
-////
-////		SharedPreferences.Editor editor = prefs.edit();
-////
-////		int savedPosition = prefs.getInt(Methods.PrefenceLabels.chosen_list_item.name(), -1);
-//		
-		/****************************
-		 * 3. Dismiss dialogues
-			****************************/
-		dlg1.dismiss();
-		dlg2.dismiss();
-		
-	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+	}//private static void moveFiles_2_setup_paths
 
 	private static boolean moveFiles_2_table_exists(Activity actv, 
 					SQLiteDatabase wdb, DBUtils dbu, String targetTableName) {
@@ -3979,7 +3999,7 @@ public class Methods {
 		}//if (result == true)
 	}//private static boolean moveFiles_2_table_exists()
 
-	public static List<TI> moveFiles_1_get_toMoveFiles() {
+	public static List<AI> moveFiles_1_get_toMoveFiles() {
 		/****************************
 		 * 1. Move files
 		 * 		1.1. Prepare toMoveFiles
@@ -3988,11 +4008,11 @@ public class Methods {
 		 * 		1.4. Delete the items from the source table
 			****************************/
 		//
-		List<TI> toMoveFiles = new ArrayList<TI>();
+		List<AI> toMoveFiles = new ArrayList<AI>();
 		
-		for (int position : TNActv.checkedPositions) {
+		for (int position : ALActv.checkedPositions) {
 			
-			toMoveFiles.add(TNActv.tiList.get(position));
+			toMoveFiles.add(ALActv.ai_list.get(position));
 			
 		}//for (int position : ThumbnailActivity.checkedPositions)
 		
@@ -4002,10 +4022,10 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "toMoveFiles.size() => " + toMoveFiles.size());
 		
-		for (TI thumbnailItem : toMoveFiles) {
+		for (AI ai : toMoveFiles) {
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "thumbnailItem.getFile_name() => " + thumbnailItem.getFile_name());
+					+ "]", "ai.getFile_name() => " + ai.getFile_name());
 		}
 		
 		return toMoveFiles;
@@ -4090,6 +4110,85 @@ public class Methods {
 //		dlg.dismiss();
 
 	}//public static void deleteItem_fileId(Activity actv, TI ti, int position)
+
+	public static void deleteItem_fromTable_ai(Activity actv, String tableName, AI ai) {
+		/****************************
+		 * 1. db setup
+		 * 2. Delete data
+		 * 3. Close db
+		 * 4. If unsuccesful, toast a message (Not dismiss the dialog)
+		 * 4-2. If successful, delete the item from tiList, as well, and,
+		 * #4-3. Notify adapter
+		 * 5. Dismiss dialog
+			****************************/
+		
+		/****************************
+		 * 1. db setup
+			****************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/****************************
+		 * 2. Delete data
+			****************************/
+		boolean result = dbu.deleteData_ai(
+							actv,
+							wdb, 
+//							Methods.convertPathIntoTableName(actv),
+							tableName,
+							ai.getDb_id());
+		
+		/****************************
+		 * 3. Close db
+			****************************/
+		wdb.close();
+		
+		/****************************
+		 * 4. If unsuccesful, toast a message (Not dismiss the dialog)
+			****************************/
+		if (result == false) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data wasn't deleted: " + ai.getFile_name());
+			
+		} else if (result == true) {//if (result == true)
+			/****************************
+			 * 4-2. If successful, delete the item from tiList, as well
+				****************************/
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data was deleted: " + ai.getFile_name());
+
+//			ThumbnailActivity.tiList.remove(position);
+			
+//			// Log
+//			Log.d("DialogOnItemClickListener.java"
+//					+ "["
+//					+ Thread.currentThread().getStackTrace()[2]
+//							.getLineNumber() + "]", "Data removed from tiList => " + ti.getFile_name());
+			
+//			/****************************
+//			 * 4-3. Notify adapter
+//				****************************/
+//			ThumbnailActivity.aAdapter.notifyDataSetChanged();
+			
+		}//if (result == true)
+		
+//		/****************************
+//		 * 5. Notify adapter
+//			****************************/
+//		ThumbnailActivity.aAdapter.notifyDataSetChanged();
+//		
+//		/****************************
+//		 * 5. Dismiss dialog
+//			****************************/
+//		dlg.dismiss();
+
+	}//public static void deleteItem_fromTable_ai(Activity actv, String tableName, AI ai)
 
 	public static TI getData(Activity actv, String tableName, long file_id) {
 
@@ -5178,15 +5277,15 @@ public class Methods {
 		 *********************************/
 		String[] cols = Methods.get_column_list(actv, dbName, tableName);
 		
-		//debug
-		for (String col_name : cols) {
-
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "col: " + col_name);
-			
-		}//for (String col_name : cols)
+//		//debug
+//		for (String col_name : cols) {
+//
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "col: " + col_name);
+//			
+//		}//for (String col_name : cols)
 
 		
 		for (String col_name : cols) {
@@ -5452,10 +5551,10 @@ public class Methods {
 		 * 3. Return
 		 *********************************/
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.get_file_list(File dpath)");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Methods.get_file_list(File dpath)");
 		
 		/*********************************
 		 * 1. Directory exists?
@@ -5531,10 +5630,10 @@ public class Methods {
 		 * 9. Close db
 		 * 10. Return value
 		 *********************************/
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "get_all_data_ai(Activity actv, String table_name)");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "get_all_data_ai(Activity actv, String table_name)");
 		
 		/*********************************
 		 * 1. DB setup
@@ -5620,7 +5719,7 @@ public class Methods {
 //			{"file_name", 	"file_path",	"title", "memo",
 //				"last_played_at",	"table_name"}
 			
-			AI ti = new AI(
+			AI ai = new AI(
 					c.getString(3),	// file_name
 					c.getString(4),	// file_path
 					
@@ -5631,13 +5730,15 @@ public class Methods {
 					
 					c.getString(8),	// table_name
 					
+					c.getLong(9),	// length
+					
 					c.getLong(0),	// id
 					c.getLong(1),	// created_at
 					c.getLong(2)	// modified_at
 			);
 	
 			// Add to the list
-			ai_list.add(ti);
+			ai_list.add(ai);
 			
 //			// Log
 //			String file_full_path = StringUtils.join(

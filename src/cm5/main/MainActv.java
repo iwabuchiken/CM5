@@ -1103,10 +1103,10 @@ public class MainActv extends ListActivity {
 			----------------------------*/
 //		list_root_dir = null;
 		
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "list_root_dir => Set to null");
+//		// Log
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "list_root_dir => Set to null");
 		
 	}//protected void onDestroy()
 

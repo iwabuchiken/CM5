@@ -978,7 +978,7 @@ public class TNActv extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// 
 		MenuInflater mi = getMenuInflater();
-		mi.inflate(R.menu.thumb_actv_menu, menu);
+//		mi.inflate(R.menu.thumb_actv_menu, menu);
 		
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -993,53 +993,53 @@ public class TNActv extends ListActivity {
 			----------------------------*/
 		
 		
-		case R.id.thumb_actv_menu_move_mode://---------------------------------------
-			if (move_mode == true) {
-				
-				move_mode_true(item);
-				
-			} else {// move_mode => false
-				
-				move_mode_false(item);
-				
-			}//if (move_mode == true)
-			
-			break;// case R.id.thumb_actv_menu_move_files
-		
-		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
-			
-			if (move_mode == false) {
-				
-				// debug
-				Toast.makeText(this, "Move mode is not on", 2000)
-						.show();
-				
-				return false;
-				
-			} else if (move_mode == true) {
-				/*----------------------------
-				 * Steps
-				 * 1. checkedPositions => Has contents?
-				 * 2. If yes, show dialog
-					----------------------------*/
-				if (checkedPositions.size() < 1) {
-					
-					// debug
-					Toast.makeText(TNActv.this, "No item selected", 2000).show();
-					
-					return false;
-					
-				}//if (checkedPositions.size() < 1)
-				
-				
-				/*----------------------------
-				 * 2. If yes, show dialog
-					----------------------------*/
-				Methods_dialog.dlg_moveFiles(this);
-				
-			}//if (move_mode == false)
-			
-			break;// case R.id.thumb_actv_menu_move_files
+//		case R.id.thumb_actv_menu_move_mode://---------------------------------------
+//			if (move_mode == true) {
+//				
+//				move_mode_true(item);
+//				
+//			} else {// move_mode => false
+//				
+//				move_mode_false(item);
+//				
+//			}//if (move_mode == true)
+//			
+//			break;// case R.id.thumb_actv_menu_move_files
+//		
+//		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
+//			
+//			if (move_mode == false) {
+//				
+//				// debug
+//				Toast.makeText(this, "Move mode is not on", 2000)
+//						.show();
+//				
+//				return false;
+//				
+//			} else if (move_mode == true) {
+//				/*----------------------------
+//				 * Steps
+//				 * 1. checkedPositions => Has contents?
+//				 * 2. If yes, show dialog
+//					----------------------------*/
+//				if (checkedPositions.size() < 1) {
+//					
+//					// debug
+//					Toast.makeText(TNActv.this, "No item selected", 2000).show();
+//					
+//					return false;
+//					
+//				}//if (checkedPositions.size() < 1)
+//				
+//				
+//				/*----------------------------
+//				 * 2. If yes, show dialog
+//					----------------------------*/
+//				Methods_dialog.dlg_moveFiles(this);
+//				
+//			}//if (move_mode == false)
+//			
+//			break;// case R.id.thumb_actv_menu_move_files
 			
 		}//switch (item.getItemId())
 		

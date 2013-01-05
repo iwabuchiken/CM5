@@ -17,7 +17,8 @@ public class AI {
 	long last_played_at;
 	
 	String table_name;
-	
+
+	long length;
 	/*----------------------------
 	 * Constructor
 		----------------------------*/
@@ -72,6 +73,33 @@ public class AI {
 		
 	}//public ThumbnailItem(long fileId, String file_path, long date_added, long date_modified)
 
+	public AI(String file_name, String file_path,
+			String title, String memo,
+			
+			long last_played_at,
+			
+			String table_name, long length,
+			
+			long db_id, long created_at, long modified_at) {
+		// TODO Auto-generated constructor stub
+		this.file_name = file_name;
+		this.file_path = file_path;
+		
+		this.title = title;
+		this.memo = memo;
+		
+		this.last_played_at = last_played_at;
+		
+		this.table_name = table_name;
+
+		this.length = length;
+		
+		this.db_id = db_id;
+		this.created_at = created_at;
+		this.modified_at = modified_at;
+
+	}
+
 	public String getFile_name() {
 		return file_name;
 	}
@@ -110,6 +138,14 @@ public class AI {
 
 	public void setTable_name(String table_name) {
 		this.table_name = table_name;
+	}
+
+	public long getLength() {
+		return length;
+	}
+
+	public void setLength(long length) {
+		this.length = length;
 	}
 
 	public long getDb_id() {

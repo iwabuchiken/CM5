@@ -31,6 +31,7 @@ import cm5.listeners.dialog.DialogButtonOnClickListener;
 import cm5.listeners.dialog.DialogButtonOnTouchListener;
 import cm5.listeners.dialog.DialogOnItemClickListener;
 import cm5.listeners.dialog.DialogOnItemLongClickListener;
+import cm5.main.ALActv;
 import cm5.main.R;
 import cm5.main.TNActv;
 
@@ -71,25 +72,25 @@ public class Methods_dialog {
 			
 		});//File[] files
 		
-		TNActv.fileNameList = new ArrayList<String>();
+		ALActv.fileNameList = new ArrayList<String>();
 		
 //		for (String fileName : fileNames) {
 		for (File eachFile : files) {
 			
 //			fileNameList.add(fileName);
-			TNActv.fileNameList.add(eachFile.getName());
+			ALActv.fileNameList.add(eachFile.getName());
 			
 		}//for (String fileName : fileNames)
 		
-		Collections.sort(TNActv.fileNameList);
+		Collections.sort(ALActv.fileNameList);
 		
 		/****************************
 		 * 2-1. Set list to the adapter
 			****************************/
-		TNActv.dirListAdapter = new ArrayAdapter<String>(
+		ALActv.dirListAdapter = new ArrayAdapter<String>(
 												actv,
 												android.R.layout.simple_list_item_1,
-												TNActv.fileNameList
+												ALActv.fileNameList
 											);
 		
 		/****************************
@@ -98,7 +99,7 @@ public class Methods_dialog {
 		//
 		ListView lv = (ListView) dlg.findViewById(R.id.dlg_move_files_lv_list);
 		
-		lv.setAdapter(TNActv.dirListAdapter);
+		lv.setAdapter(ALActv.dirListAdapter);
 		
 		/****************************
 		 * 4. Set listener to the view
@@ -114,11 +115,11 @@ public class Methods_dialog {
 			****************************/
 //		lv.setTag(Methods.DialogItemTags.dlg_move_files);
 		
-		lv.setOnItemLongClickListener(
-						new DialogOnItemLongClickListener(
-												actv,
-												dlg,
-												TNActv.dirListAdapter, TNActv.fileNameList));
+//		lv.setOnItemLongClickListener(
+//						new DialogOnItemLongClickListener(
+//												actv,
+//												dlg,
+//												ALActv.dirListAdapter, ALActv.fileNameList));
 		
 		/****************************
 		 * 9. Show dialog
