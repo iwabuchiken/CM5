@@ -1327,7 +1327,8 @@ public class ALActv extends ListActivity {
 		}//if (move_mode)
 		
 		// Sort list
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.ASC);
+//		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.ASC);
+		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
 
 //		if (long_searchedItems == null) {
 //

@@ -558,6 +558,66 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//try
 	}//public insertData(SQLiteDatabase db, String tableName, ThumbnailItem ti)
 
+	public boolean insertData_ai(SQLiteDatabase db, String tableName, AI ai) {
+		/*----------------------------
+		* 1. Insert data
+		----------------------------*/
+		try {
+			// Start transaction
+			db.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+			
+//			{"file_id", 		"file_path", "file_name", "date_added",
+//				"date_modified", "memos", "tags"};
+			
+//			// Put values
+//			for (int i = 0; i < columnNames.length; i++) {
+//				val.put(columnNames[i], values[i]);
+//			}//for (int i = 0; i < columnNames.length; i++)
+
+			val.put(android.provider.BaseColumns._ID, ai.getDb_id());
+			
+			val.put("created_at", ai.getCreated_at());
+			val.put("modified_at", ai.getModified_at());
+			
+			val.put("file_path", ai.getFile_path());
+			val.put("file_name", ai.getFile_name());
+			
+			val.put("title", ai.getTitle());
+			val.put("memo", ai.getMemo());
+			
+			val.put("last_played_at", ai.getLast_played_at());
+			val.put("table_name", ai.getTable_name());
+			
+			val.put("length", ai.getLength());
+			
+			// Insert data
+			db.insert(tableName, null, val);
+			
+			// Set as successful
+			db.setTransactionSuccessful();
+			
+			// End transaction
+			db.endTransaction();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Data inserted => " + "(file_name => " + val.getAsString("file_name") + "), and others");
+			
+			return true;
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Exception! => " + e.toString());
+			
+			return false;
+		}//try
+	}//public boolean insertData_ai(SQLiteDatabase db, String tableName, AI ai)
+
 	
 	public static boolean insertData_history(
 							Activity actv, 
@@ -841,6 +901,83 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public boolean deleteData(SQLiteDatabase db, String tableName, long file_id)
 
+	public boolean deleteData_ai(Activity actv,
+						SQLiteDatabase db, String tableName, long db_id) {
+		/*----------------------------
+		 * Steps
+		 * 1. Item exists in db?
+		 * 2. If yes, delete it
+			----------------------------*/
+		/*----------------------------
+		 * 1. Item exists in db?
+			----------------------------*/
+		boolean result = DBUtils.isInDB_long_ai(db, tableName, db_id);
+		
+		if (result == false) {		// Result is false ==> Meaning the target data doesn't exist
+											//							in db; Hence, not executing delete op
+			
+			// debug
+			Toast.makeText(actv, 
+					"Data doesn't exist in db: " + String.valueOf(db_id), 
+					2000).show();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", 
+					"Data doesn't exist in db => Delete the data (db_id = " + String.valueOf(db_id) + ")");
+			
+			return false;
+			
+		} else {//if (result == false)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", 
+					"Data exists in db" + String.valueOf(db_id) + ")");
+			
+		}//if (result == false)
+		
+		
+		String sql = 
+						"DELETE FROM " + tableName
+						+ " WHERE " + android.provider.BaseColumns._ID
+						+ " = "
+						+ String.valueOf(db_id);
+		
+		try {
+			db.execSQL(sql);
+			
+//			// Log
+//			Log.d("DBUtils.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Data deleted => file id = " + String.valueOf(db_id));
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Sql executed: " + sql);
+			
+			return true;
+			
+		} catch (SQLException e) {
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql=" + sql);
+			
+			return false;
+			
+		}//try
+		
+	}//public boolean deleteData_ai(Activity actv, SQLiteDatabase db, String tableName, long db_id)
+
 	/****************************************
 	 *
 	 * 
@@ -856,7 +993,7 @@ public class DBUtils extends SQLiteOpenHelper{
 	 * 
 	 * <Steps> 1.
 	 ****************************************/
-	public boolean isInDB_long(SQLiteDatabase db, String tableName, long file_id) {
+	public static boolean isInDB_long(SQLiteDatabase db, String tableName, long file_id) {
 		
 		String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE file_id = '" +
 						String.valueOf(file_id) + "'";
@@ -882,6 +1019,33 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public boolean isInDB_long(SQLiteDatabase db, String tableName, long file_id)
 
+	public static boolean isInDB_long_ai(
+						SQLiteDatabase db, String tableName, long db_id) {
+		
+		String sql = "SELECT COUNT(*) FROM " + tableName
+					+ " WHERE " + android.provider.BaseColumns._ID + " = "
+					+ String.valueOf(db_id);
+		
+		long result = DatabaseUtils.longForQuery(db, sql, null);
+		
+		// Log
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "result => " + String.valueOf(result));
+		
+		if (result > 0) {
+
+			return true;
+			
+		} else {//if (result > 0)
+			
+			return false;
+			
+		}//if (result > 0)
+		
+//		return false;
+		
+	}//public static boolean isInDB_long_ai
 
 	public List<TI> get_all_data_history(Activity actv,
 			SQLiteDatabase rdb, long[] history_file_ids, String[] history_table_names) {

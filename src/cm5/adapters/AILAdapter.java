@@ -118,11 +118,11 @@ public class AILAdapter extends ArrayAdapter<AI> {
 
     	if (CONS.move_mode == false) {
 
-    		// Log
-			Log.d("AILAdapter.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "move_mode => " + CONS.move_mode);
-
+//    		// Log
+//			Log.d("AILAdapter.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "move_mode => " + CONS.move_mode);
+//
     		v = move_mode_off(v, position, convertView);
     		
     	} else {
