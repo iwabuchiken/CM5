@@ -3752,48 +3752,6 @@ public class Methods {
 		
 		String targetTableName = tnames[1];
 		
-//		/****************************
-//		 * 1.2. Get target dir path from dlg2
-//			****************************/
-//		TextView tv = (TextView) dlg2.findViewById(R.id.dlg_confirm_move_files_tv_table_name);
-//		
-//		String folderPath = tv.getText().toString();
-//		
-//		File f = new File(CONS.dpath_base, folderPath);
-//		
-////		String targetTableName = Methods.convert_path_into_table_name(actv, folderPath);
-//		String targetTableName = Methods.convert_filePath_into_table_name(actv, f.getAbsolutePath());
-//		
-//		String sourceTableName = Methods.convert_path_into_table_name(actv);
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "folderPath => " + folderPath);
-//
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "targetTableName => " + targetTableName);
-//		
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "sourceTableName => " + sourceTableName);
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", 
-//				"prefs_current_path: " 
-//				+ Methods.get_pref(
-//						actv,
-//						CONS.pname_current_path,
-//						CONS.pkey_current_path,
-//						"NO DATA"));
-//		
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "f.getAbsolutePath(): " + f.getAbsolutePath());
-		
 		/****************************
 		 * 1.3. Insert items in toMoveFiles to the new table
 		 * 		1.3.1. Insert data to the new table
@@ -3810,49 +3768,16 @@ public class Methods {
 		
 		Methods.moveFiles_3_db(actv, sourceTableName, targetTableName, toMoveFiles);
 
-		ALActv.ail_adp_move.notifyDataSetChanged();
+		Methods.moveFiles_4_refresh_list(actv, sourceTableName);
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ALActv.ail_adp_move => Notified");
+//		ALActv.ail_adp_move.notifyDataSetChanged();
 		
-//		/****************************
-//		 * 2. Update the list view
-//			****************************/
-//		ThumbnailActivity.checkedPositions.clear();
-//		
 //		// Log
 //		Log.d("Methods.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "checkedPositions => Cleared");
-//		
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", 
-//				"ThumbnailActivity.checkedPositions.size() => " + 
-//				ThumbnailActivity.checkedPositions.size());
-//		
-//		ThumbnailActivity.aAdapter.notifyDataSetChanged();
-//		
-////		ThumbnailActivity.bAdapter.notifyDataSetChanged();
-//		ThumbnailActivity.bAdapter =
-//				new TIListAdapter(
-//						actv, 
-//						ifm8.main.R.layout.thumb_activity, 
-////						ThumbnailActivity.tiList);
-//						ThumbnailActivity.tiList,
-//						Methods.MoveMode.ON);
-//
-//		((ListActivity) actv).setListAdapter(ThumbnailActivity.bAdapter);
-//		
-//		
-//		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "aAdapter => Notified");
-//		
+//				+ "]", "ALActv.ail_adp_move => Notified");
+		
+
 //		/****************************
 //		 * 2-2. Update preference for highlighting a chosen item
 //			****************************/
@@ -3873,6 +3798,24 @@ public class Methods {
 		dlg2.dismiss();
 		
 	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+
+	private static void moveFiles_4_refresh_list(
+						Activity actv, String sourceTableName) {
+		
+		ALActv.ai_list.clear();
+		
+		ALActv.ai_list.addAll(Methods.get_all_data_ai(actv, sourceTableName));
+		
+		Methods.sort_list_ai_created_at(ALActv.ai_list, CONS.SORT_ORDER.DEC);
+		
+		ALActv.ail_adp_move.notifyDataSetChanged();
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "ALActv.ail_adp_move => Notified");
+		
+	}//private static void moveFiles_4_refresh_list
 
 	private static void moveFiles_3_db(Activity actv,
 			String sourceTableName, String targetTableName, List<AI> toMoveFiles) {
