@@ -7,6 +7,7 @@ import cm5.items.AI;
 import cm5.items.TI;
 import cm5.listeners.CustomOnLongClickListener;
 import cm5.listeners.button.ButtonOnClickListener;
+import cm5.main.ALActv;
 import cm5.main.MainActv;
 import cm5.main.TNActv;
 
@@ -14,6 +15,7 @@ import cm5.main.R;
 import cm5.utils.CONS;
 import cm5.utils.Methods;
 import cm5.utils.CONS.MoveMode;
+import cm5.utils.Tags;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -125,10 +127,10 @@ public class AILAdapter extends ArrayAdapter<AI> {
     		
     	} else {
 
-    		// Log
-			Log.d("AILAdapter.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "move_mode => " + CONS.move_mode);
+//    		// Log
+//			Log.d("AILAdapter.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "move_mode => " + CONS.move_mode);
 
 			v = move_mode_on(v, position, convertView);
 			
@@ -232,6 +234,20 @@ public class AILAdapter extends ArrayAdapter<AI> {
 			
 		}//if (ai != null && ai.getFile_name()
 		
+    	
+    	/*********************************
+		 * Checked position
+		 *********************************/
+		if (ALActv.checkedPositions.contains((Integer) position)) {
+			
+			tv_file_name.setBackgroundColor(Color.BLUE);
+			
+		} else {//if (ThumbnailActivity.move_mode == true)
+				
+			tv_file_name.setBackgroundColor(Color.BLACK);
+				
+		}
+    	
     	/*********************************
 		 * 5. Set title
 		 *********************************/
@@ -248,7 +264,30 @@ public class AILAdapter extends ArrayAdapter<AI> {
 			
 		}//if (ai != null && ai.getFile_name()
     	
-    	
+    	/*********************************
+		 * Check box
+		 *********************************/
+		CheckBox cb = (CheckBox) v.findViewById(R.id.list_row_checked_box_cb);
+		
+		cb.setTag(Tags.ButtonTags.ailist_cb);
+		
+		if (ALActv.checkedPositions.contains((Integer) position)) {
+			
+			cb.setChecked(true);
+			
+		} else {//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
+			
+			cb.setChecked(false);
+			
+		}//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
+		
+		cb.setOnClickListener(new ButtonOnClickListener((Activity) con, position));
+		
+		
+//		cb.setOnLongClickListener(
+//					new CustomOnLongClickListener(
+//									(Activity) con, position, Methods.ItemTags.tilist_checkbox));
+
     	
     	/*********************************
 		 * 9. Return view
@@ -314,4 +353,4 @@ public class AILAdapter extends ArrayAdapter<AI> {
 		
 	}//private View move_mode_off(View v, int position, View convertView)
 
-}//public class AIListAdapter extends ArrayAdapter<AI>
+}//public class AILAdapter extends ArrayAdapter<AI>

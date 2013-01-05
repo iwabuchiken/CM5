@@ -913,6 +913,7 @@ public class ALActv extends ListActivity {
 					+ "]", "New position => " + position +
 					" / " + "(length=" + checkedPositions.size() + ")");
 			
+//			ail_adp_move.notifyDataSetChanged();
 			ail_adp_move.notifyDataSetChanged();
 
 			
@@ -1133,36 +1134,36 @@ public class ALActv extends ListActivity {
 //		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
 		case R.id.al_actv_menu_move_files:	//------------------------------------------
 			
-//			if (move_mode == false) {
-//				
-//				// debug
-//				Toast.makeText(this, "Move mode is not on", 2000)
-//						.show();
-//				
-//				return false;
-//				
-//			} else if (move_mode == true) {
-//				/****************************
-//				 * Steps
-//				 * 1. checkedPositions => Has contents?
-//				 * 2. If yes, show dialog
-//					****************************/
-//				if (checkedPositions.size() < 1) {
-//					
-//					// debug
-//					Toast.makeText(ALActv.this, "No item selected", 2000).show();
-//					
-//					return false;
-//					
-//				}//if (checkedPositions.size() < 1)
-//				
-//				
-//				/****************************
-//				 * 2. If yes, show dialog
-//					****************************/
-//				Methods_dialog.dlg_moveFiles(this);
-//				
-//			}//if (move_mode == false)
+			if (CONS.move_mode == false) {
+				
+				// debug
+				Toast.makeText(this, "Move mode is not on", 2000)
+						.show();
+				
+				return false;
+				
+			} else if (CONS.move_mode == true) {
+				/****************************
+				 * Steps
+				 * 1. checkedPositions => Has contents?
+				 * 2. If yes, show dialog
+					****************************/
+				if (checkedPositions.size() < 1) {
+					
+					// debug
+					Toast.makeText(ALActv.this, "No item selected", 2000).show();
+					
+					return false;
+					
+				}//if (checkedPositions.size() < 1)
+				
+				
+				/****************************
+				 * 2. If yes, show dialog
+					****************************/
+				Methods_dialog.dlg_moveFiles(this);
+				
+			}//if (move_mode == false)
 			
 			break;// case R.id.thumb_actv_menu_move_files
 			
