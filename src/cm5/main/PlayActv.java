@@ -5,6 +5,7 @@ import cm5.listeners.button.ButtonOnClickListener;
 import cm5.listeners.button.ButtonOnLongClickListener;
 import cm5.listeners.button.ButtonOnTouchListener;
 import cm5.utils.Methods;
+import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -206,9 +208,13 @@ public class PlayActv extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO 自動生成されたメソッド・スタブ
+		
+		MenuInflater mi = getMenuInflater();
+		mi.inflate(R.menu.menu_actv_play, menu);
+
 		return super.onCreateOptionsMenu(menu);
-	}
+		
+	}//public boolean onCreateOptionsMenu(Menu menu)
 
 	@Override
 	protected void onDestroy() {
@@ -228,9 +234,22 @@ public class PlayActv extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO 自動生成されたメソッド・スタブ
+		
+		switch (item.getItemId()) {
+			
+		case R.id.menu_actv_play_create_folder://------------------------------------
+			
+//			Methods.dlg_register_patterns(this);
+			
+			Methods_dialog.dlg_patterns(this);
+			
+			break;// case R.id.menu_actv_play_create_folder
+			
+		}//switch (item.getItemId())
+
+		
 		return super.onOptionsItemSelected(item);
-	}
+	}//public boolean onOptionsItemSelected(MenuItem item)
 
 	@Override
 	protected void onPause() {

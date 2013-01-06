@@ -1651,7 +1651,8 @@ public class Methods_dialog {
 		
 	}//public static void dlg_register_patterns_isInputEmpty(Activity actv, Dialog dlg)
 
-	public static void dlg_register_patterns_isInputEmpty(Activity actv, Dialog dlg, Dialog dlg2) {
+	public static void dlg_register_patterns_isInputEmpty(
+							Activity actv, Dialog dlg, Dialog dlg2) {
 		/****************************
 		 * Steps
 		 * 1. Get views

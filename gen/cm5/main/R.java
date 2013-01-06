@@ -177,6 +177,7 @@ public final class R {
         public static final int main_opt_menu_history=0x7f090086;
         public static final int main_opt_menu_preferences=0x7f090085;
         public static final int main_opt_menu_search=0x7f090084;
+        public static final int menu_actv_play_create_folder=0x7f090087;
         public static final int row_dlg_item_menu_tv=0x7f090077;
         public static final int tableRow1=0x7f090052;
         public static final int tableRow2=0x7f090055;
@@ -237,6 +238,7 @@ public final class R {
         public static final int al_actv_menu=0x7f080000;
         public static final int image_actv_menu=0x7f080001;
         public static final int main_menu=0x7f080002;
+        public static final int menu_actv_play=0x7f080003;
     }
     public static final class string {
         /**  actv_play.xml 
@@ -346,6 +348,9 @@ public final class R {
         public static final int main_opt_menu_preferences=0x7f060010;
         public static final int main_opt_menu_refresh_db=0x7f06000d;
         public static final int main_opt_menu_search=0x7f06000f;
+        /**  menu_actv_play.xml 
+         */
+        public static final int menu_actv_play_create_folder=0x7f060042;
         public static final int prefs_db_refresh_key=0x7f060013;
         public static final int prefs_db_refresh_title=0x7f060014;
         /**  preferences.xml 

@@ -161,13 +161,43 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				
 				Methods_dialog.dlg_register_patterns(actv, dlg);
 				
+//				// Log
+//				Log.d("DialogOnItemClickListener.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+//						"item=" + item);
+				
 			} else if (item.equals(actv.getString(R.string.generic_tv_delete))) {
 
-				Methods_dialog.dlg_delete_patterns(actv, dlg);
+//				Methods_dialog.dlg_delete_patterns(actv, dlg);
+				
+				// Log
+				Log.d("DialogOnItemClickListener.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]",
+						"item=" + item);
 				
 			} else if (item.equals(actv.getString(R.string.generic_tv_edit))) {
+
+				// Log
+				Log.d("DialogOnItemClickListener.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]",
+						"item=" + item);
+
+			} else {//if (item.equals(actv.getString(R.string.generic_tv_register)))
 				
-			}
+				// Log
+				Log.d("DialogOnItemClickListener.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]",
+						"item=" + item);
+				
+			}//if (item.equals(actv.getString(R.string.generic_tv_register)))
 			
 			break;// case dlg_admin_patterns_lv
 

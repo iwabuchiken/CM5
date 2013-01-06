@@ -122,4 +122,8 @@
     <!-- ALActv.java -->
     	<string name="al_actv_menu_move_mode">移動モード</string>
     	<string name="al_actv_menu_move_files">移動</string>
+    
+    <!-- menu_actv_play.xml -->
+    	<string name="menu_actv_play_create_folder">パターン登録</string>
+    	
 </resources>
