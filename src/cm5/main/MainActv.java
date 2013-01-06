@@ -557,13 +557,38 @@ public class MainActv extends ListActivity {
 	}//private void set_listeners()
 
 	private boolean set_initial_dir_list() {
-		// TODO 自動生成されたメソッド・スタブ
+		
+		B16_v_1_6_nullify_list_root_dir();
+		
 		set_initial_dir_list_part1();
 //		set_initial_dir_list_part2();
 		
 		return false;
 	}//private boolean set_initial_dir_list()
 	
+
+	private void B16_v_1_6_nullify_list_root_dir() {
+		
+		if (list_root_dir != null) {
+			
+			list_root_dir = null;
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "list_root_dir => Nullified");
+			
+		} else {//if (this.list_root_dir)
+			
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "list_root_dir == null");
+			
+		}//if (this.list_root_dir)
+		
+		
+	}//private void B16_v_1_6_nullify_list_root_dir()
 
 	private boolean set_initial_dir_list_part1() {
 		/*********************************
@@ -596,6 +621,11 @@ public class MainActv extends ListActivity {
 			return false;
 		}//if (root_dir == null)
 		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "root_dir=" + root_dir.getAbsolutePath());
+		
 		/*********************************
 		 * 1-2. Create "list.txt"
 		 *********************************/
@@ -626,10 +656,10 @@ public class MainActv extends ListActivity {
 			
 		} else {//if (this.list_root_dir == null)
 			
-//			// Log
-//			Log.d("MainActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "list_root_dir != null");
+			// Log
+			Log.d("MainActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "list_root_dir != null");
 			
 		}//if (this.list_root_dir == null)
 
@@ -647,7 +677,7 @@ public class MainActv extends ListActivity {
 
 		
 		return false;
-	}//private boolean set_initial_dir_list()
+	}//private boolean set_initial_dir_list_part1()
 
 	private void set_listener_to_list() {
 		
@@ -880,6 +910,11 @@ public class MainActv extends ListActivity {
 						CONS.dpath_storage_sdcard, CONS.dname_base},
 				File.separator);
 
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "dpath_base=" + dpath_base);
+		
 		File file = new File(dpath_base);
 		
 		if (!file.exists()) {
@@ -1078,7 +1113,7 @@ public class MainActv extends ListActivity {
 		// Log
 		Log.d("MainActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "MainActv.onDestroy()");
+				+ "]", "onDestroy()");
 		
 		super.onDestroy();
 		
@@ -1088,6 +1123,14 @@ public class MainActv extends ListActivity {
 		CONS.prefs_main = 
 				this.getSharedPreferences(CONS.pname_current_path, MODE_PRIVATE);
 
+		//debug
+		String s = Methods.get_pref(this, CONS.pkey_current_path, null);
+		
+		// Log
+		Log.d("MainActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "CONS.pkey_current_path=" + s);
+		
 		SharedPreferences.Editor editor = CONS.prefs_main.edit();
 
 		editor.clear();

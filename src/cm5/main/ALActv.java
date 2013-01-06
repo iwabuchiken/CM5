@@ -172,10 +172,10 @@ public class ALActv extends ListActivity {
 		
 		Display disp = this.getWindowManager().getDefaultDisplay();
 		
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "width=" + disp.getWidth());
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "width=" + disp.getWidth());
 		
 	}//private void B16_v_1_0()
 
@@ -260,20 +260,20 @@ public class ALActv extends ListActivity {
 		 *********************************/
 		String table_name = Methods.convert_path_into_table_name(this);
 		
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "table_name=" + table_name);
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "table_name=" + table_name);
 
 		/*********************************
 		 * 2. Prep list
 		 *********************************/
 		ai_list = Methods.get_all_data_ai(this, table_name);
 		
-		// Log
-		Log.d("ALActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ai_list.size()=" + ai_list.size());
+//		// Log
+//		Log.d("ALActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "ai_list.size()=" + ai_list.size());
 		
 		/*********************************
 		 * 3. Sort list
@@ -586,7 +586,7 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * 3. Debug: Store file length data
 		 *********************************/
-		debug_1_store_file_length();
+//		debug_1_store_file_length();
 		
 //		/*********************************
 //		 * 2. Set selection
@@ -656,10 +656,10 @@ public class ALActv extends ListActivity {
 			
 		} else {//if (res == false)
 			
-			// Log
-			Log.d("ALActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Table exists => " + tname);
+//			// Log
+//			Log.d("ALActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Table exists => " + tname);
 			
 		}
 		
