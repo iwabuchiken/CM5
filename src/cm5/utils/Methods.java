@@ -4366,7 +4366,8 @@ public class Methods {
 
 	public static void add_pattern_to_text(Dialog dlg, int position, String word) {
 		
-		EditText et = (EditText) dlg.findViewById(R.id.dlg_add_memos_et_content);
+//		EditText et = (EditText) dlg.findViewById(R.id.dlg_add_memos_et_content);
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_edit_title_et_content);
 		
 		String content = et.getText().toString();
 		

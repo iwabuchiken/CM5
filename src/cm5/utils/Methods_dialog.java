@@ -1431,22 +1431,6 @@ public class Methods_dialog {
 		/****************************
 		 * 4.5. Set adapter to view
 			****************************/
-//		// Log
-//		if (adapter != null) {
-//
-//			Log.d("Methods_dialog.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "adapter != null");
-//
-//		} else {//if (adapter != null)
-//
-//			Log.d("Methods_dialog.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "adapter == null");
-//
-//		}//if (adapter != null)
-//		
-//		
 		gv.setAdapter(adapter);
 		
 		/****************************
