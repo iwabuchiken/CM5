@@ -1149,7 +1149,8 @@ public class Methods_dialog {
 			
 			for (int i = 0; i < c.getCount(); i++) {
 				
-				patternList.add(c.getString(1));
+//				patternList.add(c.getString(1));
+				patternList.add(c.getString(3));
 				
 				c.moveToNext();
 				
