@@ -1262,6 +1262,11 @@ public class Methods_dialog {
 		EditText et = (EditText) dlg.findViewById(R.id.dlg_edit_title_et_content);
 		
 		/*********************************
+		 * Grid view
+		 *********************************/
+		dlg = Methods_dialog.dlg_edit_title_2_grid_view(actv, dlg, ai);
+		
+		/*********************************
 		 * 3. Set text
 		 *********************************/
 		String title = ai.getTitle();
@@ -1295,6 +1300,182 @@ public class Methods_dialog {
 		dlg.show();
 		
 	}//public static void dlg_edit_title(Activity actv, AI ai)
+
+	private static Dialog dlg_edit_title_2_grid_view(Activity actv, Dialog dlg,
+			AI ai) {
+		// TODO Auto-generated method stub
+		/****************************
+		 * 4.1. Set up db
+			****************************/
+		GridView gv = (GridView) dlg.findViewById(R.id.dlg_edit_title_gv);
+		
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		/****************************
+		 * 4.2. Get cursor
+		 * 		1. Table exists?
+		 * 		2. Get cursor
+			****************************/
+		/****************************
+		 * 4.2.1. Table exists?
+			****************************/
+//		String tableName = MainActv.tableName_memo_patterns;
+		String tableName = CONS.tname_memo_patterns;
+		
+		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == true) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + tableName);
+			
+			rdb.close();
+			
+//			return;
+			
+		} else {//if (res == false)
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + tableName);
+			
+			rdb.close();
+			
+			SQLiteDatabase wdb = dbu.getWritableDatabase();
+			
+			res = dbu.createTable(
+							wdb,
+							tableName,
+							CONS.cols_memo_patterns,
+							CONS.col_types_memo_patterns);
+			
+			if (res == true) {
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: " + tableName);
+				
+				wdb.close();
+				
+			} else {//if (res == true)
+				// Log
+				Log.e("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Create table failed: " + tableName);
+				
+				wdb.close();
+				
+				return dlg;
+				
+			}//if (res == true)
+
+			
+		}//if (res == false)
+		
+		
+		/****************************
+		 * 4.2.2. Get cursor
+			****************************/
+		rdb = dbu.getReadableDatabase();
+		
+		String sql = "SELECT * FROM " + tableName + " ORDER BY word ASC";
+		
+		Cursor c = rdb.rawQuery(sql, null);
+		
+		actv.startManagingCursor(c);
+		
+		c.moveToFirst();
+		
+		/****************************
+		 * 4.3. Get list
+			****************************/
+		List<String> patternList = new ArrayList<String>();
+		
+		if (c.getCount() > 0) {
+			
+			for (int i = 0; i < c.getCount(); i++) {
+				
+				patternList.add(c.getString(3));	// "word"
+				
+				c.moveToNext();
+				
+			}//for (int i = 0; i < patternList.size(); i++)
+			
+		} else {//if (c.getCount() > 0)
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "!c.getCount() > 0");
+			
+		}//if (c.getCount() > 0)
+		
+		
+		Collections.sort(patternList);
+
+		/****************************
+		 * 4.4. Adapter
+			****************************/
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+										actv,
+										R.layout.add_memo_grid_view,
+										patternList
+										);
+		
+		/****************************
+		 * 4.5. Set adapter to view
+			****************************/
+//		// Log
+//		if (adapter != null) {
+//
+//			Log.d("Methods_dialog.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "adapter != null");
+//
+//		} else {//if (adapter != null)
+//
+//			Log.d("Methods_dialog.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "adapter == null");
+//
+//		}//if (adapter != null)
+//		
+//		
+		gv.setAdapter(adapter);
+		
+		/****************************
+		 * 4.6. Set listener
+			****************************/
+//		gv.setTag(DialogTags.dlg_add_memos_gv);
+		gv.setTag(Tags.DialogItemTags.dlg_add_memos_gv);
+		
+		gv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
+		
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "GridView setup => Done");
+		
+		/****************************
+		 * 8. Close db
+			****************************/
+		rdb.close();
+		
+		/****************************
+		 * 9. Show dialog
+			****************************/
+//		dlg.show();
+		
+		return dlg;
+		
+	}//private static Dialog dlg_edit_title_2_grid_view
 
 	public static void dlg_patterns(Activity actv) {
 		/****************************
