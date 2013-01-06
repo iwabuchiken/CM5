@@ -909,10 +909,10 @@ public class Methods {
 		 * 
 		 * 3. Return
 		 *********************************/
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Methods.convert_path_into_table_name(Activity actv)");
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Methods.convert_path_into_table_name(Activity actv)");
 		
 		SharedPreferences prefs_main = 
 				actv.getSharedPreferences(CONS.pname_current_path, Activity.MODE_PRIVATE);	
@@ -930,11 +930,11 @@ public class Methods {
 			
 		}//if (value == null)
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "value=" + value);
-				+ "]", "CONS.pkey_current_path=" + value);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "value=" + value);
+//				+ "]", "CONS.pkey_current_path=" + value);
 		
 		/*********************************
 		 * 2. Process path into table name
@@ -954,10 +954,10 @@ public class Methods {
 		
 		String new_value = StringUtils.join(sub_array, "__");
 		
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "new_value=" + new_value);
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "new_value=" + new_value);
 		
 		/*********************************
 		 * 3. Return
@@ -5292,14 +5292,14 @@ public class Methods {
 			
 			if (col_name.equals(column_name)) {
 				
-				// debug
-				Toast.makeText(actv, "Column exists: " + column_name, Toast.LENGTH_SHORT).show();
+//				// debug
+//				Toast.makeText(actv, "Column exists: " + column_name, Toast.LENGTH_SHORT).show();
 				
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Column exists: " + column_name);
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Column exists: " + column_name);
 				
 				return false;
 				
