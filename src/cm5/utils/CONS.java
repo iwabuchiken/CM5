@@ -34,9 +34,11 @@ public class CONS {
 	
 	public static String pname_tnActv = "pref_tn_actv";
 	
-	public static String
-	pname_tnActv_current_image_position = 
-					"pref_tn_actv_current_image_position";
+	public static String pname_current_image_position = 
+							"pname_current_image_position";
+	
+	public static String pkey_current_image_position = 
+							"pkey_current_image_position";
 	
 	// MainActv
 	// history

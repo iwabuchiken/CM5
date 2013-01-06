@@ -151,7 +151,36 @@ public class ALActv extends ListActivity {
 			****************************/
 		checkedPositions = new ArrayList<Integer>();
 
-		B16_v_1_0();
+		/*********************************
+		 * Current position => Initialize
+		 *********************************/
+		boolean res = 
+				Methods.set_pref(
+							this,
+							CONS.pname_mainActv,
+							CONS.pkey_current_image_position,
+							-1);
+		
+		if (res == true) {
+			// Log
+			Log.d("ALActv.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]",
+					"Pref set: " + CONS.pkey_current_image_position);
+			
+		} else {//if (result == true)
+			// Log
+			Log.d("ALActv.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]",
+					"Set pref => Failed: " + CONS.pkey_current_image_position);
+			
+		}//if (result == true)
+
+		
+//		B16_v_1_0();
 		
 		//debug
 //		get_data_from_table_AAA();
@@ -270,10 +299,10 @@ public class ALActv extends ListActivity {
 		 *********************************/
 		ai_list = Methods.get_all_data_ai(this, table_name);
 		
-//		// Log
-//		Log.d("ALActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "ai_list.size()=" + ai_list.size());
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "ai_list.size()=" + ai_list.size());
 		
 		/*********************************
 		 * 3. Sort list
@@ -840,6 +869,35 @@ public class ALActv extends ListActivity {
 			
 		}//if (current_move_mode == 1)
 		
+		/*********************************
+		 * Current position => Clear
+		 *********************************/
+		boolean res = 
+				Methods.set_pref(
+							this,
+							CONS.pname_mainActv,
+							CONS.pkey_current_image_position,
+							-1);
+		
+		if (res == true) {
+			// Log
+			Log.d("ALActv.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]",
+					"Pref set: " + CONS.pkey_current_image_position);
+			
+		} else {//if (result == true)
+			// Log
+			Log.d("ALActv.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]",
+					"Set pref => Failed: " + CONS.pkey_current_image_position);
+			
+		}//if (result == true)
+		
+		
 	}//protected void onDestroy()
 
 	@Override
@@ -918,6 +976,15 @@ public class ALActv extends ListActivity {
 
 			
 		} else if (CONS.move_mode == false) {//if (CONS.move_mode == true)
+			
+			/*********************************
+			 * Save current position to preference
+			 *********************************/
+			Methods.set_pref(
+							this,
+							CONS.pname_mainActv,
+							CONS.pkey_current_image_position,
+							position);
 			
 			/****************************
 			 * 1. Get item

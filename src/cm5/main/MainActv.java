@@ -1242,10 +1242,10 @@ public class MainActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "onPause()");
 
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "prefs_main: " + Methods.get_currentPath_from_prefs(this));
+//		// Log
+//		Log.d("MainActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "prefs_main: " + Methods.get_currentPath_from_prefs(this));
 		
 		
 	}

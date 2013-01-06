@@ -321,11 +321,42 @@ public class AILAdapter extends ArrayAdapter<AI> {
     	AI ai = (AI) getItem(position);
     	
     	/*********************************
+		 * Current position
+		 *********************************/
+    	int pref_current_position = 
+    			Methods.get_pref((Activity)con, CONS.pname_mainActv, CONS.pkey_current_image_position, -1);
+    	
+    	/*********************************
 		 * 4. Set file name
 		 *********************************/
     	if (ai != null && !ai.getFile_name().equals("")) {
 
     		tv_file_name.setText(ai.getFile_name());
+    		
+    		if (position == pref_current_position) {
+				
+    			tv_file_name.setBackgroundColor(Color.BLUE);
+    			tv_file_name.setTextColor(Color.WHITE);
+    			
+    			// Log
+				Log.d("AILAdapter.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Background => Set");
+    			
+			} else {//if (position == )
+				
+				tv_file_name.setBackgroundColor(Color.WHITE);
+				tv_file_name.setTextColor(Color.BLACK);
+
+//				// Log
+//				Log.d("AILAdapter.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Background => Unset");
+				
+			}//if (position == )
+			
     		
 		} else {//if (ai != null && ai.getFile_name()
 			

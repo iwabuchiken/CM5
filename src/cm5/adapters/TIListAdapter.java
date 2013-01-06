@@ -314,39 +314,39 @@ public class TIListAdapter extends ArrayAdapter<TI> {
 
 		//Methods.PrefenceLabels.thumb_actv.name()
 		
-		//int savedPosition = prefs.getInt("chosen_list_item", -1);
-		int savedPosition = prefs.getInt(
-//					MainActv.prefName_tnActv_current_image_position,
-					CONS.pname_tnActv_current_image_position,
-					-1);
-		
-//		// Log
-//		Log.d("TIListAdapter.java"
-//				+ "["
-//				+ Thread.currentThread().getStackTrace()[2]
-//						.getLineNumber() + "]", "savedPosition: " + savedPosition);
-		
-		
-		if (savedPosition == position) {
-			
-//			// Log
-//			Log.d("TIListAdapter.java"
-//					+ "["
-//					+ Thread.currentThread().getStackTrace()[2]
-//							.getLineNumber() + "]", "savedPosition == position");
-			
-		//	tv.setBackgroundColor(Color.GREEN);
-			tv.setBackgroundResource(R.color.gold2);
-			tv.setTextColor(Color.BLACK);
-			
-		} else if (savedPosition == -1) {//if (savedPosition == position)
-			
-		} else {//if (savedPosition == position)
-			
-			tv.setBackgroundColor(Color.BLACK);
-			tv.setTextColor(Color.WHITE);
-			
-		}//if (savedPosition == position)
+//		//int savedPosition = prefs.getInt("chosen_list_item", -1);
+//		int savedPosition = prefs.getInt(
+////					MainActv.prefName_tnActv_current_image_position,
+//					CONS.pname_tnActv_current_image_position,
+//					-1);
+//		
+////		// Log
+////		Log.d("TIListAdapter.java"
+////				+ "["
+////				+ Thread.currentThread().getStackTrace()[2]
+////						.getLineNumber() + "]", "savedPosition: " + savedPosition);
+//		
+//		
+//		if (savedPosition == position) {
+//			
+////			// Log
+////			Log.d("TIListAdapter.java"
+////					+ "["
+////					+ Thread.currentThread().getStackTrace()[2]
+////							.getLineNumber() + "]", "savedPosition == position");
+//			
+//		//	tv.setBackgroundColor(Color.GREEN);
+//			tv.setBackgroundResource(R.color.gold2);
+//			tv.setTextColor(Color.BLACK);
+//			
+//		} else if (savedPosition == -1) {//if (savedPosition == position)
+//			
+//		} else {//if (savedPosition == position)
+//			
+//			tv.setBackgroundColor(Color.BLACK);
+//			tv.setTextColor(Color.WHITE);
+//			
+//		}//if (savedPosition == position)
 
     	
     	
