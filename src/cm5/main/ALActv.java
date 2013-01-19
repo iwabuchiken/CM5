@@ -727,9 +727,106 @@ public class ALActv extends ListActivity {
 	}//protected void onStart()
 
 	private void debug_B20_v_1_1() {
-		// TODO Auto-generated method stub
-		Methods_CM5.updateFileLength(this);
-	}
+		
+		debug_B20_v_1_1_validateLengthData();
+		
+		
+//		Methods_CM5.updateFileLength(this);
+	}//private void debug_B20_v_1_1()
+
+
+	private void debug_B20_v_1_1_validateLengthData() {
+		/*********************************
+		 * 01
+		 *********************************/
+		List<String> tnames = Methods.get_table_list(this, "cm5%");
+		
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+
+		int numYes = 0;
+		int numNo = 0;
+		int numUnknown = 0;
+		
+		for (String tname : tnames) {
+			/*********************************
+			 * 01
+			 *********************************/
+			String sql = "SELECT * FROM " + tname;
+			
+			Cursor c = null;
+			
+			try {
+				
+				c = rdb.rawQuery(sql, null);
+				
+			} catch (Exception e) {
+				// Log
+				Log.e("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Exception => " + e.toString());
+				
+				rdb.close();
+				
+				return;
+			}
+
+			/*********************************
+			 * 02
+			 *********************************/
+			if (c.getCount() < 1) {
+				
+				// Log
+				Log.d("ALActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Less than 1: " + tname);
+				
+				continue;
+				
+			}//if (c.getCount() == condition)
+			
+			/*********************************
+			 * 03
+			 *********************************/
+			c.moveToFirst();
+			
+			for (int i = 0; i < c.getCount(); i++) {
+				
+				int length = (int) c.getLong(9);
+				
+				if (length < 1) {
+					
+					numNo += 1;
+					
+				} else if (length >= 1) {//if (length < 1)
+					
+					numYes += 1;
+					
+				} else {//if (length < 1)
+					
+					numUnknown += 1;
+					
+				}//if (length < 1)
+				
+				c.moveToNext();
+			}
+			
+		}//for (String tname : tnames)
+
+		/*********************************
+		 * 02
+		 *********************************/
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]",
+				"numYes=" + numYes + "/"
+				+ "numNo=" + numNo + "/"
+				+ "numUnknown=" + numUnknown);
+		
+	}//private void debug_B20_v_1_1_validateLengthData()
 
 
 	private void debug_1_store_file_length() {

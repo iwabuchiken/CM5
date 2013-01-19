@@ -5385,7 +5385,14 @@ public class Methods {
 		 *********************************/
 		//=> source: http://stackoverflow.com/questions/4681744/android-get-list-of-tables : "Just had to do the same. This seems to work:"
 		String q = "SELECT name FROM " + "sqlite_master"+
-						" WHERE type = 'table' ORDER BY name";
+//						" WHERE type = 'table' ORDER BY name";
+						" WHERE type = 'table' AND name like '"
+						+ key_word + "'" + " ORDER BY name";
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "query=" + q);
 		
 		Cursor c = null;
 		try {
@@ -5398,7 +5405,7 @@ public class Methods {
 
 		} catch (Exception e) {
 			// Log
-			Log.e("Methods.java" + "["
+			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 		}
@@ -5413,55 +5420,27 @@ public class Methods {
 		if (c != null) {
 			c.moveToFirst();
 			
-//			String t_name = c.getString(0);
-			
-			String reg = "IFM9.*";
-			
-			Pattern p = Pattern.compile(reg);
-			Matcher m;// = p.matcher(t_name);
-
-			
 			for (int i = 0; i < c.getCount(); i++) {
 				//
 				String t_name = c.getString(0);
 				
-				m = p.matcher(t_name);
-				
-				if (m.find()) {
+				tableList.add(c.getString(0));
 					
-					tableList.add(c.getString(0));
-					
-				}//if (variable == condition)
-//				tableList.add(c.getString(0));
-				
-//				// Log
-//				Log.d("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", "c.getString(0): " + c.getString(0));
-				
-				
 				// Next
 				c.moveToNext();
 				
 			}//for (int i = 0; i < c.getCount(); i++)
 
 		} else {//if (c != null)
-			Log.e("Methods.java" + "["
+			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "c => null");
 		}//if (c != null)
 
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "c.getCount(): " + c.getCount());
-//		
 		rdb.close();
 		
 		return tableList;
 	}//public static List<String> get_table_list(Activity actv, String key_word)
-
 	
 	public static boolean record_history(Activity actv, TI ti) {
 		/*********************************
