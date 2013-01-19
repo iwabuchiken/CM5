@@ -5,6 +5,7 @@
 package cm5.main;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,6 +36,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -299,6 +301,8 @@ public class ALActv extends ListActivity {
 		 *********************************/
 		ai_list = Methods.get_all_data_ai(this, table_name);
 		
+		debug_B20_v_1_0(ai_list);
+		
 		// Log
 		Log.d("ALActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -325,6 +329,71 @@ public class ALActv extends ListActivity {
 		this.setListAdapter(ail_adp);
 		
 	}//private void setup_2_set_list()
+
+
+	private void debug_B20_v_1_0(List<AI> ai_list) {
+		
+		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+		
+		AI ai = ai_list.get(0);
+//		AI ai = ai_list.get(ai_list.size() - 1);
+		
+		MediaPlayer mp = new MediaPlayer();
+		
+		String file_full_path = StringUtils.join(
+				new String[]{ai.getFile_path(), ai.getFile_name()},
+				File.separator);
+		
+		// File path
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "file_full_path=" + file_full_path);
+		
+		// MediaPlayer
+		try {
+			mp.setDataSource(file_full_path);
+			
+			mp.prepare();
+			
+			int length = mp.getDuration();
+			
+			if (length < 0) {
+				
+				// Log
+				Log.d("ALActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "length < 0");
+				
+			} else {//if (length < 0)
+				
+				// Log
+				Log.d("ALActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]",
+//					"Duration=" + Methods.convert_intSec2Digits(mp.getDuration())
+					"Duration=" + Methods.convert_intSec2Digits(mp.getDuration() / 1000)
+					+ "(" + mp.getDuration() + ")");
+				
+			}//if (length < 0)
+			
+			
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+			
+	}//private void debug_B20_v_1_0(List<AI> ai_list)
 
 
 	private List<TI> prep_list() {

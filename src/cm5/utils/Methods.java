@@ -6370,6 +6370,65 @@ public class Methods {
 		
 	}//public static void db_backup(Activity actv, Dialog dlg, String item)
 
+	public static String convert_intSec2Digits(int t) {
+		
+		int sec = t % 60;
+		
+		if (t / 60 < 1) {
+			
+//			return "00:00:" + String.valueOf(sec);
+			return "00:00:" + Methods.convert_sec2digits(sec, 2);
+			
+		}//if (t / 60 < 1)
+		
+//		int min = (t - sec) % 60;
+		int min = ((t - sec) % (60 * 60)) / 60;
+		
+		if ((t - sec) / (60 * 60) < 1) {
+			
+//			return "00:" + String.valueOf(min) + ":" + String.valueOf(sec);
+			return "00:"
+				+ Methods.convert_sec2digits(min, 2) + ":"
+				+ Methods.convert_sec2digits(sec, 2);
+			
+		}//if (variable == condition)
+		
+//		int hour = (t - min) / 60;
+		int hour = (t - sec) / (60 * 60);
+				
+//		return String.valueOf(hour) + ":"
+//				+ String.valueOf(min) + ":"
+//				+ String.valueOf(sec);
+
+		return Methods.convert_sec2digits(min, 2) + ":"
+		+ Methods.convert_sec2digits(min, 2) + ":"
+		+ Methods.convert_sec2digits(sec, 2);
+
+		
+	}//public static String convert_intSec2Digits(int time)
 	
+	private static String convert_sec2digits(int sec, int i) {
+		
+		int current_len = String.valueOf(sec).length();
+		
+		if (current_len < i) {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			for (int j = 0; j < i - current_len; j++) {
+				
+				sb.append("0");
+			}
+			
+			sb.append(String.valueOf(sec));
+			
+			return sb.toString();
+			
+		}//if (current_len == condition)
+		
+		return String.valueOf(sec);
+		
+	}//private static String convert_sec2digits(int sec, int i)
+
 }//public class Methods
 

@@ -46,3 +46,8 @@ svn co https://techbooster.googlecode.com/svn/trunk/ContextMenu/ ContextMenu
 
 [GIMP]
 pushd C:\WORKS\WORKSPACES_ANDROID\GIMP\Icons
+
+[adb]=========================================================
+adb kill-server
+adb start-server
+adb devices
