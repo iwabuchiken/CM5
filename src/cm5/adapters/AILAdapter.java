@@ -380,6 +380,14 @@ public class AILAdapter extends ArrayAdapter<AI> {
 			
 		}//if (ai != null && ai.getFile_name()
 
+    	/*********************************
+		 * Set length
+		 *********************************/
+    	TextView tv_length = (TextView) v.findViewById(R.id.list_row_ai_list_tv_file_length);
+    	
+    	tv_length.setText(
+    			Methods.convert_intSec2Digits_lessThanHour((int) (ai.getLength() / 1000)));
+    	
 		return v;
 		
 	}//private View move_mode_off(View v, int position, View convertView)

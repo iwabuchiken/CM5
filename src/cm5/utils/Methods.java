@@ -6385,7 +6385,27 @@ public class Methods {
 
 		
 	}//public static String convert_intSec2Digits(int time)
-	
+
+	public static String convert_intSec2Digits_lessThanHour(int t) {
+		
+		int sec = t % 60;
+		
+		if (t / 60 < 1) {
+			
+//			return "00:00:" + String.valueOf(sec);
+//			return "00:00:" + Methods.convert_sec2digits(sec, 2);
+			return "00:" + Methods.convert_sec2digits(sec, 2);
+			
+		}//if (t / 60 < 1)
+		
+//		int min = (t - sec) % 60;
+		int min = ((t - sec) % (60 * 60)) / 60;
+		
+		return Methods.convert_sec2digits(min, 2) + ":"
+			+ Methods.convert_sec2digits(sec, 2);
+			
+	}//public static String convert_intSec2Digits(int time)
+
 	private static String convert_sec2digits(int sec, int i) {
 		
 		int current_len = String.valueOf(sec).length();

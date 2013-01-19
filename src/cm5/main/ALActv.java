@@ -303,7 +303,7 @@ public class ALActv extends ListActivity {
 		 *********************************/
 		ai_list = Methods.get_all_data_ai(this, table_name);
 		
-		debug_B20_v_1_0(ai_list);
+//		debug_B20_v_1_0(ai_list);
 		
 		// Log
 		Log.d("ALActv.java" + "["
