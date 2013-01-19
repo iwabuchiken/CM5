@@ -22,9 +22,11 @@ import cm5.listeners.CustomOnItemLongClickListener;
 import cm5.listeners.button.ButtonOnClickListener;
 import cm5.listeners.button.ButtonOnTouchListener;
 import cm5.listeners.dialog.DialogListener;
+import cm5.tasks.Task_UpdateFileLength;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
+import cm5.utils.Methods_CM5;
 import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 
@@ -684,6 +686,9 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * 3. Debug: Store file length data
 		 *********************************/
+		debug_B20_v_1_1();
+		
+		
 //		debug_1_store_file_length();
 		
 //		/*********************************
@@ -720,6 +725,12 @@ public class ALActv extends ListActivity {
 //		lv_main.setSelection(target_position);
 		
 	}//protected void onStart()
+
+	private void debug_B20_v_1_1() {
+		// TODO Auto-generated method stub
+		Methods_CM5.updateFileLength(this);
+	}
+
 
 	private void debug_1_store_file_length() {
 		/*********************************

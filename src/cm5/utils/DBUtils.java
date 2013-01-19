@@ -1393,6 +1393,49 @@ public class DBUtils extends SQLiteOpenHelper{
 			}
 		
 	}//public static boolean update_data_ai()
+
+	
+	public void updateData_aiLength(Activity actv, String table_name,
+			long db_id, int length) {
+		
+		DBUtils dbu = new DBUtils(actv, dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		
+		String sql = "UPDATE " + table_name + " SET " + 
+				"length" + " = " + length + " "
+				+ " WHERE " + android.provider.BaseColumns._ID + " = '"
+				+ db_id + "'";
+				
+		// Log
+		Log.d("DBUtils.java" + "["
+		+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+		+ "]", "sql=" + sql);
+
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Exec sql => Done");
+			
+		} catch (SQLException e) {
+
+			// Log
+			Log.d("DBUtils.java" + "["
+			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+			+ "]", "Exception => " + e.toString());
+
+		}//try
+		
+		// Close
+		wdb.close();
+		
+	}//public void updateData_aiLength
 	
 }//public class DBUtils
 
