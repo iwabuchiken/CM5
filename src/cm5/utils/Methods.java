@@ -6153,6 +6153,14 @@ public class Methods {
 		 *********************************/
 		dlg.dismiss();
 		
+		
+		/*********************************
+		 * 10. Update the text view
+		 *********************************/
+		TextView tv_title = (TextView) actv.findViewById(R.id.actv_play_tv_title);
+		
+		tv_title.setText(ai.getTitle());
+		
 //		// Log
 //		Log.d("Methods.java" + "["
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
