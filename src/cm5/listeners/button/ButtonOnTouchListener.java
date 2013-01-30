@@ -88,6 +88,7 @@ public class ButtonOnTouchListener implements OnTouchListener {
 				break;
 				
 			case actv_play_tv_title:
+			case actv_play_tv_memo:
 				
 				v.setBackgroundColor(Color.BLACK);
 				
@@ -159,7 +160,7 @@ public class ButtonOnTouchListener implements OnTouchListener {
 				break;
 
 			case actv_play_tv_title:
-				
+			case actv_play_tv_memo:	
 				v.setBackgroundColor(Color.WHITE);
 				
 				TextView tv = (TextView) v;

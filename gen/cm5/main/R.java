@@ -245,10 +245,10 @@ public final class R {
          */
         public static final int actv_play_bt_play=0x7f06003d;
         public static final int actv_play_bt_stop=0x7f06003e;
-        public static final int al_actv_menu_move_files=0x7f060041;
+        public static final int al_actv_menu_move_files=0x7f060042;
         /**  ALActv.java 
          */
-        public static final int al_actv_menu_move_mode=0x7f060040;
+        public static final int al_actv_menu_move_mode=0x7f060041;
         public static final int app_name=0x7f06000a;
         /**  db_manager.xml 
          */
@@ -297,6 +297,9 @@ public final class R {
         /**  dlg_drop_table.xml 
          */
         public static final int dlg_drop_table_title=0x7f060021;
+        /**  dlg_edit_title.xml 
+         */
+        public static final int dlg_edit_memo_title=0x7f060040;
         /**  dlg_edit_title.xml 
          */
         public static final int dlg_edit_title_title=0x7f06003f;
@@ -350,7 +353,7 @@ public final class R {
         public static final int main_opt_menu_search=0x7f06000f;
         /**  menu_actv_play.xml 
          */
-        public static final int menu_actv_play_create_folder=0x7f060042;
+        public static final int menu_actv_play_create_folder=0x7f060043;
         public static final int prefs_db_refresh_key=0x7f060013;
         public static final int prefs_db_refresh_title=0x7f060014;
         /**  preferences.xml 

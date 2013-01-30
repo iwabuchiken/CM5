@@ -51,6 +51,13 @@ public class ButtonOnLongClickListener implements OnLongClickListener {
 			
 			break;// case actv_play_tv_title
 			
+		case actv_play_tv_memo://---------------------------------
+			
+			Methods_dialog.dlg_edit_memo(actv, ai);
+			
+			break;// case actv_play_tv_title
+			
+			
 		default:
 			break;
 		

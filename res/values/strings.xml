@@ -117,7 +117,10 @@
     
     <!-- dlg_edit_title.xml -->
     	<string name="dlg_edit_title_title">タイトル編集</string>
-    	
+
+ 	<!-- dlg_edit_title.xml -->
+    	<string name="dlg_edit_memo_title">メモ編集</string>
+    		
     	
     <!-- ALActv.java -->
     	<string name="al_actv_menu_move_mode">移動モード</string>

@@ -5,6 +5,8 @@ gitk
 
 C:\WORKS\WORKSPACES_ANDROID\FM\a
 
+pushd C:\WORKS\WORKSPACES_ANDROID\FM
+
 pushd C:\Users\IwabuchiKen\Desktop
 
 

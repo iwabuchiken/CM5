@@ -1743,4 +1743,95 @@ public class Methods_dialog {
 		
 	}//public static void dlg_removeFolder(Activity actv)
 
+	public static void dlg_edit_memo(Activity actv, AI ai) {
+		// TODO Auto-generated method stub
+		/*********************************
+		 * 1. Build dialog
+		 * 2. Add listeners
+		 * 		1. OnTouch
+		 * 		2. OnClick
+		 * 
+		 * 3. Set text
+		 * 
+		 * 
+		 * 
+		 * 9. Show dialog
+		 *********************************/
+		/*********************************
+		 * 1. Build dialog
+		 *********************************/
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(R.layout.dlg_edit_title);
+		
+		// Title
+		dlg.setTitle(R.string.dlg_edit_memo_title);
+		
+		/****************************
+		* 2. Add listeners
+		* 2.1. OnTouch
+		****************************/
+		//
+		Button btn_ok = (Button) dlg.findViewById(R.id.dlg_edit_title_bt_add);
+		Button btn_cancel = (Button) dlg.findViewById(R.id.dlg_edit_title_bt_cancel);
+		
+		//
+		btn_ok.setTag(Tags.DialogTags.dlg_edit_memo_bt_ok);
+		btn_cancel.setTag(Tags.DialogTags.dlg_generic_dismiss);
+		
+		//
+		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		
+		/****************************
+		* 2.2. OnClick
+		****************************/
+		//
+		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, ai));
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+
+		
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_edit_title_et_content);
+		
+		/*********************************
+		 * Grid view
+		 *********************************/
+		dlg = Methods_dialog.dlg_edit_title_2_grid_view(actv, dlg, ai);
+		
+		/*********************************
+		 * 3. Set text
+		 *********************************/
+		String title = ai.getTitle();
+		
+		
+//		if (ai.getTitle().equals("")) {
+		if (title.equals("")) {
+
+			title = "";
+			
+//			et.setText("Title");
+			et.setText(title);
+			
+		} else {//if (ai.getTitle().equals(""))
+			
+//			et.setText(ai.getTitle());
+			et.setText(title);
+			
+		}//if (ai.getTitle().equals(""))
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "title.length()=" + title.length());
+		
+		et.setSelection(title.length());
+		
+		/*********************************
+		 * 9. Show dialog
+		 *********************************/
+		dlg.show();
+		
+	}//public static void dlg_edit_memo(Activity actv, AI ai)
+
 }

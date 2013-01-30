@@ -58,6 +58,10 @@ public class Tags {
 		// dlg_edit_title.xml
 		dlg_edit_title_bt_ok,
 		
+		// dlg_edit_title.xml(Dialog: egit memo)
+		dlg_edit_memo_bt_ok,
+
+		
 		
 	}//public static enum DialogTags
 	
@@ -99,8 +103,7 @@ public class Tags {
 		
 		// actv_play.xml
 		actv_play_bt_play, actv_play_bt_stop, actv_play_bt_back,
-		actv_play_tv_title,
-		
+		actv_play_tv_title, actv_play_tv_memo,
 		
 	}//public static enum ButtonTags
 	

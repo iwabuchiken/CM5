@@ -94,6 +94,20 @@ public class PlayActv extends Activity {
 		tv_title.setOnTouchListener(new ButtonOnTouchListener(this));
 		tv_title.setOnLongClickListener(new ButtonOnLongClickListener(this, ai));
 		
+		/*********************************
+		 * 5. TextView => Memo
+		 *********************************/
+		TextView tv_memo = (TextView) findViewById(R.id.actv_play_tv_memo);
+		
+		tv_memo.setTag(Tags.ButtonTags.actv_play_tv_memo);
+		
+//		tv_title.setOnClickListener(new ButtonOnLongClickListener(this));
+
+		tv_memo.setOnTouchListener(new ButtonOnTouchListener(this));
+		tv_memo.setOnLongClickListener(new ButtonOnLongClickListener(this, ai));
+		
+		
+		
 	}//private void setup_2_set_listeners()
 
 	private void setup_1_set_file_name() {
