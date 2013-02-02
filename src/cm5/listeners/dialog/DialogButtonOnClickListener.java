@@ -233,6 +233,12 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			break;// case dlg_edit_title_bt_ok
 			
+		case dlg_edit_memo_bt_ok://----------------------------------------
+			
+			Methods.edit_memo(actv, dlg, ai);
+			
+			break;// case dlg_edit_memo_bt_ok
+			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)

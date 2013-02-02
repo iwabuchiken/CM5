@@ -1802,7 +1802,7 @@ public class Methods_dialog {
 		/*********************************
 		 * 3. Set text
 		 *********************************/
-		String title = ai.getTitle();
+		String title = ai.getMemo();
 		
 		
 //		if (ai.getTitle().equals("")) {

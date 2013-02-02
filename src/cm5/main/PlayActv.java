@@ -110,7 +110,7 @@ public class PlayActv extends Activity {
 		
 	}//private void setup_2_set_listeners()
 
-	private void setup_1_set_file_name() {
+	private void setup_1_setStrings2Views() {
 		/*********************************
 		 * 1. Get intent
 		 * 
@@ -122,6 +122,8 @@ public class PlayActv extends Activity {
 		 * 5. Set file name to the view
 		 * 
 		 * 6. Set title to the view
+		 * 
+		 * 7. Set memo to the view
 		 *********************************/
 		Intent i = this.getIntent();
 		
@@ -215,6 +217,26 @@ public class PlayActv extends Activity {
 			
 		}//if (!ai.getFile_name().equals(""))
 		
+		/*********************************
+		 * 7. Set memo to the view
+		 *********************************/
+		TextView tvMemo = (TextView) findViewById(R.id.actv_play_tv_memo);
+		
+		if (!ai.getMemo().equals("")) {
+			
+			tvMemo.setText(ai.getMemo());
+			
+			// Log
+			Log.d("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Memo set => " + ai.getMemo());
+			
+		} else {//if (!ai.getFile_name().equals(""))
+			
+//			tv_title.setText(this.getString(R.string.generic_tv_no_data));
+			tvMemo.setText("No memo");
+			
+		}//if (!ai.getFile_name().equals(""))
 		
 		
 	}//private void setup_1_set_file_name()
@@ -283,7 +305,7 @@ public class PlayActv extends Activity {
 		 * memo
 		 *********************************/
 		
-		setup_1_set_file_name();
+		setup_1_setStrings2Views();
 		
 		setup_2_set_listeners();
 		

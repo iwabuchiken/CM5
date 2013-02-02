@@ -6429,5 +6429,83 @@ public class Methods {
 		
 	}//private static String convert_sec2digits(int sec, int i)
 
+	public static void edit_memo(Activity actv, Dialog dlg, AI ai) {
+		/*********************************
+		 * 1. Get view
+		 * 2. Set title to the AI object
+		 * 
+		 * 3. Update data
+		 * 
+		 * 9. Dismiss dialog
+		 *********************************/
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "edit_title(Activity actv, Dialog dlg, AI ai)");
+		
+		/*********************************
+		 * 1. Get view
+		 *********************************/
+		EditText et = (EditText) dlg.findViewById(R.id.dlg_edit_title_et_content);
+		
+		
+		/*********************************
+		 * 2. Set memo to the AI object
+		 *********************************/
+		ai.setMemo(et.getText().toString());
+		
+		/*********************************
+		 * 3. Update data
+		 *********************************/
+		boolean res = DBUtils.update_data_ai(actv, CONS.dbName, ai.getDb_id(),
+							CONS.cols_item[Methods.getArrayIndex(CONS.cols_item, "memo")],
+//							ai.getTitle());
+							ai.getMemo());
+		
+		if (res == true) {
+			
+			// debug
+			Toast.makeText(actv, "Data updated", Toast.LENGTH_SHORT).show();
+			
+		} else {//if (res == true)
+
+			// debug
+			Toast.makeText(actv, "Update data => Failed", Toast.LENGTH_SHORT).show();
+
+		}//if (res == true)
+		
+		/*********************************
+		 * 9. Dismiss dialog
+		 *********************************/
+		dlg.dismiss();
+		
+		
+		/*********************************
+		 * 10. Update the text view
+		 *********************************/
+//		TextView tv_title = (TextView) actv.findViewById(R.id.actv_play_tv_title);
+		TextView tvMemo = (TextView) actv.findViewById(R.id.actv_play_tv_memo);
+		
+		tvMemo.setText(ai.getMemo());
+		
+	}//public static void edit_memo(Activity actv, Dialog dlg, AI ai)
+
+	public static int getArrayIndex(String[] targetArray, String targetString) {
+		int index = -1;
+		
+		for (int i = 0; i < targetArray.length; i++) {
+			
+			if (targetArray[i].equals(targetString)) {
+				
+				index = i;
+				
+				break;
+				
+			}//if (targetArray[i] == )
+			
+		}//for (int i = 0; i < targetArray.length; i++)
+		
+		return index;
+	}//public static int getArrayIndex(String[] targetArray, String targetString)
 }//public class Methods
 
