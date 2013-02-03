@@ -1809,22 +1809,45 @@ public class Methods {
 //			// Log
 //			Log.d("Methods.java" + "["
 //					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "File path=" + f.getAbsolutePath());
+			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //					+ "]", "f.lastModified()=" + f.lastModified());
 			
 			if (f.lastModified() > last_refreshed_date) {
 
+				String fileFullPath = StringUtils.join(
+	    				new String[]{
+	    						CONS.dpath_storage_internal,
+//	    						MainActv.dname_source_folder_tt},
+	    						CONS.dname_tt_internal},
+	    						
+	    						File.separator);
+				
 				AI ai = new AI(
+//						f.getName(),
+//				    	StringUtils.join(
+//		    				new String[]{
+//		    						CONS.dpath_storage_internal,
+//	//	    						MainActv.dname_source_folder_tt},
+//		    						CONS.dname_tt_internal},
+//    						File.separator),
+//
+//    						"", "", 0,
+//    						CONS.tname_main,
+//    						f.lastModified()
+//    						);
 						f.getName(),
-				    	StringUtils.join(
-		    				new String[]{
-		    						CONS.dpath_storage_internal,
-	//	    						MainActv.dname_source_folder_tt},
-		    						CONS.dname_tt_internal},
-    						File.separator),
+						fileFullPath,
+						
 
-    						"", "", 0,
-    						CONS.tname_main,
-    						f.lastModified()
+    						"", "", 0,		// title, memo, last_played_at
+    						CONS.tname_main,	// table_name
+//    						Methods.getFileLength(fileFullPath),	// length
+    						Methods.getFileLength(f.getAbsolutePath()),	// length
+    						f.lastModified()	// created_at
     						);
 				
 				ai_list.add(ai);
@@ -1856,6 +1879,63 @@ public class Methods {
 		}//if (ai_list.size() == condition)
 		
 	}//private static List<AI> refresh_main_db_4_get_ai_list(File[] file_list)
+
+	private static long getFileLength(String fileFullPath) {
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Methods: " + Thread.currentThread().getStackTrace()[2].getMethodName());
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "File path=" + fileFullPath);
+		
+		MediaPlayer mp = new MediaPlayer();
+		
+//		int len = 0;
+		long len = 0;
+		
+		try {
+			mp.setDataSource(fileFullPath);
+			
+			mp.prepare();
+			
+//			len = mp.getDuration() / 1000;
+			len = mp.getDuration();
+			
+			// REF=> http://stackoverflow.com/questions/9609479/android-mediaplayer-went-away-with-unhandled-events
+			mp.reset();
+			
+			// REF=> http://stackoverflow.com/questions/3761305/android-mediaplayer-throwing-prepare-failed-status-0x1-on-2-1-works-on-2-2
+			mp.release();
+			
+		} catch (IllegalArgumentException e) {
+			
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Exception=" + e.toString());
+			
+		} catch (IllegalStateException e) {
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Exception=" + e.toString());
+
+		} catch (IOException e) {
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Exception=" + e.toString());
+		}//try
+		
+		return len;
+	}//private static long getFileLength(String fileFullPath)
 
 	private static File[] refresh_main_db_3_get_file_list() {
 		// Build a path
@@ -1926,7 +2006,7 @@ public class Methods {
 		}//for (AI ai : ai_list)
 		
 		// Log
-		Log.e("Methods.java" + "["
+		Log.d("Methods.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Data insertion => Inserted: " + i_res + "/"
 				+ "Failed: " + failed_items);

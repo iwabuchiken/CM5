@@ -1219,6 +1219,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 			val.put("table_name", ai.getTable_name());
 			
+			val.put("length", ai.getLength());
+			
 			// Insert data
 			wdb.insert(CONS.tname_main, null, val);
 			

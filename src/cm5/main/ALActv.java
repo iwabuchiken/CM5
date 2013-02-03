@@ -314,7 +314,15 @@ public class ALActv extends ListActivity {
 		 * 3. Sort list
 		 *********************************/
 		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
-		
+
+		// Log
+		Log.d("ALActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "ai_list.get(0).getLength()=" + ai_list.get(0).getLength()
+				+ "/"
+				+ "getFile_name()=" + ai_list.get(0).getFile_name()
+				);
+
 		/*********************************
 		 * 4. Prep adapter
 		 *********************************/
@@ -686,7 +694,7 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * 3. Debug: Store file length data
 		 *********************************/
-		debug_B20_v_1_1();
+//		debug_B20_v_1_1();
 		
 		
 //		debug_1_store_file_length();

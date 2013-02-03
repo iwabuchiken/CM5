@@ -44,6 +44,34 @@ public class AI {
 		
 	}//public ThumbnailItem(long fileId, String file_path, long date_added, long date_modified)
 
+	public AI(
+			String file_name, String file_path,
+			String title, String memo,
+			
+			long last_played_at,
+			
+			String table_name,
+			
+			long length,
+			
+			long created_at) {
+
+		this.file_name = file_name;
+		this.file_path = file_path;
+		
+		this.title = title;
+		this.memo = memo;
+		
+		this.last_played_at = last_played_at;
+		
+		this.table_name = table_name;
+		
+		this.length = length;
+		
+		this.created_at = created_at;
+		
+	}//public ThumbnailItem(long fileId, String file_path, long date_added, long date_modified)
+
 	/*********************************
 	 * Data in DB into an AI object
 	 *********************************/
@@ -99,6 +127,7 @@ public class AI {
 		this.modified_at = modified_at;
 
 	}
+
 
 	public String getFile_name() {
 		return file_name;
