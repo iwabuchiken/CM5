@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:icon="@drawable/ifm9_project_50x50"
+        android:icon="@drawable/cm5_project_icon"
         android:label="@string/app_name" >
         <activity
             android:name=".MainActv"

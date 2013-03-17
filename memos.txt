@@ -1,8 +1,8 @@
 a
-C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android~\FM\CM5(A)\CM5(A).mm
-cd C:\WORKS\WS\WS_Android~\CM5
+pushd C:\WORKS\WS\WS_Android~\CM5
 gitk
 
+C:\WORKS\PROGRAMS\FreeMind\FreeMind.exe C:\WORKS\WS\WS_Android~\FM\CM5(A)\CM5(A).mm
 C:\WORKS\WORKSPACES_ANDROID\FM\a
 
 pushd C:\WORKS\WORKSPACES_ANDROID\FM

@@ -635,7 +635,7 @@ public class Methods {
 		if (currentPath.equals(CONS.dpath_base)) {
 			
 			// debug
-			Toast.makeText(actv, "ƒgƒbƒvEƒtƒHƒ‹ƒ_‚É‚¢‚Ü‚·", 2000).show();
+			Toast.makeText(actv, "ï¿½gï¿½bï¿½vï¿½Eï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½É‚ï¿½ï¿½Ü‚ï¿½", 2000).show();
 		
 			return;
 		}//if (ImageFileManager8Activity.currentDirPath == ImageFileManager8Activity.baseDirPath)
@@ -684,7 +684,7 @@ public class Methods {
 		if (!targetFileName.equals(CONS.fname_list)) {
 			
 			// debug
-			Toast.makeText(actv, "list.txt ‚Å‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+			Toast.makeText(actv, "list.txt ï¿½Å‚Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 			
 			return;
 		}//if (!target.getName().equals(ImageFileManager8Activity.fname_list))
@@ -744,16 +744,16 @@ public class Methods {
 
 	public static void confirm_quit(Activity actv, int keyCode) {
 		
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		if (keyCode==KeyEvent.KEYCODE_BACK) {
 			
 			AlertDialog.Builder dialog=new AlertDialog.Builder(actv);
 			
-	        dialog.setTitle("ƒAƒvƒŠ‚ÌI—¹");
-	        dialog.setMessage("ƒAƒvƒŠ‚ğI—¹‚µ‚Ü‚·‚©H");
+	        dialog.setTitle("ï¿½Aï¿½vï¿½ï¿½ï¿½ÌIï¿½ï¿½");
+	        dialog.setMessage("ï¿½Aï¿½vï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½H");
 	        
-	        dialog.setPositiveButton("I—¹",new DialogListener(actv, dialog, 0));
-	        dialog.setNegativeButton("ƒLƒƒƒ“ƒZƒ‹",new DialogListener(actv, dialog, 1));
+	        dialog.setPositiveButton("ï¿½Iï¿½ï¿½",new DialogListener(actv, dialog, 0));
+	        dialog.setNegativeButton("ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½",new DialogListener(actv, dialog, 1));
 	        
 	        dialog.create();
 	        dialog.show();
@@ -1241,7 +1241,7 @@ public class Methods {
 			numOfItemsAdded = 0;
 			
 //			// debug
-//			Toast.makeText(actv, "V‹K‚Ìƒtƒ@ƒCƒ‹‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+//			Toast.makeText(actv, "ï¿½Vï¿½Kï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 			
 		} else {//if (c.getCount() < 1)
 			
@@ -1648,7 +1648,7 @@ public class Methods {
 ////			numOfItemsAdded = 0;
 ////			
 ////			// debug
-////			Toast.makeText(actv, "V‹K‚Ìƒtƒ@ƒCƒ‹‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+////			Toast.makeText(actv, "ï¿½Vï¿½Kï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 ////			
 ////		} else {//if (c.getCount() < 1)
 ////			
@@ -2224,7 +2224,7 @@ public class Methods {
 			numOfItemsAdded = 0;
 			
 			// debug
-			Toast.makeText(actv, "V‹K‚Ìƒtƒ@ƒCƒ‹‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+			Toast.makeText(actv, "ï¿½Vï¿½Kï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 			
 		} else {//if (c.getCount() < 1)
 			
@@ -3187,7 +3187,7 @@ public class Methods {
 		//
 		if (newDir.exists()) {
 			// debug
-			Toast.makeText(actv, "‚±‚Ì–¼‘O‚ÌƒtƒHƒ‹ƒ_‚Í‚·‚Å‚É‚ ‚è‚Ü‚·IF " + folderName, 3000).show();
+			Toast.makeText(actv, "ï¿½ï¿½ï¿½Ì–ï¿½ï¿½Oï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½_ï¿½Í‚ï¿½ï¿½Å‚É‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Iï¿½F " + folderName, 3000).show();
 			
 			return null;
 			
@@ -3202,7 +3202,7 @@ public class Methods {
 				dlg.dismiss();
 				
 				// debug
-				Toast.makeText(actv, "ƒtƒHƒ‹ƒ_‚ğì‚è‚Ü‚µ‚½ : " + newDir.getAbsolutePath(), 3000).show();
+				Toast.makeText(actv, "ï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ : " + newDir.getAbsolutePath(), 3000).show();
 				
 				// Log
 				Log.d("Methods.java" + "["
@@ -3212,7 +3212,7 @@ public class Methods {
 				
 			} catch (Exception e) {
 				// debug
-				Toast.makeText(actv, "ƒtƒHƒ‹ƒ_‚ğì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½ : " + newDir.getName(), 3000).show();
+				Toast.makeText(actv, "ï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ : " + newDir.getName(), 3000).show();
 				
 				// Log
 				Log.e("Methods.java" + "["
@@ -3241,7 +3241,7 @@ public class Methods {
 					+ "]", "listFile => Exists");
 			
 			// debug
-			Toast.makeText(actv, "list.txt => ‚·‚Å‚É‚ ‚è‚Ü‚·", 3000).show();
+			Toast.makeText(actv, "list.txt => ï¿½ï¿½ï¿½Å‚É‚ï¿½ï¿½ï¿½Ü‚ï¿½", 3000).show();
 			
 		} else {//if (listFile.exists())
 			try {
@@ -3256,7 +3256,7 @@ public class Methods {
 								.getLineNumber() + "]", "listFile => Created");
 				
 //				// debug
-//				Toast.makeText(actv, "list.txt => ì¬‚³‚ê‚Ü‚µ‚½", 3000).show();
+//				Toast.makeText(actv, "list.txt => ï¿½ì¬ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 3000).show();
 				
 			} catch (IOException e) {
 				// Log
@@ -3265,7 +3265,7 @@ public class Methods {
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create listFile => Failed: " + listFile.getAbsolutePath());
 				// debug
-				Toast.makeText(actv, "list.txt => ì¬‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½", 3000).show();
+				Toast.makeText(actv, "list.txt => ï¿½ì¬ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½", 3000).show();
 				
 				return null;
 			}
@@ -3330,7 +3330,7 @@ public class Methods {
 										.getLineNumber() + "]", "listFile => Created");
 						
 						// debug
-						Toast.makeText(actv, "list.txt => ì¬‚³‚ê‚Ü‚µ‚½", 3000).show();
+						Toast.makeText(actv, "list.txt => ï¿½ì¬ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 3000).show();
 						
 					} catch (IOException e) {
 						// Log
@@ -3339,7 +3339,7 @@ public class Methods {
 								+ Thread.currentThread().getStackTrace()[2]
 										.getLineNumber() + "]", "Create listFile => Failed: " + listFile.getAbsolutePath());
 						// debug
-						Toast.makeText(actv, "list.txt => ì¬‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½", 3000).show();
+						Toast.makeText(actv, "list.txt => ï¿½ì¬ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½", 3000).show();
 					}
 					
 				}//if (res)
@@ -3458,14 +3458,14 @@ public class Methods {
 		
 		if (!targetDir.exists()) {
 			// debug
-			Toast.makeText(actv, "‚±‚ÌƒAƒCƒeƒ€‚ÍA‘¶İ‚µ‚Ü‚¹‚ñ", 2000).show();
+			Toast.makeText(actv, "ï¿½ï¿½ï¿½ÌƒAï¿½Cï¿½eï¿½ï¿½ï¿½ÍAï¿½ï¿½ï¿½İ‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 			
 			return;
 		}
 		
 		if (!targetDir.isDirectory()) {
 			// debug
-			Toast.makeText(actv, "‚±‚ÌƒAƒCƒeƒ€‚ÍAƒtƒHƒ‹ƒ_‚Å‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+			Toast.makeText(actv, "ï¿½ï¿½ï¿½ÌƒAï¿½Cï¿½eï¿½ï¿½ï¿½ÍAï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½Å‚Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 			
 			return;
 		}//if (!targetDir.exists() || !targetDir.isDirectory())
@@ -3493,7 +3493,7 @@ public class Methods {
 					+ "]", "Dir => Removed: " + path);
 			
 			// debug
-			Toast.makeText(actv, "íœ‚µ‚Ü‚µ‚½" + path, 3000).show();
+			Toast.makeText(actv, "ï¿½íœï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½" + path, 3000).show();
 		} else {//if (result == true)
 			// Log
 			Log.e("Methods.java" + "["
@@ -3501,7 +3501,7 @@ public class Methods {
 					+ "]", "Remove dir => Failed: " + path);
 			
 			// debug
-			Toast.makeText(actv, "íœ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½: " + path, 3000).show();
+			Toast.makeText(actv, "ï¿½íœï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½: " + path, 3000).show();
 			
 			return;
 		}//if (result == true)
@@ -3582,7 +3582,7 @@ public class Methods {
 
 //			@Override
 			public int compare(TI lhs, TI rhs) {
-				// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+				// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 				
 //				return (int) (lhs.getDate_added() - rhs.getDate_added());
 				
@@ -3826,12 +3826,130 @@ public class Methods {
 			****************************/
 		List<AI> toMoveFiles = Methods.moveFiles_1_get_toMoveFiles();
 		
-		String[] tnames = Methods.moveFiles_2_setup_paths(actv, dlg2);
+		String dstTableName = Methods.moveFiles__2_getDstTableName(actv, dlg2);
+
+		/***************************************
+		 * Move files
+		 ***************************************/
+//		//debug
+//		for (int i = 0; i < toMoveFiles.size(); i++) {
+//			
+//			AI ai = toMoveFiles.get(i);
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]",
+//					"ai.getFile_name()="
+//					+ ai.getFile_name()
+//					+ "/"
+//					+ "ai.getTable_name()=" + ai.getTable_name());
+//			
+//		}//for (int i = 0; i < toMoveFiles.size(); i++)
 		
-		String sourceTableName = tnames[0];
+		for (int i = 0; i < toMoveFiles.size(); i++) {
+			
+			AI ai = toMoveFiles.get(i);
+			
+			String srcTableName = ai.getTable_name();
+			
+			Methods.moveFiles__3_db(actv, srcTableName, dstTableName, ai);
+			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]",
+//					"ai.getTable_name()=" + ai.getTable_name());
+			
+//			ai.setTable_name(dstTableName);
+
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]",
+//					"ai.getTable_name()=" + ai.getTable_name());
+
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]",
+//					"Moving an AI item => "
+//					+ "name=" + ai.getFile_name()
+//					+ "/"
+//					+ "Source table=" + srcTableName
+//					+ "/"
+//					+ "Dest table=" + dstTableName);
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "ai.getTable_name()=" + ai.getTable_name());
+//			
+//			ai.setTable_name(dstTableName);
+			
+//			Methods.moveFiles__3_db(actv, sourceTableName, targetTableName, toMoveFiles)
+			
+		}//for (int i = 0; i < toMoveFiles.size(); i++)
+
+		/***************************************
+		 * Clear checkedPositions
+		 ***************************************/
+		for (Integer position : ALActv.checkedPositions) {
+			
+//			ALActv.ai_list_move.remove(position);
+			ALActv.ai_list.remove(position);
+			
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Removed from ai_list at position=" + position);
+			
+			
+		}//for (Integer position : ThumbnailActivity.checkedPositions)
 		
-		String targetTableName = tnames[1];
+		//
+		ALActv.checkedPositions.clear();
 		
+		//
+		ALActv.ail_adp_move.notifyDataSetChanged();
+
+		
+		
+//		//debug
+//		for (int i = 0; i < toMoveFiles.size(); i++) {
+//			
+//			AI ai = toMoveFiles.get(i);
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]",
+//					"ai.getFile_name()="
+//					+ ai.getFile_name()
+//					+ "/"
+//					+ "ai.getTable_name()=" + ai.getTable_name());
+//			
+//		}//for (int i = 0; i < toMoveFiles.size(); i++)
+
+		
+		
+		//		Methods.moveFiles__3_db(actv, sourceTableName, targetTableName, toMoveFiles)
+		
+//		String[] tnames = Methods.moveFiles_2_setup_paths(actv, dlg2);
+
 		/****************************
 		 * 1.3. Insert items in toMoveFiles to the new table
 		 * 		1.3.1. Insert data to the new table
@@ -3846,9 +3964,9 @@ public class Methods {
 		 * 		4. Insert data into the new table
 			****************************/
 		
-		Methods.moveFiles_3_db(actv, sourceTableName, targetTableName, toMoveFiles);
-
-		Methods.moveFiles_4_refresh_list(actv, sourceTableName);
+//		Methods.moveFiles_3_db(actv, sourceTableName, targetTableName, toMoveFiles);
+//
+//		Methods.moveFiles_4_refresh_list(actv, sourceTableName);
 		
 //		ALActv.ail_adp_move.notifyDataSetChanged();
 		
@@ -3878,6 +3996,100 @@ public class Methods {
 		dlg2.dismiss();
 		
 	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+
+	private static
+	String moveFiles__2_getDstTableName(Activity actv, Dialog dlg2) {
+		// TODO Auto-generated method stub
+		/****************************
+		 * 1.2. Get target dir path from dlg2
+			****************************/
+		TextView tv = (TextView) dlg2.findViewById(R.id.dlg_confirm_move_files_tv_table_name);
+		
+		String folderPath = tv.getText().toString();
+		
+		File f = new File(CONS.dpath_base, folderPath);
+		
+//		String targetTableName = Methods.convert_path_into_table_name(actv, folderPath);
+		String dstTargetTableName = Methods.convert_filePath_into_table_name(actv, f.getAbsolutePath());
+		
+		return dstTargetTableName;
+		
+	}//String moveFiles__2_getDstTableName(Activity actv, Dialog dlg2)
+
+	private static void
+	moveFiles__3_db
+	(Activity actv,
+		String sourceTableName,
+		String targetTableName,
+//		List<AI> toMoveFiles) {
+		AI ai) {
+		
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		/****************************
+		 * 1.3.1.2. Table exists?
+			****************************/
+		boolean res = moveFiles_2_table_exists(actv, wdb, dbu, targetTableName);
+		
+		if (res == false) {
+			
+			return;
+			
+		}//if (res == false)
+		
+		/****************************
+		 * 1.3.1.3. Get item from toMoveFiles
+			****************************/
+		/****************************
+		 * 1.3.4. Insert data into the new table
+			****************************/
+		// Change the table name
+		ai.setTable_name(targetTableName);
+		
+		// Insert into the target table
+		dbu.insertData_ai(wdb, targetTableName, ai);
+		
+		// Delete from the source table
+		Methods.deleteItem_fromTable_ai(actv, sourceTableName, ai);
+			
+		/****************************
+		 * 1.4. Delete the items from the source table
+		 * 		1. Delete data from the source table
+		 * 		2. Delete the item from tiList
+		 * 
+		 * 		9. Close db
+			****************************/
+		/****************************
+		 * 1.4.2. Delete the item from tiList
+			****************************/
+//		for (Integer position : ALActv.checkedPositions) {
+//			
+////			ALActv.ai_list_move.remove(position);
+//			ALActv.ai_list.remove(position);
+//			
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Removed from ai_list at position=" + position);
+//			
+//			
+//		}//for (Integer position : ThumbnailActivity.checkedPositions)
+//		
+//		//
+//		ALActv.checkedPositions.clear();
+//		
+//		//
+////		ALActv.ail_adp_move.notifyDataSetChanged();
+		
+		/****************************
+		 * 1.4.9. Close wdb
+			****************************/
+		wdb.close();
+
+	}//moveFiles__3_db
 
 	private static void moveFiles_4_refresh_list(
 						Activity actv, String sourceTableName) {
@@ -4319,7 +4531,7 @@ public class Methods {
 			****************************/
 //		ti.setMemo("abcdefg");
 //		ti.setMemo("123456");
-//		ti.setMemo("WHERE‹å‚ğÈ—ª‚µ‚½ê‡‚Íƒe[ƒuƒ‹‚ÉŠÜ‚Ü‚ê‚é‘S‚Ä‚Ìƒf[ƒ^‚Ìw’è‚ÌƒJƒ‰ƒ€‚Ì’l‚ªw’è‚Ì’l‚ÅXV‚³‚ê‚Ü‚·B");
+//		ti.setMemo("WHEREï¿½ï¿½ï¿½ï¿½È—ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Íƒeï¿½[ï¿½uï¿½ï¿½ï¿½ÉŠÜ‚Ü‚ï¿½ï¿½Sï¿½Ä‚Ìƒfï¿½[ï¿½^ï¿½Ìwï¿½ï¿½ÌƒJï¿½ï¿½ï¿½ï¿½ï¿½Ì’lï¿½ï¿½ï¿½wï¿½ï¿½Ì’lï¿½ÅXï¿½Vï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B");
 		
 		ti.setMemo(et.getText().toString());
 		
@@ -4551,7 +4763,7 @@ public class Methods {
 		} catch (SQLException e) {
 			
 			// debug
-			Toast.makeText(actv, "ƒpƒ^[ƒ“íœ@=>@‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½", 3000).show();
+			Toast.makeText(actv, "ï¿½pï¿½^ï¿½[ï¿½ï¿½ï¿½íœï¿½@=>ï¿½@ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½", 3000).show();
 			
 			// Log
 			Log.e("Methods.java" + "["
@@ -4584,7 +4796,8 @@ public class Methods {
 		if (words.equals("")) {
 			
 			// debug
-			Toast.makeText(actv, "Œê‹å‚ğ“ü‚ê‚Ä‚È‚¢‚æ", 2000).show();
+//			Toast.makeText(actv, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚È‚ï¿½ï¿½ï¿½", 2000).show();
+			Toast.makeText(actv, "No search word", 2000).show();
 			
 			return;
 			
@@ -4593,7 +4806,8 @@ public class Methods {
 		/****************************
 		 * 2. Format words
 			****************************/
-		words = words.replace('@', ' ');
+//		words = words.replace('ï¿½@', ' ');
+		words = words.replace('ã€€', ' ');
 		
 		String[] a_words = words.split(" ");
 		
@@ -6260,7 +6474,7 @@ public class Methods {
 //						+ Thread.currentThread().getStackTrace()[2]
 //								.getLineNumber() + "]", "(a1.getCreated_at() - a2.getCreated_at())=" + (a1.getCreated_at() - a2.getCreated_at()));
 				
-				// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+				// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 				
 //				return (int) (lhs.getDate_added() - rhs.getDate_added());
 				

@@ -181,7 +181,8 @@ public class DialogButtonOnClickListener implements OnClickListener {
 
 		case dlg_confirm_move_files_ok: // ----------------------------------------------------
 			
-			Methods.moveFiles(actv, dlg, dlg2);
+			case_dlg_confirm_move_files_ok();
+//			Methods.moveFiles(actv, dlg, dlg2);
 			
 			break;
 
@@ -243,5 +244,10 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
+
+	private void case_dlg_confirm_move_files_ok() {
+		// TODO Auto-generated method stub
+		Methods.moveFiles(actv, dlg, dlg2);
+	}
 
 }//DialogButtonOnClickListener
