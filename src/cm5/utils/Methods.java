@@ -749,11 +749,17 @@ public class Methods {
 			
 			AlertDialog.Builder dialog=new AlertDialog.Builder(actv);
 			
-	        dialog.setTitle("�A�v���̏I��");
-	        dialog.setMessage("�A�v�����I�����܂����H");
+//	        dialog.setTitle("�A�v���̏I��");
+			dialog.setTitle(actv.getString(R.string.generic_tv_confirm));
+	        dialog.setMessage(actv.getString(R.string.main_quit));
 	        
-	        dialog.setPositiveButton("�I��",new DialogListener(actv, dialog, 0));
-	        dialog.setNegativeButton("�L�����Z��",new DialogListener(actv, dialog, 1));
+	        dialog.setPositiveButton(
+	        				actv.getString(R.string.generic_bt_quit),
+	        				new DialogListener(actv, dialog, 0));
+	        
+	        dialog.setNegativeButton(
+	        				actv.getString(R.string.generic_bt_cancel),
+	        				new DialogListener(actv, dialog, 1));
 	        
 	        dialog.create();
 	        dialog.show();
@@ -4821,6 +4827,13 @@ public class Methods {
 			****************************/
 		String tableName = Methods.convert_path_into_table_name(actv);
 		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "tableName=" + tableName);
+		
 		/****************************
 		 * 3. Search task
 			****************************/
@@ -4833,6 +4846,14 @@ public class Methods {
 			search_mode = 1;	// 1 => All tables
 			
 		}//if (condition)
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "search_mode=" + search_mode);
+		
 		
 		SearchTask st = new SearchTask(actv, search_mode);
 		

@@ -73,32 +73,50 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 	@Override
 	protected String doInBackground(String[]... sw) {
 		
-		// Log
-		if (string_searchedItems_table_names != null) {
-			
-			Log.d("SearchTask.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", 
-					"string_searchedItems_table_names.length="
-						+ string_searchedItems_table_names.length);
-			
-		} else {//if (string_searchedItems_table_names != null)
+//		// Log
+//		if (string_searchedItems_table_names != null) {
+//			
+//			Log.d("SearchTask.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", 
+//					"string_searchedItems_table_names.length="
+//						+ string_searchedItems_table_names.length);
+//			
+//		} else {//if (string_searchedItems_table_names != null)
+//
+//			Log.d("SearchTask.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", 
+//					"string_searchedItems_table_names => Null");
+//
+//		}//if (string_searchedItems_table_names != null)
 
-			Log.d("SearchTask.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", 
-					"string_searchedItems_table_names => Null");
-
-		}//if (string_searchedItems_table_names != null)
-		
+		/***************************************
+		 * Hub
+		 ***************************************/
 		if(search_mode == 0) {
 			
-			// Log
-			Log.d("SearchTask.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Calling => doInBackground_specific_table(sw)");
+//			// Log
+//			Log.d("SearchTask.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Calling => doInBackground_specific_table(sw)");
 			
+//			// Log
+//			Log.d("SearchTask.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "sw[0][0]=" + sw[0][0]);
+//
+//			// Log
+//			Log.d("SearchTask.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "sw[1][0]=" + sw[1][0]);
+
 			return this.doInBackground_specific_table(sw);
+//			return null;
 			
 		} else {
 
@@ -107,7 +125,8 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Calling => doInBackground_all_table(sw)");
 
-			return this.doInBackground_all_table(sw);
+//			return this.doInBackground_all_table(sw);
+			return null;
 			
 		}//if(search_mode == 0)
 		
@@ -282,6 +301,12 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		
 	}//private void doInBackground_all_table_search()
 
+	/***************************************
+	 * 20130319_072737
+	 * @param sw (1)sw[0] ... Keywords
+	 * 			(2)sw[1] ... Table names
+	 * @return Message concerning the result
+	 ***************************************/
 	private String doInBackground_specific_table(String[][] sw) {
 		/*----------------------------
 		 * Steps
@@ -308,50 +333,19 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 			----------------------------*/
 		String sql = "SELECT * FROM " + targetTable;
 		
-		// Log
-		Log.d("SearchTask.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "targetTable: " + targetTable);
+//		// Log
+//		Log.d("SearchTask.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "targetTable: " + targetTable);
 		
 		
 		Cursor c = rdb.rawQuery(sql, null);
 		
-		c.moveToFirst();
-		
-		/*----------------------------
-		 * 2.3. Search
-			----------------------------*/
-		for (int i = 0; i < c.getCount(); i++) {
+		while(c.moveToNext()) {
 			
-			String memo = c.getString(6);
-			
-			if (memo == null) {
+			String memo = c.getString(c.getColumnIndex("title"));
 
-				c.moveToNext();
-				
-				continue;
-				
-			}//if (memo == null)
-			
-
-			// Log
-			Log.d("SearchTask.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "sw[0].length => " + sw[0].length);
-
-			if (sw[1] != null) {
-				
-				Log.d("SearchTask.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", "sw[1].length => " + sw[1].length);
-				
-			} else {//if (sw[1])
-				
-				Log.d("SearchTask.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", "sw[1] => null");
-				
-			}//if (sw[1])
+			if (memo == null) continue;
 			
 			for (String string : sw[0]) {
 				
@@ -376,12 +370,75 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 				}//if (memo.matches(".*" + ))
 				
 			}//for (String string : sw[0])
-			
-			c.moveToNext();
-			
-		}//for (int i = 0; i < c.getCount(); i++)
+				
+		}//while(c.moveToNext())
 		
-		
+//		c.moveToFirst();
+//		
+//		/*----------------------------
+//		 * 2.3. Search
+//			----------------------------*/
+//		for (int i = 0; i < c.getCount(); i++) {
+//			
+//			String memo = c.getString(6);
+//			
+//			if (memo == null) {
+//
+//				c.moveToNext();
+//				
+//				continue;
+//				
+//			}//if (memo == null)
+//			
+//
+//			// Log
+//			Log.d("SearchTask.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "sw[0].length => " + sw[0].length);
+//
+//			if (sw[1] != null) {
+//				
+//				Log.d("SearchTask.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", "sw[1].length => " + sw[1].length);
+//				
+//			} else {//if (sw[1])
+//				
+//				Log.d("SearchTask.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", "sw[1] => null");
+//				
+//			}//if (sw[1])
+//			
+//			for (String string : sw[0]) {
+//				
+//				
+//				
+//				if (memo.matches(".*" + string + ".*")) {
+//					
+//					// Log
+//					Log.d("SearchTask.java"
+//							+ "["
+//							+ Thread.currentThread().getStackTrace()[2]
+//									.getLineNumber() + "]", "memo => " + memo);
+//					
+//				
+//					/*----------------------------
+//					 * 2.4. List<Long> searchedItems => file id
+//						----------------------------*/
+//					searchedItems.add(c.getLong(1));
+//					
+//					break;
+//					
+//				}//if (memo.matches(".*" + ))
+//				
+//			}//for (String string : sw[0])
+//			
+//			c.moveToNext();
+//			
+//		}//for (int i = 0; i < c.getCount(); i++)
+//		
+//		
 		/*----------------------------
 		 * 2.5. List<Long> searchedItems => to array
 			----------------------------*/
@@ -395,6 +452,14 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 			long_searchedItems[i] = searchedItems.get(i);
 			
 		}//for (int i = 0; i < len; i++)
+		
+		// Log
+		Log.d("SearchTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]",
+				"long_searchedItems.length=" + long_searchedItems.length);
 		
 		/*----------------------------
 		 * 3. Close db
@@ -432,7 +497,7 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 
 	@Override
 	protected void onPostExecute(String result) {
-		// TODO é©ìÆê∂ê¨Ç≥ÇÍÇΩÉÅÉ\ÉbÉhÅEÉXÉ^Éu
+		// TODO ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÍÇΩÔøΩÔøΩÔøΩ\ÔøΩbÔøΩhÔøΩEÔøΩXÔøΩ^ÔøΩu
 		super.onPostExecute(result);
 
 		// debug
@@ -440,74 +505,74 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		// Log
 		Log.d("SearchTask.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", result);
+				+ "] ", "result=" + result);
 		
 
-		/*----------------------------
-		 * 1. Set up intent
-			----------------------------*/
-		// Log
-		Log.d("SearchTask.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "long_searchedItems.length => " + long_searchedItems.length);
-		
-		if(long_searchedItems.length > 0) {
-			
-			Log.d("SearchTask.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "long_searchedItems[0] => " + long_searchedItems[0]);
-			
-			Intent i = new Intent();
-			
-			i.setClass(actv, TNActv.class);
-			
-			i.putExtra("long_searchedItems", long_searchedItems);
-			
-			if (string_searchedItems_table_names != null &&
-					string_searchedItems_table_names.length > 0) {	
-				
-				i.putExtra(
-//						"string_searchedItems_table_names",
-						CONS.intent_label_searchedItems_table_names,
-						string_searchedItems_table_names);
-				
-			}//if (variable == condition)
-//				i.putExtra("string_searchedItems_table_names", string_searchedItems_table_names);
-
-			// Log
-			if (string_searchedItems_table_names != null) {
-				
-				Log.d("SearchTask.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", 
-						"string_searchedItems_table_names.length="
-							+ string_searchedItems_table_names.length);
-				
-			} else {//if (string_searchedItems_table_names != null)
-
-				Log.d("SearchTask.java" + "["
-						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-						+ "]", 
-						"string_searchedItems_table_names => Null");
-
-			}//if (string_searchedItems_table_names != null)
-			
+//		/*----------------------------
+//		 * 1. Set up intent
+//			----------------------------*/
+//		// Log
+//		Log.d("SearchTask.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "long_searchedItems.length => " + long_searchedItems.length);
+//		
+//		if(long_searchedItems.length > 0) {
+//			
 //			Log.d("SearchTask.java" + "["
 //					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", 
-//					"string_searchedItems_table_names.length="
-//						+ string_searchedItems_table_names.length);
-			
-			/*----------------------------
-			 * 2. Start activity
-				----------------------------*/
-			actv.startActivity(i);
-			
-		} else {
-			
-			// debug
-			Toast.makeText(actv, "å©Ç¬Ç©ÇËÇ‹ÇπÇÒÇ≈ÇµÇΩ", 2000).show();
-		}
+//					+ "]", "long_searchedItems[0] => " + long_searchedItems[0]);
+//			
+//			Intent i = new Intent();
+//			
+//			i.setClass(actv, TNActv.class);
+//			
+//			i.putExtra("long_searchedItems", long_searchedItems);
+//			
+//			if (string_searchedItems_table_names != null &&
+//					string_searchedItems_table_names.length > 0) {	
+//				
+//				i.putExtra(
+////						"string_searchedItems_table_names",
+//						CONS.intent_label_searchedItems_table_names,
+//						string_searchedItems_table_names);
+//				
+//			}//if (variable == condition)
+////				i.putExtra("string_searchedItems_table_names", string_searchedItems_table_names);
+//
+//			// Log
+//			if (string_searchedItems_table_names != null) {
+//				
+//				Log.d("SearchTask.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", 
+//						"string_searchedItems_table_names.length="
+//							+ string_searchedItems_table_names.length);
+//				
+//			} else {//if (string_searchedItems_table_names != null)
+//
+//				Log.d("SearchTask.java" + "["
+//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//						+ "]", 
+//						"string_searchedItems_table_names => Null");
+//
+//			}//if (string_searchedItems_table_names != null)
+//			
+////			Log.d("SearchTask.java" + "["
+////					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////					+ "]", 
+////					"string_searchedItems_table_names.length="
+////						+ string_searchedItems_table_names.length);
+//			
+//			/*----------------------------
+//			 * 2. Start activity
+//				----------------------------*/
+//			actv.startActivity(i);
+//			
+//		} else {
+//			
+//			// debug
+//			Toast.makeText(actv, "ÔøΩÔøΩÔøΩ¬ÇÔøΩÔøΩÔøΩ‹ÇÔøΩÔøΩÔøΩ≈ÇÔøΩÔøΩÔøΩ", 2000).show();
+//		}
 
 	}//protected void onPostExecute(String result)
 	

@@ -1051,7 +1051,7 @@ public class MainActv extends ListActivity {
 			if (!target.getName().equals(CONS.fname_list)) {
 				
 				// debug
-				Toast.makeText(this, "list.txt ‚Å‚Í‚ ‚è‚Ü‚¹‚ñ", 2000).show();
+				Toast.makeText(this, "list.txt ï¿½Å‚Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 2000).show();
 				
 				return;
 			}//if (!target.getName().equals(ImageFileManager8Activity.fname_list))
@@ -1209,11 +1209,11 @@ public class MainActv extends ListActivity {
 			
 			break;// case R.id.main_opt_menu_db_activity
 
-//		case R.id.main_opt_menu_search://-----------------------------------------------
-//			
-//			Methods.dlg_seratchItem(this);
-//			
-//			break;// case R.id.main_opt_menu_search
+		case R.id.main_opt_menu_search://-----------------------------------------------
+			
+			Methods_dialog.dlg_seratchItem(this);
+			
+			break;// case R.id.main_opt_menu_search
 //			
 //		case R.id.main_opt_menu_preferences://-----------------------------------------------
 //			
@@ -1235,7 +1235,7 @@ public class MainActv extends ListActivity {
 
 	@Override
 	protected void onPause() {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onPause();
 
 		Log.d("MainActv.java" + "["

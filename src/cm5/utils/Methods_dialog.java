@@ -65,7 +65,7 @@ public class Methods_dialog {
 
 //			@Override
 			public boolean accept(File pathname) {
-				// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+				// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 				
 				return pathname.isDirectory();
 			}
@@ -989,7 +989,12 @@ public class Methods_dialog {
 			****************************/
 		Dialog dlg = dlg_template_okCancel(
 								actv, R.layout.dlg_search, R.string.dlg_search_title,
-				R.id.dlg_search_bt_ok, R.id.dlg_search_cancel, Tags.DialogTags.dlg_search_ok, Tags.DialogTags.dlg_generic_dismiss);
+								
+								R.id.dlg_search_bt_ok,
+								R.id.dlg_search_cancel,
+								
+								Tags.DialogTags.dlg_search_ok,
+								Tags.DialogTags.dlg_generic_dismiss);
 		
 		/****************************
 		 * 9. Show
@@ -1601,7 +1606,7 @@ public class Methods_dialog {
 		
 		if (et_word.getText().length() == 0) {
 			// debug
-			Toast.makeText(actv, "Œê‹å‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢", 3000).show();
+			Toast.makeText(actv, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 3000).show();
 			
 			return;
 		}// else {//if (et_column_name.getText().length() == 0)
@@ -1629,7 +1634,7 @@ public class Methods_dialog {
 		} else {//if (result == true)
 
 			// debug
-			Toast.makeText(actv, "ƒƒ‚‚ğ•ÛŠÇ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½", 3000).show();
+			Toast.makeText(actv, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÛŠÇ‚Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½", 3000).show();
 
 		}//if (result == true)
 		
@@ -1652,7 +1657,7 @@ public class Methods_dialog {
 		
 		if (et_word.getText().length() == 0) {
 			// debug
-			Toast.makeText(actv, "Œê‹å‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢", 3000).show();
+			Toast.makeText(actv, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 3000).show();
 			
 			return;
 		}// else {//if (et_column_name.getText().length() == 0)
@@ -1679,12 +1684,12 @@ public class Methods_dialog {
 			dlg2.dismiss();
 			
 			// debug
-			Toast.makeText(actv, "’èŒ^‹å‚ğ•ÛŠÇ‚µ‚Ü‚µ‚½", 3000).show();
+			Toast.makeText(actv, "ï¿½ï¿½^ï¿½ï¿½ï¿½ÛŠÇ‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", 3000).show();
 			
 		} else {//if (result == true)
 
 			// debug
-			Toast.makeText(actv, "’èŒ^‹å‚ğ•ÛŠÇ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½", 3000).show();
+			Toast.makeText(actv, "ï¿½ï¿½^ï¿½ï¿½ï¿½ÛŠÇ‚Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½", 3000).show();
 
 		}//if (result == true)
 		
@@ -1834,4 +1839,5 @@ public class Methods_dialog {
 		
 	}//public static void dlg_edit_memo(Activity actv, AI ai)
 
+	
 }

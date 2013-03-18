@@ -12,6 +12,7 @@
 	    <string name="generic_tv_edit">編集</string>
 	    <string name="generic_tv_delete">削除</string>
    		<string name="generic_tv_no_data">No data</string>
+   		<string name="generic_bt_quit">終了</string>
     
     
     <string name="hello">Hello World, IFM9Activity!</string>
@@ -129,4 +130,7 @@
     <!-- menu_actv_play.xml -->
     	<string name="menu_actv_play_create_folder">パターン登録</string>
     	
+   	<!-- MainActv.java -->
+   		<string name="main_quit">アプリを終了しますか？</string>
+   		
 </resources>
