@@ -7,12 +7,14 @@ import cm5.items.AI;
 import cm5.items.TI;
 import cm5.listeners.CustomOnLongClickListener;
 import cm5.listeners.button.ButtonOnClickListener;
+import cm5.main.ALActv;
 import cm5.main.MainActv;
 import cm5.main.TNActv;
 
 import cm5.main.R;
 import cm5.utils.CONS;
 import cm5.utils.Methods;
+import cm5.utils.Tags;
 import cm5.utils.CONS.MoveMode;
 
 import android.app.Activity;
@@ -160,7 +162,25 @@ public class AILAdapter_move extends ArrayAdapter<AI> {
 			
 		}//if (ai != null && ai.getFile_name()
     	
-    	
+    	/*********************************
+		 * Check box
+		 *********************************/
+		CheckBox cb = (CheckBox) v.findViewById(R.id.list_row_checked_box_cb);
+		
+		cb.setTag(Tags.ButtonTags.ailist_cb);
+		
+		if (CONS.Search.checkedPositions.contains((Integer) position)) {
+			
+			cb.setChecked(true);
+			
+		} else {//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
+			
+			cb.setChecked(false);
+			
+		}//if (ThumbnailActivity.checkedPositions.contains((Integer) position)
+		
+		cb.setOnClickListener(new ButtonOnClickListener((Activity) con, position));
+
     	
     	/*********************************
 		 * 9. Return view

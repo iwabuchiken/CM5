@@ -87,7 +87,8 @@ public class SearchActv extends ListActivity {
 
 	public static AILAdapter ail_adp;
 	
-	public static AILAdapter ail_adp_move;
+//	public static AILAdapter ail_adp_move;
+	public static AILAdapter_move ail_adp_move;
 	
 //	public static AILAdapter_move ail_adp_move;
 	
@@ -162,6 +163,8 @@ public class SearchActv extends ListActivity {
 		/****************************
 		 * 4. Set up
 			****************************/
+		setup_0_initVars();
+		
 		setup_1_set_listeners();
 		
 		setup_2_set_list();
@@ -215,6 +218,12 @@ public class SearchActv extends ListActivity {
 		
 		
 	}//public void onCreate(Bundle savedInstanceState)
+
+
+	private void setup_0_initVars() {
+		// TODO Auto-generated method stub
+		CONS.Search.checkedPositions = new ArrayList<Integer>();
+	}
 
 
 	private void B16_v_1_0() {
@@ -975,9 +984,9 @@ public class SearchActv extends ListActivity {
 		/****************************
 		 * 2. move_mode => falsify
 			****************************/
-		if (CONS.move_mode == true) {
+		if (CONS.Search.move_mode == true) {
 			
-			CONS.move_mode = false;
+			CONS.Search.move_mode = false;
 			
 			// Log
 			Log.d("SearchActv.java" + "["
@@ -1132,10 +1141,10 @@ public class SearchActv extends ListActivity {
 		// Log
 		Log.d("SearchActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "CONS.move_mode=" + CONS.move_mode);
+				+ "]", "CONS.Search.move_mode=" + CONS.Search.move_mode);
 		
 		//
-		if (CONS.move_mode == true) {
+		if (CONS.Search.move_mode == true) {
 			
 			checkedPositions.add(position);
 			
@@ -1149,7 +1158,7 @@ public class SearchActv extends ListActivity {
 			ail_adp_move.notifyDataSetChanged();
 
 			
-		} else if (CONS.move_mode == false) {//if (CONS.move_mode == true)
+		} else if (CONS.Search.move_mode == false) {//if (CONS.Search.move_mode == true)
 			
 			/*********************************
 			 * Save current position to preference
@@ -1185,7 +1194,7 @@ public class SearchActv extends ListActivity {
 			 *********************************/
 			startActivity(i);
 			
-		}//if (CONS.move_mode == true)
+		}//if (CONS.Search.move_mode == true)
 
 //		/****************************
 //		 * 0. Vibrate
@@ -1360,7 +1369,7 @@ public class SearchActv extends ListActivity {
 		
 //		case R.id.thumb_actv_menu_move_mode://---------------------------------------
 		case R.id.al_actv_menu_move_mode://---------------------------------------
-			if (CONS.move_mode == true) {
+			if (CONS.Search.move_mode == true) {
 				
 				move_mode_true(item);
 				
@@ -1375,7 +1384,7 @@ public class SearchActv extends ListActivity {
 //		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
 		case R.id.al_actv_menu_move_files:	//------------------------------------------
 			
-			if (CONS.move_mode == false) {
+			if (CONS.Search.move_mode == false) {
 				
 				// debug
 				Toast.makeText(this, "Move mode is not on", 2000)
@@ -1383,7 +1392,7 @@ public class SearchActv extends ListActivity {
 				
 				return false;
 				
-			} else if (CONS.move_mode == true) {
+			} else if (CONS.Search.move_mode == true) {
 				/****************************
 				 * Steps
 				 * 1. checkedPositions => Has contents?
@@ -1432,7 +1441,8 @@ public class SearchActv extends ListActivity {
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_on);
 		
-		CONS.move_mode = true;
+//		CONS.Search.move_mode = true;
+		CONS.Search.move_mode = true;
 		
 		/****************************
 		 * 4. Re-set tiList
@@ -1469,45 +1479,52 @@ public class SearchActv extends ListActivity {
 //			
 //		}//if (long_searchedItems == null)
 
-		/*********************************
-		 * List
-		 *********************************/
-		if (CONS.Search.aiList != null) {
-			
-			CONS.Search.aiList.clear();
-			
-			// Log
-			Log.d("SearchActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "ai_list => Cleared");
-			
-			CONS.Search.aiList.addAll(Methods.get_all_data_ai(this, tableName));
-			
-		} else {//if (move_mode)
-			
-			CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
-			
-			// Log
-			Log.d("SearchActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "ai_list => Initialized");
-			
-		}//if (move_mode)
-		
-		// Sort list
-		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
+//		/*********************************
+//		 * List
+//		 *********************************/
+//		if (CONS.Search.aiList != null) {
+//			
+//			CONS.Search.aiList.clear();
+//			
+//			// Log
+//			Log.d("SearchActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "ai_list => Cleared");
+//			
+//			CONS.Search.aiList.addAll(Methods.get_all_data_ai(this, tableName));
+//			
+//		} else {//if (move_mode)
+//			
+//			CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
+//			
+//			// Log
+//			Log.d("SearchActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "ai_list => Initialized");
+//			
+//		}//if (move_mode)
+//		
+//		// Sort list
+//		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
 		
 		/****************************
 		 * 3. Update aAdapter
 			****************************/
-
 //		ail_adp_move = new AILAdapter_move(
-		ail_adp_move = new AILAdapter(
+//		ail_adp_move = new AILAdapter(
+		ail_adp_move = new AILAdapter_move(
 				this,
 				R.layout.list_row_checked_box,
 //				ai_list_move
 				CONS.Search.aiList
 				);
+
+		// Log
+		Log.d("SearchActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "ail_adp_move => Initialized");
 		
 //		ail_adp.clear();
 		
@@ -1535,41 +1552,23 @@ public class SearchActv extends ListActivity {
 		
 		item.setIcon(R.drawable.ifm8_thumb_actv_opt_menu_move_mode_off);
 		
-		CONS.move_mode = false;
-
-//		/****************************
-//		 * 2-2. TNActv.checkedPositions => clear()
-//			****************************/
-//		ALActv.checkedPositions.clear();
-//		
-//		/****************************
-//		 * 2-3. Get position from preference
-//			****************************/
-//		int selected_position = Methods.get_pref(this, tnactv_selected_item, 0);
-//		
-//		/****************************
-//		 * 3. Re-set tiList
-//			****************************/
-//		String tableName = Methods.convertPathIntoTableName(this);
-		String currentPath = Methods.get_currentPath_from_prefs(this);
-		
-		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
-
-		if (CONS.Search.aiList != null) {
-			
-			CONS.Search.aiList.clear();
-			
-			CONS.Search.aiList.addAll(Methods.get_all_data_ai(this, tableName));
-			
-		} else {//if (move_mode)
-			
-			CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
-			
-		}//if (move_mode)
+		CONS.Search.move_mode = false;
+//
+//		if (CONS.Search.aiList != null) {
+//			
+//			CONS.Search.aiList.clear();
+//			
+//			CONS.Search.aiList.addAll(Methods.get_all_data_ai(this, tableName));
+//			
+//		} else {//if (move_mode)
+//			
+//			CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
+//			
+//		}//if (move_mode)
 		
 		// Sort list
 //		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.ASC);
-		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
+//		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
 
 //		if (long_searchedItems == null) {
 //
@@ -1618,4 +1617,4 @@ public class SearchActv extends ListActivity {
 		
 	}//private void move_mode_true()
 
-}//public class TNActv
+}//public class SearchActv extends ListActivity

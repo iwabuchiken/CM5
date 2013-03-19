@@ -1,6 +1,7 @@
 package cm5.utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import cm5.items.AI;
@@ -212,5 +213,10 @@ public class CONS {
 		public static List<SearchedItem> siList;
 
 		public static List<AI> aiList;
+		
+		public static boolean move_mode = false;
+		
+		public static ArrayList<Integer> checkedPositions;
+		
 	}
 }

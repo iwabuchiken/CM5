@@ -595,7 +595,7 @@ public class ALActv extends ListActivity {
 	
 	@Override
 	protected void onPause() {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onPause();
 	}
 
@@ -607,7 +607,7 @@ public class ALActv extends ListActivity {
 		 * 
 		 * 3. Set selection
 		 *********************************/
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onResume();
 		
 		// Log
@@ -957,7 +957,7 @@ public class ALActv extends ListActivity {
 
 	@Override
 	protected void onStop() {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onStop();
 		
 		// Log
@@ -1114,8 +1114,8 @@ public class ALActv extends ListActivity {
 	public void show_message_no_data() {
 		AlertDialog.Builder dialog=new AlertDialog.Builder(this);
 		
-        dialog.setTitle("î•ñ");
-        dialog.setMessage("‚±‚ÌƒtƒHƒ‹ƒ_‚É‚ÍAƒf[ƒ^‚Í‚ ‚è‚Ü‚¹‚ñB‘¼‚ÌƒtƒHƒ‹ƒ_‚©‚çAƒIƒvƒVƒ‡ƒ“Eƒƒjƒ…[‚ÌuˆÚ“®v‚ğg‚Á‚ÄA‚à‚Á‚Ä‚±‚ê‚Ü‚·");
+        dialog.setTitle("ï¿½ï¿½ï¿½");
+        dialog.setMessage("ï¿½ï¿½ï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½_ï¿½É‚ÍAï¿½fï¿½[ï¿½^ï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Bï¿½ï¿½ï¿½Ìƒtï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½Aï¿½Iï¿½vï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Ìuï¿½Ú“ï¿½ï¿½vï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ÄAï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ü‚ï¿½");
         
         dialog.setPositiveButton("OK",new DialogListener(this, dialog, 0));
         
@@ -1425,7 +1425,7 @@ public class ALActv extends ListActivity {
 		
 		return super.onOptionsItemSelected(item);
 		
-	}//public boolean onOptionsItemSelected(MenuItem item)
+	}//public boolean onOptionsItemSxelected(MenuItem item)
 
 
 	private void move_mode_false(MenuItem item) {
