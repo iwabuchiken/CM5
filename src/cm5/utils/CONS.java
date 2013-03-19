@@ -3,6 +3,7 @@ package cm5.utils;
 import java.io.File;
 import java.util.List;
 
+import cm5.items.AI;
 import cm5.items.SearchedItem;
 
 import android.content.SharedPreferences;
@@ -206,9 +207,10 @@ public class CONS {
 		
 	}//public static enum MoveMode
 
-	public static class ConsSearch {
+	public static class Search {
 		
 		public static List<SearchedItem> siList;
-		
+
+		public static List<AI> aiList;
 	}
 }

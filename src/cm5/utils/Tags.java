@@ -105,6 +105,9 @@ public class Tags {
 		actv_play_bt_play, actv_play_bt_stop, actv_play_bt_back,
 		actv_play_tv_title, actv_play_tv_memo,
 		
+		// SearchActv.java
+		actv_search_ib_bottom, actv_search__ib_top,
+		
 	}//public static enum ButtonTags
 	
 	public static enum ItemTags {
@@ -121,6 +124,8 @@ public class Tags {
 		// TIListAdapter.java
 		tilist_checkbox,
 		
+		// SearchActv.java
+		dir_list_actv_search,
 		
 	}//public static enum ItemTags
 

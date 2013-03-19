@@ -415,7 +415,7 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		 * Add si object to si list
 		 ***************************************/
 //		siList.add(si);
-		CONS.ConsSearch.siList.add(si);
+		CONS.Search.siList.add(si);
 		
 		// Log
 		Log.d("SearchTask.java" + "["

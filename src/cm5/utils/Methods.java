@@ -4860,7 +4860,7 @@ public class Methods {
 		 * Setup search task
 		 ***************************************/
 //		SearchTask.siList = new ArrayList<SearchedItem>();
-		CONS.ConsSearch.siList = new ArrayList<SearchedItem>();
+		CONS.Search.siList = new ArrayList<SearchedItem>();
 		
 		SearchTask st = new SearchTask(actv, search_mode);
 		
@@ -6829,5 +6829,266 @@ public class Methods {
 		
 		return index;
 	}//public static int getArrayIndex(String[] targetArray, String targetString)
+
+	public static
+	List<AI> selectData_ai(
+			Activity actv, String tableName, List<Long> ids) {
+		
+		/*********************************
+		 * 0. Table exists?
+		 * 1. DB setup
+		 * 2. Get data
+		 * 		2.1. Get cursor
+		 * 		2.2. Add to list
+		 * 
+		 * 9. Close db
+		 * 10. Return value
+		 *********************************/
+		/*********************************
+		 * 1. DB setup
+		 *********************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase rdb = dbu.getReadableDatabase();
+		
+		/****************************
+		 * 0. Table exists?
+			****************************/
+		boolean res = dbu.tableExists(rdb, tableName);
+		
+		if (res == false) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "selectData_ai() => Table doesn't exist: " + tableName);
+			
+			rdb.close();
+			
+			return null;
+			
+		}//if (res == false)
+		
+		/****************************
+		 * 2. Get data
+		 * 		2.1. Get cursor
+		 * 		2.2. Add to list
+			****************************/
+		List<AI> aiList = new ArrayList<AI>();
+		
+		//
+		for (int i = 0; i < ids.size(); i++) {
+			
+			String sql = "SELECT * FROM " + tableName
+						+ " WHERE " + CONS.cols_with_index[0] + "="
+						+ ids.get(i);
+			
+			Cursor c = null;
+			
+			try {
+				
+				c = rdb.rawQuery(sql, null);
+				
+			} catch (Exception e) {
+				// Log
+				Log.e("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Exception => " + e.toString());
+				
+				rdb.close();
+				
+				return null;
+			}
+			
+			while(c.moveToNext()) {
+
+				AI ai = new AI(
+						c.getString(3),	// file_name
+						c.getString(4),	// file_path
+						
+						c.getString(5),	// title
+						c.getString(6),	// memo
+						
+						c.getLong(7),
+						
+						c.getString(8),	// table_name
+						
+						c.getLong(9),	// length
+						
+						c.getLong(0),	// id
+						c.getLong(1),	// created_at
+						c.getLong(2)	// modified_at
+				);
+		
+				// Add to the list
+				aiList.add(ai);
+
+			}//while(c.moveToNext())
+			
+		}//for (int i = 0; i < ids.size(); i++)
+		
+//		String sql = "SELECT * FROM " + tableName;
+//		
+//		Cursor c = null;
+//		
+//		try {
+//			
+//			c = rdb.rawQuery(sql, null);
+//			
+//		} catch (Exception e) {
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception => " + e.toString());
+//			
+//			rdb.close();
+//			
+//			return null;
+//		}
+//		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "c.getCount() => " + c.getCount());
+
+//		/****************************
+//		 * 2.2. Add to list
+//			****************************/
+//		c.moveToFirst();
+//		
+//		List<AI> ai_list = new ArrayList<AI>();
+//		
+//		for (int i = 0; i < c.getCount(); i++) {
+//		for (int i = 0; i < c.getCount() / 200; i++) {
+
+//			String file_name, String file_path,
+//			String title, String memo,
+//			
+//			long last_played_at,
+//			
+//			String table_name,
+//			
+//			long db_id, long created_at, long modified_at
+			
+//			{"file_name", 	"file_path",	"title", "memo",
+//				"last_played_at",	"table_name"}
+			
+//			AI ai = new AI(
+//					c.getString(3),	// file_name
+//					c.getString(4),	// file_path
+//					
+//					c.getString(5),	// title
+//					c.getString(6),	// memo
+//					
+//					c.getLong(7),
+//					
+//					c.getString(8),	// table_name
+//					
+//					c.getLong(9),	// length
+//					
+//					c.getLong(0),	// id
+//					c.getLong(1),	// created_at
+//					c.getLong(2)	// modified_at
+//			);
+//	
+//			// Add to the list
+//			ai_list.add(ai);
+			
+//			// Log
+//			String file_full_path = StringUtils.join(
+//						new String[]{
+//								c.getString(4),
+//								c.getString(3)
+//						}, File.separator);
+//			
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "file_full_path=" + file_full_path);
+			
+////			File f = new File(file_full_path);
+//			
+//			MediaPlayer mp = new MediaPlayer();
+//			
+//			try {
+//				mp.setDataSource(file_full_path);
+//				
+//				mp.prepare();
+//				
+//				int len = mp.getDuration() / 1000;
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+//						"len=" + len
+//						+ "(" + c.getString(3) + ")");
+//
+//				// REF=> http://stackoverflow.com/questions/9609479/android-mediaplayer-went-away-with-unhandled-events
+//				mp.reset();
+//				
+//				// REF=> http://stackoverflow.com/questions/3761305/android-mediaplayer-throwing-prepare-failed-status-0x1-on-2-1-works-on-2-2
+//				mp.release();
+//				
+//			} catch (IllegalArgumentException e) {
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception=" + e.toString());
+//				
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "message" + c.getString(3));
+//				
+//			} catch (IllegalStateException e) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception=" + e.toString());
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "message" + c.getString(3));
+//				
+//			} catch (IOException e) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Exception=" + e.toString());
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "message" + c.getString(3));
+//
+//			}
+//			
+//			//
+//			c.moveToNext();
+//			
+//		}//for (int i = 0; i < c.getCount(); i++)
+		
+		
+		
+		/****************************
+		 * 9. Close db
+			****************************/
+		rdb.close();
+		
+		/****************************
+		 * 10. Return value
+			****************************/
+		
+		return aiList;
+		
+	}//List<AI> selectData_ai
+	
 }//public class Methods
 

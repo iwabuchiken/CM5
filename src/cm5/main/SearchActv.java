@@ -81,7 +81,7 @@ public class SearchActv extends ListActivity {
 
 	public static List<String> fileNameList;
 	
-	public static List<AI> ai_list;
+//	public static List<AI> ai_list;
 	
 	public static List<AI> ai_list_move;
 
@@ -162,9 +162,6 @@ public class SearchActv extends ListActivity {
 		/****************************
 		 * 4. Set up
 			****************************/
-//		//debug
-//		Methods.update_prefs_currentPath(this, MainActv.dirName_base);
-		
 		setup_1_set_listeners();
 		
 		setup_2_set_list();
@@ -310,38 +307,46 @@ public class SearchActv extends ListActivity {
 		/*********************************
 		 * 1. Get table name
 		 *********************************/
-		String table_name = Methods.convert_path_into_table_name(this);
+//		String tableName = Methods.convert_path_into_table_name(this);
+		String tableName = CONS.Search.siList.get(0).getTableName();
 		
-//		// Log
-//		Log.d("SearchActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "table_name=" + table_name);
+		// Log
+		Log.d("SearchActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "tableName=" + tableName);
 
 		/*********************************
 		 * 2. Prep list
 		 *********************************/
-		ai_list = Methods.get_all_data_ai(this, table_name);
+//		CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
+		CONS.Search.aiList = Methods.selectData_ai(
+								this,
+								tableName,
+								CONS.Search.siList.get(0).getIds());
 		
 //		debug_B20_v_1_0(ai_list);
 		
 		// Log
 		Log.d("SearchActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ai_list.size()=" + ai_list.size());
+				+ "]",
+				"CONS.Search.aiList.size()=" + CONS.Search.aiList.size());
 		
 		/*********************************
 		 * 3. Sort list
 		 *********************************/
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
-
-		// Log
-		Log.d("SearchActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ai_list.get(0).getLength()=" + ai_list.get(0).getLength()
-				+ "/"
-				+ "getFile_name()=" + ai_list.get(0).getFile_name()
-				);
-
+		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
+//
+//		// Log
+//		Log.d("SearchActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "ai_list.get(0).getLength()=" + CONS.Search.aiList.get(0).getLength()
+//				+ "/"
+//				+ "getFile_name()=" + CONS.Search.aiList.get(0).getFile_name()
+//				);
+//
 		/*********************************
 		 * 4. Prep adapter
 		 *********************************/
@@ -349,7 +354,7 @@ public class SearchActv extends ListActivity {
 				this,
 				R.layout.list_row_ai_list,
 //				R.layout.actv_al,
-				ai_list
+				CONS.Search.aiList
 				);
 		
 		/*********************************
@@ -553,8 +558,12 @@ public class SearchActv extends ListActivity {
 		 * 3. "Bottom"
 		 * 4. "Top"
 			****************************/
+		/***************************************
+		 * 1. "Back" button
+		 ***************************************/
 		//
-		ImageButton ib_back = (ImageButton) findViewById(R.id.actv_al_ib_back);
+//		ImageButton ib_back = (ImageButton) findViewById(R.id.actv_al_ib_back);
+		ImageButton ib_back = (ImageButton) findViewById(R.id.actv_search_ib_back);
 		
 		ib_back.setEnabled(true);
 		ib_back.setImageResource(R.drawable.ifm8_thumb_back_50x50);
@@ -570,7 +579,8 @@ public class SearchActv extends ListActivity {
 //		ListView lv = (ListView) findViewById(android.R.layout.activity_list_item);
 		ListView lv = this.getListView();
 		
-		lv.setTag(Tags.ItemTags.dir_list_thumb_actv);
+//		lv.setTag(Tags.ItemTags.dir_list_thumb_actv);
+		lv.setTag(Tags.ItemTags.dir_list_actv_search);
 		
 //		lv.setOnItemLongClickListener(new CustomOnItemLongClickListener(this));
 		
@@ -579,13 +589,15 @@ public class SearchActv extends ListActivity {
 		 * 		1. Set up
 		 * 		2. Listeners
 			****************************/
-		ImageButton bt_bottom = (ImageButton) findViewById(R.id.actv_al_ib_toBottom);
+//		ImageButton bt_bottom = (ImageButton) findViewById(R.id.actv_al_ib_toBottom);
+		ImageButton bt_bottom = (ImageButton) findViewById(R.id.actv_search_ib_toBottom);
 		
 		bt_bottom.setEnabled(true);
 		bt_bottom.setImageResource(R.drawable.ifm8_thumb_bottom_50x50);
 		
 		// Tag
-		bt_bottom.setTag(Tags.ButtonTags.thumb_activity_ib_bottom);
+//		bt_bottom.setTag(Tags.ButtonTags.thumb_activity_ib_bottom);
+		bt_bottom.setTag(Tags.ButtonTags.actv_search_ib_bottom);
 		
 		bt_bottom.setOnTouchListener(new ButtonOnTouchListener(this));
 		bt_bottom.setOnClickListener(new ButtonOnClickListener(this, lv));
@@ -595,13 +607,15 @@ public class SearchActv extends ListActivity {
 		 * 		1. Set up
 		 * 		2. Listeners
 			****************************/
-		ImageButton bt_top = (ImageButton) findViewById(R.id.actv_al_ib_toTop);
+//		ImageButton bt_top = (ImageButton) findViewById(R.id.actv_al_ib_toTop);
+		ImageButton bt_top = (ImageButton) findViewById(R.id.actv_search_ib_toTop);
 		
 		bt_top.setEnabled(true);
 		bt_top.setImageResource(R.drawable.ifm8_thumb_top_50x50);
 		
 		// Tag
-		bt_top.setTag(Tags.ButtonTags.thumb_activity_ib_top);
+//		bt_top.setTag(Tags.ButtonTags.thumb_activity_ib_top);
+		bt_top.setTag(Tags.ButtonTags.actv_search__ib_top);
 		
 		/****************************
 		 * 4.2. Listeners
@@ -703,7 +717,7 @@ public class SearchActv extends ListActivity {
 		/****************************
 		 * 2. Set up
 			****************************/
-//		setup_1_set_listeners();
+		setup_1_set_listeners();
 //		
 //		setup_2_set_list();
 
@@ -1458,20 +1472,20 @@ public class SearchActv extends ListActivity {
 		/*********************************
 		 * List
 		 *********************************/
-		if (ai_list != null) {
+		if (CONS.Search.aiList != null) {
 			
-			ai_list.clear();
+			CONS.Search.aiList.clear();
 			
 			// Log
 			Log.d("SearchActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "ai_list => Cleared");
 			
-			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
+			CONS.Search.aiList.addAll(Methods.get_all_data_ai(this, tableName));
 			
 		} else {//if (move_mode)
 			
-			ai_list = Methods.get_all_data_ai(this, tableName);
+			CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
 			
 			// Log
 			Log.d("SearchActv.java" + "["
@@ -1481,7 +1495,7 @@ public class SearchActv extends ListActivity {
 		}//if (move_mode)
 		
 		// Sort list
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
 		
 		/****************************
 		 * 3. Update aAdapter
@@ -1492,7 +1506,7 @@ public class SearchActv extends ListActivity {
 				this,
 				R.layout.list_row_checked_box,
 //				ai_list_move
-				ai_list
+				CONS.Search.aiList
 				);
 		
 //		ail_adp.clear();
@@ -1541,21 +1555,21 @@ public class SearchActv extends ListActivity {
 		
 		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
 
-		if (ai_list != null) {
+		if (CONS.Search.aiList != null) {
 			
-			ai_list.clear();
+			CONS.Search.aiList.clear();
 			
-			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
+			CONS.Search.aiList.addAll(Methods.get_all_data_ai(this, tableName));
 			
 		} else {//if (move_mode)
 			
-			ai_list = Methods.get_all_data_ai(this, tableName);
+			CONS.Search.aiList = Methods.get_all_data_ai(this, tableName);
 			
 		}//if (move_mode)
 		
 		// Sort list
 //		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.ASC);
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(CONS.Search.aiList, CONS.SORT_ORDER.DEC);
 
 //		if (long_searchedItems == null) {
 //
@@ -1583,7 +1597,7 @@ public class SearchActv extends ListActivity {
 			ail_adp = new AILAdapter(
 					this,
 					R.layout.list_row_ai_list,
-					ai_list
+					CONS.Search.aiList
 					);
 			
 			this.setListAdapter(ail_adp);
