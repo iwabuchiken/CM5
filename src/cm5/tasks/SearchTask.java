@@ -4,6 +4,7 @@ package cm5.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+import cm5.items.SearchedItem;
 import cm5.main.MainActv;
 import cm5.main.TNActv;
 import cm5.utils.CONS;
@@ -28,6 +29,8 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 
 	//
 	static long[] long_searchedItems;
+	
+	public static List<SearchedItem> siList;
 	
 	static String[] string_searchedItems_table_names;
 	
@@ -328,9 +331,19 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		
 		List<Long> searchedItems = new ArrayList<Long>();
 		
-		/*----------------------------
+
+		/***************************************
+		 * SearchedItem object
+		 ***************************************/
+		SearchedItem si = new SearchedItem();
+		
+//		siList = new ArrayList<SearchedItem>();
+		
+		si.setTableName(targetTable);
+		
+		/***************************************
 		 * 2.2. Exec query
-			----------------------------*/
+		 ***************************************/
 		String sql = "SELECT * FROM " + targetTable;
 		
 //		// Log
@@ -343,27 +356,29 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		
 		while(c.moveToNext()) {
 			
-			String memo = c.getString(c.getColumnIndex("title"));
+			String title = c.getString(c.getColumnIndex("title"));
 
-			if (memo == null) continue;
+			if (title == null) continue;
 			
 			for (String string : sw[0]) {
 				
 				
 				
-				if (memo.matches(".*" + string + ".*")) {
+				if (title.matches(".*" + string + ".*")) {
 					
 					// Log
 					Log.d("SearchTask.java"
 							+ "["
 							+ Thread.currentThread().getStackTrace()[2]
-									.getLineNumber() + "]", "memo => " + memo);
+									.getLineNumber() + "]", "title=" + title);
 					
-				
 					/*----------------------------
 					 * 2.4. List<Long> searchedItems => file id
 						----------------------------*/
-					searchedItems.add(c.getLong(1));
+//					searchedItems.add(c.getLong(1));
+					searchedItems.add(c.getLong(0));
+					
+					si.setId(c.getLong(0));
 					
 					break;
 					
@@ -439,9 +454,9 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 //		}//for (int i = 0; i < c.getCount(); i++)
 //		
 //		
-		/*----------------------------
+		/***************************************
 		 * 2.5. List<Long> searchedItems => to array
-			----------------------------*/
+		 ***************************************/
 		int len = searchedItems.size();
 		
 //		long[] long_searchedItems = new long[len];
@@ -460,6 +475,25 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]",
 				"long_searchedItems.length=" + long_searchedItems.length);
+
+		/***************************************
+		 * Add si object to si list
+		 ***************************************/
+		siList.add(si);
+		
+		// Log
+		Log.d("SearchTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "si.getTableName()=" + si.getTableName());
+		
+		// Log
+		Log.d("SearchTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "si.getIds().size()=" + si.getIds().size());
 		
 		/*----------------------------
 		 * 3. Close db

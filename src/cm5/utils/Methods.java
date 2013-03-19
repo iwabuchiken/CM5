@@ -59,6 +59,7 @@ import android.os.AsyncTask;
 import org.apache.commons.lang.StringUtils;
 
 import cm5.items.AI;
+import cm5.items.SearchedItem;
 import cm5.items.TI;
 import cm5.listeners.CustomOnItemLongClickListener;
 import cm5.listeners.MPOnCompletionListener;
@@ -4854,6 +4855,11 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", "search_mode=" + search_mode);
 		
+		
+		/***************************************
+		 * Setup search task
+		 ***************************************/
+		SearchTask.siList = new ArrayList<SearchedItem>();
 		
 		SearchTask st = new SearchTask(actv, search_mode);
 		
