@@ -1,6 +1,9 @@
 package cm5.utils;
 
 import java.io.File;
+import java.util.List;
+
+import cm5.items.SearchedItem;
 
 import android.content.SharedPreferences;
 import android.provider.MediaStore;
@@ -203,4 +206,9 @@ public class CONS {
 		
 	}//public static enum MoveMode
 
+	public static class ConsSearch {
+		
+		public static List<SearchedItem> siList;
+		
+	}
 }

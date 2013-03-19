@@ -6,6 +6,7 @@ import java.util.List;
 
 import cm5.items.SearchedItem;
 import cm5.main.MainActv;
+import cm5.main.SearchActv;
 import cm5.main.TNActv;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
@@ -30,7 +31,7 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 	//
 	static long[] long_searchedItems;
 	
-	public static List<SearchedItem> siList;
+//	public static List<SearchedItem> siList;
 	
 	static String[] string_searchedItems_table_names;
 	
@@ -388,72 +389,6 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 				
 		}//while(c.moveToNext())
 		
-//		c.moveToFirst();
-//		
-//		/*----------------------------
-//		 * 2.3. Search
-//			----------------------------*/
-//		for (int i = 0; i < c.getCount(); i++) {
-//			
-//			String memo = c.getString(6);
-//			
-//			if (memo == null) {
-//
-//				c.moveToNext();
-//				
-//				continue;
-//				
-//			}//if (memo == null)
-//			
-//
-//			// Log
-//			Log.d("SearchTask.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "sw[0].length => " + sw[0].length);
-//
-//			if (sw[1] != null) {
-//				
-//				Log.d("SearchTask.java" + "["
-//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//						+ "]", "sw[1].length => " + sw[1].length);
-//				
-//			} else {//if (sw[1])
-//				
-//				Log.d("SearchTask.java" + "["
-//						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//						+ "]", "sw[1] => null");
-//				
-//			}//if (sw[1])
-//			
-//			for (String string : sw[0]) {
-//				
-//				
-//				
-//				if (memo.matches(".*" + string + ".*")) {
-//					
-//					// Log
-//					Log.d("SearchTask.java"
-//							+ "["
-//							+ Thread.currentThread().getStackTrace()[2]
-//									.getLineNumber() + "]", "memo => " + memo);
-//					
-//				
-//					/*----------------------------
-//					 * 2.4. List<Long> searchedItems => file id
-//						----------------------------*/
-//					searchedItems.add(c.getLong(1));
-//					
-//					break;
-//					
-//				}//if (memo.matches(".*" + ))
-//				
-//			}//for (String string : sw[0])
-//			
-//			c.moveToNext();
-//			
-//		}//for (int i = 0; i < c.getCount(); i++)
-//		
-//		
 		/***************************************
 		 * 2.5. List<Long> searchedItems => to array
 		 ***************************************/
@@ -479,7 +414,8 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		/***************************************
 		 * Add si object to si list
 		 ***************************************/
-		siList.add(si);
+//		siList.add(si);
+		CONS.ConsSearch.siList.add(si);
 		
 		// Log
 		Log.d("SearchTask.java" + "["
@@ -500,25 +436,25 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 			----------------------------*/
 		rdb.close();
 		
-//		/*----------------------------
-//		 * 4. Set up intent
-//			----------------------------*/
-//		// Log
-//		Log.d("SearchTask.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "long_searchedItems.length => " + long_searchedItems.length);
-//		
-//		Log.d("SearchTask.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "long_searchedItems[0] => " + long_searchedItems[0]);
-//		
-//		Intent i = new Intent();
-//		
-//		i.setClass(actv, ThumbnailActivity.class);
-//		
-//		i.putExtra("long_searchedItems", long_searchedItems);
-//		
-//		actv.startActivity(i);
+		/***************************************
+		 * 4. Set up intent
+		 ***************************************/
+		// Log
+		Log.d("SearchTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "long_searchedItems.length => " + long_searchedItems.length);
+		
+		Log.d("SearchTask.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "long_searchedItems[0] => " + long_searchedItems[0]);
+		
+		Intent i = new Intent();
+		
+		i.setClass(actv, SearchActv.class);
+		
+		i.putExtra("long_searchedItems", long_searchedItems);
+		
+		actv.startActivity(i);
 		
 		/*----------------------------
 		 * 5. Return

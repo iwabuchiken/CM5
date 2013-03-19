@@ -25,6 +25,7 @@
         <activity android:name=".PrefActv"></activity>
         <activity android:name=".ALActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".PlayActv" android:screenOrientation="portrait"></activity>
+        <activity android:name=".SearchActv"></activity>
     </application>
 
 </manifest>

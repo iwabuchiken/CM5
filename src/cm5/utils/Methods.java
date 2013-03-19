@@ -4859,7 +4859,8 @@ public class Methods {
 		/***************************************
 		 * Setup search task
 		 ***************************************/
-		SearchTask.siList = new ArrayList<SearchedItem>();
+//		SearchTask.siList = new ArrayList<SearchedItem>();
+		CONS.ConsSearch.siList = new ArrayList<SearchedItem>();
 		
 		SearchTask st = new SearchTask(actv, search_mode);
 		
