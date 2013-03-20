@@ -238,8 +238,36 @@ public class PlayActv extends Activity {
 			
 		}//if (!ai.getFile_name().equals(""))
 		
+		/***************************************
+		 * Set: File length
+		 ***************************************/
+		TextView tvLength = (TextView) findViewById(R.id.actv_play_tv_length);
 		
-	}//private void setup_1_set_file_name()
+		long length = ai.getLength();
+		
+		// Log
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "length=" + length);
+		
+		if (length > 0) {
+			
+			tvLength.setText(Methods.convert_intSec2Digits_lessThanHour((int)length / 1000));
+			
+		} else {//if (length == condition)
+			
+			// Log
+			Log.d("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "length <= 0");
+			
+		}//if (length == condition)
+		
+	}//private void setup_1_setStrings2Views()
 	
 
 	@Override
@@ -289,13 +317,13 @@ public class PlayActv extends Activity {
 
 	@Override
 	protected void onPause() {
-		// TODO Ž©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onPause();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Ž©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onResume();
 	}
 
@@ -325,7 +353,7 @@ public class PlayActv extends Activity {
 
 	@Override
 	protected void onStop() {
-		// TODO Ž©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		super.onStop();
 	}
 	

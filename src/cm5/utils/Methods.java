@@ -6375,6 +6375,8 @@ public class Methods {
 				
 				c.getString(8),	// table_name
 				
+				c.getLong(9),	// length
+				
 				c.getLong(0),	// id
 				c.getLong(1),	// created_at
 				c.getLong(2)	// modified_at
@@ -6837,6 +6839,10 @@ public class Methods {
 		
 	}//public static String convert_intSec2Digits(int time)
 
+	/***************************************
+	 * 20130320_120437<br>
+	 * @param t ... Value in seconds, <i>not</i> in mill seconds
+	 ***************************************/
 	public static String convert_intSec2Digits_lessThanHour(int t) {
 		
 		int sec = t % 60;
