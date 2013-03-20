@@ -11,6 +11,7 @@ import cm5.main.ALActv;
 import cm5.main.MainActv;
 import cm5.main.PlayActv;
 import cm5.main.TNActv;
+import cm5.utils.CONS;
 import cm5.utils.Methods;
 import cm5.utils.Tags;
 
@@ -195,7 +196,12 @@ public class ButtonOnClickListener implements OnClickListener {
 			thumb_activity_ib_back();
 			
 			break;// case thumb_activity_ib_back
-					
+			
+		case ailist_cb_search://----------------------------------------------------
+			
+			case_ailist_cb_search();
+			
+			break;// case ailist_cb_search
 			
 		default:
 			break;
@@ -465,5 +471,54 @@ public class ButtonOnClickListener implements OnClickListener {
 		}//if (ALActv.checkedPositions.contains((int)position))
 		
 	}//private void case_ailist_cb()
+
+	private void case_ailist_cb_search() {
+		if (CONS.Search.checkedPositions.contains((int)position)) {
+
+			CONS.Search.checkedPositions.remove((Integer) position);
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "position removed => " + position);
+			
+//			CONS.Search.ail_adp_move.notifyDataSetChanged();
+
+		} else {//if (TNActv.checkedPositions.contains((int)position))
+			/*----------------------------
+			 * 2. If not yet, enlist into it
+				----------------------------*/
+			
+			CONS.Search.checkedPositions.add(position);
+			
+//			CONS.Search.ail_adp_move.notifyDataSetChanged();
+			
+			// Log
+			String temp = "new position added => " + String.valueOf(position) +
+					"(size=" + CONS.Search.checkedPositions.size() + ")" + "[";
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(temp);
+			
+			for (int i = 0; i < CONS.Search.checkedPositions.size(); i++) {
+				
+				sb.append(CONS.Search.checkedPositions.get(i) + ",");
+				
+			}//for (int i = 0; i < CONS.Search.checkedPositions.size(); i++)
+			sb.append("]");
+			
+			
+			Log.d("ButtonOnClickListener.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", sb.toString());
+//							.getLineNumber() + "]", "new position added => " + String.valueOf(position) +
+//							"(size=" + CONS.Search.checkedPositions.size() + ")" + "[" +);
+			
+			
+		}//if (CONS.Search.checkedPositions.contains((int)position))
+		
+	}//private void case_ailist_cb_search()
 
 }//public class ButtonOnClickListener implements OnClickListener

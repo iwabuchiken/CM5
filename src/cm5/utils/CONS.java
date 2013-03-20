@@ -9,6 +9,7 @@ import cm5.items.SearchedItem;
 
 import android.content.SharedPreferences;
 import android.provider.MediaStore;
+import android.widget.ArrayAdapter;
 
 public class CONS {
 
@@ -216,7 +217,16 @@ public class CONS {
 		
 		public static boolean move_mode = false;
 		
+		/***************************************
+		 * Position number in CONS.Search.aiList<br>
+		 * <i>Not</i> the id number of an AI object in the list
+		 ***************************************/
 		public static ArrayList<Integer> checkedPositions;
 		
+		// Methods_dialog.dlg_moveFiles_search(Activity actv)
+		public static List<String> fileNameList;
+		public static ArrayAdapter<String> dirListAdapter;
+		
+		public static List<AI> toMoveList;
 	}
 }

@@ -167,7 +167,8 @@ public class AILAdapter_move extends ArrayAdapter<AI> {
 		 *********************************/
 		CheckBox cb = (CheckBox) v.findViewById(R.id.list_row_checked_box_cb);
 		
-		cb.setTag(Tags.ButtonTags.ailist_cb);
+//		cb.setTag(Tags.ButtonTags.ailist_cb);
+		cb.setTag(Tags.ButtonTags.ailist_cb_search);
 		
 		if (CONS.Search.checkedPositions.contains((Integer) position)) {
 			
@@ -189,4 +190,4 @@ public class AILAdapter_move extends ArrayAdapter<AI> {
 		
     }//public View getView(int position, View convertView, ViewGroup parent)
 
-}//public class AIListAdapter extends ArrayAdapter<AI>
+}//public class AILAdapter_move extends ArrayAdapter<AI>

@@ -61,6 +61,8 @@ public class Tags {
 		// dlg_edit_title.xml(Dialog: egit memo)
 		dlg_edit_memo_bt_ok,
 
+		// dlg_confirm_move_files_search	=> ok, cancel, dlg tag
+		dlg_confirm_move_files_search_ok,
 		
 		
 	}//public static enum DialogTags
@@ -80,7 +82,10 @@ public class Tags {
 
 		// dlg_delete_patterns.xml
 		dlg_delete_patterns_gv,
-		
+
+		// dlg_moveFiles_search(Activity actv)
+		dlg_move_files_search,
+
 	}//public static enum DialogItemTags
 	
 	
@@ -107,7 +112,10 @@ public class Tags {
 		
 		// SearchActv.java
 		actv_search_ib_bottom, actv_search__ib_top,
-		
+
+		// AILAdapter_move.java
+		ailist_cb_search,
+
 	}//public static enum ButtonTags
 	
 	public static enum ItemTags {

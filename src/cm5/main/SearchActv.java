@@ -1383,7 +1383,14 @@ public class SearchActv extends ListActivity {
 		
 //		case R.id.thumb_actv_menu_move_files:	//------------------------------------------
 		case R.id.al_actv_menu_move_files:	//------------------------------------------
+			/***************************************
+			 * Initialize: toMoveList
+			 ***************************************/
+//			CONS.Search.toMoveList = new ArrayList<AI>();
 			
+			/***************************************
+			 * Validate: Checked?
+			 ***************************************/
 			if (CONS.Search.move_mode == false) {
 				
 				// debug
@@ -1398,7 +1405,8 @@ public class SearchActv extends ListActivity {
 				 * 1. checkedPositions => Has contents?
 				 * 2. If yes, show dialog
 					****************************/
-				if (checkedPositions.size() < 1) {
+//				if (checkedPositions.size() < 1) {
+				if (CONS.Search.checkedPositions.size() < 1) {
 					
 					// debug
 					Toast.makeText(SearchActv.this, "No item selected", 2000).show();
@@ -1411,7 +1419,8 @@ public class SearchActv extends ListActivity {
 				/****************************
 				 * 2. If yes, show dialog
 					****************************/
-				Methods_dialog.dlg_moveFiles(this);
+//				Methods_dialog.dlg_moveFiles(this);
+				Methods_dialog.dlg_moveFiles_search(this);
 				
 			}//if (move_mode == false)
 			

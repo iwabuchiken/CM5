@@ -78,6 +78,19 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			
 			break;// case dlg_move_files
 
+		case dlg_move_files_search://----------------------------------------------
+
+			case_dlg_move_files_search(parent, position);
+//			String folderPath = (String) parent.getItemAtPosition(position);
+//			
+//			Methods_dialog.dlg_confirm_moveFiles(actv, dlg, folderPath);
+
+//			// debug
+//			Toast.makeText(actv, "Move files to: " + folderPath, 2000)
+//					.show();
+			
+			break;// case dlg_move_files
+
 		case dlg_add_memos_gv://----------------------------------------------
 			
 			String word = (String) parent.getItemAtPosition(position);
@@ -226,5 +239,13 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		Methods_dialog.dlg_confirm_moveFiles(actv, dlg, folderPath);
 
 	}//private void case_dlg_move_files(AdapterView<?> parent, int position)
-	
+
+	private void case_dlg_move_files_search(AdapterView<?> parent, int position) {
+		// TODO Auto-generated method stub
+		String folderPath = (String) parent.getItemAtPosition(position);
+		
+		Methods_dialog.dlg_confirm_moveFiles_search(actv, dlg, folderPath);
+
+	}//private void case_dlg_move_files(AdapterView<?> parent, int position)
+
 }//public class DialogOnItemClickListener implements OnItemClickListener

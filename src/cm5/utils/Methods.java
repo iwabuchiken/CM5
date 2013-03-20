@@ -73,6 +73,7 @@ import cm5.main.MainActv;
 import cm5.utils.CONS.SORT_ORDER;
 import cm5.main.PlayActv;
 import cm5.main.PrefActv;
+import cm5.main.SearchActv;
 import cm5.main.TNActv;
 import cm5.tasks.RefreshDBTask;
 import cm5.tasks.SearchTask;
@@ -4003,6 +4004,134 @@ public class Methods {
 		dlg2.dismiss();
 		
 	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+
+	public static void
+	moveFiles_search(Activity actv, Dialog dlg1, Dialog dlg2) {
+		/****************************
+		 * Steps
+		 * 1. Move files
+		 * 2. Update the list view
+		 * 2-2. Update preference for highlighting a chosen item
+		 * 3. Dismiss dialogues
+			****************************/
+		/****************************
+		 * 1. Move files
+		 * 		1.1. Prepare toMoveFiles
+		 * 		1.2. Get target dir path from dlg2
+		 * 		1.3. Insert items in toMoveFiles to the new table
+		 * 		1.4. Delete the items from the source table
+			****************************/
+//		List<AI> toMoveFiles = Methods.moveFiles_1_get_toMoveFiles();
+//		List<AI> toMoveFiles = CONS.Search.aiList;
+		
+		CONS.Search.toMoveList = Methods.moveFiles_search__1_get_toMoveFiles();
+		
+		String dstTableName = Methods.moveFiles__2_getDstTableName(actv, dlg2);
+
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "dstTableName=" + dstTableName);
+		
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]",
+				"CONS.Search.toMoveList.size()=" + CONS.Search.toMoveList.size());
+		
+//		for (AI ai : CONS.Search.toMoveList) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "ai.getFile_name()=" + ai.getFile_name());
+//			
+//		}//for (Ai ai : CONS.Search.toMoveList)
+		
+		/***************************************
+		 * Move files
+		 ***************************************/
+
+		for (int i = 0; i < CONS.Search.toMoveList.size(); i++) {
+			
+			AI ai = CONS.Search.toMoveList.get(i);
+			
+			String srcTableName = ai.getTable_name();
+			
+			Methods.moveFiles__3_db(actv, srcTableName, dstTableName, ai);
+
+		}//for (int i = 0; i < toMoveFiles.size(); i++)
+
+		/***************************************
+		 * Clear checkedPositions
+		 ***************************************/
+		for (Integer position : CONS.Search.checkedPositions) {
+			
+//			ALActv.ai_list_move.remove(position);
+			CONS.Search.aiList.remove(position);
+			
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Removed from ai_list at position=" + position);
+			
+			
+		}//for (Integer position : ThumbnailActivity.checkedPositions)
+		
+		//
+		CONS.Search.checkedPositions.clear();
+		
+		/***************************************
+		 * Notify adapters
+		 ***************************************/
+		SearchActv.ail_adp_move.notifyDataSetChanged();
+		SearchActv.ail_adp.notifyDataSetChanged();
+		
+		/****************************
+		 * 1.3. Insert items in toMoveFiles to the new table
+		 * 		1.3.1. Insert data to the new table
+			****************************/
+		/****************************
+		 * 1.3.1. Insert data to the new table
+		 * 		1. Set up db
+		 * 		2. Table exists?
+		 * 		2-2. If no, create one
+		 * 		3. Get item from toMoveFiles
+		 * 
+		 * 		4. Insert data into the new table
+			****************************/
+
+		/****************************
+		 * 3. Dismiss dialogues
+			****************************/
+		dlg1.dismiss();
+		dlg2.dismiss();
+		
+	}//public static void moveFiles_search(Activity actv, Dialog dlg1, Dialog dlg2)
+
+	private static
+	List<AI> moveFiles_search__1_get_toMoveFiles() {
+		
+		List<AI> toMoveList = new ArrayList<AI>();
+		
+		for (Integer id : CONS.Search.checkedPositions) {
+			
+			AI ai = CONS.Search.aiList.get(id.intValue());
+			
+			toMoveList.add(ai);
+			
+		}//for (Long id : CONS.Search.checkedPositions)
+		
+		return toMoveList;
+		
+	}//List<AI> moveFiles_search__1_get_toMoveFiles()
 
 	private static
 	String moveFiles__2_getDstTableName(Activity actv, Dialog dlg2) {

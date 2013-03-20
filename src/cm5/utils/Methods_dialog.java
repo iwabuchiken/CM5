@@ -128,6 +128,100 @@ public class Methods_dialog {
 		
 	}//public static void dlg_moveFiles(Activity actv)
 
+	public static void dlg_moveFiles_search(Activity actv) {
+		/****************************
+		 * Steps
+		 * 1. Get generic dialog
+		 * 2. Get dir list
+		 * 2-1. Set list to the adapter
+		 * 3. Set adapter to the list view
+		 * 4. Set listener to the view
+		 * 
+		 * 9. Show dialog
+			****************************/
+		
+		Dialog dlg = dlg_template_cancel(
+				// Activity, layout, title
+				actv, R.layout.dlg_move_files, R.string.thumb_actv_menu_move_files,
+				// Ok button, Cancel button
+				R.id.dlg_move_files_bt_cancel,
+				// Ok tag, Cancel tag
+				Tags.DialogTags.dlg_generic_dismiss
+							);
+		
+		/****************************
+		 * 2. Get dir list
+			****************************/
+		File[] files = new File(CONS.dpath_base).listFiles(new FileFilter(){
+
+//			@Override
+			public boolean accept(File pathname) {
+				
+				
+				return pathname.isDirectory();
+			}
+			
+		});//File[] files
+		
+//		ALActv.fileNameList = new ArrayList<String>();
+		CONS.Search.fileNameList = new ArrayList<String>();
+		
+//		for (String fileName : fileNames) {
+		for (File eachFile : files) {
+			
+//			fileNameList.add(fileName);
+//			ALActv.fileNameList.add(eachFile.getName());
+			CONS.Search.fileNameList.add(eachFile.getName());
+			
+		}//for (String fileName : fileNames)
+		
+		Collections.sort(CONS.Search.fileNameList);
+		
+		/****************************
+		 * 2-1. Set list to the adapter
+			****************************/
+//		ALActv.dirListAdapter = new ArrayAdapter<String>(
+		CONS.Search.dirListAdapter = new ArrayAdapter<String>(
+												actv,
+												android.R.layout.simple_list_item_1,
+												CONS.Search.fileNameList
+											);
+
+		/****************************
+		 * 3. Set adapter to the list view
+			****************************/
+		//
+		ListView lv = (ListView) dlg.findViewById(R.id.dlg_move_files_lv_list);
+		
+		lv.setAdapter(CONS.Search.dirListAdapter);
+		
+		/****************************
+		 * 4. Set listener to the view
+		 * 		1. onClick
+		 * 		2. onLongClick
+			****************************/
+		lv.setTag(Tags.DialogItemTags.dlg_move_files_search);
+
+		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
+		
+		/****************************
+		 * 4.2. onLongClick
+			****************************/
+//		lv.setTag(Methods.DialogItemTags.dlg_move_files);
+		
+//		lv.setOnItemLongClickListener(
+//						new DialogOnItemLongClickListener(
+//												actv,
+//												dlg,
+//												ALActv.dirListAdapter, ALActv.fileNameList));
+		
+		/****************************
+		 * 9. Show dialog
+			****************************/
+		dlg.show();
+		
+	}//public static void dlg_moveFiles_search(Activity actv)
+
 	public static Dialog dlg_template_cancel(Activity actv, int layoutId, int titleStringId,
 			int cancelButtonId, Tags.DialogTags cancelTag) {
 		/****************************
@@ -276,6 +370,68 @@ public class Methods_dialog {
 		dlg2.show();
 		
 	}//public static void dlg_confirm_moveFiles(Activity actv, Dialog dlg)
+
+	public static void
+	dlg_confirm_moveFiles_search
+	(Activity actv, Dialog dlg, String folderPath) {
+		/****************************
+		 * Steps
+		 * 1. Get a confirm dialog
+		 * 2. Set a chosen folder name to the view
+		 * 9. Show dialog
+			****************************/
+		/****************************
+		* 1. Get a confirm dialog
+			* 1. Set up
+			* 2. Add listeners => OnTouch
+			* 3. Add listeners => OnClick
+		****************************/
+		
+		// 
+		Dialog dlg2 = new Dialog(actv);
+		
+		//
+		dlg2.setContentView(R.layout.dlg_confirm_move_files);
+		
+		// Title
+		dlg2.setTitle(R.string.generic_tv_confirm);
+		
+		/****************************
+		* 2. Add listeners => OnTouch
+		****************************/
+		//
+		Button btn_ok = (Button) dlg2.findViewById(R.id.dlg_confirm_move_files_btn_ok);
+		Button btn_cancel = (Button) dlg2.findViewById(R.id.dlg_confirm_move_files_btn_cancel);
+		
+		//
+//		btn_ok.setTag(Tags.DialogTags.dlg_confirm_move_files_ok);
+		btn_ok.setTag(Tags.DialogTags.dlg_confirm_move_files_search_ok);
+		btn_cancel.setTag(Tags.DialogTags.dlg_generic_dismiss_second_dialog);
+
+		//
+		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+		
+		/****************************
+		* 3. Add listeners => OnClick
+		****************************/
+		//
+		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, dlg2));
+				
+		/****************************
+		 * 2. Set a chosen folder name to the view
+			****************************/
+		TextView tv_folder_name = (TextView) dlg2.findViewById(R.id.dlg_confirm_move_files_tv_table_name);
+		
+		tv_folder_name.setText(folderPath);
+		
+		/****************************
+		 * 9. Show dialog
+			****************************/
+		dlg2.show();
+		
+	}//public static void dlg_confirm_moveFiles_search()
 
 	public static void dlg_addMemo(Activity actv, long file_id, String tableName) {
 		/****************************

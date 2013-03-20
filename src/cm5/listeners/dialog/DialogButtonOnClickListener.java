@@ -240,6 +240,13 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			break;// case dlg_edit_memo_bt_ok
 			
+		case dlg_confirm_move_files_search_ok: // ----------------------------------------------------
+			
+			case_dlg_confirm_move_files_search_ok();
+//			Methods.moveFiles(actv, dlg, dlg2);
+			
+			break;
+
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
@@ -248,6 +255,15 @@ public class DialogButtonOnClickListener implements OnClickListener {
 	private void case_dlg_confirm_move_files_ok() {
 		// TODO Auto-generated method stub
 		Methods.moveFiles(actv, dlg, dlg2);
+	}
+
+	private void case_dlg_confirm_move_files_search_ok() {
+		// TODO Auto-generated method stub
+		
+//		// debug
+//		Toast.makeText(actv, "Move files", Toast.LENGTH_LONG).show();
+		
+		Methods.moveFiles_search(actv, dlg, dlg2);
 	}
 
 }//DialogButtonOnClickListener
