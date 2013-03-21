@@ -1975,6 +1975,25 @@ public class Methods {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "file_list.length=" + file_list.length);
 
+		
+		//debug
+		for (File f : file_list) {
+			
+			if (f.getAbsolutePath().contains(".mp3")) {
+				
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]", "mp3 => " + f.getName());
+				
+			}//if (f.getAbsolutePath() == condition)
+			
+		}//for (File f : file_list)
+		
 		return file_list;
 		
 	}//private static File[] refresh_main_db_3_get_file_list()

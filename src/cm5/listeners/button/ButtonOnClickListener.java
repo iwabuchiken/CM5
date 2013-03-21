@@ -8,16 +8,20 @@ import cm5.items.AI;
 import cm5.items.TI;
 //import cm5.main.ImageActv;
 import cm5.main.ALActv;
+import cm5.main.BMActv;
 import cm5.main.MainActv;
 import cm5.main.PlayActv;
 import cm5.main.TNActv;
 import cm5.utils.CONS;
+import cm5.utils.DBUtils;
 import cm5.utils.Methods;
 import cm5.utils.Tags;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.os.Vibrator;
 import android.util.Log;
@@ -203,11 +207,151 @@ public class ButtonOnClickListener implements OnClickListener {
 			
 			break;// case ailist_cb_search
 			
+		case actv_play_bt_see_bm://----------------------------------------------------
+			
+			case_actv_play_bt_see_bm();
+		
+			break;// case actv_play_bt_see_bm
+			
+		case actv_play_bt_add_bm://----------------------------------------------------
+			
+			case_actv_play_bt_add_bm();
+			
+			break;// case actv_play_bt_add_bm
+			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void case_actv_play_bt_add_bm() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Is the media player playing?
+		 ***************************************/
+		if (PlayActv.mp == null) {
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "PlayActv.mp == null");
+			
+			// debug
+			Toast.makeText(actv, "MediaPlayer => null", Toast.LENGTH_LONG).show();
+			
+			return;
+			
+		} else if (!PlayActv.mp.isPlaying()) {//if (PlayActv.mp == null)
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Player => Not playing");
+			
+			// debug
+			Toast.makeText(actv, "Player => Not playing", Toast.LENGTH_LONG).show();
+			
+			return;
+			
+		} else {//if (PlayActv.mp == null)
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Player => Playing");
+			
+		}//if (PlayActv.mp == null)
+		
+		/***************************************
+		 * Get: Current position
+		 ***************************************/
+		int currentPosition = PlayActv.mp.getCurrentPosition();
+		
+		// Log
+		Log.d("ButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "currentPosition=" + currentPosition);
+		
+		/***************************************
+		 * Insert BM data into db
+		 ***************************************/
+		//debug
+		debug_case_actv_play_bt_add_bm();
+		
+		
+		
+		
+	}//private void case_actv_play_bt_add_bm()
+
+	private void debug_case_actv_play_bt_add_bm() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Setup db
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		//
+//		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/***************************************
+		 * Create table
+		 ***************************************/
+//		boolean res = dbu.createTable(
+//							CONS.DB.tname_BM,
+//							CONS.DB.cols_bm,
+//							CONS.DB.col_types_bm);
+
+		/***************************************
+		 * Add column: aiTableName
+		 ***************************************/
+		boolean res = Methods.add_column_to_table(
+							actv,
+							CONS.dbName,
+							CONS.DB.tname_BM,
+							"aiTableName",
+							"TEXT");
+		
+		// Log
+		Log.d("ButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "res=" + res);
+		
+	}//private void debug_case_actv_play_bt_add_bm()
+
+	private void case_actv_play_bt_see_bm() {
+		// TODO Auto-generated method stub
+//		// Log
+//		Log.d("ButtonOnClickListener.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "ai.getDb_id()=" + ai.getDb_id());
+		
+		Intent i = new Intent();
+		
+		i.setClass(actv, BMActv.class);
+		
+		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		
+//		i.putExtra("ai_dbId", ai.getDb_id());
+		i.putExtra(CONS.Intent.bmactv_key_ai_id, ai.getDb_id());
+		
+		i.putExtra(CONS.Intent.bmactv_key_table_name, ai.getTable_name());
+		
+		actv.startActivity(i);
+
+	}//private void case_actv_play_bt_see_bm()
 
 	private void thumb_activity_ib_back() {
 		/*********************************
@@ -522,3 +666,5 @@ public class ButtonOnClickListener implements OnClickListener {
 	}//private void case_ailist_cb_search()
 
 }//public class ButtonOnClickListener implements OnClickListener
+
+	

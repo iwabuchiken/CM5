@@ -35,7 +35,7 @@ public class ButtonOnTouchListener implements OnTouchListener {
 
 //	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		Tags.ButtonTags tag = (Tags.ButtonTags) v.getTag();
 		
 		switch (event.getActionMasked()) {
@@ -83,7 +83,9 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			case actv_play_bt_play:
 			case actv_play_bt_stop:
 			case actv_play_bt_back:
-
+			case actv_play_bt_see_bm:
+			case actv_play_bt_add_bm:
+				
 				v.setBackgroundColor(Color.GRAY);
 				break;
 				
@@ -155,7 +157,9 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			case actv_play_bt_play:
 			case actv_play_bt_stop:
 			case actv_play_bt_back:
-
+			case actv_play_bt_see_bm:
+			case actv_play_bt_add_bm:
+				
 				v.setBackgroundColor(Color.WHITE);
 				break;
 

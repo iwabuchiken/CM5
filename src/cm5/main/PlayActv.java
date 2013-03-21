@@ -106,7 +106,26 @@ public class PlayActv extends Activity {
 		tv_memo.setOnTouchListener(new ButtonOnTouchListener(this));
 		tv_memo.setOnLongClickListener(new ButtonOnLongClickListener(this, ai));
 		
+		/***************************************
+		 * Button: See bookmarks
+		 ***************************************/
+		Button btSeeBM = (Button) findViewById(R.id.actv_play_bt_see_bm);
 		
+		btSeeBM.setTag(Tags.ButtonTags.actv_play_bt_see_bm);
+		
+		btSeeBM.setOnTouchListener(new ButtonOnTouchListener(this));
+		btSeeBM.setOnClickListener(new ButtonOnClickListener(this, ai));
+
+		/***************************************
+		 * Button: Add bookmarks
+		 ***************************************/
+		Button btAddBM = (Button) findViewById(R.id.actv_play_bt_add_bm);
+		
+		btAddBM.setTag(Tags.ButtonTags.actv_play_bt_add_bm);
+		
+		btAddBM.setOnTouchListener(new ButtonOnTouchListener(this));
+		btAddBM.setOnClickListener(new ButtonOnClickListener(this, ai));
+
 		
 	}//private void setup_2_set_listeners()
 

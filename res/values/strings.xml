@@ -115,7 +115,9 @@
     <!-- actv_play.xml -->
     	<string name="actv_play_bt_play">Play</string>
     	<string name="actv_play_bt_stop">Stop</string>
-    
+		<string name="actv_play_bt_add_bm">Add bookmark</string>
+   		<string name="actv_play_bt_see_bm">See bookmarks</string>
+    	
     <!-- dlg_edit_title.xml -->
     	<string name="dlg_edit_title_title">タイトル編集</string>
 
@@ -132,5 +134,5 @@
     	
    	<!-- MainActv.java -->
    		<string name="main_quit">アプリを終了しますか？</string>
-   		
+   	
 </resources>

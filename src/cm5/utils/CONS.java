@@ -229,4 +229,27 @@ public class CONS {
 		
 		public static List<AI> toMoveList;
 	}
-}
+	
+	public static class Intent {
+		
+		public static String bmactv_key_ai_id = "bmactv_key_ai_id";
+		
+		public static String bmactv_key_table_name = "bmactv_key_table_name";
+		
+	}
+	
+	public static class DB {
+		
+		public static String tname_BM = "bm";
+
+		public static String[] cols_bm = {
+			"ai_id", "position", "title", "memo", "aiTableName"
+		};
+		
+		public static String[] col_types_bm = {
+			"INTEGER", "INTEGER", "TEXT", "TEXT", "TEXT"
+		};
+		
+	}//public static class DB
+	
+}//public class CONS

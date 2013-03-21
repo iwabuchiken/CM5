@@ -110,6 +110,8 @@ public class Tags {
 		actv_play_bt_play, actv_play_bt_stop, actv_play_bt_back,
 		actv_play_tv_title, actv_play_tv_memo,
 		
+		actv_play_bt_see_bm, actv_play_bt_add_bm,
+		
 		// SearchActv.java
 		actv_search_ib_bottom, actv_search__ib_top,
 
