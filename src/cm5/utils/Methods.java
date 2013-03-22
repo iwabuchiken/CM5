@@ -59,6 +59,7 @@ import android.os.AsyncTask;
 import org.apache.commons.lang.StringUtils;
 
 import cm5.items.AI;
+import cm5.items.BM;
 import cm5.items.SearchedItem;
 import cm5.items.TI;
 import cm5.listeners.CustomOnItemLongClickListener;
@@ -3858,24 +3859,6 @@ public class Methods {
 		/***************************************
 		 * Move files
 		 ***************************************/
-//		//debug
-//		for (int i = 0; i < toMoveFiles.size(); i++) {
-//			
-//			AI ai = toMoveFiles.get(i);
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]",
-//					"ai.getFile_name()="
-//					+ ai.getFile_name()
-//					+ "/"
-//					+ "ai.getTable_name()=" + ai.getTable_name());
-//			
-//		}//for (int i = 0; i < toMoveFiles.size(); i++)
-		
 		for (int i = 0; i < toMoveFiles.size(); i++) {
 			
 			AI ai = toMoveFiles.get(i);
@@ -3883,48 +3866,6 @@ public class Methods {
 			String srcTableName = ai.getTable_name();
 			
 			Methods.moveFiles__3_db(actv, srcTableName, dstTableName, ai);
-			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]",
-//					"ai.getTable_name()=" + ai.getTable_name());
-			
-//			ai.setTable_name(dstTableName);
-
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]",
-//					"ai.getTable_name()=" + ai.getTable_name());
-
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]",
-//					"Moving an AI item => "
-//					+ "name=" + ai.getFile_name()
-//					+ "/"
-//					+ "Source table=" + srcTableName
-//					+ "/"
-//					+ "Dest table=" + dstTableName);
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "ai.getTable_name()=" + ai.getTable_name());
-//			
-//			ai.setTable_name(dstTableName);
-			
-//			Methods.moveFiles__3_db(actv, sourceTableName, targetTableName, toMoveFiles)
 			
 		}//for (int i = 0; i < toMoveFiles.size(); i++)
 
@@ -3951,71 +3892,11 @@ public class Methods {
 		//
 		ALActv.ail_adp_move.notifyDataSetChanged();
 
+		/***************************************
+		 * Update table names in "bm" table
+		 ***************************************/
+		Methods.moveFiles__4_updateBM(actv, toMoveFiles);
 		
-		
-//		//debug
-//		for (int i = 0; i < toMoveFiles.size(); i++) {
-//			
-//			AI ai = toMoveFiles.get(i);
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]",
-//					"ai.getFile_name()="
-//					+ ai.getFile_name()
-//					+ "/"
-//					+ "ai.getTable_name()=" + ai.getTable_name());
-//			
-//		}//for (int i = 0; i < toMoveFiles.size(); i++)
-
-		
-		
-		//		Methods.moveFiles__3_db(actv, sourceTableName, targetTableName, toMoveFiles)
-		
-//		String[] tnames = Methods.moveFiles_2_setup_paths(actv, dlg2);
-
-		/****************************
-		 * 1.3. Insert items in toMoveFiles to the new table
-		 * 		1.3.1. Insert data to the new table
-			****************************/
-		/****************************
-		 * 1.3.1. Insert data to the new table
-		 * 		1. Set up db
-		 * 		2. Table exists?
-		 * 		2-2. If no, create one
-		 * 		3. Get item from toMoveFiles
-		 * 
-		 * 		4. Insert data into the new table
-			****************************/
-		
-//		Methods.moveFiles_3_db(actv, sourceTableName, targetTableName, toMoveFiles);
-//
-//		Methods.moveFiles_4_refresh_list(actv, sourceTableName);
-		
-//		ALActv.ail_adp_move.notifyDataSetChanged();
-		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "ALActv.ail_adp_move => Notified");
-		
-
-//		/****************************
-//		 * 2-2. Update preference for highlighting a chosen item
-//			****************************/
-////		SharedPreferences prefs = 
-////				actv.getSharedPreferences(
-//////						"thumb_actv", 
-////						Methods.PrefenceLabels.thumb_actv.name(),
-////						ThumbnailActivity.MODE_PRIVATE);
-////
-////		SharedPreferences.Editor editor = prefs.edit();
-////
-////		int savedPosition = prefs.getInt(Methods.PrefenceLabels.chosen_list_item.name(), -1);
-//		
 		/****************************
 		 * 3. Dismiss dialogues
 			****************************/
@@ -4023,6 +3904,109 @@ public class Methods {
 		dlg2.dismiss();
 		
 	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+
+	private static void
+	moveFiles__4_updateBM(Activity actv, List<AI> toMoveFiles) {
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		/***************************************
+		 * Loop: List<AI>
+		 ***************************************/
+		for (int i = 0; i < toMoveFiles.size(); i++) {
+			
+			AI ai = toMoveFiles.get(i);
+			
+			Cursor c = null;
+			
+			try {
+				// Get bm record where its "ai_id" is a certain value
+				c = wdb.query(
+						CONS.DB.tname_BM,
+						CONS.DB.cols_bm,
+						"ai_id=?",
+						new String[]{String.valueOf(ai.getDb_id())},
+						null, null, null);
+				
+				if (c == null) {
+					
+					// Log
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber()
+							+ ":"
+							+ Thread.currentThread().getStackTrace()[2]
+									.getMethodName() + "]", "c == null");
+					
+					continue;
+					
+				}//if (c == null)
+				
+			} catch (Exception e) {
+
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]",
+						e.toString());
+				
+				continue;
+			}
+			
+			/***************************************
+			 * Get: List<BM> (from the cursor)
+			 ***************************************/
+			List<BM> bmList = Methods_CM5.getBMList_FromCursor(actv, c);
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "ai.getFile_name()=" + ai.getFile_name());
+			
+			//debug
+			if (bmList != null) {
+
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2].getMethodName()
+						+ "]", "bmList.size()=" + bmList.size());
+
+			} else {//if (bmList == condition)
+				
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]", "bmList => null");
+				
+			}//if (bmList == condition)
+			
+		}//for (int i = 0; i < toMoveFiles.size(); i++)
+		
+		/***************************************
+		 * Close: DB
+		 ***************************************/
+		wdb.close();
+		
+	}//moveFiles__4_updateBM(Activity actv, List<AI> toMoveFiles)
+	
 
 	public static void
 	moveFiles_search(Activity actv, Dialog dlg1, Dialog dlg2) {
