@@ -14,6 +14,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 
 public class BMActv extends ListActivity {
 
+	private AI ai;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -170,9 +173,11 @@ public class BMActv extends ListActivity {
 		/***************************************
 		 * Build an AI instance
 		 ***************************************/
-		AI ai = Methods.get_data_ai(this, aiDbId, tableName);
+//		AI ai = Methods.get_data_ai(this, aiDbId, tableName);
 		
-		return ai;
+		this.setAi(Methods.get_data_ai(this, aiDbId, tableName));
+		
+		return this.getAi();
 		
 	}//private AI setup__getAI()
 
@@ -180,7 +185,6 @@ public class BMActv extends ListActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
 		
 	}
 
@@ -224,6 +228,25 @@ public class BMActv extends ListActivity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		/***************************************
+		 * Set: Intent
+		 ***************************************/
+		this.setResult(CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_CANCEL);
+		
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public AI getAi() {
+		return ai;
+	}
+
+	public void setAi(AI ai) {
+		this.ai = ai;
 	}
 
 	

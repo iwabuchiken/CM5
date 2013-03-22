@@ -423,7 +423,8 @@ public class ButtonOnClickListener implements OnClickListener {
 		
 		i.putExtra(CONS.Intent.bmactv_key_table_name, ai.getTable_name());
 		
-		actv.startActivity(i);
+//		actv.startActivity(i);
+		actv.startActivityForResult(i, CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS);
 
 	}//private void case_actv_play_bt_see_bm()
 

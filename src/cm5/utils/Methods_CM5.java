@@ -29,12 +29,13 @@ public class Methods_CM5 {
 		while(c.moveToNext()) {
 			
 			BM bm = new BM.Builder()
-			.setPosition(c.getLong(c.getColumnIndex("position")))
-			.setTitle(c.getString(c.getColumnIndex("title")))
-			.setMemo(c.getString(c.getColumnIndex("memo")))
-			.setAiId(c.getLong(c.getColumnIndex("ai_id")))
-			.setAiTableName(c.getString(c.getColumnIndex("aiTableName")))
-			.build();
+				.setDbId(c.getLong(c.getColumnIndex(android.provider.BaseColumns._ID)))
+				.setPosition(c.getLong(c.getColumnIndex("position")))
+				.setTitle(c.getString(c.getColumnIndex("title")))
+				.setMemo(c.getString(c.getColumnIndex("memo")))
+				.setAiId(c.getLong(c.getColumnIndex("ai_id")))
+				.setAiTableName(c.getString(c.getColumnIndex("aiTableName")))
+				.build();
 			
 			if (bm != null) {
 				
@@ -57,7 +58,8 @@ public class Methods_CM5 {
 			
 		}//while(c.moveToNext())
 		
-		return null;
+		return bmList;
+		
 	}//List<BM> getBMList_FromCursor(Activity actv, Cursor c)
 	
 }//public class Methods_CM5

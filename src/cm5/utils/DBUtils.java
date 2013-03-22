@@ -1738,6 +1738,55 @@ public class DBUtils extends SQLiteOpenHelper{
 		return bmList;
 		
 	}//public List<BM> getBMList(Activity actv)
+
+	public boolean
+	updateData_bm
+	(Activity actv, long dbId, String colName, String colValue) {
+
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		SQLiteDatabase wdb = this.getWritableDatabase();
+		
+		/***************************************
+		 * Build SQL
+		 ***************************************/
+		String sql = "UPDATE " + CONS.DB.tname_BM + " SET "
+//				+ colName + "='" + colValue + "', "
+				+ colName + "='" + colValue + "'"
+				+ " WHERE " + android.provider.BaseColumns._ID + " = '" + dbId + "'";
+				
+		/***************************************
+		 * Exec: Query
+		 ***************************************/
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql => Done: " + sql);
+			
+		//	Methods.toastAndLog(actv, "Data updated", 2000);
+
+			wdb.close();
+			
+			return true;
+			
+			
+		} catch (SQLException e) {
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+			
+			wdb.close();
+			
+			return false;
+		}
+
+	}//updateData_bm()
 	
 }//public class DBUtils
 

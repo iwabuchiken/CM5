@@ -4,6 +4,7 @@ import cm5.items.AI;
 import cm5.listeners.button.ButtonOnClickListener;
 import cm5.listeners.button.ButtonOnLongClickListener;
 import cm5.listeners.button.ButtonOnTouchListener;
+import cm5.utils.CONS;
 import cm5.utils.Methods;
 import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
@@ -382,5 +383,54 @@ public class PlayActv extends Activity {
 		// TODO �����������ꂽ���\�b�h�E�X�^�u
 		super.onStop();
 	}
+
+
+	@Override
+	protected void
+	onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (requestCode == CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS) {
+			
+			if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK) {
+				
+				long position = data.getLongExtra(CONS.Intent.bmactv_key_position, -1);
+				
+				// Log
+				Log.d("PlayActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]", "Returned position => " + position);
+				
+			} else if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_CANCEL) {//if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK)
+				
+				// Log
+				Log.d("PlayActv.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]", "Cancelled");
+				
+			}//if (resultCode == CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK)
+			
+			
+		} else {//if (requestCode == CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS)
+			
+			// Log
+			Log.d("PlayActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "request code => " + requestCode);
+			
+		}//if (requestCode == CONS.Intent.REQUEST_CODE_SEE_BOOKMARKS)
+		
+	}//onActivityResult(int requestCode, int resultCode, Intent data)
 	
 }//public class PlayActv extends Activity

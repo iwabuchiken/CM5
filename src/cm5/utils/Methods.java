@@ -3895,7 +3895,7 @@ public class Methods {
 		/***************************************
 		 * Update table names in "bm" table
 		 ***************************************/
-		Methods.moveFiles__4_updateBM(actv, toMoveFiles);
+		Methods.moveFiles__4_updateBM(actv, toMoveFiles, dstTableName);
 		
 		/****************************
 		 * 3. Dismiss dialogues
@@ -3906,7 +3906,7 @@ public class Methods {
 	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
 
 	private static void
-	moveFiles__4_updateBM(Activity actv, List<AI> toMoveFiles) {
+	moveFiles__4_updateBM(Activity actv, List<AI> toMoveFiles, String dstTableName) {
 		/***************************************
 		 * Setup: DB
 		 ***************************************/
@@ -3928,7 +3928,8 @@ public class Methods {
 				// Get bm record where its "ai_id" is a certain value
 				c = wdb.query(
 						CONS.DB.tname_BM,
-						CONS.DB.cols_bm,
+//						CONS.DB.cols_bm,
+						CONS.DB.cols_bm_full,
 						"ai_id=?",
 						new String[]{String.valueOf(ai.getDb_id())},
 						null, null, null);
@@ -3963,6 +3964,13 @@ public class Methods {
 				continue;
 			}
 			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "c.getCount()=" + c.getCount());
+			
 			/***************************************
 			 * Get: List<BM> (from the cursor)
 			 ***************************************/
@@ -3984,7 +3992,34 @@ public class Methods {
 						+ ":"
 						+ Thread.currentThread().getStackTrace()[2].getMethodName()
 						+ "]", "bmList.size()=" + bmList.size());
-
+				
+				/***************************************
+				 * Loop: List<BM>
+				 ***************************************/
+//				DBUtils dbu = new DBUtils(actv, CONS.dbName);
+				dbu = new DBUtils(actv, CONS.dbName);
+				
+				for (int j = 0; j < bmList.size(); j++) {
+					
+					BM bm = bmList.get(j);
+				
+					boolean res = dbu.updateData_bm(
+									actv,
+									bm.getDbId(),
+									"aiTableName",
+									dstTableName);
+					
+					// Log
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber()
+							+ ":"
+							+ Thread.currentThread().getStackTrace()[2]
+									.getMethodName() + "]", "res=" + res);
+					
+				}//for (int j = 0; j < bmList.size(); j++)	// Loop: List<BM>
+				
 			} else {//if (bmList == condition)
 				
 				// Log
@@ -3996,9 +4031,11 @@ public class Methods {
 						+ Thread.currentThread().getStackTrace()[2]
 								.getMethodName() + "]", "bmList => null");
 				
+				continue;
+				
 			}//if (bmList == condition)
 			
-		}//for (int i = 0; i < toMoveFiles.size(); i++)
+		}//for (int i = 0; i < toMoveFiles.size(); i++) // Loop: List<AI>
 		
 		/***************************************
 		 * Close: DB

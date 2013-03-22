@@ -238,7 +238,21 @@ public class CONS {
 		
 		public static String bmactv_key_table_name = "bmactv_key_table_name";
 		
-	}
+		public static String bmactv_key_position = "bmactv_key_position";
+		
+		/***************************************
+		 * Request codes
+		 ***************************************/
+		public final static int REQUEST_CODE_SEE_BOOKMARKS = 0;
+		
+		/***************************************
+		 * Result code
+		 ***************************************/
+		public final static int RESULT_CODE_SEE_BOOKMARKS_OK = 1;
+		
+		public final static int RESULT_CODE_SEE_BOOKMARKS_CANCEL = 0;
+		
+	}//public static class Intent
 	
 	public static class DB {
 		
@@ -248,6 +262,12 @@ public class CONS {
 			"ai_id", "position", "title", "memo", "aiTableName"
 		};
 		
+		public static String[] cols_bm_full = {
+			android.provider.BaseColumns._ID,
+			"created_at", "modified_at",
+			"ai_id", "position", "title", "memo", "aiTableName"
+		};
+
 		public static String[] col_types_bm = {
 			"INTEGER", "INTEGER", "TEXT", "TEXT", "TEXT"
 		};
@@ -259,5 +279,4 @@ public class CONS {
 		public static BMLAdapter adpBML;
 		
 	}
-	
 }//public class CONS

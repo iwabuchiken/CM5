@@ -8,6 +8,8 @@ public class BM {
 	long	aiId;
 	String	aiTableName;
 	
+	long	dbId;
+	
 	public BM() {
 		
 	}
@@ -21,8 +23,10 @@ public class BM {
 		memo = builder.memo;
 		aiId = builder.aiId;
 		aiTableName = builder.aiTableName;
+		
+		dbId = builder.dbId;
 
-	}
+	}//public BM(Builder builder)
 
 
 
@@ -73,7 +77,7 @@ public class BM {
 		private String	memo;
 		private long	aiId;
 		private String	aiTableName;
-
+		private long	dbId;
 		
 		
 		public BM build() {
@@ -109,8 +113,23 @@ public class BM {
 		public Builder setAiTableName(String val) {
 			this.aiTableName = val;	return this;
 		}
+
+		public Builder setDbId(long val) {
+			this.dbId = val;	return this;
+		}
+
 		
 	}//public static class Builder
+
+	public long getDbId() {
+		return dbId;
+	}
+
+
+
+	public void setDbId(long dbId) {
+		this.dbId = dbId;
+	}
 	
 	
 }//public class BM
