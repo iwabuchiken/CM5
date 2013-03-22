@@ -13,6 +13,7 @@ import cm5.utils.Methods_CM5;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 public class BMActv extends ListActivity {
 
 	private AI ai;
+
+	public static Vibrator vib;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class BMActv extends ListActivity {
 		setContentView(R.layout.actv_bm);
 
 		this.setTitle(this.getClass().getName());
+	
+		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
 		
 		/***************************************
 		 * Get: AI db id
@@ -84,6 +89,43 @@ public class BMActv extends ListActivity {
 		 * 1. Build a BM list
 		 * 2. Set the list to adapter
 		 ***************************************/
+		setup__3_setBMList();
+		
+//		/***************************************
+//		 * 1. Build a BM list
+//		 ***************************************/
+//		DBUtils dbu = new DBUtils(this, CONS.dbName);
+//		
+//		List<BM> bmList = dbu.getBMList(this, ai.getDb_id());
+//		
+//		// Log
+//		Log.d("BMActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "bmList=" + bmList);
+//		
+//		/***************************************
+//		 * 2. Set the list to adapter
+//		 ***************************************/
+//		CONS.BMActv.adpBML = new BMLAdapter(
+//				this,
+//				R.layout.listrow_actv_bm,
+////				R.layout.actv_al,
+//				bmList
+//				);
+//
+//		setListAdapter(CONS.BMActv.adpBML);
+		
+	}//protected void onCreate(Bundle savedInstanceState)
+
+	private void setup__3_setBMList() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Set: BM list
+		 * 1. Build a BM list
+		 * 2. Set the list to adapter
+		 ***************************************/
 		/***************************************
 		 * 1. Build a BM list
 		 ***************************************/
@@ -110,7 +152,7 @@ public class BMActv extends ListActivity {
 
 		setListAdapter(CONS.BMActv.adpBML);
 		
-	}//protected void onCreate(Bundle savedInstanceState)
+	}//private void setup__3_setBMList()
 
 	private void setup__2_setData2TextViews(AI ai) {
 		// TODO Auto-generated method stub
@@ -189,10 +231,43 @@ public class BMActv extends ListActivity {
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	protected void
+	onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
-	}
+//		super.onListItemClick(l, v, position, id);
+		
+		vib.vibrate(Methods.vibLength_click);
+		
+		/***************************************
+		 * Get: Item
+		 ***************************************/
+		BM bm = (BM) l.getItemAtPosition(position);
+		
+		// Log
+		Log.d("BMActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "bm.getPosition()=" + bm.getPosition());
+		/***************************************
+		 * Set: Result
+		 ***************************************/
+		Intent i = new Intent();
+		
+		i.putExtra(CONS.Intent.bmactv_key_position, bm.getPosition());
+		
+		i.putExtra(CONS.Intent.bmactv_key_ai_id, this.getAi().getDb_id());
+		
+		i.putExtra(CONS.Intent.bmactv_key_table_name, this.getAi().getTable_name());
+		
+		setResult(CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_OK, i);
+		
+		/***************************************
+		 * Finish
+		 ***************************************/
+		finish();
+		
+	}//onListItemClick(ListView l, View v, int position, long id)
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

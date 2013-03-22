@@ -1735,6 +1735,9 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		}//for (int i = 0; i < c.getCount(); i++)
 		
+		
+		rdb.close();
+		
 		return bmList;
 		
 	}//public List<BM> getBMList(Activity actv)

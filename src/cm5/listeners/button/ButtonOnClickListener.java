@@ -411,7 +411,46 @@ public class ButtonOnClickListener implements OnClickListener {
 //				+ ":"
 //				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 //				+ "]", "ai.getDb_id()=" + ai.getDb_id());
+		/***************************************
+		 * MediaPlayer
+		 ***************************************/
+		/*********************************
+		 * 1. Media player is playing?
+		 *********************************/
+		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
+
+			PlayActv.mp.stop();
+			
+		}//if (mp.isPlaying())
+
+		if (PlayActv.mp != null) {
+			
+			PlayActv.mp.release();
+			
+			PlayActv.mp = null;
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "PlayActv.mp => nullified");
+			
+		} else {//if (PlayActv.mp != null)
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "PlayActv.mp => null");
+			
+		}//if (PlayActv.mp != null)
 		
+		
+		/***************************************
+		 * Intent
+		 ***************************************/
 		Intent i = new Intent();
 		
 		i.setClass(actv, BMActv.class);

@@ -38,11 +38,6 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/listrow_actv_bm_sv_memo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -56,9 +51,13 @@
                 android:padding="3dp"
                 android:text="@string/generic_tv_no_data"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                
+                android:focusable="false"
+                
+                />
 
         </LinearLayout>
-    </ScrollView>
+
 
 </LinearLayout>
