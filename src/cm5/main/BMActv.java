@@ -1,8 +1,15 @@
 package cm5.main;
 
+import java.util.List;
+
+import cm5.adapters.AILAdapter;
+import cm5.adapters.BMLAdapter;
 import cm5.items.AI;
+import cm5.items.BM;
 import cm5.utils.CONS;
+import cm5.utils.DBUtils;
 import cm5.utils.Methods;
+import cm5.utils.Methods_CM5;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -68,6 +75,37 @@ public class BMActv extends ListActivity {
 //					+ "]", "ai == null");
 //			
 //		}//if (ai != null)
+		
+		/***************************************
+		 * Set: BM list
+		 * 1. Build a BM list
+		 * 2. Set the list to adapter
+		 ***************************************/
+		/***************************************
+		 * 1. Build a BM list
+		 ***************************************/
+		DBUtils dbu = new DBUtils(this, CONS.dbName);
+		
+		List<BM> bmList = dbu.getBMList(this, ai.getDb_id());
+		
+		// Log
+		Log.d("BMActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "bmList=" + bmList);
+		
+		/***************************************
+		 * 2. Set the list to adapter
+		 ***************************************/
+		CONS.BMActv.adpBML = new BMLAdapter(
+				this,
+				R.layout.listrow_actv_bm,
+//				R.layout.actv_al,
+				bmList
+				);
+
+		setListAdapter(CONS.BMActv.adpBML);
 		
 	}//protected void onCreate(Bundle savedInstanceState)
 
