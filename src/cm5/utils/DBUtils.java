@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cm5.items.AI;
+import cm5.items.BM;
 import cm5.items.TI;
 import cm5.main.MainActv;
 
@@ -1519,6 +1520,60 @@ public class DBUtils extends SQLiteOpenHelper{
 		wdb.close();
 		
 	}//public void updateData_aiLength
+
+	public boolean insertData_bm(Activity actv, BM bm) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase wdb = this.getWritableDatabase();
+		
+		try {
+			// Start transaction
+			wdb.beginTransaction();
+			
+			// ContentValues
+			ContentValues val = new ContentValues();
+
+//			"ai_id", "position", "title", "memo", "aiTableName"
+//			val.put(android.provider.BaseColumns._ID, ai.getDb_id());
+			
+			val.put("created_at", Methods.getMillSeconds_now());
+			val.put("modified_at", Methods.getMillSeconds_now());
+			
+			val.put("ai_id", bm.getAiId());
+			val.put("position", bm.getPosition());
+			
+			val.put("title", bm.getTitle());
+			val.put("memo", bm.getMemo());
+			
+			val.put("aiTableName", bm.getAiTableName());
+			
+			// Insert data
+			wdb.insert(CONS.DB.tname_BM, null, val);
+			
+			// Set as successful
+			wdb.setTransactionSuccessful();
+			
+			// End transaction
+			wdb.endTransaction();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]",
+				"Data inserted => "
+				+ "(file_name => "
+				+ val.getAsString("title") + "), and others");
+			
+			return true;
+		} catch (Exception e) {
+			// Log
+			Log.e("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Exception! => " + e.toString());
+			
+			return false;
+		}//try
+		
+	}//public boolean insertData_bm(Activity actv, BM bm)
 	
 }//public class DBUtils
 

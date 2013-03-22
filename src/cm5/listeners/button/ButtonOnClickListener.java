@@ -5,6 +5,7 @@ import cm5.main.R;
 import java.io.File;
 
 import cm5.items.AI;
+import cm5.items.BM;
 import cm5.items.TI;
 //import cm5.main.ImageActv;
 import cm5.main.ALActv;
@@ -282,10 +283,83 @@ public class ButtonOnClickListener implements OnClickListener {
 				+ "]", "currentPosition=" + currentPosition);
 		
 		/***************************************
-		 * Insert BM data into db
+		 * Get: Table name and db id of the ai instance
 		 ***************************************/
+		String tableName = ai.getTable_name();
+		long aiDbId = ai.getDb_id();
+		
+		// Log
+		Log.d("ButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]",
+				"tableName=" + tableName
+				+ "/"
+				+ "aiDbId=" + aiDbId);
+		
+		/***************************************
+		 * Insert BM data into db
+		 * 1. Build a BM instance
+		 * 2. Insert data using the instance
+		 ***************************************/
+		/***************************************
+		 * 1. Build a BM instance
+		 ***************************************/
+		BM bm = new BM.Builder()
+					.setPosition(currentPosition)
+					.setTitle(ai.getTitle())
+					.setMemo(ai.getMemo())
+					.setAiId(ai.getDb_id())
+					.setAiTableName(ai.getTable_name())
+					.build();
+		
+		// Log
+		Log.d("ButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "ai.getTitle()=" + ai.getTitle());
+		// Log
+		Log.d("ButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "bm.getTitle()=" + bm.getTitle());
+		
+		/***************************************
+		 * 2. Insert data using the instance
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		boolean res = dbu.insertData_bm(actv, bm);
+		
+		if (res == true) {
+		
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "res=" + res);
+			
+			// debug
+			Toast.makeText(actv, "Bookmark inserted", Toast.LENGTH_LONG).show();
+			
+		} else {//if (res == true)
+
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "res=" + res);
+
+		}//if (res == true)
+		
+		
+		
 		//debug
-		debug_case_actv_play_bt_add_bm();
+//		debug_case_actv_play_bt_add_bm();
 		
 		
 		

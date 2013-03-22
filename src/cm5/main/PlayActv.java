@@ -205,6 +205,13 @@ public class PlayActv extends Activity {
 //				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 //				+ "]", "ai.getFile_name()=" + ai.getFile_name());
 		
+		// Log
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "actv_play_bt_add_bm=" + ai.getTitle());
+		
 		/*********************************
 		 * 5. Set file name to the view
 		 *********************************/
