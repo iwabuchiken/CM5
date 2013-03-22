@@ -1996,4 +1996,60 @@ public class Methods_dialog {
 	}//public static void dlg_edit_memo(Activity actv, AI ai)
 
 	
-}
+	public static void dlg_admin(Activity actv) {
+		// TODO Auto-generated method stub
+		Dialog dlg = Methods_dialog.dlg_template_cancel(
+				actv, R.layout.dlg_db_admin, 
+				R.string.main_opt_menu_admin, 
+				R.id.dlg_db_admin_bt_cancel, 
+				Tags.DialogTags.dlg_generic_dismiss);
+
+		/****************************
+		* 2. Prep => List
+		****************************/
+		String[] choices = {
+							actv.getString(R.string.admin_reset_table_bm),
+							
+							};
+		
+		List<String> list = new ArrayList<String>();
+		
+		for (String item : choices) {
+		
+			list.add(item);
+		
+		}
+		
+		/****************************
+		* 3. Adapter
+		****************************/
+		ArrayAdapter<String> adapter =
+					new ArrayAdapter<String>(
+						actv,
+						//R.layout.dlg_db_admin,
+						android.R.layout.simple_list_item_1,
+						list
+		);
+		
+		/****************************
+		* 4. Set adapter
+		****************************/
+		ListView lv = (ListView) dlg.findViewById(R.id.dlg_db_admin_lv);
+		
+		lv.setAdapter(adapter);
+		
+		/****************************
+		* 5. Set listener to list
+		****************************/
+		lv.setTag(Tags.DialogItemTags.main_opt_menu_admin);
+		
+		lv.setOnItemClickListener(new DialogOnItemClickListener(actv, dlg));
+		
+		/****************************
+		* 6. Show dialog
+		****************************/
+		dlg.show();
+		
+	}//public static void dlg_admin(Activity actv)
+	
+}//public class Methods_dialog

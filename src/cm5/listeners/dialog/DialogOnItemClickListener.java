@@ -1,6 +1,8 @@
 package cm5.listeners.dialog;
 
 import cm5.tasks.RefreshDBTask;
+import cm5.utils.CONS;
+import cm5.utils.DBUtils;
 import cm5.utils.Methods;
 import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
@@ -225,12 +227,61 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			Methods_dialog.dlg_confirm_delete_patterns(actv, dlg, dlg2, item);
 			
 			break;// case dlg_delete_patterns_gv
+	
+		case main_opt_menu_admin://----------------------------------------------
+			
+			item = (String) parent.getItemAtPosition(position);
+			
+			case_main_opt_menu_admin(item);
+			
+			break;// case main_opt_menu_admin
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void case_main_opt_menu_admin(String item) {
+		
+		if (item.equals(actv.getString(R.string.admin_reset_table_bm))) {
+			
+			case_main_opt_menu_admin_resetTable_bm();
+			
+//		} else if (item.equals(actv.getString(R.string.dlg_db_admin_item_refresh_db))){
+			
+		}//if (item.equals(actv.getString(R.string.admin_reset_table_bm)))
+
+	}//private void case_main_opt_menu_admin(String item)
+
+	private void case_main_opt_menu_admin_resetTable_bm() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Drop table
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		boolean res = dbu.dropTable(actv, CONS.DB.tname_BM);
+		
+		if (res == false) {
+			
+			// Log
+			Log.d("DialogOnItemClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "res => null");
+			
+			return;
+			
+		}//if (res == false)
+		
+		/***************************************
+		 * Create table
+		 ***************************************/
+		res = dbu.createTable(CONS.DB.tname_BM, CONS.DB.cols_bm, CONS.DB.col_types_bm);
+		
+	}//private void case_main_opt_menu_admin_resetTable_bm()
 
 	private void case_dlg_move_files(AdapterView<?> parent, int position) {
 		// TODO Auto-generated method stub

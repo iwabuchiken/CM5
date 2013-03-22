@@ -1215,6 +1215,12 @@ public class MainActv extends ListActivity {
 			
 			break;// case R.id.main_opt_menu_search
 //			
+		case R.id.main_opt_menu_admin://-----------------------------------------------
+			
+			case_main_opt_menu_admin();
+			
+			break;// case R.id.main_opt_menu_admin
+			
 //		case R.id.main_opt_menu_preferences://-----------------------------------------------
 //			
 //			Methods.start_PrefActv(this);
@@ -1232,6 +1238,12 @@ public class MainActv extends ListActivity {
 		return super.onOptionsItemSelected(item);
 		
 	}//public boolean onOptionsItemSelected(MenuItem item)
+
+	private void case_main_opt_menu_admin() {
+		// TODO Auto-generated method stub
+		Methods_dialog.dlg_admin(this);
+	}
+	
 
 	@Override
 	protected void onPause() {

@@ -29,5 +29,12 @@
 	    android:icon="@android:drawable/ic_menu_my_calendar">
 	    
 	</item>
-	
+
+	<item 
+	    android:id="@+id/main_opt_menu_admin" 
+	    android:title="@string/main_opt_menu_admin" 
+	    android:icon="@android:drawable/ic_menu_agenda">
+	    
+	</item>
+		
 </menu>

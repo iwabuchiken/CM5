@@ -543,6 +543,78 @@ public class DBUtils extends SQLiteOpenHelper{
 		
 	}//public insertData(String tableName, String[] columnNames, String[] values)
 
+	public boolean dropTable(Activity actv, String tableName) {
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		SQLiteDatabase wdb = this.getWritableDatabase();
+		
+		/*------------------------------
+		 * The table exists?
+		 *------------------------------*/
+		// The table exists?
+		boolean tempBool = tableExists(wdb, tableName);
+		
+		if (tempBool == true) {
+		
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table exists: " + tableName);
+
+		} else {//if (tempBool == true)
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + tableName);
+
+			return false;
+		}//if (tempBool == true)
+
+		/*------------------------------
+		 * Drop the table
+		 *------------------------------*/
+		// Define the sql
+        String sql 
+             = "DROP TABLE " + tableName;
+        
+        // Execute
+        try {
+			wdb.execSQL(sql);
+			
+			// Vacuum
+			wdb.execSQL("VACUUM");
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "The table dropped => " + tableName);
+			
+			wdb.close();
+			
+			// Return
+			return true;
+			
+		} catch (SQLException e) {
+			// TODO �����������ꂽ catch �u���b�N
+			// Log
+			Log.e("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "DROP TABLE => failed (table=" + tableName + "): " + e.toString());
+			
+			// debug
+			Toast.makeText(actv, 
+						"DROP TABLE => failed(table=" + tableName, 
+						Toast.LENGTH_LONG).show();
+			
+			wdb.close();
+			
+			// Return
+			return false;
+		}//try
+
+	}//public boolean dropTable(String tableName) 
+
 	public boolean insertData(SQLiteDatabase db, String tableName, 
 											String[] columnNames, long[] values) {
 		/*----------------------------

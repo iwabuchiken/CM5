@@ -86,6 +86,9 @@ public class Tags {
 		// dlg_moveFiles_search(Activity actv)
 		dlg_move_files_search,
 
+		// main_opt_menu_admin
+		main_opt_menu_admin,
+		
 	}//public static enum DialogItemTags
 	
 	
