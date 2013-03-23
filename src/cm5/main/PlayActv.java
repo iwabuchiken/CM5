@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import cm5.items.AI;
 import cm5.listeners.MPOnCompletionListener;
+import cm5.listeners.SeekBarChangeListener;
 import cm5.listeners.button.ButtonOnClickListener;
 import cm5.listeners.button.ButtonOnLongClickListener;
 import cm5.listeners.button.ButtonOnTouchListener;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -135,6 +137,12 @@ public class PlayActv extends Activity {
 		btAddBM.setOnTouchListener(new ButtonOnTouchListener(this));
 		btAddBM.setOnClickListener(new ButtonOnClickListener(this, ai));
 
+		/***************************************
+		 * Seekbar
+		 ***************************************/
+		SeekBar sb = (SeekBar) findViewById(R.id.actv_play_sb);
+		
+		sb.setOnSeekBarChangeListener(new SeekBarChangeListener(this, sb));
 		
 	}//private void setup_2_set_listeners()
 
