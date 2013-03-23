@@ -1,5 +1,7 @@
 package cm5.listeners.dialog;
 
+
+import cm5.services.Service_ShowProgress;
 import cm5.tasks.RefreshDBTask;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
@@ -11,6 +13,7 @@ import cm5.main.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -314,10 +317,55 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			case_main_opt_menu_admin_resetTable_bm();
 			
 //		} else if (item.equals(actv.getString(R.string.dlg_db_admin_item_refresh_db))){
+		} else if (item.equals(actv.getString(R.string.admin_start_service_player))) {
+			
+			admin_start_service_player();
+			
+		} else if (item.equals(actv.getString(R.string.admin_stop_service_player))) {
+			
+			admin_stop_service_player();
 			
 		}//if (item.equals(actv.getString(R.string.admin_reset_table_bm)))
 
 	}//private void case_main_opt_menu_admin(String item)
+
+	private void admin_stop_service_player() {
+		// TODO Auto-generated method stub
+		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+		//
+//		i.putExtra("counter", timeLeft);
+
+		// Log
+		Log.d("DialogOnItemClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Stopping service...");
+
+		//
+//		actv.startService(i);
+		actv.stopService(i);
+		
+	}//private void admin_stop_service_player()
+
+	private void admin_start_service_player() {
+		// TODO Auto-generated method stub
+		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		// Log
+		Log.d("DialogOnItemClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Starting service...");
+		//
+		actv.startService(i);
+
+	}//private void admin_start_service_player()
 
 	private void case_main_opt_menu_admin_resetTable_bm() {
 		// TODO Auto-generated method stub

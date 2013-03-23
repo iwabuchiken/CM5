@@ -29,6 +29,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -76,6 +77,7 @@ import cm5.main.PlayActv;
 import cm5.main.PrefActv;
 import cm5.main.SearchActv;
 import cm5.main.TNActv;
+import cm5.services.Service_ShowProgress;
 import cm5.tasks.RefreshDBTask;
 import cm5.tasks.SearchTask;
 
@@ -6626,6 +6628,24 @@ public class Methods {
 			
 		}//if (prefPosition == condition)
 		
+		/***************************************
+		 * Prepare: Service
+		 ***************************************/
+		Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+		//
+//		i.putExtra("counter", timeLeft);
+		
+		// Log
+		Log.d("DialogOnItemClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Starting service...");
+		//
+		actv.startService(i);
+
+		
 		/*********************************
 		 * 5. Start
 		 *********************************/
@@ -6661,6 +6681,26 @@ public class Methods {
 			Log.d("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Player => Stopped");
+			
+			/***************************************
+			 * Stop: Service
+			 ***************************************/
+			Intent i = new Intent((Context) actv, Service_ShowProgress.class);
+
+			//
+//			i.putExtra("counter", timeLeft);
+
+			// Log
+			Log.d("DialogOnItemClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Stopping service...");
+
+			//
+//			actv.startService(i);
+			actv.stopService(i);
+
 			
 		} else if (PlayActv.mp == null) {//if (mp.isPlaying())
 
