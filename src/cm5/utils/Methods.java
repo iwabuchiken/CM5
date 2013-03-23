@@ -299,6 +299,46 @@ public class Methods {
 
 	}//public static boolean clear_prefs_current_path(Activity actv, Strin newPath)
 
+	public static boolean
+	clearPref (Activity actv,String prefName) {
+
+		SharedPreferences prefs = 
+						actv.getSharedPreferences(
+								prefName,
+								actv.MODE_PRIVATE);
+		
+		/****************************
+		* 2. Get editor
+		****************************/
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		/****************************
+		* 3. Clear
+		****************************/
+		try {
+		
+			editor.clear();
+			editor.commit();
+			
+			// Log
+			Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Prefs cleared");
+			
+			return true;
+		
+		} catch (Exception e) {
+		
+			// Log
+			Log.e("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
+	}//public static boolean clear_prefs_current_path(Activity actv, Strin newPath)
+
 	
 	/****************************************
 	 *
@@ -3744,6 +3784,39 @@ public class Methods {
 		}
 
 	}//public static boolean set_pref(String pref_name, String value)
+
+	public static boolean
+	setPref_long
+	(Activity actv, String pref_name, String pref_key, long value) {
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
+
+		/****************************
+		 * 2. Get editor
+			****************************/
+		SharedPreferences.Editor editor = prefs.edit();
+
+		/****************************
+		 * 3. Set value
+			****************************/
+		editor.putLong(pref_key, value);
+		
+		try {
+			editor.commit();
+			
+			return true;
+			
+		} catch (Exception e) {
+			
+			// Log
+			Log.e("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Excption: " + e.toString());
+			
+			return false;
+		}
+
+	}//public static boolean setPref_long(Activity actv, String pref_name, String pref_key, long value)
 
 	public static boolean set_pref(Activity actv, String pref_name, String pref_key, int value) {
 		SharedPreferences prefs = 

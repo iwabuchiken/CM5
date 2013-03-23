@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class SearchTask extends AsyncTask<String[], Integer, String>{
+public class SearchTask extends AsyncTask<String[], Integer, Integer>{
 
 	//
 	Activity actv;
@@ -75,7 +75,7 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 
 
 	@Override
-	protected String doInBackground(String[]... sw) {
+	protected Integer doInBackground(String[]... sw) {
 		
 //		// Log
 //		if (string_searchedItems_table_names != null) {
@@ -119,7 +119,8 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 //					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 //					+ "]", "sw[1][0]=" + sw[1][0]);
 
-			return this.doInBackground_specific_table(sw);
+			return Integer.valueOf(this.doInBackground_specific_table(sw));
+//			return this.doInBackground_specific_table(sw);
 //			return null;
 			
 		} else {
@@ -311,7 +312,7 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 	 * 			(2)sw[1] ... Table names
 	 * @return Message concerning the result
 	 ***************************************/
-	private String doInBackground_specific_table(String[][] sw) {
+	private int doInBackground_specific_table(String[][] sw) {
 		/*----------------------------
 		 * Steps
 		 * 1. Get table names list
@@ -334,10 +335,16 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		
 
 		/***************************************
-		 * SearchedItem object
+		 * SearchedItem object<br>
+		 * 1. SearchedItem si ... Composite of a table name and a list of ai instances<br>
+		 * 		=> Used for: The list in the UI of SearchActv
+		 * 		=> Deprecated as of: B25 v-2.2
+		 * 2. List<Long> searchedItems ... A list of the ids of the matching ai instances
+		 * 		=> Used for:
+		 * 		=> Deprecated as of: B25 v-2.2 
 		 ***************************************/
 		SearchedItem si = new SearchedItem();
-		
+
 //		siList = new ArrayList<SearchedItem>();
 		
 		si.setTableName(targetTable);
@@ -412,8 +419,41 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 				"long_searchedItems.length=" + long_searchedItems.length);
 
 		/***************************************
+		 * Validate: Found any?
+		 ***************************************/
+		if (si.getIds() == null) {
+			
+			// Log
+			Log.d("SearchTask.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "si.getIds() == null");
+			
+			return CONS.Search.SEARCH_FAILED;
+			
+		}//if (si.getIds() == null)
+		
+		if (si.getIds().size() < 1) {
+			
+			// Log
+			Log.d("SearchTask.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "si.getIds().size() < 1");
+			
+			return CONS.Search.SEARCH_NOT_FOUND;
+			
+		}//if (si.getIds() == null)
+		
+		
+		/***************************************
 		 * Add si object to si list
 		 ***************************************/
+		
+		
+		
 //		siList.add(si);
 		CONS.Search.siList.add(si);
 		
@@ -439,14 +479,14 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		/***************************************
 		 * 4. Set up intent
 		 ***************************************/
-		// Log
-		Log.d("SearchTask.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "long_searchedItems.length => " + long_searchedItems.length);
-		
-		Log.d("SearchTask.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "long_searchedItems[0] => " + long_searchedItems[0]);
+//		// Log
+//		Log.d("SearchTask.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "long_searchedItems.length => " + long_searchedItems.length);
+//		
+//		Log.d("SearchTask.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "long_searchedItems[0] => " + long_searchedItems[0]);
 		
 		Intent i = new Intent();
 		
@@ -459,14 +499,15 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		/*----------------------------
 		 * 5. Return
 			----------------------------*/
-		return "Search done";
+//		return "Search done";
+		return CONS.Search.SEARCH_SUCCESSFUL;
 		
 	}//private String doInBackground_specific_table(String[][] sw)
 	
 
 
 	@Override
-	protected void onPostExecute(String result) {
+	protected void onPostExecute(Integer result) {
 		// TODO �����������ꂽ���\�b�h�E�X�^�u
 		super.onPostExecute(result);
 
@@ -476,6 +517,27 @@ public class SearchTask extends AsyncTask<String[], Integer, String>{
 		Log.d("SearchTask.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "] ", "result=" + result);
+
+		/***************************************
+		 * Message
+		 ***************************************/
+		if (result.intValue() == CONS.Search.SEARCH_SUCCESSFUL) {
+		
+			// debug
+			Toast.makeText(actv, "Search => Successful", Toast.LENGTH_LONG).show();
+			
+		} else if (result.intValue() == CONS.Search.SEARCH_NOT_FOUND) {//if (result.intValue() == CONS.Search.SEARCH_SUCCESSFUL)
+			
+			// debug
+//			Toast.makeText(actv, "Search => Failed", Toast.LENGTH_LONG).show();
+			Toast.makeText(actv, "Search => Not found", Toast.LENGTH_LONG).show();
+
+		} else if (result.intValue() == CONS.Search.SEARCH_FAILED) {//if (result.intValue() == CONS.Search.SEARCH_SUCCESSFUL)
+
+			// debug
+			Toast.makeText(actv, "Search => Failed", Toast.LENGTH_LONG).show();
+
+		}//if (result.intValue() == CONS.Search.SEARCH_SUCCESSFUL)
 		
 
 //		/*----------------------------

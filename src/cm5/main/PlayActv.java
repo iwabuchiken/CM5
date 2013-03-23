@@ -15,7 +15,9 @@ import cm5.utils.Methods;
 import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -325,6 +327,10 @@ public class PlayActv extends Activity {
 		
 		Methods.stop_player(this);
 		
+		/***************************************
+		 * Clear prefs
+		 ***************************************/
+		boolean res = Methods.clearPref(this, CONS.Pref.pname_PlayActv);
 		
 		super.onDestroy();
 	}//protected void onDestroy()
@@ -447,99 +453,97 @@ public class PlayActv extends Activity {
 		long position = data.getLongExtra(CONS.Intent.bmactv_key_position, -1);
 		long aiDbId = data.getLongExtra(CONS.Intent.bmactv_key_ai_id, -1);
 		String aiTableName = data.getStringExtra(CONS.Intent.bmactv_key_table_name);
-		
-		/***************************************
-		 * Set OnClickListener to the button "Stop"
-		 ***************************************/
-		/*********************************
-		 * 2. Button => Stop
-		 *********************************/
-		Button bt_stop = (Button) findViewById(R.id.actv_play_bt_stop);
-		
-		bt_stop.setTag(Tags.ButtonTags.actv_play_bt_stop);
-		
-		bt_stop.setOnTouchListener(new ButtonOnTouchListener(this));
-		bt_stop.setOnClickListener(new ButtonOnClickListener(this));
 
-		
-		
+		/***************************************
+		 * Set: Preference
+		 ***************************************/
+//		SharedPreferences prefs =
+//							this.getSharedPreferences(
+//									CONS.Pref.pname_PlayActv,
+//									Context.MODE_PRIVATE);
+//		
+//		SharedPreferences.Editor editor = prefs.edit();
+//		
+//		editor.putLong(CONS.Pref.pkey_PlayActv_position, position);
+//		editor.commit();
+
+		boolean res = 
+				Methods.setPref_long(
+						this,
+						CONS.Pref.pname_PlayActv,
+						CONS.Pref.pkey_PlayActv_position,
+						position);
 		// Log
-		Log.d("PlayActv.java"
-				+ "["
-				+ Thread.currentThread().getStackTrace()[2]
-						.getLineNumber()
+		Log.d("PlayActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ ":"
-				+ Thread.currentThread().getStackTrace()[2]
-						.getMethodName() + "]", "Returned position => " + position);
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Position => Stored in a preference");
 		
-//		// Log
-//		Log.d("PlayActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "aiDbId=" + aiDbId);
+//		/***************************************
+//		 * Set OnClickListener to the button "Stop"
+//		 ***************************************/
+//		/*********************************
+//		 * 2. Button => Stop
+//		 *********************************/
+//		Button bt_stop = (Button) findViewById(R.id.actv_play_bt_stop);
 //		
-//		// Log
-//		Log.d("PlayActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "ai.getTable_name()=" + ai.getTable_name());
+//		bt_stop.setTag(Tags.ButtonTags.actv_play_bt_stop);
 //		
-//		AI aiNew = Methods.get_data_ai(this, aiDbId, aiTableName);
-//		
-//		// Log
-//		Log.d("PlayActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "aiNew.getTable_name()=" + aiNew.getTable_name());
-		
-		/***************************************
-		 * Got a position?
-		 ***************************************/
-		if (position == -1) {
-			
-			// Log
-			Log.d("PlayActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "position => -1");
-			
-			return;
-			
-		}//if (position == -1)
-
-		/***************************************
-		 * Is an AI instance instantiated already?
-		 ***************************************/
-		if (ai == null) {
-			
-			ai = Methods.get_data_ai(this, aiDbId, aiTableName);
-			
-		}//if (this.ai == null)
-
-		/*********************************
-		 * 1. Media player is playing?
-		 *********************************/
-		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
-
-			PlayActv.mp.stop();
-			
-		}//if (mp.isPlaying())
-
-		/*********************************
-		 * 2. OnCompletionListener
-		 *********************************/
-//		if (PlayActv.mp == null) {
+//		bt_stop.setOnTouchListener(new ButtonOnTouchListener(this));
+//		bt_stop.setOnClickListener(new ButtonOnClickListener(this));
 //
-//			PlayActv.mp = new MediaPlayer();
+//		
+//		
+//		// Log
+//		Log.d("PlayActv.java"
+//				+ "["
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2]
+//						.getMethodName() + "]", "Returned position => " + position);
+//
+//		/***************************************
+//		 * Got a position?
+//		 ***************************************/
+//		if (position == -1) {
 //			
-//			PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
+//			// Log
+//			Log.d("PlayActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "position => -1");
+//			
+//			return;
+//			
+//		}//if (position == -1)
 //
-//		} else {//if (PlayActv.mp == null)
-//		
+//		/***************************************
+//		 * Is an AI instance instantiated already?
+//		 ***************************************/
+//		if (ai == null) {
+//			
+//			ai = Methods.get_data_ai(this, aiDbId, aiTableName);
+//			
+//		}//if (this.ai == null)
+//
+//		/*********************************
+//		 * 1. Media player is playing?
+//		 *********************************/
+//		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
+//
+//			PlayActv.mp.stop();
+//			
+//		}//if (mp.isPlaying())
+//
+//		/*********************************
+//		 * 2. OnCompletionListener
+//		 *********************************/
+//
+//		if (PlayActv.mp != null) {
+//
 //			// Log
 //			Log.d("PlayActv.java" + "["
 //					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
@@ -547,144 +551,111 @@ public class PlayActv extends Activity {
 //					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 //					+ "]", "PlayActv.mp != null");
 //			
-//		}//if (PlayActv.mp == null)
-		
-		if (PlayActv.mp != null) {
-
-			// Log
-			Log.d("PlayActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "PlayActv.mp != null");
-			
-			PlayActv.mp.release();
-			
-			PlayActv.mp = null;
-			
-
-//			PlayActv.mp = new MediaPlayer();
+//			PlayActv.mp.release();
 //			
-//			PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
-			
-		} else {//if (PlayActv.mp != null)
-			
-			// Log
-			Log.d("PlayActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "PlayActv.mp => null");
-			
-		}//if (PlayActv.mp != null)
-		
-		
-		PlayActv.mp = new MediaPlayer();
-		
-		PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
-
-		/*********************************
-		 * 3. Set data source
-		 *********************************/
-		String file_full_path = StringUtils.join(
-				new String[]{ai.getFile_path(), ai.getFile_name()},
-				File.separator);
-
-		try {
-
-			PlayActv.mp.setDataSource(file_full_path);
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Data source => Set");
-			
-		} catch (IllegalArgumentException e) {
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-			
-			
-		} catch (IllegalStateException e) {
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-
-		} catch (IOException e) {
-
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-
-		}//try
-
-		/*********************************
-		 * 4. Prepare mp
-		 *********************************/
-		try {
-
-			PlayActv.mp.prepare();
-			
-		} catch (IllegalStateException e) {
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-
-		} catch (IOException e) {
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Exception: " + e.toString());
-
-		}//try
-
-//		/***************************************
-//		 * 4.1 Set position
-//		 ***************************************/
-//		PlayActv.mp.seekTo((int) position);
+//			PlayActv.mp = null;
+//			
+//
+////			PlayActv.mp = new MediaPlayer();
+////			
+////			PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
+//			
+//		} else {//if (PlayActv.mp != null)
+//			
+//			// Log
+//			Log.d("PlayActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "PlayActv.mp => null");
+//			
+//		}//if (PlayActv.mp != null)
 //		
-		/*********************************
-		 * 5. Start
-		 *********************************/
-		PlayActv.mp.start();
-
-		// Log
-		Log.d("PlayActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ ":"
-				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-				+ "]", "PlayActv.mp.isPlaying()=" + PlayActv.mp.isPlaying());
-		
-//		/***************************************
-//		 * Start: Playing
-//		 * 1. Is the player initialized?
-//		 * 2. Player playing?
-//		 ***************************************/
-//		if (PlayActv.mp == null) {
-//			
-//			PlayActv.mp = new MediaPlayer();
-//			
-//			PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
-//			
-//		}//if (PlayActv.mp == null)
 //		
-//		/***************************************
-//		 * 2. Player playing?
-//		 ***************************************/
-//		if (PlayActv.mp.isPlaying() == true) {
+//		PlayActv.mp = new MediaPlayer();
+//		
+//		PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
+//
+//		/*********************************
+//		 * 3. Set data source
+//		 *********************************/
+//		String file_full_path = StringUtils.join(
+//				new String[]{ai.getFile_path(), ai.getFile_name()},
+//				File.separator);
+//
+//		try {
+//
+//			PlayActv.mp.setDataSource(file_full_path);
 //			
-//			PlayActv.mp.stop();
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Data source => Set");
 //			
-//		}//if (PlayActv.mp.isPlaying() == true)
-		
+//		} catch (IllegalArgumentException e) {
+//			
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//			
+//			
+//		} catch (IllegalStateException e) {
+//			
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//
+//		} catch (IOException e) {
+//
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//
+//		}//try
+//
+//		/*********************************
+//		 * 4. Prepare mp
+//		 *********************************/
+//		try {
+//
+//			PlayActv.mp.prepare();
+//			
+//		} catch (IllegalStateException e) {
+//			
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//
+//		} catch (IOException e) {
+//			
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Exception: " + e.toString());
+//
+//		}//try
+//
+////		/***************************************
+////		 * 4.1 Set position
+////		 ***************************************/
+////		PlayActv.mp.seekTo((int) position);
+////		
+//		/*********************************
+//		 * 5. Start
+//		 *********************************/
+//		PlayActv.mp.start();
+//
+//		// Log
+//		Log.d("PlayActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "PlayActv.mp.isPlaying()=" + PlayActv.mp.isPlaying());
+
 	}//onActivityResult_BM_OK(Intent data)
 	
 }//public class PlayActv extends Activity

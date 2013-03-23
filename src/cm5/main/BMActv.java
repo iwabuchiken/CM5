@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BMActv extends ListActivity {
 
@@ -139,18 +140,119 @@ public class BMActv extends ListActivity {
 				+ ":"
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", "bmList=" + bmList);
+
+		/***************************************
+		 * Validate: bmList
+		 ***************************************/
+		//debug
+		if (bmList == null ) {
+			
+			// debug
+			Toast.makeText(this, "Can't build the bookmark list", Toast.LENGTH_LONG).show();
+			
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Finishing...");
+			
+			finish();
+			
+		} else {//if (bmList == null || bmList.size() < 1)
+			
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "bmList != null");
+			
+		}//if (bmList == null || bmList.size() < 1)
+
+		// Log
+		Log.d("BMActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "bmList=" + bmList);
+
+		if (bmList == null) {
+			
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "bmList => null");
+			
+			// debug
+			Toast.makeText(this, "Can't build the bookmark list", Toast.LENGTH_LONG).show();
+			
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Finishing...");
+
+			finish();
+			
+		} else {//if (bmList == null)
+			
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "bmList => Not null");
+			
+		}//if (bmList == null)
 		
+		
+//		if (bmList.size() < 1) {
+//			
+//			// debug
+//			Toast.makeText(this, "No bookmarks", Toast.LENGTH_LONG).show();
+//			
+//			finish();
+//			
+//			
+//		}//if (bmList == null || bmList.size() < 1)
+
 		/***************************************
 		 * 2. Set the list to adapter
 		 ***************************************/
-		CONS.BMActv.adpBML = new BMLAdapter(
-				this,
-				R.layout.listrow_actv_bm,
-//				R.layout.actv_al,
-				bmList
-				);
+		if (bmList != null) {
+			
+			CONS.BMActv.adpBML = new BMLAdapter(
+					this,
+					R.layout.listrow_actv_bm,
+	//				R.layout.actv_al,
+					bmList
+					);
+	
+			setListAdapter(CONS.BMActv.adpBML);
 
-		setListAdapter(CONS.BMActv.adpBML);
+		} else {//if (bmList != null)
+
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "bmList => null");
+			
+		}//if (bmList != null)
+		
+//			CONS.BMActv.adpBML = new BMLAdapter(
+//					this,
+//					R.layout.listrow_actv_bm,
+//	//				R.layout.actv_al,
+//					bmList
+//					);
+//	
+//			setListAdapter(CONS.BMActv.adpBML);
 		
 	}//private void setup__3_setBMList()
 

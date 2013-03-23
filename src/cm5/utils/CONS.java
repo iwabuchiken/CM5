@@ -230,7 +230,17 @@ public class CONS {
 		public static ArrayAdapter<String> dirListAdapter;
 		
 		public static List<AI> toMoveList;
-	}
+		
+		/***************************************
+		 * Search results
+		 ***************************************/
+		public static final int SEARCH_SUCCESSFUL = 1;
+		
+		public static final int SEARCH_FAILED = -1;
+		
+		public static final int SEARCH_NOT_FOUND = -2;
+		
+	}//public static class Search
 	
 	public static class Intent {
 		
@@ -256,19 +266,19 @@ public class CONS {
 	
 	public static class DB {
 		
-		public static String tname_BM = "bm";
+		public static final String tname_BM = "bm";
 
-		public static String[] cols_bm = {
+		public static final String[] cols_bm = {
 			"ai_id", "position", "title", "memo", "aiTableName"
 		};
 		
-		public static String[] cols_bm_full = {
+		public static final String[] cols_bm_full = {
 			android.provider.BaseColumns._ID,
 			"created_at", "modified_at",
 			"ai_id", "position", "title", "memo", "aiTableName"
 		};
 
-		public static String[] col_types_bm = {
+		public static final String[] col_types_bm = {
 			"INTEGER", "INTEGER", "TEXT", "TEXT", "TEXT"
 		};
 		
@@ -279,4 +289,13 @@ public class CONS {
 		public static BMLAdapter adpBML;
 		
 	}
+	
+	public static class Pref {
+		
+		public static final String pname_PlayActv = "pname_PlayActv";
+		
+		public static final String pkey_PlayActv_position = "prefKey_PlayActv_position";
+		
+	}
+	
 }//public class CONS
