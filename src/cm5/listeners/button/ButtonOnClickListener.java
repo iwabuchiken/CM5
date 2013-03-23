@@ -16,6 +16,7 @@ import cm5.main.TNActv;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
+import cm5.utils.Methods_CM5;
 import cm5.utils.Tags;
 
 import android.app.Activity;
@@ -411,42 +412,76 @@ public class ButtonOnClickListener implements OnClickListener {
 //				+ ":"
 //				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 //				+ "]", "ai.getDb_id()=" + ai.getDb_id());
+
+
+//		/***************************************
+//		 * MediaPlayer
+//		 ***************************************/
+//		/*********************************
+//		 * 1. Media player is playing?
+//		 *********************************/
+//		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
+//
+//			PlayActv.mp.stop();
+//			
+//		}//if (mp.isPlaying())
+//
+//		if (PlayActv.mp != null) {
+//			
+//			PlayActv.mp.release();
+//			
+//			PlayActv.mp = null;
+//			
+//			// Log
+//			Log.d("ButtonOnClickListener.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "PlayActv.mp => nullified");
+//			
+//		} else {//if (PlayActv.mp != null)
+//			
+//			// Log
+//			Log.d("ButtonOnClickListener.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "PlayActv.mp => null");
+//			
+//		}//if (PlayActv.mp != null)
+//		
+
 		/***************************************
-		 * MediaPlayer
+		 * Validate: Any bookmarks?
 		 ***************************************/
-		/*********************************
-		 * 1. Media player is playing?
-		 *********************************/
-		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
-
-			PlayActv.mp.stop();
-			
-		}//if (mp.isPlaying())
-
-		if (PlayActv.mp != null) {
-			
-			PlayActv.mp.release();
-			
-			PlayActv.mp = null;
-			
-			// Log
-			Log.d("ButtonOnClickListener.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "PlayActv.mp => nullified");
-			
-		} else {//if (PlayActv.mp != null)
-			
-			// Log
-			Log.d("ButtonOnClickListener.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "PlayActv.mp => null");
-			
-		}//if (PlayActv.mp != null)
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
 		
+		long numOfBM = dbu.getNumOfEntries_BM(actv, CONS.DB.tname_BM, ai.getDb_id());
+		
+		if (numOfBM < 1) {
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "numOfBM < 1");
+			
+			// debug
+			Toast.makeText(actv, "No bookmarks", Toast.LENGTH_LONG).show();
+			
+			return;
+			
+		} else {//if (numOfBM == condition)
+			
+			// Log
+			Log.d("ButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "numOfBM=" + numOfBM);
+			
+		}//if (numOfBM == condition)
 		
 		/***************************************
 		 * Intent

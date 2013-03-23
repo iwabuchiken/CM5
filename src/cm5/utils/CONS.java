@@ -7,6 +7,7 @@ import java.util.List;
 import cm5.adapters.AILAdapter;
 import cm5.adapters.BMLAdapter;
 import cm5.items.AI;
+import cm5.items.BM;
 import cm5.items.SearchedItem;
 
 import android.content.SharedPreferences;
@@ -287,6 +288,8 @@ public class CONS {
 	public static class BMActv {
 		
 		public static BMLAdapter adpBML;
+		
+		public static List<BM> bmList;
 		
 	}
 	

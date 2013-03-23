@@ -6,6 +6,7 @@ import cm5.utils.DBUtils;
 import cm5.utils.Methods;
 import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
+import cm5.items.BM;
 import cm5.main.R;
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,6 +25,9 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 	Activity actv;
 	Dialog dlg;
 	Dialog dlg2;
+	
+	BM bm;
+	
 	//
 	Vibrator vib;
 	
@@ -49,7 +53,17 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		
 	}//public DialogOnItemClickListener(Activity actv, Dialog dlg)
 
-//	@Override
+	public DialogOnItemClickListener(Activity actv, Dialog dlg, BM bm) {
+		// 
+		this.actv = actv;
+		this.dlg = dlg;
+		this.bm = bm;
+		
+		vib = (Vibrator) actv.getSystemService(Context.VIBRATOR_SERVICE);
+
+	}
+
+	//	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		/*----------------------------
 		 * Steps
@@ -235,12 +249,63 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			case_main_opt_menu_admin(item);
 			
 			break;// case main_opt_menu_admin
+
+		case dlg_bmactv_list_long_click://----------------------------------------------
 			
+			item = (String) parent.getItemAtPosition(position);
+			
+			case_dlg_bmactv_list_long_click(item);
+			
+			break;// case dlg_bmactv_list_long_click
+
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onItemClick(AdapterView<?> parent, View v, int position, long id)
+
+	private void
+	case_dlg_bmactv_list_long_click(String item) {
+		// TODO Auto-generated method stub
+		if (item.equals(actv.getString(R.string.generic_tv_edit))) {	// Edit
+			
+			// debug
+			Toast.makeText(actv, "Edit", Toast.LENGTH_LONG).show();
+			
+		} else if (item.equals(actv.getString(R.string.generic_tv_delete))) {
+	
+			bmactv_deleteItem(bm);
+//			CONS.BMActv.bmList.remove(bm);
+//			
+//			CONS.BMActv.adpBML.notifyDataSetChanged();
+			
+		}//if (item.equals(actv.getString(R.string.generic_tv_edit)))
+		
+		
+	}//case_dlg_bmactv_list_long_click(String item)
+
+	private void bmactv_deleteItem(BM bm) {
+		/***************************************
+		 * Delete from: bmList
+		 ***************************************/
+		// TODO Auto-generated method stub
+		CONS.BMActv.bmList.remove(bm);
+		
+		CONS.BMActv.adpBML.notifyDataSetChanged();
+
+		/***************************************
+		 * Delete from: Database
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		boolean res = dbu.deleteData_bm(actv, bm.getDbId());
+
+		/***************************************
+		 * Close dialog
+		 ***************************************/
+		dlg.dismiss();
+
+	}//private void bmactv_deleteItem(BM bm)
 
 	private void case_main_opt_menu_admin(String item) {
 		

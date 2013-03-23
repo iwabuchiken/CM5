@@ -6,10 +6,12 @@ import cm5.adapters.AILAdapter;
 import cm5.adapters.BMLAdapter;
 import cm5.items.AI;
 import cm5.items.BM;
+import cm5.listeners.ListOnItemLongClickListener;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
 import cm5.utils.Methods_CM5;
+import cm5.utils.Tags;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,84 +42,7 @@ public class BMActv extends ListActivity {
 	
 		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
 		
-		/***************************************
-		 * Get: AI db id
-		 ***************************************/
-		AI ai = setup__getAI();
 
-		/***************************************
-		 * Set: File name and others to the text views
-		 ***************************************/
-		if (ai != null) {
-			
-			setup__2_setData2TextViews(ai);
-			
-		} else {//if (ai != null)
-			
-			// Log
-			Log.d("BMActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "ai == null");
-			
-		}//if (ai != null)
-		
-		
-		
-//		if (ai != null) {
-//
-//			// Log
-//			Log.d("BMActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "ai.getFile_name()=" + ai.getFile_name());
-//
-//		} else {//if (ai != null)
-//			
-//			// Log
-//			Log.d("BMActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "ai == null");
-//			
-//		}//if (ai != null)
-		
-		/***************************************
-		 * Set: BM list
-		 * 1. Build a BM list
-		 * 2. Set the list to adapter
-		 ***************************************/
-		setup__3_setBMList();
-		
-//		/***************************************
-//		 * 1. Build a BM list
-//		 ***************************************/
-//		DBUtils dbu = new DBUtils(this, CONS.dbName);
-//		
-//		List<BM> bmList = dbu.getBMList(this, ai.getDb_id());
-//		
-//		// Log
-//		Log.d("BMActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "bmList=" + bmList);
-//		
-//		/***************************************
-//		 * 2. Set the list to adapter
-//		 ***************************************/
-//		CONS.BMActv.adpBML = new BMLAdapter(
-//				this,
-//				R.layout.listrow_actv_bm,
-////				R.layout.actv_al,
-//				bmList
-//				);
-//
-//		setListAdapter(CONS.BMActv.adpBML);
-		
 	}//protected void onCreate(Bundle savedInstanceState)
 
 	private void setup__3_setBMList() {
@@ -132,104 +57,26 @@ public class BMActv extends ListActivity {
 		 ***************************************/
 		DBUtils dbu = new DBUtils(this, CONS.dbName);
 		
-		List<BM> bmList = dbu.getBMList(this, ai.getDb_id());
+//		List<BM> bmList = dbu.getBMList(this, ai.getDb_id());
+		CONS.BMActv.bmList = dbu.getBMList(this, ai.getDb_id());
 		
 		// Log
 		Log.d("BMActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ ":"
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-				+ "]", "bmList=" + bmList);
-
-		/***************************************
-		 * Validate: bmList
-		 ***************************************/
-		//debug
-		if (bmList == null ) {
-			
-			// debug
-			Toast.makeText(this, "Can't build the bookmark list", Toast.LENGTH_LONG).show();
-			
-			// Log
-			Log.d("BMActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "Finishing...");
-			
-			finish();
-			
-		} else {//if (bmList == null || bmList.size() < 1)
-			
-			// Log
-			Log.d("BMActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "bmList != null");
-			
-		}//if (bmList == null || bmList.size() < 1)
-
-		// Log
-		Log.d("BMActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ ":"
-				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-				+ "]", "bmList=" + bmList);
-
-		if (bmList == null) {
-			
-			// Log
-			Log.d("BMActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "bmList => null");
-			
-			// debug
-			Toast.makeText(this, "Can't build the bookmark list", Toast.LENGTH_LONG).show();
-			
-			// Log
-			Log.d("BMActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "Finishing...");
-
-			finish();
-			
-		} else {//if (bmList == null)
-			
-			// Log
-			Log.d("BMActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ ":"
-					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-					+ "]", "bmList => Not null");
-			
-		}//if (bmList == null)
-		
-		
-//		if (bmList.size() < 1) {
-//			
-//			// debug
-//			Toast.makeText(this, "No bookmarks", Toast.LENGTH_LONG).show();
-//			
-//			finish();
-//			
-//			
-//		}//if (bmList == null || bmList.size() < 1)
+				+ "]", "bmList=" + CONS.BMActv.bmList);
 
 		/***************************************
 		 * 2. Set the list to adapter
 		 ***************************************/
-		if (bmList != null) {
+		if (CONS.BMActv.bmList != null) {
 			
 			CONS.BMActv.adpBML = new BMLAdapter(
 					this,
 					R.layout.listrow_actv_bm,
 	//				R.layout.actv_al,
-					bmList
+					CONS.BMActv.bmList
 					);
 	
 			setListAdapter(CONS.BMActv.adpBML);
@@ -244,16 +91,7 @@ public class BMActv extends ListActivity {
 					+ "]", "bmList => null");
 			
 		}//if (bmList != null)
-		
-//			CONS.BMActv.adpBML = new BMLAdapter(
-//					this,
-//					R.layout.listrow_actv_bm,
-//	//				R.layout.actv_al,
-//					bmList
-//					);
-//	
-//			setListAdapter(CONS.BMActv.adpBML);
-		
+
 	}//private void setup__3_setBMList()
 
 	private void setup__2_setData2TextViews(AI ai) {
@@ -399,7 +237,57 @@ public class BMActv extends ListActivity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-	}
+		
+		/***************************************
+		 * Get: AI db id
+		 ***************************************/
+		AI ai = setup__getAI();
+
+		/***************************************
+		 * Set: File name and others to the text views
+		 ***************************************/
+		if (ai != null) {
+			
+			setup__2_setData2TextViews(ai);
+			
+		} else {//if (ai != null)
+			
+			// Log
+			Log.d("BMActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "ai == null");
+			
+		}//if (ai != null)
+
+		/***************************************
+		 * Set: BM list
+		 * 1. Build a BM list
+		 * 2. Set the list to adapter
+		 ***************************************/
+		setup__3_setBMList();
+
+		/***************************************
+		 * Set: Listeners
+		 ***************************************/
+		setup__4_setListeners();
+		
+	}//protected void onStart()
+
+	private void setup__4_setListeners() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * 1. ListView
+		 ***************************************/
+		ListView lv = this.getListView();
+		
+		lv.setTag(Tags.ListTags.actv_bm_lv);
+		
+		lv.setOnItemLongClickListener(new ListOnItemLongClickListener(this));
+		
+		
+	}//private void setup__4_setListeners()
 
 	@Override
 	protected void onStop() {

@@ -7366,6 +7366,7 @@ public class Methods {
 		return aiList;
 		
 	}//List<AI> selectData_ai
-	
+
+
 }//public class Methods
 

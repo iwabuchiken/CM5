@@ -139,4 +139,6 @@
    	<!-- MainActv.java -->
    		<string name="main_quit">アプリを終了しますか？</string>
    	
+   	<!-- dlg_bmactv_list_long_click -->
+   		<string name="dlg_bmactv_list_long_click_title">ブックマーク</string>
 </resources>

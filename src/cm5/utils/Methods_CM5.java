@@ -61,5 +61,7 @@ public class Methods_CM5 {
 		return bmList;
 		
 	}//List<BM> getBMList_FromCursor(Activity actv, Cursor c)
+
+
 	
 }//public class Methods_CM5

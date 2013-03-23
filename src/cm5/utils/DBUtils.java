@@ -1659,7 +1659,8 @@ public class DBUtils extends SQLiteOpenHelper{
 			c = rdb.query(
 							CONS.DB.tname_BM,
 //							CONS.DBAdmin.col_purchaseSchedule,
-							CONS.DB.cols_bm,
+//							CONS.DB.cols_bm,
+							CONS.DB.cols_bm_full,
 //							CONS.DB.cols_bm[0], new String[]{String.valueOf(aiDbId)},
 							CONS.DB.cols_bm[0] + " = ?", new String[]{String.valueOf(aiDbId)},
 							null, null, null);
@@ -1727,6 +1728,7 @@ public class DBUtils extends SQLiteOpenHelper{
 				.setMemo(c.getString(c.getColumnIndex("memo")))
 				.setAiId(c.getLong(c.getColumnIndex("ai_id")))
 				.setAiTableName(c.getString(c.getColumnIndex("aiTableName")))
+				.setDbId(c.getLong(c.getColumnIndex(CONS.DB.cols_bm_full[0])))
 				.build();
 
 			bmList.add(bm);
@@ -1791,5 +1793,190 @@ public class DBUtils extends SQLiteOpenHelper{
 
 	}//updateData_bm()
 	
+	public int
+	getNumOfEntries(Activity actv, String table_name) {
+		/*********************************
+		 * memo
+		 *********************************/
+//		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase rdb = this.getReadableDatabase();
+
+		String sql = "SELECT * FROM " + table_name;
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+			return -1;
+		}
+		
+		int num_of_entries = c.getCount();
+		
+		rdb.close();
+
+		return num_of_entries;
+		
+	}//public int getNumOfEntries(Activity actv, String table_name)
+
+	public int
+	getNumOfEntries_BM(Activity actv, String table_name, long aiDbId) {
+		/*********************************
+		 * memo
+		 *********************************/
+//		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		SQLiteDatabase rdb = this.getReadableDatabase();
+
+		String sql = "SELECT * FROM " + table_name
+					+ " WHERE "
+					+ "ai_id = "
+					+ aiDbId;
+		
+		Cursor c = null;
+		
+		try {
+			
+			c = rdb.rawQuery(sql, null);
+			
+		} catch (Exception e) {
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			rdb.close();
+			
+			return -1;
+		}
+		
+		int num_of_entries = c.getCount();
+		
+		rdb.close();
+
+		return num_of_entries;
+		
+	}//public int getNumOfEntries_BM(Activity actv, String table_name, long aiDbId)
+
+	
+	public boolean deleteData_bm(Activity actv, long dbId) {
+		/*----------------------------
+		 * Steps
+		 * 1. Item exists in db?
+		 * 2. If yes, delete it
+			----------------------------*/
+		/***************************************
+		 * 1. Item exists in db?
+		 ***************************************/
+		SQLiteDatabase wdb = this.getWritableDatabase();
+		
+//		boolean result = DBUtils.isInDB_long_ai(db, tableName, db_id);
+		boolean result = this.isInDB_bm(wdb, dbId);
+		
+		if (result == false) {		// Result is false ==> Meaning the target data doesn't exist
+											//							in db; Hence, not executing delete op
+			
+			// debug
+			Toast.makeText(actv, 
+					"Data doesn't exist in db: " + String.valueOf(dbId), 
+					Toast.LENGTH_LONG).show();
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", 
+					"Data doesn't exist in db => " + String.valueOf(dbId));
+			
+			return false;
+			
+		} else {//if (result == false)
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", 
+					"Data exists in db" + String.valueOf(dbId) + ")");
+			
+		}//if (result == false)
+		
+
+		/***************************************
+		 * Delete data
+		 ***************************************/
+		String sql = 
+						"DELETE FROM " + CONS.DB.tname_BM
+						+ " WHERE "
+						+ CONS.DB.cols_bm_full[0] + " = '"
+						+ String.valueOf(dbId) + "'";
+		
+		try {
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Sql executed: " + sql);
+
+			wdb.close();
+			
+			return true;
+			
+		} catch (SQLException e) {
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString());
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql=" + sql);
+			
+			wdb.close();
+			
+			return false;
+			
+		}//try
+		
+	}//public boolean deleteData_bm(Activity actv, long dbId)
+
+	private boolean
+	isInDB_bm(SQLiteDatabase wdb, long dbId) {
+		String sql = "SELECT COUNT(*) FROM "
+					+ CONS.DB.tname_BM
+					+ " WHERE "
+					+ CONS.DB.cols_bm_full[0] + " = '"
+					+ String.valueOf(dbId) + "'";
+
+//		long result = DatabaseUtils.longForQuery(db, sql, null);
+		long result = DatabaseUtils.longForQuery(wdb, sql, null);
+		
+		// Log
+		Log.d("DBUtils.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]", "result => " + String.valueOf(result));
+		
+		if (result > 0) {
+		
+			return true;
+			
+		} else {//if (result > 0)
+			
+			return false;
+			
+		}//if (result > 0)
+		
+	}//isInDB_bm(SQLiteDatabase wdb, long dbId)
+
 }//public class DBUtils
 

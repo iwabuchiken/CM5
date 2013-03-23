@@ -81,6 +81,21 @@ public class BMLAdapter extends ArrayAdapter<BM> {
     	tvPosition.setText(
     			Methods.convert_intSec2Digits_lessThanHour((int) (bm.getPosition() / 1000)));//
 
+    	/***************************************
+		 * Set: Title
+		 ***************************************/
+    	TextView tvTitle = (TextView) v.findViewById(R.id.listrow_actv_bm_tv_title);
+    	
+    	tvTitle.setText(bm.getTitle());//
+    	
+    	/***************************************
+		 * Set: Memo
+		 ***************************************/
+    	TextView tvMemo = (TextView) v.findViewById(R.id.listrow_actv_bm_tv_memo);
+    	
+    	tvMemo.setText(bm.getMemo());//
+    	
+    	
 		return v;
 		
     }//public View getView(int position, View convertView, ViewGroup parent)

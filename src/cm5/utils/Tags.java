@@ -89,6 +89,9 @@ public class Tags {
 		// main_opt_menu_admin
 		main_opt_menu_admin,
 		
+		// dlg_bmactv_list_long_click
+		dlg_bmactv_list_long_click,
+		
 	}//public static enum DialogItemTags
 	
 	
@@ -161,6 +164,9 @@ public class Tags {
 	public static enum ListTags {
 		// MainActivity.java
 		actv_main_lv,
+		
+		// BMActv.java
+		actv_bm_lv,
 		
 	}//public static enum ListTags
 

@@ -302,6 +302,30 @@ public class PlayActv extends Activity {
 			
 		}//if (length == condition)
 		
+		/***************************************
+		 * Set: Current position
+		 ***************************************/
+		TextView tvCurrentPosition = (TextView) findViewById(R.id.actv_play_tv_current_position);
+		
+		long prefPosition = 
+				Methods.getPref_long(
+						this,
+						CONS.Pref.pname_PlayActv,
+						CONS.Pref.pkey_PlayActv_position,
+						-1);
+
+		if (prefPosition >= 0) {
+
+			tvCurrentPosition.setText(
+					Methods.convert_intSec2Digits_lessThanHour((int)prefPosition / 1000));
+
+		} else {//if (prefPosition >= 0)
+
+			tvCurrentPosition.setText(
+					Methods.convert_intSec2Digits_lessThanHour(0));
+			
+		}//if (prefPosition >= 0)
+		
 	}//private void setup_1_setStrings2Views()
 	
 
