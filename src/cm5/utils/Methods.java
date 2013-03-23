@@ -3899,6 +3899,19 @@ public class Methods {
 
 	}//public static boolean set_pref(String pref_name, String value)
 
+	public static long
+	getPref_long
+	(Activity actv, String pref_name, String pref_key, long defValue) {
+		SharedPreferences prefs = 
+				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
+
+		/****************************
+		 * Return
+			****************************/
+		return prefs.getLong(pref_key, defValue);
+
+	}//public static boolean getPref_long(Activity actv, String pref_name, String pref_key, long defValue)
+
 	public static int get_pref(Activity actv, String pref_name, String pref_key, int defValue) {
 		SharedPreferences prefs = 
 				actv.getSharedPreferences(pref_name, MainActv.MODE_PRIVATE);
@@ -6597,6 +6610,22 @@ public class Methods {
 
 		}//try
 
+		/***************************************
+		 * Position set in the preference?
+		 ***************************************/
+		long prefPosition = 
+				Methods.getPref_long(
+						actv,
+						CONS.Pref.pname_PlayActv,
+						CONS.Pref.pkey_PlayActv_position,
+						-1);
+		
+		if (prefPosition >= 0) {
+			
+			PlayActv.mp.seekTo((int) prefPosition);
+			
+		}//if (prefPosition == condition)
+		
 		/*********************************
 		 * 5. Start
 		 *********************************/
