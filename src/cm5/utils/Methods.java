@@ -6636,6 +6636,7 @@ public class Methods {
 		//
 //		i.putExtra("counter", timeLeft);
 		
+		
 		// Log
 		Log.d("DialogOnItemClickListener.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()

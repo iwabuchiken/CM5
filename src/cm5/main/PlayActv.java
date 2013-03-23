@@ -305,7 +305,8 @@ public class PlayActv extends Activity {
 		/***************************************
 		 * Set: Current position
 		 ***************************************/
-		TextView tvCurrentPosition = (TextView) findViewById(R.id.actv_play_tv_current_position);
+//		TextView tvCurrentPosition = (TextView) findViewById(R.id.actv_play_tv_current_position);
+		CONS.PlayActv.tvCurrentPosition = (TextView) findViewById(R.id.actv_play_tv_current_position);
 		
 		long prefPosition = 
 				Methods.getPref_long(
@@ -316,12 +317,12 @@ public class PlayActv extends Activity {
 
 		if (prefPosition >= 0) {
 
-			tvCurrentPosition.setText(
+			CONS.PlayActv.tvCurrentPosition.setText(
 					Methods.convert_intSec2Digits_lessThanHour((int)prefPosition / 1000));
 
 		} else {//if (prefPosition >= 0)
 
-			tvCurrentPosition.setText(
+			CONS.PlayActv.tvCurrentPosition.setText(
 					Methods.convert_intSec2Digits_lessThanHour(0));
 			
 		}//if (prefPosition >= 0)
@@ -681,5 +682,31 @@ public class PlayActv extends Activity {
 //				+ "]", "PlayActv.mp.isPlaying()=" + PlayActv.mp.isPlaying());
 
 	}//onActivityResult_BM_OK(Intent data)
+
+	
+	public void updateProgressLabel() {
+		
+		int currentPosition = PlayActv.mp.getCurrentPosition();
+		
+//		// Log
+//		Log.d("PlayActv.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "currentPosition=" + currentPosition);
+		
+//		TextView tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+		if (CONS.PlayActv.tvCurrentPosition == null) {
+
+			CONS.PlayActv.tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+			
+		}//if (CONS.PlayActv.tvCurrentPosition == null)
+//		CONS.PlayActv.tvCurrentPosition = (TextView) this.findViewById(R.id.actv_play_tv_current_position);
+		
+		
+		CONS.PlayActv.tvCurrentPosition.setText(
+					Methods.convert_intSec2Digits_lessThanHour((int)currentPosition / 1000));
+		
+	}
 	
 }//public class PlayActv extends Activity

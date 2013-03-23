@@ -13,6 +13,7 @@ import cm5.items.SearchedItem;
 import android.content.SharedPreferences;
 import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class CONS {
 
@@ -298,6 +299,12 @@ public class CONS {
 		public static final String pname_PlayActv = "pname_PlayActv";
 		
 		public static final String pkey_PlayActv_position = "prefKey_PlayActv_position";
+		
+	}
+
+	public static class PlayActv {
+	
+		public static TextView tvCurrentPosition;
 		
 	}
 	
