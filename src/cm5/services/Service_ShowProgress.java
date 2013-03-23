@@ -103,38 +103,197 @@ public class Service_ShowProgress extends Service {
 					@Override
 					public void run() {
 						
-//						// Log
-//						Log.d("Service_ShowProgress.java"
-//								+ "["
-//								+ Thread.currentThread().getStackTrace()[2]
-//										.getLineNumber()
-//								+ ":"
-//								+ Thread.currentThread().getStackTrace()[2]
-//										.getMethodName() + "]",
-//								"counter=" + counter);
-						
-						if (PlayActv.mp != null) {
-							
-//							// Log
-//							Log.d("Service_ShowProgress.java"
-//									+ "["
-//									+ Thread.currentThread().getStackTrace()[2]
-//											.getLineNumber()
-//									+ ":"
-//									+ Thread.currentThread().getStackTrace()[2]
-//											.getMethodName() + "]",
-//									"PlayActv.mp.getCurrentPosition()="
-//									+ PlayActv.mp.getCurrentPosition());
 
-//							int currentPosition = PlayActv.mp.getCurrentPosition();
+						if (PlayActv.mp != null) {
 							
 							handler.post(new Runnable(){
 
 //								@Override
 								public void run() {
-									
+									/***************************************
+									 * Update: Progress label
+									 ***************************************/
 //									PlayActv.updateProgressLabel(actv);
 									new PlayActv().updateProgressLabel();
+									
+									/***************************************
+									 * Update: Seekbar
+									 ***************************************/
+									if (PlayActv.mp != null
+//											&& !PlayActv.sb.isInTouchMode()) {
+											&& !PlayActv.sb.isPressed()) {
+										
+										// Log
+										Log.d("Service_ShowProgress.java"
+												+ "["
+												+ Thread.currentThread()
+														.getStackTrace()[2]
+														.getLineNumber()
+												+ ":"
+												+ Thread.currentThread()
+														.getStackTrace()[2]
+														.getMethodName() + "]",
+												"PlayActv.mp != null && " +
+//												"!PlayActv.sb.isInTouchMode()");
+												"!PlayActv.sb.isPressed()");
+										
+										int currentPosition = PlayActv.mp.getCurrentPosition();
+										long length = PlayActv.ai.getLength();
+										
+										int seekPositon = (int)
+//													((currentPosition / length)
+													(((float)currentPosition / length)
+															* PlayActv.sb.getMax());
+//										
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"currentPosition=" + currentPosition
+//												+ "/"
+//												+ "length=" + length);
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"seekPositon=" + seekPositon);
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"(float)currentPosition / length => "
+//												+ (float)currentPosition / length);
+//										
+										PlayActv.sb.setProgress(seekPositon);
+										
+									} else {//if (PlayActv.mp == null)
+										
+										// Log
+										Log.d("Service_ShowProgress.java"
+												+ "["
+												+ Thread.currentThread()
+														.getStackTrace()[2]
+														.getLineNumber()
+												+ ":"
+												+ Thread.currentThread()
+														.getStackTrace()[2]
+														.getMethodName() + "]",
+												"NO");
+										
+									}//if (PlayActv.mp == null)
+									
+//									//debug
+//									if (PlayActv.mp != null) {
+//										
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"PlayActv.mp != null");
+//										
+//									} else {//if (PlayActv.mp != null)
+//										
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"PlayActv.mp == null");
+//										
+//									}//if (PlayActv.mp != null)
+//									
+									
+//									//debug
+//									if (!PlayActv.sb.isInTouchMode()) {
+//										
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"!PlayActv.sb.isInTouchMode()");
+//										
+//									} else {//if (!PlayActv.sb.isInTouchMode())
+//
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"PlayActv.sb.isInTouchMode()");
+//
+//									}//if (!PlayActv.sb.isInTouchMode())
+									
+//									if (!PlayActv.sb.isFocused()) {	//=> true when touching with the finger
+//									if (!PlayActv.sb.isPressed()) {	//=> When touching with the finger, "isPressed()" gets true
+//										
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"!PlayActv.sb.isPressed()");
+//										
+//									} else {//if (!PlayActv.sb.isPressed())
+//
+//										// Log
+//										Log.d("Service_ShowProgress.java"
+//												+ "["
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getLineNumber()
+//												+ ":"
+//												+ Thread.currentThread()
+//														.getStackTrace()[2]
+//														.getMethodName() + "]",
+//												"PlayActv.sb.isPressed()");
+//
+//									}//if (!PlayActv.sb.isFocused())
+									
 									
 								}//public void run() // Runnable
 								

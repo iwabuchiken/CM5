@@ -35,6 +35,8 @@ public class PlayActv extends Activity {
 	public static AI ai;
 	
 	public static MediaPlayer mp = null;
+
+	public static SeekBar sb;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -140,7 +142,8 @@ public class PlayActv extends Activity {
 		/***************************************
 		 * Seekbar
 		 ***************************************/
-		SeekBar sb = (SeekBar) findViewById(R.id.actv_play_sb);
+//		SeekBar sb = (SeekBar) findViewById(R.id.actv_play_sb);
+		sb = (SeekBar) findViewById(R.id.actv_play_sb);
 		
 		sb.setOnSeekBarChangeListener(new SeekBarChangeListener(this, sb));
 		
