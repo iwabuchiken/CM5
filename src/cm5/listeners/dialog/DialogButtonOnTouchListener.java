@@ -31,7 +31,7 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 
 //	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		// TODO ©“®¶¬‚³‚ê‚½ƒƒ\ƒbƒhEƒXƒ^ƒu
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½Eï¿½Xï¿½^ï¿½u
 		Tags.DialogTags tag_name = (Tags.DialogTags) v.getTag();
 		
 		switch (event.getActionMasked()) {
@@ -64,7 +64,8 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 					
 				case dlg_edit_title_bt_ok:
 					
-
+				case dlg_edit_item_bt_ok:
+					
 					//
 					v.setBackgroundColor(Color.GRAY);
 					
@@ -101,6 +102,8 @@ public class DialogButtonOnTouchListener implements OnTouchListener {
 			case dlg_confirm_delete_patterns_ok:
 				
 			case dlg_edit_title_bt_ok:
+				
+			case dlg_edit_item_bt_ok:
 				
 				//
 					v.setBackgroundColor(Color.WHITE);

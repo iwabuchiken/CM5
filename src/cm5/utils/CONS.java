@@ -292,6 +292,12 @@ public class CONS {
 		
 		public static List<BM> bmList;
 		
+		public static enum SortOrder {
+			
+			POSITION,
+			
+		}
+		
 	}
 	
 	public static class Pref {
@@ -305,6 +311,12 @@ public class CONS {
 	public static class PlayActv {
 	
 		public static TextView tvCurrentPosition;
+		
+	}
+	
+	public static class Admin {
+		
+		public static final float DLG_WIDTH_RATIO = 0.8f;
 		
 	}
 	

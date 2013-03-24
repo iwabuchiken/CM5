@@ -1,6 +1,10 @@
 package cm5.listeners.dialog;
 
 import cm5.items.AI;
+import cm5.items.BM;
+import cm5.main.R;
+import cm5.utils.CONS;
+import cm5.utils.DBUtils;
 import cm5.utils.Methods;
 import cm5.utils.Methods_dialog;
 import cm5.utils.Tags;
@@ -19,11 +23,12 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		----------------------------*/
 	//
 	Activity actv;
-	Dialog dlg;
+	Dialog dlg1;
 	Dialog dlg2;		//=> Used in dlg_input_empty_btn_XXX
 	Dialog dlg3;
 
 	AI ai;
+	BM bm;
 	
 	//
 	Vibrator vib;
@@ -32,10 +37,10 @@ public class DialogButtonOnClickListener implements OnClickListener {
 	long file_id;
 	String tableName;
 	
-	public DialogButtonOnClickListener(Activity actv, Dialog dlg) {
+	public DialogButtonOnClickListener(Activity actv, Dialog dlg1) {
 		//
 		this.actv = actv;
-		this.dlg = dlg;
+		this.dlg1 = dlg1;
 		
 		//
 		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
@@ -45,7 +50,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			Dialog dlg2) {
 		//
 		this.actv = actv;
-		this.dlg = dlg1;
+		this.dlg1 = dlg1;
 		this.dlg2 = dlg2;
 		
 		//
@@ -56,7 +61,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			Dialog dlg2, Dialog dlg3) {
 		//
 		this.actv = actv;
-		this.dlg = dlg1;
+		this.dlg1 = dlg1;
 		this.dlg2 = dlg2;
 		this.dlg3 = dlg3;
 		
@@ -64,10 +69,10 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
 	}
 
-	public DialogButtonOnClickListener(Activity actv, Dialog dlg, long file_id, String tableName) {
+	public DialogButtonOnClickListener(Activity actv, Dialog dlg1, long file_id, String tableName) {
 		// 
 		this.actv = actv;
-		this.dlg = dlg;
+		this.dlg1 = dlg1;
 		
 		this.tableName = tableName;
 		
@@ -75,19 +80,44 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		
 		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
 		
-	}//public DialogButtonOnClickListener(Activity actv, Dialog dlg, long file_id, String tableName)
+	}//public DialogButtonOnClickListener(Activity actv, Dialog dlg1, long file_id, String tableName)
 
 //	@Override
-	public DialogButtonOnClickListener(Activity actv, Dialog dlg, AI ai) {
+	public DialogButtonOnClickListener(Activity actv, Dialog dlg1, AI ai) {
 
 		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
 		
 		this.actv = actv;
-		this.dlg = dlg;
+		this.dlg1 = dlg1;
 		
 		this.ai = ai;
 
 	}//public DialogButtonOnClickListener(Activity actv2, Dialog dlg4, AI ai)
+
+	public DialogButtonOnClickListener(Activity actv, Dialog dlg1, BM bm) {
+		// TODO Auto-generated constructor stub
+		this.actv = actv;
+		this.dlg1 = dlg1;
+		this.bm = bm;
+		
+		//
+		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
+
+	}
+
+	public DialogButtonOnClickListener(Activity actv, Dialog dlg1,
+			Dialog dlg2, BM bm) {
+		// TODO Auto-generated constructor stub
+		this.actv = actv;
+		this.dlg1 = dlg1;
+		this.dlg2 = dlg2;
+		
+		this.bm = bm;
+		
+		//
+		vib = (Vibrator) actv.getSystemService(actv.VIBRATOR_SERVICE);
+
+	}
 
 	public void onClick(View v) {
 		//
@@ -104,7 +134,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			vib.vibrate(Methods.vibLength_click);
 			
-			dlg.dismiss();
+			dlg1.dismiss();
 			
 			break;
 
@@ -126,13 +156,13 @@ public class DialogButtonOnClickListener implements OnClickListener {
 
 		case dlg_create_folder_cancel://---------------------------------------------
 			
-			dlg.dismiss();
+			dlg1.dismiss();
 			
 			break;// case dlg_create_folder_cancel
 
 		case dlg_create_folder_ok://--------------------------------------------------
 			
-			Methods_dialog.dlg_isEmpty(actv, dlg);
+			Methods_dialog.dlg_isEmpty(actv, dlg1);
 			
 			break;// case dlg_create_folder_ok
 
@@ -145,7 +175,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		case dlg_input_empty_cancel://---------------------------------------------
 			
 			dlg2.dismiss();
-			dlg.dismiss();
+			dlg1.dismiss();
 			
 			break;// case dlg_input_empty_cancel
 
@@ -158,7 +188,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		// dlg_confirm_create_folder.xml
 		case dlg_confirm_create_folder_ok://---------------------------------------------
 			
-			Methods.createFolder(actv, dlg, dlg2);
+			Methods.createFolder(actv, dlg1, dlg2);
 			
 			// debug
 //			Toast.makeText(actv, "Create folder", Toast.LENGTH_SHORT).show();
@@ -167,14 +197,14 @@ public class DialogButtonOnClickListener implements OnClickListener {
 
 		case dlg_confirm_remove_folder_cancel://---------------------------------------------
 			
-			dlg.dismiss();
+			dlg1.dismiss();
 			
 			break;// case dlg_confirm_remove_folder_cancel
 
 		// dlg_confirm_remove_folder.xml
 		case dlg_confirm_remove_folder_ok://---------------------------------------------
 			
-			Methods.removeFolder(actv, dlg);
+			Methods.removeFolder(actv, dlg1);
 			
 			break;// case dlg_confirm_remove_folder_ok
 
@@ -182,7 +212,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		case dlg_confirm_move_files_ok: // ----------------------------------------------------
 			
 			case_dlg_confirm_move_files_ok();
-//			Methods.moveFiles(actv, dlg, dlg2);
+//			Methods.moveFiles(actv, dlg1, dlg2);
 			
 			break;
 
@@ -201,7 +231,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			vib.vibrate(Methods.vibLength_click);
 			
-			Methods.addMemo(actv, dlg, file_id, tableName);
+			Methods.addMemo(actv, dlg1, file_id, tableName);
 			
 			break;// case dlg_add_memos_bt_add
 
@@ -209,14 +239,14 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			vib.vibrate(Methods.vibLength_click);
 			
-//			Methods.dlg_register_patterns_isInputEmpty(actv, dlg);
-			Methods_dialog.dlg_register_patterns_isInputEmpty(actv, dlg, dlg2);
+//			Methods.dlg_register_patterns_isInputEmpty(actv, dlg1);
+			Methods_dialog.dlg_register_patterns_isInputEmpty(actv, dlg1, dlg2);
 			
 			break;
 
 		case dlg_confirm_delete_patterns_ok:// ----------------------------------------------------
 			
-			Methods.delete_patterns(actv, dlg, dlg2, dlg3);
+			Methods.delete_patterns(actv, dlg1, dlg2, dlg3);
 			
 			break;// case dlg_confirm_delete_patterns_ok
 			
@@ -224,37 +254,123 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			
 			vib.vibrate(Methods.vibLength_click);
 			
-			Methods.searchItem(actv, dlg);
+			Methods.searchItem(actv, dlg1);
 			
 			break;// case dlg_search_ok
 
 		case dlg_edit_title_bt_ok://----------------------------------------
 			
-			Methods.edit_title(actv, dlg, ai);
+			Methods.edit_title(actv, dlg1, ai);
 			
 			break;// case dlg_edit_title_bt_ok
 			
 		case dlg_edit_memo_bt_ok://----------------------------------------
 			
-			Methods.edit_memo(actv, dlg, ai);
+			Methods.edit_memo(actv, dlg1, ai);
 			
 			break;// case dlg_edit_memo_bt_ok
 			
 		case dlg_confirm_move_files_search_ok: // ----------------------------------------------------
 			
 			case_dlg_confirm_move_files_search_ok();
-//			Methods.moveFiles(actv, dlg, dlg2);
+//			Methods.moveFiles(actv, dlg1, dlg2);
 			
 			break;
 
+		case dlg_edit_item_bt_ok:// ----------------------------------------------------
+			
+			case_dlg_edit_item_bt_ok();
+			
+			break;// case dlg_edit_item_bt_ok
+			
 		default: // ----------------------------------------------------
 			break;
 		}//switch (tag_name)
 	}//public void onClick(View v)
 
+	private void case_dlg_edit_item_bt_ok() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Get data
+		 ***************************************/
+		EditText etTitle = (EditText) dlg2.findViewById(R.id.dlg_edit_item_et_title);
+		EditText etMemo = (EditText) dlg2.findViewById(R.id.dlg_edit_item_et_memo);
+
+		/***************************************
+		 * Set: New data to bm instance
+		 ***************************************/
+		bm.setTitle(etTitle.getText().toString());
+		bm.setMemo(etMemo.getText().toString());
+		
+		/***************************************
+		 * Store data to db
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+////		boolean res = dbu.deleteData_bm(actv, bm.getDbId());
+		boolean res = dbu.updateData_BM_TitleAndMemo(
+							actv,
+							bm.getDbId(),
+							bm);
+		
+//		// Log
+//		Log.d("DialogButtonOnClickListener.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ ":"
+//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//				+ "]", "bm.getDbId()=" + bm.getDbId());
+		
+		/***************************************
+		 * Update: bmList
+		 * 1. Remove the original bm element, using bm.getDbId()
+		 * 2. Add to the list the new bm element
+		 ***************************************/
+		/***************************************
+		 * 1. Remove the original bm element, using bm.getDbId()
+		 ***************************************/
+		for (int i = 0; i < CONS.BMActv.bmList.size(); i++) {
+			
+			BM b = CONS.BMActv.bmList.get(i);
+			
+			if (b.getDbId() == bm.getDbId()) {
+				
+//				// Log
+//				Log.d("DialogButtonOnClickListener.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber()
+//						+ ":"
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getMethodName() + "]",
+//						"FOUND!:  b=" + b.getDbId()
+//						+ "/"
+//						+ "bm=" + bm.getDbId());
+				
+				CONS.BMActv.bmList.remove(b);
+				
+				CONS.BMActv.bmList.add(bm);
+
+				Methods.sortList_BM(CONS.BMActv.bmList, CONS.BMActv.SortOrder.POSITION);
+				
+				break;
+				
+			}//if (b.getDbId() == bm.getDbId())
+			
+		}//for (int i = 0; i < CONS.BMActv.bmList.size(); i++)
+		
+		CONS.BMActv.adpBML.notifyDataSetChanged();
+		
+		/***************************************
+		 * If successful, close dialog
+		 ***************************************/
+		dlg2.dismiss();
+		dlg1.dismiss();
+		
+	}//private void case_dlg_edit_item_bt_ok()
+
 	private void case_dlg_confirm_move_files_ok() {
 		// TODO Auto-generated method stub
-		Methods.moveFiles(actv, dlg, dlg2);
+		Methods.moveFiles(actv, dlg1, dlg2);
 	}
 
 	private void case_dlg_confirm_move_files_search_ok() {
@@ -263,7 +379,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 //		// debug
 //		Toast.makeText(actv, "Move files", Toast.LENGTH_LONG).show();
 		
-		Methods.moveFiles_search(actv, dlg, dlg2);
+		Methods.moveFiles_search(actv, dlg1, dlg2);
 	}
 
 }//DialogButtonOnClickListener

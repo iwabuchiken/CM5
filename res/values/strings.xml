@@ -143,4 +143,10 @@
    	
    	<!-- dlg_bmactv_list_long_click -->
    		<string name="dlg_bmactv_list_long_click_title">ブックマーク</string>
+   		
+   	<!-- dlg_edit_item.xml -->
+   		<string name="dlg_edit_item_title">Edit bookmark</string>
+   		<string name="dlg_edit_item_bm_title">タイトル</string>
+   		<string name="dlg_edit_item_memo">メモ</string>
+   		
 </resources>
