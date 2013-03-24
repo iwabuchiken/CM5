@@ -64,6 +64,9 @@ public class Tags {
 		// dlg_confirm_move_files_search	=> ok, cancel, dlg tag
 		dlg_confirm_move_files_search_ok,
 		
+		// dlg_edit_item.xml
+		dlg_edit_item_bt_ok,
+		
 		
 	}//public static enum DialogTags
 	

@@ -72,6 +72,7 @@ import cm5.listeners.dialog.DialogOnItemClickListener;
 import cm5.listeners.dialog.DialogOnItemLongClickListener;
 import cm5.main.ALActv;
 import cm5.main.MainActv;
+import cm5.utils.CONS.BMActv.SortOrder;
 import cm5.utils.CONS.SORT_ORDER;
 import cm5.main.PlayActv;
 import cm5.main.PrefActv;
@@ -6796,32 +6797,6 @@ public class Methods {
 //			@Override
 			public int compare(AI a1, AI a2) {
 				
-//				// Log
-//				Log.d("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]",
-//						"sort_list_ai_created_at() # compare()");
-//				
-//				// Log
-//				Log.d("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", "a1(" + a1.getFile_name() + ")=" + a1.getCreated_at()
-//								+ "/a2(" + a2.getFile_name() + ")=" + a2.getCreated_at());
-//				
-//				// Log
-//				Log.d("Methods.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]", "(a1.getCreated_at() - a2.getCreated_at())=" + (a1.getCreated_at() - a2.getCreated_at()));
-				
-				// TODO �����������ꂽ���\�b�h�E�X�^�u
-				
-//				return (int) (lhs.getDate_added() - rhs.getDate_added());
-				
-//				return (int) (a1.getFile_name().compareToIgnoreCase(a2.getFile_name()));
-				
 				int res;
 				
 				switch (dec) {
@@ -7407,6 +7382,44 @@ public class Methods {
 		return aiList;
 		
 	}//List<AI> selectData_ai
+
+	
+	public static void
+	sortList_BM(List<BM> bmList, final SortOrder order) {
+		// TODO Auto-generated method stub
+		Collections.sort(bmList, new Comparator<BM>(){
+
+//			@Override
+			public int compare(BM b1, BM b2) {
+				
+				int res;
+				
+				switch (order) {
+				
+				case POSITION:
+					
+//					res = (int) (a1.getCreated_at() - a2.getCreated_at());
+//					res = a1.getFile_name().compareTo(a2.getFile_name());
+					res = (int)(b1.getPosition() - b2.getPosition());
+					
+					break;
+					
+				default:
+					
+					res = 1;
+					
+					break;
+					
+				}//switch (order)
+				
+				return res;
+				
+//				return (int) (a1.getCreated_at() - a2.getCreated_at());
+			}//public int compare(BM b1, BM b2)
+			
+		});//Collections.sort()
+		
+	}//sortList_BM(List<BM> bmList, SortOrder order)
 
 
 }//public class Methods

@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cm5.items.AI;
+import cm5.items.BM;
 import cm5.items.TI;
 import cm5.listeners.dialog.DialogButtonOnClickListener;
 import cm5.listeners.dialog.DialogButtonOnTouchListener;
@@ -311,6 +312,109 @@ public class Methods_dialog {
 		return dlg;
 	
 	}//public static Dialog dlg_template_okCancel()
+
+	public static
+	Dialog dlg_template_okCancel
+		(Activity actv, int layoutId, int titleStringId,
+			int okButtonId, int cancelButtonId,
+			Tags.DialogTags okTag, Tags.DialogTags cancelTag,
+			BM bm) {
+		/****************************
+		* Steps
+		* 1. Set up
+		* 2. Add listeners => OnTouch
+		* 3. Add listeners => OnClick
+		****************************/
+		
+		// 
+		Dialog dlg = new Dialog(actv);
+		
+		//
+		dlg.setContentView(layoutId);
+		
+		// Title
+		dlg.setTitle(titleStringId);
+		
+		/****************************
+		* 2. Add listeners => OnTouch
+		****************************/
+		//
+		Button btn_ok = (Button) dlg.findViewById(okButtonId);
+		Button btn_cancel = (Button) dlg.findViewById(cancelButtonId);
+		
+		//
+		btn_ok.setTag(okTag);
+		btn_cancel.setTag(cancelTag);
+		
+		//
+		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg));
+		
+		/****************************
+		* 3. Add listeners => OnClick
+		****************************/
+		//
+		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg, bm));
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg));
+		
+		//
+		//dlg.show();
+		
+		return dlg;
+	
+	}//public static Dialog dlg_template_okCancel()
+
+	public static
+	Dialog dlg_template_okCancel_SecondDialog
+		(Activity actv, int layoutId, int titleStringId,
+			int okButtonId, int cancelButtonId,
+			Tags.DialogTags okTag, Tags.DialogTags cancelTag,
+			
+			Dialog dlg1, BM bm) {
+		/****************************
+		* Steps
+		* 1. Set up
+		* 2. Add listeners => OnTouch
+		* 3. Add listeners => OnClick
+		****************************/
+		
+		// 
+		Dialog dlg2 = new Dialog(actv);
+		
+		//
+		dlg2.setContentView(layoutId);
+		
+		// Title
+		dlg2.setTitle(titleStringId);
+		
+		/****************************
+		* 2. Add listeners => OnTouch
+		****************************/
+		//
+		Button btn_ok = (Button) dlg2.findViewById(okButtonId);
+		Button btn_cancel = (Button) dlg2.findViewById(cancelButtonId);
+		
+		//
+		btn_ok.setTag(okTag);
+		btn_cancel.setTag(cancelTag);
+		
+		//
+		btn_ok.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+		btn_cancel.setOnTouchListener(new DialogButtonOnTouchListener(actv, dlg2));
+		
+		/****************************
+		* 3. Add listeners => OnClick
+		****************************/
+		//
+		btn_ok.setOnClickListener(new DialogButtonOnClickListener(actv, dlg1, dlg2, bm));
+		btn_cancel.setOnClickListener(new DialogButtonOnClickListener(actv, dlg2));
+		
+		//
+		//dlg2.show();
+		
+		return dlg2;
+	
+	}//public static Dialog dlg_template_okCancel_SecondDialog()
 
 	public static void dlg_confirm_moveFiles(Activity actv, Dialog dlg, String folderPath) {
 		/****************************

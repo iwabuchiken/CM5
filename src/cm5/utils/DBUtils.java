@@ -220,7 +220,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			return true;
 		} catch (SQLException e) {
 			// Log
-			Log.d(this.getClass().getName() + 
+			Log.e(this.getClass().getName() + 
 					"[" + Thread.currentThread().getStackTrace()[2].getLineNumber() + "]", 
 					"Exception => " + e.toString());
 			
@@ -298,7 +298,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		} catch (SQLException e) {
 			
 			// Log
-			Log.d(this.getClass().getName() + 
+			Log.e(this.getClass().getName() + 
 					"[" + Thread.currentThread().getStackTrace()[2].getLineNumber() + "]", 
 					"Exception => " + e.toString());
 			
@@ -908,7 +908,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} catch (SQLException e) {
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
 			
@@ -965,7 +965,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} catch (SQLException e) {
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 			+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
 			
@@ -1045,7 +1045,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} catch (SQLException e) {
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 			
@@ -1117,12 +1117,12 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} catch (SQLException e) {
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString());
 			
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "sql=" + sql);
 			
@@ -1541,7 +1541,7 @@ public class DBUtils extends SQLiteOpenHelper{
 				
 			} catch (SQLException e) {
 				// Log
-				Log.d("DBUtils.java" + "["
+				Log.e("DBUtils.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
 				
@@ -1582,7 +1582,7 @@ public class DBUtils extends SQLiteOpenHelper{
 		} catch (SQLException e) {
 
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 			+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 			+ "]", "Exception => " + e.toString());
 
@@ -1782,7 +1782,7 @@ public class DBUtils extends SQLiteOpenHelper{
 			
 		} catch (SQLException e) {
 			// Log
-			Log.d("DBUtils.java" + "["
+			Log.e("DBUtils.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
 			
@@ -1977,6 +1977,62 @@ public class DBUtils extends SQLiteOpenHelper{
 		}//if (result > 0)
 		
 	}//isInDB_bm(SQLiteDatabase wdb, long dbId)
+
+	
+	public boolean
+	updateData_BM_TitleAndMemo(Activity actv, long dbId, BM bm) {
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		SQLiteDatabase wdb = this.getWritableDatabase();
+		
+		/***************************************
+		 * Build SQL
+		 ***************************************/
+//			0		1			2		3		4
+//		"ai_id", "position", "title", "memo", "aiTableName"
+		
+		String sql =
+				"UPDATE " + CONS.DB.tname_BM + " SET " + 
+				
+				CONS.DB.cols_bm[2] + "='" + bm.getTitle() + "', " + 
+				CONS.DB.cols_bm[3] + "='" + bm.getMemo() + "' " +
+				
+				" WHERE " + CONS.DB.cols_bm_full[0] + " = '"
+				+ String.valueOf(bm.getDbId()) + "'";
+		
+		/***************************************
+		 * Exec: Query
+		 ***************************************/
+		try {
+			
+			wdb.execSQL(sql);
+			
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "sql => Done: " + sql);
+			
+		//	Methods.toastAndLog(actv, "Data updated", 2000);
+
+			wdb.close();
+			
+			return true;
+			
+			
+		} catch (SQLException e) {
+			// Log
+			Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Exception => " + e.toString() + " / " + "sql: " + sql);
+			
+			wdb.close();
+			
+			return false;
+			
+		}//try
+		
+	}//updateData_bm_full(Activity actv, long dbId, BM bm)
 
 }//public class DBUtils
 
