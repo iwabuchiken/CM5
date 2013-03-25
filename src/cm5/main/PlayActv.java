@@ -493,16 +493,6 @@ public class PlayActv extends Activity {
 		/***************************************
 		 * Set: Preference
 		 ***************************************/
-//		SharedPreferences prefs =
-//							this.getSharedPreferences(
-//									CONS.Pref.pname_PlayActv,
-//									Context.MODE_PRIVATE);
-//		
-//		SharedPreferences.Editor editor = prefs.edit();
-//		
-//		editor.putLong(CONS.Pref.pkey_PlayActv_position, position);
-//		editor.commit();
-
 		boolean res = 
 				Methods.setPref_long(
 						this,
@@ -515,183 +505,21 @@ public class PlayActv extends Activity {
 				+ ":"
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", "Position => Stored in a preference");
-		
-//		/***************************************
-//		 * Set OnClickListener to the button "Stop"
-//		 ***************************************/
-//		/*********************************
-//		 * 2. Button => Stop
-//		 *********************************/
-//		Button bt_stop = (Button) findViewById(R.id.actv_play_bt_stop);
-//		
-//		bt_stop.setTag(Tags.ButtonTags.actv_play_bt_stop);
-//		
-//		bt_stop.setOnTouchListener(new ButtonOnTouchListener(this));
-//		bt_stop.setOnClickListener(new ButtonOnClickListener(this));
-//
-//		
-//		
-//		// Log
-//		Log.d("PlayActv.java"
-//				+ "["
-//				+ Thread.currentThread().getStackTrace()[2]
-//						.getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2]
-//						.getMethodName() + "]", "Returned position => " + position);
-//
-//		/***************************************
-//		 * Got a position?
-//		 ***************************************/
-//		if (position == -1) {
-//			
-//			// Log
-//			Log.d("PlayActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "position => -1");
-//			
-//			return;
-//			
-//		}//if (position == -1)
-//
-//		/***************************************
-//		 * Is an AI instance instantiated already?
-//		 ***************************************/
-//		if (ai == null) {
-//			
-//			ai = Methods.get_data_ai(this, aiDbId, aiTableName);
-//			
-//		}//if (this.ai == null)
-//
-//		/*********************************
-//		 * 1. Media player is playing?
-//		 *********************************/
-//		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
-//
-//			PlayActv.mp.stop();
-//			
-//		}//if (mp.isPlaying())
-//
-//		/*********************************
-//		 * 2. OnCompletionListener
-//		 *********************************/
-//
-//		if (PlayActv.mp != null) {
-//
-//			// Log
-//			Log.d("PlayActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "PlayActv.mp != null");
-//			
-//			PlayActv.mp.release();
-//			
-//			PlayActv.mp = null;
-//			
-//
-////			PlayActv.mp = new MediaPlayer();
-////			
-////			PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
-//			
-//		} else {//if (PlayActv.mp != null)
-//			
-//			// Log
-//			Log.d("PlayActv.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "PlayActv.mp => null");
-//			
-//		}//if (PlayActv.mp != null)
-//		
-//		
-//		PlayActv.mp = new MediaPlayer();
-//		
-//		PlayActv.mp.setOnCompletionListener(new MPOnCompletionListener(this));
-//
-//		/*********************************
-//		 * 3. Set data source
-//		 *********************************/
-//		String file_full_path = StringUtils.join(
-//				new String[]{ai.getFile_path(), ai.getFile_name()},
-//				File.separator);
-//
-//		try {
-//
-//			PlayActv.mp.setDataSource(file_full_path);
-//			
-//			// Log
-//			Log.d("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Data source => Set");
-//			
-//		} catch (IllegalArgumentException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//			
-//			
-//		} catch (IllegalStateException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//
-//		} catch (IOException e) {
-//
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//
-//		}//try
-//
-//		/*********************************
-//		 * 4. Prepare mp
-//		 *********************************/
-//		try {
-//
-//			PlayActv.mp.prepare();
-//			
-//		} catch (IllegalStateException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//
-//		} catch (IOException e) {
-//			
-//			// Log
-//			Log.e("Methods.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ "]", "Exception: " + e.toString());
-//
-//		}//try
-//
-////		/***************************************
-////		 * 4.1 Set position
-////		 ***************************************/
-////		PlayActv.mp.seekTo((int) position);
-////		
-//		/*********************************
-//		 * 5. Start
-//		 *********************************/
-//		PlayActv.mp.start();
-//
-//		// Log
-//		Log.d("PlayActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "PlayActv.mp.isPlaying()=" + PlayActv.mp.isPlaying());
 
+		/***************************************
+		 * Set: Seekbar
+		 ***************************************/
+		int currentPosition = (int) position;
+		long length = PlayActv.ai.getLength();
+		
+		int seekPositon = (int)
+//					((currentPosition / length)
+					(((float)currentPosition / length)
+							* PlayActv.sb.getMax());
+//		
+		PlayActv.sb.setProgress(seekPositon);
+
+		
 	}//onActivityResult_BM_OK(Intent data)
 
 	

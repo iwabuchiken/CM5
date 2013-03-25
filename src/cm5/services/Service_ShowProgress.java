@@ -145,43 +145,6 @@ public class Service_ShowProgress extends Service {
 													(((float)currentPosition / length)
 															* PlayActv.sb.getMax());
 //										
-//										// Log
-//										Log.d("Service_ShowProgress.java"
-//												+ "["
-//												+ Thread.currentThread()
-//														.getStackTrace()[2]
-//														.getLineNumber()
-//												+ ":"
-//												+ Thread.currentThread()
-//														.getStackTrace()[2]
-//														.getMethodName() + "]",
-//												"currentPosition=" + currentPosition
-//												+ "/"
-//												+ "length=" + length);
-//										// Log
-//										Log.d("Service_ShowProgress.java"
-//												+ "["
-//												+ Thread.currentThread()
-//														.getStackTrace()[2]
-//														.getLineNumber()
-//												+ ":"
-//												+ Thread.currentThread()
-//														.getStackTrace()[2]
-//														.getMethodName() + "]",
-//												"seekPositon=" + seekPositon);
-//										// Log
-//										Log.d("Service_ShowProgress.java"
-//												+ "["
-//												+ Thread.currentThread()
-//														.getStackTrace()[2]
-//														.getLineNumber()
-//												+ ":"
-//												+ Thread.currentThread()
-//														.getStackTrace()[2]
-//														.getMethodName() + "]",
-//												"(float)currentPosition / length => "
-//												+ (float)currentPosition / length);
-//										
 										PlayActv.sb.setProgress(seekPositon);
 										
 									} else {//if (PlayActv.mp == null)
