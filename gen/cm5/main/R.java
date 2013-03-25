@@ -70,7 +70,7 @@ public final class R {
         public static final int actv_al_ib_prev_page=0x7f090002;
         public static final int actv_al_ib_toBottom=0x7f090005;
         public static final int actv_al_ib_toTop=0x7f090001;
-        public static final int actv_bm_bt_stop=0x7f090009;
+        public static final int actv_bm_bt_back=0x7f090009;
         public static final int actv_bm_sv_title=0x7f090007;
         public static final int actv_bm_tv_file_name=0x7f090006;
         public static final int actv_bm_tv_title=0x7f090008;

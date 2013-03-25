@@ -126,6 +126,9 @@ public class Tags {
 
 		// AILAdapter_move.java
 		ailist_cb_search,
+		
+		// actv_bm.xml
+		actv_bm_bt_back,
 
 	}//public static enum ButtonTags
 	

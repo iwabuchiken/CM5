@@ -220,12 +220,28 @@ public class ButtonOnClickListener implements OnClickListener {
 			case_actv_play_bt_add_bm();
 			
 			break;// case actv_play_bt_add_bm
+		
+		case actv_bm_bt_back://----------------------------------------------------
+			
+			case_actv_bm_bt_back();
+			
+			
+			break;// case actv_bm_bt_back
 			
 		default:
 			break;
 		}//switch (tag)
 		
 	}//public void onClick(View v)
+
+	private void case_actv_bm_bt_back() {
+		// TODO Auto-generated method stub
+		
+		actv.setResult(CONS.Intent.RESULT_CODE_SEE_BOOKMARKS_CANCEL);
+		
+		actv.finish();
+		
+	}
 
 	private void case_actv_play_bt_add_bm() {
 		// TODO Auto-generated method stub
@@ -406,50 +422,6 @@ public class ButtonOnClickListener implements OnClickListener {
 
 	private void case_actv_play_bt_see_bm() {
 		// TODO Auto-generated method stub
-//		// Log
-//		Log.d("ButtonOnClickListener.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ ":"
-//				+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//				+ "]", "ai.getDb_id()=" + ai.getDb_id());
-
-
-//		/***************************************
-//		 * MediaPlayer
-//		 ***************************************/
-//		/*********************************
-//		 * 1. Media player is playing?
-//		 *********************************/
-//		if (PlayActv.mp != null && PlayActv.mp.isPlaying()) {
-//
-//			PlayActv.mp.stop();
-//			
-//		}//if (mp.isPlaying())
-//
-//		if (PlayActv.mp != null) {
-//			
-//			PlayActv.mp.release();
-//			
-//			PlayActv.mp = null;
-//			
-//			// Log
-//			Log.d("ButtonOnClickListener.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "PlayActv.mp => nullified");
-//			
-//		} else {//if (PlayActv.mp != null)
-//			
-//			// Log
-//			Log.d("ButtonOnClickListener.java" + "["
-//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//					+ ":"
-//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
-//					+ "]", "PlayActv.mp => null");
-//			
-//		}//if (PlayActv.mp != null)
-//		
 
 		/***************************************
 		 * Validate: Any bookmarks?

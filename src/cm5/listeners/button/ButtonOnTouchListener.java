@@ -91,22 +91,12 @@ public class ButtonOnTouchListener implements OnTouchListener {
 				
 			case actv_play_tv_title:
 			case actv_play_tv_memo:
+			case actv_bm_bt_back:
 				
-				v.setBackgroundColor(Color.BLACK);
-				
-//				// Log
-//				Log.d("ButtonOnTouchListener.java"
-//						+ "["
-//						+ Thread.currentThread().getStackTrace()[2]
-//								.getLineNumber() + "]",
-////						"v.toString()=" + v.toString());
-//						"((TextView)v).getText()=" + ((TextView)v).getText());
-				
-//				TextView tv = (TextView) v;
-//				
-//				tv.setTextColor(Color.WHITE);
-				
-				((TextView)v).setTextColor(Color.WHITE);
+				case_bcBlack_tcWhite(v);
+//				v.setBackgroundColor(Color.BLACK);
+//
+//				((TextView)v).setTextColor(Color.WHITE);
 				
 				break;
 
@@ -164,12 +154,15 @@ public class ButtonOnTouchListener implements OnTouchListener {
 				break;
 
 			case actv_play_tv_title:
-			case actv_play_tv_memo:	
-				v.setBackgroundColor(Color.WHITE);
+			case actv_play_tv_memo:
+			case actv_bm_bt_back:
 				
-				TextView tv = (TextView) v;
-				
-				tv.setTextColor(Color.BLACK);
+				case_bcWhite_tcBlack(v);
+//				v.setBackgroundColor(Color.WHITE);
+//				
+//				TextView tv = (TextView) v;
+//				
+//				tv.setTextColor(Color.BLACK);
 //				tv.setTextColor(Color.BLUE);
 				
 				break;
@@ -179,6 +172,24 @@ public class ButtonOnTouchListener implements OnTouchListener {
 			break;//case MotionEvent.ACTION_UP:
 		}//switch (event.getActionMasked())
 		return false;
+	}
+
+	private void case_bcWhite_tcBlack(View v) {
+		// TODO Auto-generated method stub
+		v.setBackgroundColor(Color.WHITE);
+		
+		TextView tv = (TextView) v;
+		
+		tv.setTextColor(Color.BLACK);
+		
+	}
+
+	private void case_bcBlack_tcWhite(View v) {
+		// TODO Auto-generated method stub
+		v.setBackgroundColor(Color.BLACK);
+
+		((TextView)v).setTextColor(Color.WHITE);
+
 	}
 
 }

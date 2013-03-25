@@ -7,6 +7,8 @@ import cm5.adapters.BMLAdapter;
 import cm5.items.AI;
 import cm5.items.BM;
 import cm5.listeners.ListOnItemLongClickListener;
+import cm5.listeners.button.ButtonOnClickListener;
+import cm5.listeners.button.ButtonOnTouchListener;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
@@ -21,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +70,8 @@ public class BMActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getMethodName()
 				+ "]", "bmList=" + CONS.BMActv.bmList);
 
+		Methods.sortList_BM(CONS.BMActv.bmList, CONS.BMActv.SortOrder.POSITION);
+		
 		/***************************************
 		 * 2. Set the list to adapter
 		 ***************************************/
@@ -286,6 +291,16 @@ public class BMActv extends ListActivity {
 		
 		lv.setOnItemLongClickListener(new ListOnItemLongClickListener(this));
 		
+		/***************************************
+		 * Button: "Back"
+		 ***************************************/
+		Button btBack = (Button) findViewById(R.id.actv_bm_bt_back);
+		
+		btBack.setTag(Tags.ButtonTags.actv_bm_bt_back);
+		
+		btBack.setOnTouchListener(new ButtonOnTouchListener(this));
+		btBack.setOnClickListener(new ButtonOnClickListener(this));
+
 		
 	}//private void setup__4_setListeners()
 
