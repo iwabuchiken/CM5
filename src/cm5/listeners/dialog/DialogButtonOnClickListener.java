@@ -371,6 +371,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 	private void case_dlg_confirm_move_files_ok() {
 		// TODO Auto-generated method stub
 		Methods.moveFiles(actv, dlg1, dlg2);
+		
 	}
 
 	private void case_dlg_confirm_move_files_search_ok() {

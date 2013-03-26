@@ -3945,6 +3945,13 @@ public class Methods {
 		
 		String dstTableName = Methods.moveFiles__2_getDstTableName(actv, dlg2);
 
+		// Log
+		Log.d("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "dstTableName=" + dstTableName);
+		
 		/***************************************
 		 * Move files
 		 ***************************************/
