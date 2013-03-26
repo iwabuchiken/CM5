@@ -6,7 +6,7 @@ import cm5.main.R;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
-import cm5.utils.Methods_dialog;
+import cm5.utils.Methods_dlg;
 import cm5.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
@@ -162,7 +162,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 
 		case dlg_create_folder_ok://--------------------------------------------------
 			
-			Methods_dialog.dlg_isEmpty(actv, dlg1);
+			Methods_dlg.dlg_isEmpty(actv, dlg1);
 			
 			break;// case dlg_create_folder_ok
 
@@ -240,7 +240,7 @@ public class DialogButtonOnClickListener implements OnClickListener {
 			vib.vibrate(Methods.vibLength_click);
 			
 //			Methods.dlg_register_patterns_isInputEmpty(actv, dlg1);
-			Methods_dialog.dlg_register_patterns_isInputEmpty(actv, dlg1, dlg2);
+			Methods_dlg.dlg_register_patterns_isInputEmpty(actv, dlg1, dlg2);
 			
 			break;
 

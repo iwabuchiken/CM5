@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cm5.utils.Methods;
-import cm5.utils.Methods_dialog;
+import cm5.utils.Methods_dlg;
 import cm5.utils.Tags;
 
 import android.app.Activity;
@@ -114,7 +114,7 @@ public class CustomOnItemLongClickListener implements OnItemLongClickListener {
 			
 			if (targetFile.exists() && targetFile.isFile()) {
 				// debug
-				Toast.makeText(actv, "ƒtƒ@ƒCƒ‹", 2000).show();
+				Toast.makeText(actv, "ï¿½tï¿½@ï¿½Cï¿½ï¿½", 2000).show();
 				
 	//			return false;
 				return true;		//=> "false" => Then, onClick process starts
@@ -125,7 +125,7 @@ public class CustomOnItemLongClickListener implements OnItemLongClickListener {
 			/*----------------------------
 			 * 5.1.2. If yes, call a method
 				----------------------------*/
-			Methods_dialog.dlg_removeFolder(actv, folderName);
+			Methods_dlg.dlg_removeFolder(actv, folderName);
 						
 			break;
 		

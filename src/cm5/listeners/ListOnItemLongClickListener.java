@@ -7,7 +7,7 @@ import cm5.items.BM;
 import cm5.listeners.dialog.DialogOnItemClickListener;
 import cm5.main.R;
 import cm5.utils.Methods;
-import cm5.utils.Methods_dialog;
+import cm5.utils.Methods_dlg;
 import cm5.utils.Tags;
 import android.app.Activity;
 import android.app.Dialog;
@@ -70,7 +70,7 @@ ListOnItemLongClickListener implements OnItemLongClickListener {
 		/***************************************
 		 * Show dialog
 		 ***************************************/
-		Dialog dlg = Methods_dialog.dlg_template_cancel(
+		Dialog dlg = Methods_dlg.dlg_template_cancel(
 								actv,
 								R.layout.dlg_tmpl_cancel_lv,
 								R.string.dlg_bmactv_list_long_click_title,

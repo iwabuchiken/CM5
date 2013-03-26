@@ -36,7 +36,7 @@ import cm5.main.ALActv;
 import cm5.main.R;
 import cm5.main.TNActv;
 
-public class Methods_dialog {
+public class Methods_dlg {
 
 	public static void dlg_moveFiles(Activity actv) {
 		/****************************
@@ -550,7 +550,7 @@ public class Methods_dialog {
 		 * 8. Close db
 		 * 9. Show dialog
 			****************************/
-		Dialog dlg = Methods_dialog.dlg_addMemo_1_get_dialog(actv, file_id, tableName);
+		Dialog dlg = Methods_dlg.dlg_addMemo_1_get_dialog(actv, file_id, tableName);
 
 		/****************************
 		 * 4. GridView
@@ -890,7 +890,7 @@ public class Methods_dialog {
 			/****************************
 			 * 2. If yes, go to Methods.createFolder()
 				****************************/
-			Methods_dialog.dlg_confirm_createFolder(actv, dlg);
+			Methods_dlg.dlg_confirm_createFolder(actv, dlg);
 			
 			return;
 			
@@ -1059,7 +1059,7 @@ public class Methods_dialog {
 		 * 5. Set listener to list
 		 * 6. Show dialog
 			****************************/
-		Dialog dlg = Methods_dialog.dlg_template_cancel(
+		Dialog dlg = Methods_dlg.dlg_template_cancel(
 									actv, R.layout.dlg_db_admin, 
 									R.string.dlg_db_admin_title, 
 									R.id.dlg_db_admin_bt_cancel, 
@@ -1530,7 +1530,7 @@ public class Methods_dialog {
 		/*********************************
 		 * Grid view
 		 *********************************/
-		dlg = Methods_dialog.dlg_edit_title_2_grid_view(actv, dlg, ai);
+		dlg = Methods_dlg.dlg_edit_title_2_grid_view(actv, dlg, ai);
 		
 		/*********************************
 		 * 3. Set text
@@ -1731,7 +1731,7 @@ public class Methods_dialog {
 		/****************************
 		 * memo
 			****************************/
-		Dialog dlg = Methods_dialog.dlg_template_cancel(
+		Dialog dlg = Methods_dlg.dlg_template_cancel(
 													actv, R.layout.dlg_admin_patterns, 
 													R.string.dlg_memo_patterns_title, 
 													R.id.dlg_admin_patterns_bt_cancel, 
@@ -2062,7 +2062,7 @@ public class Methods_dialog {
 		/*********************************
 		 * Grid view
 		 *********************************/
-		dlg = Methods_dialog.dlg_edit_title_2_grid_view(actv, dlg, ai);
+		dlg = Methods_dlg.dlg_edit_title_2_grid_view(actv, dlg, ai);
 		
 		/*********************************
 		 * 3. Set text
@@ -2102,7 +2102,7 @@ public class Methods_dialog {
 	
 	public static void dlg_admin(Activity actv) {
 		// TODO Auto-generated method stub
-		Dialog dlg = Methods_dialog.dlg_template_cancel(
+		Dialog dlg = Methods_dlg.dlg_template_cancel(
 				actv, R.layout.dlg_db_admin, 
 				R.string.main_opt_menu_admin, 
 				R.id.dlg_db_admin_bt_cancel, 

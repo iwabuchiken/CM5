@@ -20,7 +20,7 @@ import cm5.tasks.RefreshDBTask;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
-import cm5.utils.Methods_dialog;
+import cm5.utils.Methods_dlg;
 import cm5.utils.Tags;
 
 import android.app.Activity;
@@ -1199,19 +1199,19 @@ public class MainActv extends ListActivity {
 		
 		case R.id.main_opt_menu_create_folder://----------------------------------
 			
-			Methods_dialog.dlg_createFolder(this);
+			Methods_dlg.dlg_createFolder(this);
 			
 			break;// case R.id.main_opt_menu_create_folder
 			
 		case R.id.main_opt_menu_db_activity://----------------------------------
 			
-			Methods_dialog.dlg_db_activity(this);
+			Methods_dlg.dlg_db_activity(this);
 			
 			break;// case R.id.main_opt_menu_db_activity
 
 		case R.id.main_opt_menu_search://-----------------------------------------------
 			
-			Methods_dialog.dlg_seratchItem(this);
+			Methods_dlg.dlg_seratchItem(this);
 			
 			break;// case R.id.main_opt_menu_search
 //			
@@ -1241,7 +1241,7 @@ public class MainActv extends ListActivity {
 
 	private void case_main_opt_menu_admin() {
 		// TODO Auto-generated method stub
-		Methods_dialog.dlg_admin(this);
+		Methods_dlg.dlg_admin(this);
 	}
 	
 

@@ -6,7 +6,7 @@ import cm5.tasks.RefreshDBTask;
 import cm5.utils.CONS;
 import cm5.utils.DBUtils;
 import cm5.utils.Methods;
-import cm5.utils.Methods_dialog;
+import cm5.utils.Methods_dlg;
 import cm5.utils.Tags;
 import cm5.items.BM;
 import cm5.main.R;
@@ -195,7 +195,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				----------------------------*/
 			if (item.equals(actv.getString(R.string.generic_tv_register))) {
 				
-				Methods_dialog.dlg_register_patterns(actv, dlg1);
+				Methods_dlg.dlg_register_patterns(actv, dlg1);
 				
 //				// Log
 //				Log.d("DialogOnItemClickListener.java"
@@ -206,7 +206,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 				
 			} else if (item.equals(actv.getString(R.string.generic_tv_delete))) {
 
-				Methods_dialog.dlg_delete_patterns(actv, dlg1);
+				Methods_dlg.dlg_delete_patterns(actv, dlg1);
 				
 //				// Log
 //				Log.d("DialogOnItemClickListener.java"
@@ -244,7 +244,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 //			// debug
 //			Toast.makeText(actv, item, 2000).show();
 			
-			Methods_dialog.dlg_confirm_delete_patterns(actv, dlg1, dlg2, item);
+			Methods_dlg.dlg_confirm_delete_patterns(actv, dlg1, dlg2, item);
 			
 			break;// case dlg_delete_patterns_gv
 	
@@ -298,7 +298,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		 * Update the bm data
 		 ***************************************/
 //		Dialog dlg2 = Methods_dialog.dlg_template_okCancel(
-		Dialog dlg2 = Methods_dialog.dlg_template_okCancel_SecondDialog(
+		Dialog dlg2 = Methods_dlg.dlg_template_okCancel_SecondDialog(
 							actv,
 							R.layout.dlg_edit_item,
 							R.string.dlg_edit_item_title,
@@ -463,7 +463,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		// TODO Auto-generated method stub
 		String folderPath = (String) parent.getItemAtPosition(position);
 		
-		Methods_dialog.dlg_confirm_moveFiles(actv, dlg1, folderPath);
+		Methods_dlg.dlg_confirm_moveFiles(actv, dlg1, folderPath);
 
 	}//private void case_dlg_move_files(AdapterView<?> parent, int position)
 
@@ -471,7 +471,7 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		// TODO Auto-generated method stub
 		String folderPath = (String) parent.getItemAtPosition(position);
 		
-		Methods_dialog.dlg_confirm_moveFiles_search(actv, dlg1, folderPath);
+		Methods_dlg.dlg_confirm_moveFiles_search(actv, dlg1, folderPath);
 
 	}//private void case_dlg_move_files(AdapterView<?> parent, int position)
 

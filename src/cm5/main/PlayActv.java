@@ -13,7 +13,7 @@ import cm5.listeners.button.ButtonOnLongClickListener;
 import cm5.listeners.button.ButtonOnTouchListener;
 import cm5.utils.CONS;
 import cm5.utils.Methods;
-import cm5.utils.Methods_dialog;
+import cm5.utils.Methods_dlg;
 import cm5.utils.Tags;
 import android.app.Activity;
 import android.content.Context;
@@ -380,7 +380,7 @@ public class PlayActv extends Activity {
 			
 //			Methods.dlg_register_patterns(this);
 			
-			Methods_dialog.dlg_patterns(this);
+			Methods_dlg.dlg_patterns(this);
 			
 			break;// case R.id.menu_actv_play_create_folder
 			
