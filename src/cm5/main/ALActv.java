@@ -81,7 +81,7 @@ public class ALActv extends ListActivity {
 
 	public static List<String> fileNameList;
 	
-	public static List<AI> ai_list;
+	public static List<AI> aiList;
 	
 	public static List<AI> ai_list_move;
 
@@ -301,26 +301,41 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * 2. Prep list
 		 *********************************/
-		ai_list = Methods.get_all_data_ai(this, table_name);
+		aiList = Methods.get_all_data_ai(this, table_name);
 		
 //		debug_B20_v_1_0(ai_list);
+		
+		/***************************************
+		 * Any AI items?
+		 ***************************************/
+		if (aiList == null || aiList.size() < 1) {
+			
+			// debug
+			Toast.makeText(this, "No entries in this folder", Toast.LENGTH_LONG).show();
+			
+			this.finish();
+			
+			return;
+			
+		}//if (ai == null || ai_list.size() < 1)
+
 		
 		// Log
 		Log.d("ALActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ai_list.size()=" + ai_list.size());
-		
+				+ "]", "ai_list.size()=" + aiList.size());
+
 		/*********************************
 		 * 3. Sort list
 		 *********************************/
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(aiList, CONS.SORT_ORDER.DEC);
 
 		// Log
 		Log.d("ALActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "ai_list.get(0).getLength()=" + ai_list.get(0).getLength()
+				+ "]", "ai_list.get(0).getLength()=" + aiList.get(0).getLength()
 				+ "/"
-				+ "getFile_name()=" + ai_list.get(0).getFile_name()
+				+ "getFile_name()=" + aiList.get(0).getFile_name()
 				);
 
 		/*********************************
@@ -330,7 +345,7 @@ public class ALActv extends ListActivity {
 				this,
 				R.layout.list_row_ai_list,
 //				R.layout.actv_al,
-				ai_list
+				aiList
 				);
 		
 		/*********************************
@@ -691,47 +706,6 @@ public class ALActv extends ListActivity {
 		
 		setup_2_set_list();
 
-		/*********************************
-		 * 3. Debug: Store file length data
-		 *********************************/
-//		debug_B20_v_1_1();
-		
-		
-//		debug_1_store_file_length();
-		
-//		/*********************************
-//		 * 2. Set selection
-//		 *********************************/
-//		lv_main = this.getListView();
-//		
-//		SharedPreferences prefs = this.getSharedPreferences(
-//				MainActv.prefName_tnActv,
-//				MODE_PRIVATE);
-//	
-//
-//		//Methods.PrefenceLabels.thumb_actv.name()
-//		
-//		//int savedPosition = prefs.getInt("chosen_list_item", -1);
-//		int savedPosition = prefs.getInt(
-//							MainActv.prefName_tnActv_current_image_position,
-//							-1);
-//		
-//		int target_position = savedPosition - (lv_main.getChildCount() / 2);
-//		
-//		if (target_position < 0) {
-//			
-//			target_position = 0;
-//			
-//		}//if (target_position == 0)
-//
-//		// Log
-//		Log.d("ALActv.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "target_position=" + target_position);
-//		
-//		
-//		lv_main.setSelection(target_position);
-		
 	}//protected void onStart()
 
 	private void debug_B20_v_1_1() {
@@ -1483,20 +1457,20 @@ public class ALActv extends ListActivity {
 		/*********************************
 		 * List
 		 *********************************/
-		if (ai_list != null) {
+		if (aiList != null) {
 			
-			ai_list.clear();
+			aiList.clear();
 			
 			// Log
 			Log.d("ALActv.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "ai_list => Cleared");
 			
-			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
+			aiList.addAll(Methods.get_all_data_ai(this, tableName));
 			
 		} else {//if (move_mode)
 			
-			ai_list = Methods.get_all_data_ai(this, tableName);
+			aiList = Methods.get_all_data_ai(this, tableName);
 			
 			// Log
 			Log.d("ALActv.java" + "["
@@ -1506,7 +1480,7 @@ public class ALActv extends ListActivity {
 		}//if (move_mode)
 		
 		// Sort list
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(aiList, CONS.SORT_ORDER.DEC);
 		
 		/****************************
 		 * 3. Update aAdapter
@@ -1517,7 +1491,7 @@ public class ALActv extends ListActivity {
 				this,
 				R.layout.list_row_checked_box,
 //				ai_list_move
-				ai_list
+				aiList
 				);
 		
 //		ail_adp.clear();
@@ -1566,21 +1540,21 @@ public class ALActv extends ListActivity {
 		
 		String tableName = Methods.convert_filePath_into_table_name(this, currentPath);
 
-		if (ai_list != null) {
+		if (aiList != null) {
 			
-			ai_list.clear();
+			aiList.clear();
 			
-			ai_list.addAll(Methods.get_all_data_ai(this, tableName));
+			aiList.addAll(Methods.get_all_data_ai(this, tableName));
 			
 		} else {//if (move_mode)
 			
-			ai_list = Methods.get_all_data_ai(this, tableName);
+			aiList = Methods.get_all_data_ai(this, tableName);
 			
 		}//if (move_mode)
 		
 		// Sort list
 //		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.ASC);
-		Methods.sort_list_ai_created_at(ai_list, CONS.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(aiList, CONS.SORT_ORDER.DEC);
 
 //		if (long_searchedItems == null) {
 //
@@ -1608,7 +1582,7 @@ public class ALActv extends ListActivity {
 			ail_adp = new AILAdapter(
 					this,
 					R.layout.list_row_ai_list,
-					ai_list
+					aiList
 					);
 			
 			this.setListAdapter(ail_adp);

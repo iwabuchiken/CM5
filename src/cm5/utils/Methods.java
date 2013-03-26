@@ -3964,7 +3964,7 @@ public class Methods {
 		for (Integer position : ALActv.checkedPositions) {
 			
 //			ALActv.ai_list_move.remove(position);
-			ALActv.ai_list.remove(position);
+			ALActv.aiList.remove(position);
 			
 			
 			// Log
@@ -4359,11 +4359,11 @@ public class Methods {
 	private static void moveFiles_4_refresh_list(
 						Activity actv, String sourceTableName) {
 		
-		ALActv.ai_list.clear();
+		ALActv.aiList.clear();
 		
-		ALActv.ai_list.addAll(Methods.get_all_data_ai(actv, sourceTableName));
+		ALActv.aiList.addAll(Methods.get_all_data_ai(actv, sourceTableName));
 		
-		Methods.sort_list_ai_created_at(ALActv.ai_list, CONS.SORT_ORDER.DEC);
+		Methods.sort_list_ai_created_at(ALActv.aiList, CONS.SORT_ORDER.DEC);
 		
 		ALActv.ail_adp_move.notifyDataSetChanged();
 		
@@ -4425,7 +4425,7 @@ public class Methods {
 		for (Integer position : ALActv.checkedPositions) {
 			
 //			ALActv.ai_list_move.remove(position);
-			ALActv.ai_list.remove(position);
+			ALActv.aiList.remove(position);
 			
 			
 			// Log
@@ -4569,7 +4569,7 @@ public class Methods {
 		
 		for (int position : ALActv.checkedPositions) {
 			
-			toMoveFiles.add(ALActv.ai_list.get(position));
+			toMoveFiles.add(ALActv.aiList.get(position));
 			
 		}//for (int position : ThumbnailActivity.checkedPositions)
 		

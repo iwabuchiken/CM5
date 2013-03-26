@@ -116,11 +116,11 @@ public class Methods_dlg {
 			****************************/
 //		lv.setTag(Methods.DialogItemTags.dlg_move_files);
 		
-//		lv.setOnItemLongClickListener(
-//						new DialogOnItemLongClickListener(
-//												actv,
-//												dlg,
-//												ALActv.dirListAdapter, ALActv.fileNameList));
+		lv.setOnItemLongClickListener(
+						new DialogOnItemLongClickListener(
+												actv,
+												dlg,
+												ALActv.dirListAdapter, ALActv.fileNameList));
 		
 		/****************************
 		 * 9. Show dialog
