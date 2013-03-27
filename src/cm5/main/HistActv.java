@@ -930,86 +930,15 @@ public class HistActv extends ListActivity {
 		Log.d("HistActv.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "onDestroy()");
-		
-		/****************************
-		 * 2. move_mode => falsify
-			****************************/
-		if (CONS.move_mode == true) {
-			
-			CONS.move_mode = false;
-			
-			// Log
-			Log.d("HistActv.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "move_mode => Now false");
-			
-		}//if (move_mode == true)
 
-		SharedPreferences prefs = 
-				this.getSharedPreferences(
-//						MainActv.prefName_tnActv,
-						CONS.pname_tnActv,
-						MODE_PRIVATE);
-		
-		SharedPreferences.Editor editor = prefs.edit();
-
-		editor.clear();
-		editor.commit();
-		
-		// Log
-		Log.d("MainActv.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "Prefs cleared: " + MainActv.prefName_tnActv);
-				+ "]", "Prefs cleared: " + CONS.pname_tnActv);
-
-		/*********************************
-		 * 3. History mode => Off
-		 *********************************/
-		int current_move_mode = Methods.get_pref(
-							this, 
-//							MainActv.prefName_mainActv, 
-//							MainActv.prefName_mainActv_history_mode,
-							CONS.pname_mainActv, 
-							CONS.pname_mainActv_history_mode,
-
-							-1);
-		
-		if (current_move_mode == CONS.HISTORY_MODE_ON) {
-			
-			boolean result = Methods.set_pref(
-					this, 
-//					MainActv.prefName_mainActv, 
-//					MainActv.prefName_mainActv_history_mode,
-					CONS.pname_mainActv, 
-					CONS.pname_mainActv_history_mode,
-
-					CONS.HISTORY_MODE_OFF);
-
-			if (result == true) {
-				// Log
-				Log.d("HistActv.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Pref set: " + CONS.HISTORY_MODE_OFF);
-			} else {//if (result == true)
-				// Log
-				Log.d("HistActv.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Set pref => Failed");
-				
-			}//if (result == true)
-			
-		}//if (current_move_mode == 1)
-		
 		/*********************************
 		 * Current position => Clear
 		 *********************************/
 		boolean res = 
 				Methods.set_pref(
 							this,
-							CONS.pname_mainActv,
-							CONS.pkey_current_image_position,
+							CONS.History.pname_HistActv,
+							CONS.History.pkey_HistActv_position,
 							-1);
 		
 		if (res == true) {
@@ -1018,7 +947,8 @@ public class HistActv extends ListActivity {
 					+ "["
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]",
-					"Pref set: " + CONS.pkey_current_image_position);
+					"Pref set: CONS.History.pkey_HistActv_position="
+					+ CONS.History.pkey_HistActv_position);
 			
 		} else {//if (result == true)
 			// Log
@@ -1026,7 +956,8 @@ public class HistActv extends ListActivity {
 					+ "["
 					+ Thread.currentThread().getStackTrace()[2]
 							.getLineNumber() + "]",
-					"Set pref => Failed: " + CONS.pkey_current_image_position);
+					"Set pref => Failed: CONS.History.pkey_HistActv_position="
+					+ CONS.History.pkey_HistActv_position);
 			
 		}//if (result == true)
 		
