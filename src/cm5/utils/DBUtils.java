@@ -800,7 +800,8 @@ public class DBUtils extends SQLiteOpenHelper{
 
 			// Insert data
 //			wdb.insert(MainActv.tableName_show_history, null, val);
-			wdb.insert(CONS.tname_show_history, null, val);
+//			wdb.insert(CONS.tname_show_history, null, val);
+			wdb.insert(CONS.History.tname_history, null, val);
 			
 			// Set as successful
 			wdb.setTransactionSuccessful();

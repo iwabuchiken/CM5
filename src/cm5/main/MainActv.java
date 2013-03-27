@@ -1227,11 +1227,11 @@ public class MainActv extends ListActivity {
 //			
 //			break;// case R.id.main_opt_menu_search
 //			
-//		case R.id.main_opt_menu_history://-----------------------------------------------
-//			
-//			Methods.show_history(this);
-//			
-//			break;// case R.id.main_opt_menu_history
+		case R.id.main_opt_menu_history://-----------------------------------------------
+			
+			Methods.show_history(this);
+			
+			break;// case R.id.main_opt_menu_history
 			
 		}//switch (item.getItemId())
 		

@@ -6,8 +6,10 @@ import java.util.List;
 
 import cm5.adapters.AILAdapter;
 import cm5.adapters.BMLAdapter;
+import cm5.adapters.HILAdapter;
 import cm5.items.AI;
 import cm5.items.BM;
+import cm5.items.HI;
 import cm5.items.SearchedItem;
 
 import android.content.SharedPreferences;
@@ -18,7 +20,10 @@ import android.widget.TextView;
 public class CONS {
 
 	// Sort order
-	public static enum SORT_ORDER {ASC, DEC};
+	public static enum SORT_ORDER {
+			ASC, DEC,
+			CREATED_AT,
+	};
 
 	/*********************************
 	 * Intent data labels
@@ -107,7 +112,7 @@ public class CONS {
 			"INTEGER",			"TEXT", 		"INTEGER"};
 
 	// Table => show_history
-	public static String tname_show_history = "show_history";
+//	public static String tname_show_history = "show_history";
 	
 	public static String[] cols_show_history = {
 		"file_id", "table_name"
@@ -318,6 +323,26 @@ public class CONS {
 		
 		public static final float DLG_WIDTH_RATIO = 0.8f;
 		
+	}
+	
+	public static class History {
+		
+		public static String tname_history = "history";
+		
+		public static String[] cols_history = 
+			{"aiId", 	"aiTableName"};
+		
+		public static String[] col_types_history =
+			{"INTEGER",	"TEXT"};
+		
+		public static List<HI> hiList;
+		
+		public static HILAdapter adpHIList;
+		
+		public static final String pname_HistActv = "pname_HistActv";
+		
+		public static final String pkey_HistActv_position = "prefKey_HistActv_position";
+
 	}
 	
 }//public class CONS

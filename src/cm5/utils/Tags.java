@@ -129,6 +129,9 @@ public class Tags {
 		
 		// actv_bm.xml
 		actv_bm_bt_back,
+		
+		// actv_hist.xml
+		actv_hist_ib_back, actv_hist_ib_bottom, actv_hist_ib_top,
 
 	}//public static enum ButtonTags
 	
@@ -148,6 +151,9 @@ public class Tags {
 		
 		// SearchActv.java
 		dir_list_actv_search,
+		
+		// actv_hist.xml
+		dir_list_actv_hist,
 		
 	}//public static enum ItemTags
 

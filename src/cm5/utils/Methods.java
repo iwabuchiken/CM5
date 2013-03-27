@@ -74,6 +74,7 @@ import cm5.main.ALActv;
 import cm5.main.MainActv;
 import cm5.utils.CONS.BMActv.SortOrder;
 import cm5.utils.CONS.SORT_ORDER;
+import cm5.main.HistActv;
 import cm5.main.PlayActv;
 import cm5.main.PrefActv;
 import cm5.main.SearchActv;
@@ -481,7 +482,8 @@ public class Methods {
 					+ "]", "MainActv.adp_dir_list => null");
 			
 			// debug
-			Toast.makeText(actv, "MainActv.adp_dir_list => null", 3000).show();
+//			Toast.makeText(actv, "MainActv.adp_dir_list => null", Toast.LENGTH_LONG).show();
+			Toast.makeText(actv, "MainActv.adp_dir_list => null", Toast.LENGTH_LONG).show();
 
 		}//if (condition)
 		
@@ -1775,7 +1777,7 @@ public class Methods {
 				/****************************
 				* 2-2. Create table failed => Return
 				****************************/
-				//toastAndLog(actv, "Create table failed: " + tableName, 3000);
+				//toastAndLog(actv, "Create table failed: " + tableName, Toast.LENGTH_LONG);
 				
 				// Log
 				Log.e("Methods.java"
@@ -3089,7 +3091,7 @@ public class Methods {
 			if(dbu.createTable(wdb, tableName, 
 				CONS.cols_refresh_log, CONS.col_types_refresh_log)) {
 				
-				//toastAndLog(actv, "Table created: " + tableName, 3000);
+				//toastAndLog(actv, "Table created: " + tableName, Toast.LENGTH_LONG);
 				
 				// Log
 				Log.d("Methods.java"
@@ -3101,7 +3103,7 @@ public class Methods {
 				/****************************
 				* 2-2. Create table failed => Return
 				****************************/
-				//toastAndLog(actv, "Create table failed: " + tableName, 3000);
+				//toastAndLog(actv, "Create table failed: " + tableName, Toast.LENGTH_LONG);
 				
 				// Log
 				Log.e("Methods.java"
@@ -3258,7 +3260,7 @@ public class Methods {
 		//
 		if (newDir.exists()) {
 			// debug
-			Toast.makeText(actv, "���̖��O�̃t�H���_�͂��łɂ���܂��I�F " + folderName, 3000).show();
+			Toast.makeText(actv, "���̖��O�̃t�H���_�͂��łɂ���܂��I�F " + folderName, Toast.LENGTH_LONG).show();
 			
 			return null;
 			
@@ -3273,7 +3275,7 @@ public class Methods {
 				dlg.dismiss();
 				
 				// debug
-				Toast.makeText(actv, "�t�H���_�����܂��� : " + newDir.getAbsolutePath(), 3000).show();
+				Toast.makeText(actv, "�t�H���_�����܂��� : " + newDir.getAbsolutePath(), Toast.LENGTH_LONG).show();
 				
 				// Log
 				Log.d("Methods.java" + "["
@@ -3283,7 +3285,7 @@ public class Methods {
 				
 			} catch (Exception e) {
 				// debug
-				Toast.makeText(actv, "�t�H���_�����܂���ł��� : " + newDir.getName(), 3000).show();
+				Toast.makeText(actv, "�t�H���_�����܂���ł��� : " + newDir.getName(), Toast.LENGTH_LONG).show();
 				
 				// Log
 				Log.e("Methods.java" + "["
@@ -3312,7 +3314,7 @@ public class Methods {
 					+ "]", "listFile => Exists");
 			
 			// debug
-			Toast.makeText(actv, "list.txt => ���łɂ���܂�", 3000).show();
+			Toast.makeText(actv, "list.txt => ���łɂ���܂�", Toast.LENGTH_LONG).show();
 			
 		} else {//if (listFile.exists())
 			try {
@@ -3327,7 +3329,7 @@ public class Methods {
 								.getLineNumber() + "]", "listFile => Created");
 				
 //				// debug
-//				Toast.makeText(actv, "list.txt => �쐬����܂���", 3000).show();
+//				Toast.makeText(actv, "list.txt => �쐬����܂���", Toast.LENGTH_LONG).show();
 				
 			} catch (IOException e) {
 				// Log
@@ -3336,7 +3338,7 @@ public class Methods {
 						+ Thread.currentThread().getStackTrace()[2]
 								.getLineNumber() + "]", "Create listFile => Failed: " + listFile.getAbsolutePath());
 				// debug
-				Toast.makeText(actv, "list.txt => �쐬�ł��܂���ł���", 3000).show();
+				Toast.makeText(actv, "list.txt => �쐬�ł��܂���ł���", Toast.LENGTH_LONG).show();
 				
 				return null;
 			}
@@ -3401,7 +3403,7 @@ public class Methods {
 										.getLineNumber() + "]", "listFile => Created");
 						
 						// debug
-						Toast.makeText(actv, "list.txt => �쐬����܂���", 3000).show();
+						Toast.makeText(actv, "list.txt => �쐬����܂���", Toast.LENGTH_LONG).show();
 						
 					} catch (IOException e) {
 						// Log
@@ -3410,7 +3412,7 @@ public class Methods {
 								+ Thread.currentThread().getStackTrace()[2]
 										.getLineNumber() + "]", "Create listFile => Failed: " + listFile.getAbsolutePath());
 						// debug
-						Toast.makeText(actv, "list.txt => �쐬�ł��܂���ł���", 3000).show();
+						Toast.makeText(actv, "list.txt => �쐬�ł��܂���ł���", Toast.LENGTH_LONG).show();
 					}
 					
 				}//if (res)
@@ -3564,7 +3566,7 @@ public class Methods {
 					+ "]", "Dir => Removed: " + path);
 			
 			// debug
-			Toast.makeText(actv, "�폜���܂���" + path, 3000).show();
+			Toast.makeText(actv, "�폜���܂���" + path, Toast.LENGTH_LONG).show();
 		} else {//if (result == true)
 			// Log
 			Log.e("Methods.java" + "["
@@ -3572,7 +3574,7 @@ public class Methods {
 					+ "]", "Remove dir => Failed: " + path);
 			
 			// debug
-			Toast.makeText(actv, "�폜�ł��܂���ł���: " + path, 3000).show();
+			Toast.makeText(actv, "�폜�ł��܂���ł���: " + path, Toast.LENGTH_LONG).show();
 			
 			return;
 		}//if (result == true)
@@ -4831,7 +4833,7 @@ public class Methods {
 			dlg.dismiss();
 
 			// debug
-			Toast.makeText(actv, "Memo => Stored", 3000).show();
+			Toast.makeText(actv, "Memo => Stored", Toast.LENGTH_LONG).show();
 
 		} else {//if (result)
 			
@@ -5018,7 +5020,7 @@ public class Methods {
 		
 			
 			// debug
-			Toast.makeText(actv, "Pattern deleted", 3000).show();
+			Toast.makeText(actv, "Pattern deleted", Toast.LENGTH_LONG).show();
 			
 			// Log
 			Log.d("Methods.java" + "["
@@ -5035,7 +5037,7 @@ public class Methods {
 		} catch (SQLException e) {
 			
 			// debug
-			Toast.makeText(actv, "�p�^�[���폜�@=>�@�ł��܂���ł���", 3000).show();
+			Toast.makeText(actv, "�p�^�[���폜�@=>�@�ł��܂���ł���", Toast.LENGTH_LONG).show();
 			
 			// Log
 			Log.e("Methods.java" + "["
@@ -5348,7 +5350,7 @@ public class Methods {
 					+ "]", "File copied: " + src);
 			
 			// debug
-			Toast.makeText(actv, "DB restoration => Done", 3000).show();
+			Toast.makeText(actv, "DB restoration => Done", Toast.LENGTH_LONG).show();
 			
 			return true;
 
@@ -5392,128 +5394,136 @@ public class Methods {
 		/*********************************
 		 * 2. Table exists?
 		 *********************************/
-		boolean result = dbu.tableExists(
-							wdb,
-//							MainActv.tableName_show_history);
-							CONS.tname_show_history);
+		show_history__1_setupTable(actv, dbu, wdb);
 		
-		if (result == false) {
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]",
-					"Table doesn't exist: "
-					+ CONS.tname_show_history);
-			
-			// Create one
-			result = dbu.createTable(
-							wdb, 
-							CONS.tname_show_history, 
-							CONS.cols_show_history, 
-							CONS.col_types_show_history);
-			
-			if (result == true) {
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]",
-						"Table created: " + CONS.tname_show_history);
-				
-			} else {//if (result == true)
-				// Log
-				Log.e("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Create table failed: " + CONS.tname_show_history);
-				
-				// debug
-				Toast.makeText(actv, 
-						"Create table failed: "
-							+ CONS.tname_show_history,
-						Toast.LENGTH_SHORT).show();
-
-				wdb.close();
-				
-				return;
-				
-			}//if (result == true)
-		}//if (result == false)
+		/***************************************
+		 * Close db
+		 ***************************************/
+		wdb.close();
 		
-		/*********************************
-		 * 3. Get all data
-		 *********************************/
-		// Log
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]",
-				"Table exists: " + CONS.tname_show_history);
-		
-		
-		// REF=> http://www.accessclub.jp/sql/10.html
-		String sql = "SELECT * FROM " + CONS.tname_show_history;
-		
-		Cursor c = wdb.rawQuery(sql, null);
-		
-		Log.d("Methods.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "c.getCount() => " + c.getCount());
-
-		if (c.getCount() < 1) {
-			
-			// Log
-			Log.e("Methods.java"
-					+ "["
-					+ Thread.currentThread().getStackTrace()[2]
-							.getLineNumber() + "]", "No history data");
-			
-			// debug
-			Toast.makeText(actv,
-					"No history data", Toast.LENGTH_SHORT).show();
-			
-			wdb.close();
-			
-			return;
-			
-		} else if (c.getCount() > 0) {//if (tempC.getCount() > 0)
-			
-			// debug
-			Toast.makeText(actv, 
-					"Num of history data: " + c.getCount(),
-					Toast.LENGTH_SHORT).show();
-			
-		}//if (tempC.getCount() > 0)
-		
-		/*********************************
-		 * 3-2. Set pref value => 1
-		 *********************************/
-		result = Methods.set_pref(
-							actv, 
-//							MainActv.prefName_mainActv, 
-//							MainActv.prefName_mainActv_history_mode,
-							CONS.pname_mainActv, 
-							CONS.pname_mainActv_history_mode,
-							
-							CONS.HISTORY_MODE_ON);
-
-		if (result == true) {
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]",
-					"Pref => Set: " + CONS.HISTORY_MODE_ON);
-			
-		} else {//if (result == true)
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Set pref => Failed");
-			
-		}//if (result == true)
-		
-		
+//		boolean result = dbu.tableExists(
+//							wdb,
+////							MainActv.tableName_show_history);
+//							CONS.History.tname_show_history);
+//		
+//		if (result == false) {
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]",
+//					"Table doesn't exist: "
+//					+ CONS.History.tname_show_history);
+//			
+//			// Create one
+//			result = dbu.createTable(
+//							wdb, 
+//							CONS.History.tname_show_history, 
+//							CONS.cols_show_history, 
+//							CONS.col_types_show_history);
+//			
+//			if (result == true) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+//						"Table created: " + CONS.History.tname_show_history);
+//				
+//			} else {//if (result == true)
+//				// Log
+//				Log.e("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Create table failed: " + CONS.History.tname_show_history);
+//				
+//				// debug
+//				Toast.makeText(actv, 
+//						"Create table failed: "
+//							+ CONS.History.tname_show_history,
+//						Toast.LENGTH_SHORT).show();
+//
+//				wdb.close();
+//				
+//				return;
+//				
+//			}//if (result == true)
+//		}//if (result == false)
+//		
+//		/*********************************
+//		 * 3. Get all data
+//		 *********************************/
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]",
+//				"Table exists: " + CONS.History.tname_show_history);
+//		
+//		
+//		// REF=> http://www.accessclub.jp/sql/10.html
+//		String sql = "SELECT * FROM " + CONS.History.tname_show_history;
+//		
+//		Cursor c = wdb.rawQuery(sql, null);
+//		
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "c.getCount() => " + c.getCount());
+//
+//		if (c.getCount() < 1) {
+//			
+//			// Log
+//			Log.e("Methods.java"
+//					+ "["
+//					+ Thread.currentThread().getStackTrace()[2]
+//							.getLineNumber() + "]", "No history data");
+//			
+//			// debug
+//			Toast.makeText(actv,
+//					"No history data", Toast.LENGTH_SHORT).show();
+//			
+//			wdb.close();
+//			
+//			return;
+//			
+//		} else if (c.getCount() > 0) {//if (tempC.getCount() > 0)
+//			
+//			// debug
+//			Toast.makeText(actv, 
+//					"Num of history data: " + c.getCount(),
+//					Toast.LENGTH_SHORT).show();
+//			
+//		}//if (tempC.getCount() > 0)
+//		
+//		/*********************************
+//		 * 3-2. Set pref value => 1
+//		 *********************************/
+////		result = Methods.set_pref(
+//		boolean result = Methods.set_pref(
+//							actv, 
+////							MainActv.prefName_mainActv, 
+////							MainActv.prefName_mainActv_history_mode,
+//							CONS.pname_mainActv, 
+//							CONS.pname_mainActv_history_mode,
+//							
+//							CONS.HISTORY_MODE_ON);
+//
+//		if (result == true) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]",
+//					"Pref => Set: " + CONS.HISTORY_MODE_ON);
+//			
+//		} else {//if (result == true)
+//			
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Set pref => Failed");
+//			
+//		}//if (result == true)
+//		
+//		
 		/*********************************
 		 * 4. Set data to intent
 		 * 	1. Set up intent
@@ -5524,43 +5534,44 @@ public class Methods {
 		 *********************************/
 		Intent i = new Intent();
 		
-		i.setClass(actv, TNActv.class);
+//		i.setClass(actv, TNActv.class);
+		i.setClass(actv, HistActv.class);
 		
 		i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		
-		c.moveToFirst();
+//		c.moveToFirst();
 		
-		/*********************************
-		 * 4.2. Get data => File ids
-		 * 4.3. Get data => Table names
-		 *********************************/
-		int data_length = c.getCount();
+//		/*********************************
+//		 * 4.2. Get data => File ids
+//		 * 4.3. Get data => Table names
+//		 *********************************/
+//		int data_length = c.getCount();
+//		
+//		long[] file_ids = new long[data_length];
+//		
+//		String[] table_names = new String[data_length];
+//		
+//		for (int j = 0; j < data_length; j++) {
+//			
+//			file_ids[j] = c.getLong(3);
+//			
+//			table_names[j] = c.getString(4);
+//			
+//			c.moveToNext();
+//			
+//		}//for (int j = 0; j < data_length; j++)
+//		
+//		/*********************************
+//		 * 4-2. Close db
+//		 *********************************/
+//		wdb.close();
 		
-		long[] file_ids = new long[data_length];
-		
-		String[] table_names = new String[data_length];
-		
-		for (int j = 0; j < data_length; j++) {
-			
-			file_ids[j] = c.getLong(3);
-			
-			table_names[j] = c.getString(4);
-			
-			c.moveToNext();
-			
-		}//for (int j = 0; j < data_length; j++)
-		
-		/*********************************
-		 * 4-2. Close db
-		 *********************************/
-		wdb.close();
-		
-		/*********************************
-		 * 4.4. Put data to intent
-		 *********************************/
-		i.putExtra(CONS.intent_label_file_ids, file_ids);
-		
-		i.putExtra(CONS.intent_label_table_names, table_names);
+//		/*********************************
+//		 * 4.4. Put data to intent
+//		 *********************************/
+//		i.putExtra(CONS.intent_label_file_ids, file_ids);
+//		
+//		i.putExtra(CONS.intent_label_table_names, table_names);
 		
 		/*********************************
 		 * 5. Start activity
@@ -5611,6 +5622,60 @@ public class Methods {
 		
 	}//public static void show_history(Activity actv)
 
+	private static void
+	show_history__1_setupTable
+	(Activity actv, DBUtils dbu, SQLiteDatabase wdb) {
+		// TODO Auto-generated method stub
+		boolean result = dbu.tableExists(
+				wdb,
+//				MainActv.tableName_show_history);
+				CONS.History.tname_history);
+
+		if (result == false) {
+		// Log
+		Log.e("Methods.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ "]",
+				"Table doesn't exist: "
+				+ CONS.History.tname_history);
+		
+		// Create one
+		result = dbu.createTable(
+						wdb, 
+						CONS.History.tname_history, 
+						CONS.cols_show_history, 
+						CONS.col_types_show_history);
+		
+		if (result == true) {
+			// Log
+			Log.d("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]",
+					"Table created: " + CONS.History.tname_history);
+			
+		} else {//if (result == true)
+			// Log
+			Log.e("Methods.java"
+					+ "["
+					+ Thread.currentThread().getStackTrace()[2]
+							.getLineNumber() + "]", "Create table failed: " + CONS.History.tname_history);
+			
+			// debug
+			Toast.makeText(actv, 
+					"Create table failed: "
+						+ CONS.History.tname_history,
+					Toast.LENGTH_SHORT).show();
+		
+			wdb.close();
+			
+			return;
+			
+		}//if (result == true)
+		}//if (result == false)
+
+	}//show_history__1_setupTable(DBUtils dbu, SQLiteDatabase wdb)
+
 	public static void save_history(Activity actv, long fileId,
 			String table_name) {
 		/*********************************
@@ -5635,18 +5700,18 @@ public class Methods {
 		/*********************************
 		 * 2-2. Table exists?
 		 *********************************/
-		boolean result = dbu.tableExists(wdb, CONS.tname_show_history);
+		boolean result = dbu.tableExists(wdb, CONS.History.tname_history);
 		
 		if (result == false) {
 			// Log
 			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Table doesn't exist: " + CONS.tname_show_history);
+					+ "]", "Table doesn't exist: " + CONS.History.tname_history);
 			
 			// Create one
 			result = dbu.createTable(
 											wdb, 
-											CONS.tname_show_history, 
+											CONS.History.tname_history, 
 											CONS.cols_show_history, 
 											CONS.col_types_show_history);
 			
@@ -5655,18 +5720,18 @@ public class Methods {
 				Log.d("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Table created: " + CONS.tname_show_history);
+								.getLineNumber() + "]", "Table created: " + CONS.History.tname_history);
 				
 			} else {//if (result == true)
 				// Log
 				Log.e("Methods.java"
 						+ "["
 						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Create table failed: " + CONS.tname_show_history);
+								.getLineNumber() + "]", "Create table failed: " + CONS.History.tname_history);
 				
 				// debug
 				Toast.makeText(actv, 
-						"Create table failed: " + CONS.tname_show_history,
+						"Create table failed: " + CONS.History.tname_history,
 						Toast.LENGTH_SHORT).show();
 
 				wdb.close();
@@ -6947,7 +7012,7 @@ public class Methods {
 					+ "]", "File copied");
 			
 			// debug
-			Toast.makeText(actv, "DB backup => Done", 3000).show();
+			Toast.makeText(actv, "DB backup => Done", Toast.LENGTH_LONG).show();
 
 			dlg.dismiss();
 			

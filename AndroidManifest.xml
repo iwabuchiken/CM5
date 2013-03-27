@@ -28,6 +28,7 @@
         <activity android:name=".SearchActv" android:screenOrientation="portrait"></activity>
         <activity android:name=".BMActv" android:screenOrientation="portrait"></activity>
         <service android:name="cm5.services.Service_ShowProgress"></service>
+        <activity android:name=".HistActv"></activity>
     </application>
 
 </manifest>
