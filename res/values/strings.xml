@@ -30,6 +30,7 @@
 
     <!-- main_opt_menu_admin -->
     	<string name="admin_reset_table_bm">Reset table: bm</string>
+    	<string name="admin_reset_table_history">Reset table: history</string>
     	<string name="admin_start_service_player">Start service: Player</string>
     	<string name="admin_stop_service_player">Stop service: Player</string>
     	

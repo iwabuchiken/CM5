@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 import cm5.items.AI;
 import cm5.items.BM;
 import cm5.items.HI;
@@ -257,5 +258,120 @@ public class Methods_CM5 {
 		});//Collections.sort()
 
 	}//sortList_HI_createdAt(List<HI> hiList, SORT_ORDER sortOrder)
+
+
+	
+	public static int saveHistory(Activity actv, AI ai) {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Build a HI instance
+		 ***************************************/
+		/*********************************
+		 * 1. Build data
+		 * 2. Set up db
+		 * 
+		 * 2-2. Table exists?
+		 * 
+		 * 3. Insert data
+		 * 4. Close db
+		 *********************************/
+		HI hi = new HI.Builder()
+					.setAiId(ai.getDb_id())
+					.setAiTableName(ai.getTable_name())
+					.build();
+		
+		/*********************************
+		 * 2. Set up db
+		 *********************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+		
+		/*********************************
+		 * 2-2. Table exists?
+		 *********************************/
+		boolean result = dbu.tableExists(wdb, CONS.History.tname_history);
+		
+		if (result == false) {
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Table doesn't exist: " + CONS.History.tname_history);
+			
+			// Create one
+			result = dbu.createTable(
+											wdb, 
+											CONS.History.tname_history, 
+											CONS.cols_show_history, 
+											CONS.col_types_show_history);
+			
+			if (result == true) {
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Table created: " + CONS.History.tname_history);
+				
+			} else {//if (result == true)
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber() + "]", "Create table failed: " + CONS.History.tname_history);
+				
+				// debug
+				Toast.makeText(actv, 
+						"Create table failed: " + CONS.History.tname_history,
+						Toast.LENGTH_SHORT).show();
+
+				wdb.close();
+				
+				return CONS.History.SAVE_HISTORY_CREATE_TABLE_FAILED;
+				
+			}//if (result == true)
+			
+		}//if (result == false)
+		
+		/*********************************
+		 * 3. Insert data
+		 *********************************/
+		boolean res = DBUtils.insertData_history(actv, wdb, hi);
+		
+//		// Log
+//		Log.d("Methods.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "res=" + res);
+		
+		if (res == true) {
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "History saved: AI id=" + ai.getDb_id());
+			
+			wdb.close();
+			
+			return CONS.History.SAVE_HISTORY_SUCCESSFUL;
+			
+		} else {//if (res == true)
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Save history => Failed: AI id=" + ai.getDb_id());
+
+			wdb.close();
+			
+			return CONS.History.SAVE_HISTORY_FAILED;
+
+		}//if (res == true)
+		
+//		/*********************************
+//		 * 4. Close db
+//		 *********************************/
+//		wdb.close();
+		
+	}//public static void saveHistory(Activity actv, AI ai)
 	
 }//public class Methods_CM5

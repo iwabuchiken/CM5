@@ -5676,105 +5676,105 @@ public class Methods {
 
 	}//show_history__1_setupTable(DBUtils dbu, SQLiteDatabase wdb)
 
-	public static void save_history(Activity actv, long fileId,
-			String table_name) {
-		/*********************************
-		 * 1. Build data
-		 * 2. Set up db
-		 * 
-		 * 2-2. Table exists?
-		 * 
-		 * 3. Insert data
-		 * 4. Close db
-		 *********************************/
-		Object[] data = {fileId, table_name};
-		
-		/*********************************
-		 * 2. Set up db
-		 *********************************/
-		DBUtils dbu = new DBUtils(actv, CONS.dbName);
-		
-		//
-		SQLiteDatabase wdb = dbu.getWritableDatabase();
-		
-		/*********************************
-		 * 2-2. Table exists?
-		 *********************************/
-		boolean result = dbu.tableExists(wdb, CONS.History.tname_history);
-		
-		if (result == false) {
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Table doesn't exist: " + CONS.History.tname_history);
-			
-			// Create one
-			result = dbu.createTable(
-											wdb, 
-											CONS.History.tname_history, 
-											CONS.cols_show_history, 
-											CONS.col_types_show_history);
-			
-			if (result == true) {
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Table created: " + CONS.History.tname_history);
-				
-			} else {//if (result == true)
-				// Log
-				Log.e("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Create table failed: " + CONS.History.tname_history);
-				
-				// debug
-				Toast.makeText(actv, 
-						"Create table failed: " + CONS.History.tname_history,
-						Toast.LENGTH_SHORT).show();
-
-				wdb.close();
-				
-				return;
-				
-			}//if (result == true)
-		}//if (result == false)
-
-		
-		/*********************************
-		 * 3. Insert data
-		 *********************************/
-		boolean res = DBUtils.insertData_history(actv, wdb, data);
-		
-//		// Log
-//		Log.d("Methods.java" + "["
-//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-//				+ "]", "res=" + res);
-		
-		if (res == true) {
-			
-			// Log
-			Log.d("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "History saved: fileId=" + fileId);
-			
-		} else {//if (res == true)
-			
-			// Log
-			Log.e("Methods.java" + "["
-					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-					+ "]", "Save history => Failed: " + fileId);
-			
-		}//if (res == true)
-		
-		
-		/*********************************
-		 * 4. Close db
-		 *********************************/
-		wdb.close();
-		
-	}//public static void save_history()
+//	public static void save_history(Activity actv, long fileId,
+//			String table_name) {
+//		/*********************************
+//		 * 1. Build data
+//		 * 2. Set up db
+//		 * 
+//		 * 2-2. Table exists?
+//		 * 
+//		 * 3. Insert data
+//		 * 4. Close db
+//		 *********************************/
+//		Object[] data = {fileId, table_name};
+//		
+//		/*********************************
+//		 * 2. Set up db
+//		 *********************************/
+//		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+//		
+//		//
+//		SQLiteDatabase wdb = dbu.getWritableDatabase();
+//		
+//		/*********************************
+//		 * 2-2. Table exists?
+//		 *********************************/
+//		boolean result = dbu.tableExists(wdb, CONS.History.tname_history);
+//		
+//		if (result == false) {
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Table doesn't exist: " + CONS.History.tname_history);
+//			
+//			// Create one
+//			result = dbu.createTable(
+//											wdb, 
+//											CONS.History.tname_history, 
+//											CONS.cols_show_history, 
+//											CONS.col_types_show_history);
+//			
+//			if (result == true) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Table created: " + CONS.History.tname_history);
+//				
+//			} else {//if (result == true)
+//				// Log
+//				Log.e("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Create table failed: " + CONS.History.tname_history);
+//				
+//				// debug
+//				Toast.makeText(actv, 
+//						"Create table failed: " + CONS.History.tname_history,
+//						Toast.LENGTH_SHORT).show();
+//
+//				wdb.close();
+//				
+//				return;
+//				
+//			}//if (result == true)
+//		}//if (result == false)
+//
+//		
+//		/*********************************
+//		 * 3. Insert data
+//		 *********************************/
+//		boolean res = DBUtils.insertData_history(actv, wdb, data);
+//		
+////		// Log
+////		Log.d("Methods.java" + "["
+////				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+////				+ "]", "res=" + res);
+//		
+//		if (res == true) {
+//			
+//			// Log
+//			Log.d("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "History saved: fileId=" + fileId);
+//			
+//		} else {//if (res == true)
+//			
+//			// Log
+//			Log.e("Methods.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ "]", "Save history => Failed: " + fileId);
+//			
+//		}//if (res == true)
+//		
+//		
+//		/*********************************
+//		 * 4. Close db
+//		 *********************************/
+//		wdb.close();
+//		
+//	}//public static void save_history()
 
 	public static List<TI> get_all_data_history(Activity actv,
 			long[] history_file_ids, String[] history_table_names) {
@@ -6094,78 +6094,78 @@ public class Methods {
 		return tableList;
 	}//public static List<String> get_table_list(Activity actv, String key_word)
 	
-	public static boolean record_history(Activity actv, TI ti) {
-		/*********************************
-		 * memo
-		 *********************************/
-		int current_history_mode = Methods.get_pref(
-				actv, 
-				CONS.pname_mainActv, 
-//				MainActv.prefName_mainActv_history_mode,
-				CONS.pname_mainActv_history_mode,
-				-1);
-
-		if (current_history_mode == CONS.HISTORY_MODE_OFF) {
-			
-			Methods.save_history(
-					actv,
-					ti.getFileId(),
-					Methods.convert_path_into_table_name(actv));
-			
-			/*********************************
-			 * 2-2-a. Update data
-			 *********************************/
+//	public static boolean record_history(Activity actv, TI ti) {
+//		/*********************************
+//		 * memo
+//		 *********************************/
+//		int current_history_mode = Methods.get_pref(
+//				actv, 
+//				CONS.pname_mainActv, 
+////				MainActv.prefName_mainActv_history_mode,
+//				CONS.pname_mainActv_history_mode,
+//				-1);
+//
+//		if (current_history_mode == CONS.HISTORY_MODE_OFF) {
+//			
+//			Methods.save_history(
+//					actv,
+//					ti.getFileId(),
+//					Methods.convert_path_into_table_name(actv));
+//			
+//			/*********************************
+//			 * 2-2-a. Update data
+//			 *********************************/
+////			// Log
+////			Log.d("Methods.java"
+////					+ "["
+////					+ Thread.currentThread().getStackTrace()[2]
+////							.getLineNumber() + "]",
+////					"[onListItemClick] Table name=" + Methods.convert_path_into_table_name(actv));
+//			
+//			DBUtils dbu = new DBUtils(actv, CONS.dbName);
+//			
+//			//
+//			SQLiteDatabase wdb = dbu.getWritableDatabase();
+//
+//			
+//			boolean res = DBUtils.updateData_TI_last_viewed_at(
+//								actv,
+//								wdb,
+//								Methods.convert_path_into_table_name(actv),
+//								ti);
+//			
+//			if (res == true) {
+//				// Log
+//				Log.d("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]", "Data updated: " + ti.getFile_name());
+//			} else {//if (res == true)
+//				// Log
+//				Log.e("Methods.java"
+//						+ "["
+//						+ Thread.currentThread().getStackTrace()[2]
+//								.getLineNumber() + "]",
+//						"Update data => Failed: " + ti.getFile_name());
+//			}//if (res == true)
+//			
+//			
+//			wdb.close();
+//			
+//		} else {//if (current_move_mode == MainActv.HISTORY_MODE_OFF)
+//			
 //			// Log
-//			Log.d("Methods.java"
+//			Log.e("Methods.java"
 //					+ "["
 //					+ Thread.currentThread().getStackTrace()[2]
-//							.getLineNumber() + "]",
-//					"[onListItemClick] Table name=" + Methods.convert_path_into_table_name(actv));
-			
-			DBUtils dbu = new DBUtils(actv, CONS.dbName);
-			
-			//
-			SQLiteDatabase wdb = dbu.getWritableDatabase();
-
-			
-			boolean res = DBUtils.updateData_TI_last_viewed_at(
-								actv,
-								wdb,
-								Methods.convert_path_into_table_name(actv),
-								ti);
-			
-			if (res == true) {
-				// Log
-				Log.d("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]", "Data updated: " + ti.getFile_name());
-			} else {//if (res == true)
-				// Log
-				Log.e("Methods.java"
-						+ "["
-						+ Thread.currentThread().getStackTrace()[2]
-								.getLineNumber() + "]",
-						"Update data => Failed: " + ti.getFile_name());
-			}//if (res == true)
-			
-			
-			wdb.close();
-			
-		} else {//if (current_move_mode == MainActv.HISTORY_MODE_OFF)
-			
-			// Log
-			Log.e("Methods.java"
-					+ "["
-					+ Thread.currentThread().getStackTrace()[2]
-							.getLineNumber() + "]", "History not saved");
-			
-		}//if (current_move_mode == MainActv.HISTORY_MODE_OFF)
-
-		
-		
-		return false;
-	}//public static boolean record_history(Activity actv, long fileId)
+//							.getLineNumber() + "]", "History not saved");
+//			
+//		}//if (current_move_mode == MainActv.HISTORY_MODE_OFF)
+//
+//		
+//		
+//		return false;
+//	}//public static boolean record_history(Activity actv, long fileId)
 
 	/*********************************
 	 * <Notes>

@@ -1150,6 +1150,18 @@ public class ALActv extends ListActivity {
 				****************************/
 			AI ai = (AI) lv.getItemAtPosition(position);
 			
+			/***************************************
+			 * Store history
+			 ***************************************/
+			int res = Methods_CM5.saveHistory(this, ai);
+			
+			// Log
+			Log.d("ALActv.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "Save history: res=" + res);
+			
 			/****************************
 			 * 2. Intent
 			 * 		2.1. Set data

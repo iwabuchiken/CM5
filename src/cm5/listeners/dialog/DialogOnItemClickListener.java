@@ -379,6 +379,10 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 			
 			case_main_opt_menu_admin_resetTable_bm();
 			
+		} else if (item.equals(actv.getString(R.string.admin_reset_table_history))) {
+			
+			case_main_opt_menu_admin_resetTable_history();
+			
 //		} else if (item.equals(actv.getString(R.string.dlg_db_admin_item_refresh_db))){
 		} else if (item.equals(actv.getString(R.string.admin_start_service_player))) {
 			
@@ -391,6 +395,39 @@ public class DialogOnItemClickListener implements OnItemClickListener {
 		}//if (item.equals(actv.getString(R.string.admin_reset_table_bm)))
 
 	}//private void case_main_opt_menu_admin(String item)
+
+	private void
+	case_main_opt_menu_admin_resetTable_history() {
+		// TODO Auto-generated method stub
+		/***************************************
+		 * Drop table
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		boolean res = dbu.dropTable(actv, CONS.History.tname_history);
+		
+		if (res == false) {
+			
+			// Log
+			Log.d("DialogOnItemClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "res => null");
+			
+			return;
+			
+		}//if (res == false)
+		
+		/***************************************
+		 * Create table
+		 ***************************************/
+		res = dbu.createTable(
+					CONS.History.tname_history,
+					CONS.History.cols_history,
+					CONS.History.col_types_history);
+
+	}//case_main_opt_menu_admin_resetTable_history()
 
 	private void admin_stop_service_player() {
 		// TODO Auto-generated method stub

@@ -2113,6 +2113,7 @@ public class Methods_dlg {
 		****************************/
 		String[] choices = {
 							actv.getString(R.string.admin_reset_table_bm),
+							actv.getString(R.string.admin_reset_table_history),
 							actv.getString(R.string.admin_start_service_player),
 							actv.getString(R.string.admin_stop_service_player),
 							

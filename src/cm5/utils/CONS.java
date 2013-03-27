@@ -343,6 +343,10 @@ public class CONS {
 		
 		public static final String pkey_HistActv_position = "prefKey_HistActv_position";
 
+		public static final int SAVE_HISTORY_SUCCESSFUL = 1;
+		public static final int SAVE_HISTORY_FAILED = -1;
+		public static final int SAVE_HISTORY_CREATE_TABLE_FAILED = -2;
+		
 	}
 	
 }//public class CONS

@@ -7,6 +7,7 @@ import java.util.List;
 
 import cm5.items.AI;
 import cm5.items.BM;
+import cm5.items.HI;
 import cm5.items.TI;
 import cm5.main.MainActv;
 
@@ -776,7 +777,7 @@ public class DBUtils extends SQLiteOpenHelper{
 	public static boolean insertData_history(
 							Activity actv, 
 							SQLiteDatabase wdb, 
-							Object[] data) {
+							HI hi) {
 		/*********************************
 		 * memo
 		 *********************************/
@@ -792,34 +793,75 @@ public class DBUtils extends SQLiteOpenHelper{
 			// ContentValues
 			ContentValues val = new ContentValues();
 
-//			"file_id", "table_name"
+			val.put("created_at", Methods.getMillSeconds_now());
+			val.put("modified_at", Methods.getMillSeconds_now());
+
+//			cols_history = {"aiId", 	"aiTableName"}]
 			
-			val.put("file_id", (Long) data[0]);
+			val.put("aiId", hi.getAiId());
 			
-			val.put("table_name", (String) data[1]);
+			val.put("aiTableName", hi.getAiTableName());
 
 			// Insert data
 //			wdb.insert(MainActv.tableName_show_history, null, val);
 //			wdb.insert(CONS.tname_show_history, null, val);
-			wdb.insert(CONS.History.tname_history, null, val);
+			long res = wdb.insert(CONS.History.tname_history, null, val);
 			
-			// Set as successful
-			wdb.setTransactionSuccessful();
+			if (res > 0) {
+				
+				// Set as successful
+				wdb.setTransactionSuccessful();
+				
+				// End transaction
+				wdb.endTransaction();
+				
+				// Log
+				Log.d("DBUtils.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ "]", "Data inserted => " + "(file_name => " + val.getAsString("file_name") + "), and others");
+
+				wdb.close();
+				
+				return true;
+				
+			} else {//if (res > 0)
+				
+				// Log
+				Log.d("DBUtils.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]",
+						"Data insertion => Failed: AI id=" + hi.getAiId());
+				
+				wdb.close();
+				
+				return false;
+				
+			}//if (res > 0)
 			
-			// End transaction
-			wdb.endTransaction();
 			
-			// Log
-			Log.d("DBUtils.java" + "["
-				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
-				+ "]", "Data inserted => " + "(file_name => " + val.getAsString("file_name") + "), and others");
+//			// Set as successful
+//			wdb.setTransactionSuccessful();
+//			
+//			// End transaction
+//			wdb.endTransaction();
+//			
+//			// Log
+//			Log.d("DBUtils.java" + "["
+//				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//				+ "]", "Data inserted => " + "(file_name => " + val.getAsString("file_name") + "), and others");
 			
-			return true;
+//			return true;
 		} catch (Exception e) {
 			// Log
 			Log.e("DBUtils.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Exception! => " + e.toString());
+			
+			wdb.close();
 			
 			return false;
 		}//try
