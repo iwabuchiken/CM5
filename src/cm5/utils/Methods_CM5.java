@@ -194,9 +194,10 @@ public class Methods_CM5 {
 			
 //			"aiId", 	"aiTableName"
 			HI hi = new HI.Builder()
-					.setDbId(0)
+//					.setDbId(0)
+					.setDbId(c.getLong(0))
 					.setCreatedAt(c.getLong(1))
-					.setModifiedAt(2)
+					.setModifiedAt(c.getLong(2))
 					.setAiId(c.getLong(c.getColumnIndex("aiId")))
 					.setAiTableName(c.getString(c.getColumnIndex("aiTableName")))
 					.build();
@@ -373,5 +374,47 @@ public class Methods_CM5 {
 //		wdb.close();
 		
 	}//public static void saveHistory(Activity actv, AI ai)
+
+
+	
+	public static List<HI>
+	getHIList_FromCursor(Activity actv, Cursor c) {
+		List<HI> hiList = new ArrayList<HI>();
+		
+		while(c.moveToNext()) {
+			
+			HI hi = new HI.Builder()
+		//			.setDbId(0)
+					.setDbId(c.getLong(0))
+					.setCreatedAt(c.getLong(1))
+					.setModifiedAt(c.getLong(2))
+					.setAiId(c.getLong(c.getColumnIndex("aiId")))
+					.setAiTableName(c.getString(c.getColumnIndex("aiTableName")))
+					.build();
+					
+			if (hi != null) {
+				
+				hiList.add(hi);
+				
+			} else {//if (hi != null)
+				
+				// Log
+				Log.d("Methods_CM5.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]", "hi != null");
+				
+				continue;
+				
+			}//if (hi != null)
+			
+		}//while(c.moveToNext())
+		
+		return hiList;
+		
+	}//getHIList_FromCursor(Activity actv, Cursor c)
 	
 }//public class Methods_CM5

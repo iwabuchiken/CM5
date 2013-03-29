@@ -369,6 +369,12 @@ public class PlayActv extends Activity {
 		boolean res = Methods.clearPref(this, CONS.Pref.pname_PlayActv);
 		
 		super.onDestroy();
+		
+		/***************************************
+		 * Finish activity
+		 ***************************************/
+		finish();
+		
 	}//protected void onDestroy()
 
 	@Override

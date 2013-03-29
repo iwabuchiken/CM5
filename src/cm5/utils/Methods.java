@@ -61,6 +61,7 @@ import org.apache.commons.lang.StringUtils;
 
 import cm5.items.AI;
 import cm5.items.BM;
+import cm5.items.HI;
 import cm5.items.SearchedItem;
 import cm5.items.TI;
 import cm5.listeners.CustomOnItemLongClickListener;
@@ -3995,6 +3996,11 @@ public class Methods {
 		 ***************************************/
 		Methods.moveFiles__4_updateBM(actv, toMoveFiles, dstTableName);
 		
+		/***************************************
+		 * Update: Table names in "history" table
+		 ***************************************/
+		Methods.moveFiles__5_updateHI(actv, toMoveFiles, dstTableName);
+		
 		/****************************
 		 * 3. Dismiss dialogues
 			****************************/
@@ -4002,6 +4008,149 @@ public class Methods {
 		dlg2.dismiss();
 		
 	}//public static void moveFiles(Activity actv, Dialog dlg1, Dialog dlg2)
+	
+	private static void
+	moveFiles__5_updateHI
+	(Activity actv, List<AI> toMoveFiles, String dstTableName) {
+		/***************************************
+		 * Setup: DB
+		 ***************************************/
+		DBUtils dbu = new DBUtils(actv, CONS.dbName);
+		
+		//
+		SQLiteDatabase wdb = dbu.getWritableDatabase();
+
+		/***************************************
+		 * Loop: List<AI>
+		 ***************************************/
+		for (int i = 0; i < toMoveFiles.size(); i++) {
+			
+			AI ai = toMoveFiles.get(i);
+			
+			Cursor c = null;
+			
+			try {
+				// Get bm record where its "ai_id" is a certain value
+				c = wdb.query(
+						CONS.History.tname_history,
+//						CONS.DB.cols_bm,
+						CONS.History.cols_history_full,
+						"aiId=?",
+						new String[]{String.valueOf(ai.getDb_id())},
+						null, null, null);
+				
+				if (c == null) {
+					
+					// Log
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber()
+							+ ":"
+							+ Thread.currentThread().getStackTrace()[2]
+									.getMethodName() + "]", "c == null");
+					
+					continue;
+					
+				}//if (c == null)
+				
+			} catch (Exception e) {
+
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]",
+						e.toString());
+				
+				continue;
+			}
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "c.getCount()=" + c.getCount());
+			
+			/***************************************
+			 * Get: List<HI> (from the cursor)
+			 ***************************************/
+//			List<BM> bmList = Methods_CM5.getBMList_FromCursor(actv, c);
+			List<HI> hiList = Methods_CM5.getHIList_FromCursor(actv, c);
+			
+			// Log
+			Log.d("Methods.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "ai.getFile_name()=" + ai.getFile_name());
+			
+			//debug
+			if (hiList != null) {
+
+				// Log
+				Log.d("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2].getMethodName()
+						+ "]", "hiList.size()=" + hiList.size());
+				
+				/***************************************
+				 * Loop: List<BM>
+				 ***************************************/
+//				DBUtils dbu = new DBUtils(actv, CONS.dbName);
+				dbu = new DBUtils(actv, CONS.dbName);
+				
+				for (int j = 0; j < hiList.size(); j++) {
+					
+					HI hi = hiList.get(j);
+				
+					boolean res = dbu.updateData_generic(
+									actv,
+									CONS.History.tname_history,
+									hi.getDbId(),
+									"aiTableName",
+									dstTableName);
+					
+					// Log
+					Log.d("Methods.java"
+							+ "["
+							+ Thread.currentThread().getStackTrace()[2]
+									.getLineNumber()
+							+ ":"
+							+ Thread.currentThread().getStackTrace()[2]
+									.getMethodName() + "]", "res=" + res);
+					
+				}//for (int j = 0; j < bmList.size(); j++)	// Loop: List<BM>
+				
+			} else {//if (bmList == condition)
+				
+				// Log
+				Log.d("Methods.java"
+						+ "["
+						+ Thread.currentThread().getStackTrace()[2]
+								.getLineNumber()
+						+ ":"
+						+ Thread.currentThread().getStackTrace()[2]
+								.getMethodName() + "]", "hiList => null");
+				
+				continue;
+				
+			}//if (bmList == condition)
+			
+		}//for (int i = 0; i < toMoveFiles.size(); i++) // Loop: List<AI>
+		
+		/***************************************
+		 * Close: DB
+		 ***************************************/
+		wdb.close();
+		
+	}//moveFiles__5_updateHI(Activity actv, List<AI> toMoveFiles, String dstTableName)
+	
 
 	private static void
 	moveFiles__4_updateBM(Activity actv, List<AI> toMoveFiles, String dstTableName) {

@@ -262,6 +262,8 @@ public class CONS {
 		 ***************************************/
 		public final static int REQUEST_CODE_SEE_BOOKMARKS = 0;
 		
+		public final static int REQUEST_CODE_HISTORY = 1;
+		
 		/***************************************
 		 * Result code
 		 ***************************************/
@@ -329,9 +331,16 @@ public class CONS {
 		
 		public static String tname_history = "history";
 		
-		public static String[] cols_history = 
-			{"aiId", 	"aiTableName"};
-		
+		public static String[] cols_history = {
+				"aiId", 	"aiTableName"
+		};
+
+		public static final String[] cols_history_full = {
+			android.provider.BaseColumns._ID,
+			"created_at", "modified_at",
+			"aiId", 	"aiTableName"
+		};
+
 		public static String[] col_types_history =
 			{"INTEGER",	"TEXT"};
 		

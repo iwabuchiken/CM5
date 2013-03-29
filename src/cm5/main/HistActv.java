@@ -34,6 +34,7 @@ import cm5.utils.Tags;
 
 import cm5.main.R;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -1057,31 +1058,47 @@ public class HistActv extends ListActivity {
 					+ Thread.currentThread().getStackTrace()[2].getMethodName()
 					+ "]", "Position set to pref => " + position);
 			
-//			/****************************
-//			 * 1. Get item
-//				****************************/
+			/****************************
+			 * 1. Get item
+				****************************/
 //			AI ai = (AI) lv.getItemAtPosition(position);
+			HI hi = (HI) lv.getItemAtPosition(position);
+			
+			AI ai = Methods.get_data_ai(this, hi.getAiId(), hi.getAiTableName());
+
+//			/***************************************
+//			 * Store history
+//			 ***************************************/
+//			int res = Methods_CM5.saveHistory(this, ai);
 //			
-//			/****************************
-//			 * 2. Intent
-//			 * 		2.1. Set data
-//				****************************/
-//			Intent i = new Intent();
-//			
-//			i.setClass(this, PlayActv.class);
-//			
-//			i.putExtra("db_id", ai.getDb_id());
-//			
-//			i.putExtra("table_name", ai.getTable_name());
-//			
-//			i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//			
-//			
-//			/*********************************
-//			 * 9. Start intent
-//			 *********************************/
+//			// Log
+//			Log.d("HistActv.java" + "["
+//					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+//					+ ":"
+//					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+//					+ "]", "Save history: res=" + res);
+
+			/****************************
+			 * 2. Intent
+			 * 		2.1. Set data
+				****************************/
+			Intent i = new Intent();
+			
+			i.setClass(this, PlayActv.class);
+			
+			i.putExtra("db_id", ai.getDb_id());
+			
+			i.putExtra("table_name", ai.getTable_name());
+			
+			i.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			
+			
+			/*********************************
+			 * 9. Start intent
+			 *********************************/
 //			startActivity(i);
-//			
+			this.startActivityForResult(i, CONS.Intent.REQUEST_CODE_HISTORY);
+			
 //		}//if (CONS.move_mode == true)
 
 //		/****************************
