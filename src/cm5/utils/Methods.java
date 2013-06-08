@@ -6970,8 +6970,12 @@ public class Methods {
 		/*********************************
 		 * 3. Update data
 		 *********************************/
-		boolean res = DBUtils.update_data_ai(actv, CONS.dbName, ai.getDb_id(),
+		boolean res = DBUtils.update_data_ai(
+							actv, CONS.dbName, ai.getTable_name(),
+							ai.getDb_id(),
 							CONS.cols_item[2], ai.getTitle());
+//		boolean res = DBUtils.update_data_ai(actv, CONS.dbName, ai.getDb_id(),
+//				CONS.cols_item[2], ai.getTitle());
 		
 		if (res == true) {
 			
