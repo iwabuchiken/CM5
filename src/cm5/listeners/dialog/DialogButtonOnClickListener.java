@@ -127,6 +127,13 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		Log.d("DialogButtonOnClickListener.java" + "["
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "tag_name.name()=" + tag_name.name());
+		
+		// Log
+		Log.d("DialogButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "Switching...");
 		//
 		switch (tag_name) {
 		
@@ -279,6 +286,17 @@ public class DialogButtonOnClickListener implements OnClickListener {
 
 		case dlg_edit_item_bt_ok:// ----------------------------------------------------
 			
+			
+			// Log
+			Log.d("DialogButtonOnClickListener.java" + "["
+					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+					+ ":"
+					+ Thread.currentThread().getStackTrace()[2].getMethodName()
+					+ "]", "case dlg_edit_item_bt_ok");
+			
+			
+			// debugging....
+			
 			case_dlg_edit_item_bt_ok();
 			
 			break;// case dlg_edit_item_bt_ok
@@ -301,6 +319,15 @@ public class DialogButtonOnClickListener implements OnClickListener {
 		 ***************************************/
 		bm.setTitle(etTitle.getText().toString());
 		bm.setMemo(etMemo.getText().toString());
+		
+		
+		// Log
+		Log.d("DialogButtonOnClickListener.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]",
+				"etTitle.getText().toString()=" + etTitle.getText().toString());
 		
 		/***************************************
 		 * Store data to db

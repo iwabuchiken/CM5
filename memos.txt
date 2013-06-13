@@ -1,4 +1,7 @@
 a
+a p && pushd C:\WORKS\WS\WS_Android~\CM5 && gitk
+pushd C:\WORKS\WS\WS_Android~\CM5 && gitk
+
 pushd C:\WORKS\WS\WS_Android~\CM5
 gitk
 

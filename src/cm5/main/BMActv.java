@@ -45,6 +45,13 @@ public class BMActv extends ListActivity {
 	
 		vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
 		
+		// Log
+		Log.d("BMActv.java" + "["
+				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ ":"
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "onCreate()");
+		
 
 	}//protected void onCreate(Bundle savedInstanceState)
 
