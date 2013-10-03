@@ -11,6 +11,7 @@ import cm5.items.AI;
 import cm5.items.BM;
 import cm5.items.HI;
 import cm5.items.SearchedItem;
+import cm5.main.MainActv;
 
 import android.content.SharedPreferences;
 import android.provider.MediaStore;
@@ -275,6 +276,15 @@ public class CONS {
 	
 	public static class DB {
 		
+		public static String dbName = "cm5.db";
+		
+		public static String dPath_dbFile = "/data/data/cm5.main/databases";
+		
+		public static String dPath_dbFile_backup = "/mnt/sdcard-ext/cm5_backup";
+		
+//		public static String dPath_dbFile = 
+//							Methods.get_DirPath(new MainActv().getFilesDir().getPath());
+		
 		public static final String tname_BM = "bm";
 
 		public static final String[] cols_bm = {
@@ -324,6 +334,8 @@ public class CONS {
 	public static class Admin {
 		
 		public static final float DLG_WIDTH_RATIO = 0.8f;
+		
+		public static final String dName_backup = "cm5_backup";
 		
 	}
 	

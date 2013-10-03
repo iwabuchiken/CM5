@@ -5467,29 +5467,22 @@ public class Methods {
 
 		/*********************************
 		 * 2. Setup: File paths
-		 *********************************/
-//    	String src = 
-//    			"/mnt/sdcard-ext/ShoppingList_backup/shoppinglist_backup_20120906_201402.bk";
-//    			"/mnt/sdcard-ext/CR4_backup/cr4_backup_20120907_184555.bk";
-
-    	
-//    	String dst =
-////    			"/data/data/test.main/databases/shoppinglist.db";
-//    			"/data/data/cr4.main/databases/cr4.db";
 
     	/*********************************
 		 * 3. Setup: File objects
 		 *********************************/
-		File f_src = new File(src);
-		File f_dst = new File(dst);
 
 		/*********************************
 		 * 4. Copy file
 		 *********************************/
+		FileChannel iChannel = null;
+		FileChannel oChannel = null;
+		
 		try {
-			FileChannel iChannel = new FileInputStream(src).getChannel();
-			FileChannel oChannel = new FileOutputStream(dst).getChannel();
+			iChannel = new FileInputStream(src).getChannel();
+			oChannel = new FileOutputStream(dst).getChannel();
 			iChannel.transferTo(0, iChannel.size(), oChannel);
+			
 			iChannel.close();
 			oChannel.close();
 			
@@ -5508,7 +5501,55 @@ public class Methods {
 			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception: " + e.toString());
+			if (iChannel != null) {
+				
+				try {
+					
+					iChannel.close();
+					
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+						+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+						+ "]", "Exception: " + e.toString());
+
+				}
+				
+			}
 			
+			if (iChannel != null) {
+				
+				try {
+					
+					iChannel.close();
+					
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+			
+			if (oChannel != null) {
+				
+				try {
+					oChannel.close();
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+
 			return false;
 			
 		} catch (IOException e) {
@@ -5516,6 +5557,39 @@ public class Methods {
 			Log.e("Methods.java" + "["
 					+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 					+ "]", "Exception: " + e.toString());
+			
+			if (iChannel != null) {
+				
+				try {
+					
+					iChannel.close();
+					
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+			
+			if (oChannel != null) {
+				
+				try {
+					oChannel.close();
+				} catch (IOException e1) {
+					
+					// Log
+					Log.e("Methods.java" + "["
+							+ Thread.currentThread().getStackTrace()[2].getLineNumber()
+							+ "]", "Exception: " + e.toString());
+					
+				}
+				
+			}
+
 			
 			return false;
 			
@@ -7646,6 +7720,60 @@ public class Methods {
 		
 	}//sortList_BM(List<BM> bmList, SortOrder order)
 
+	/*********************************
+	 * get_DirPath(String fullPath)<br>
+	 * @return null => fullPath == null<br>
+	 * 			String<br>
+	 * 	example<br>
+	 * 	"/data/data/ifm10.main/files"
+	 * 		=> "/data/data/ifm10.main"
+	 *********************************/
+	public static String get_DirPath(String fullPath) {
+		// String top => "/"?
+		boolean has_root = false;
+		
+		if (StringUtils.substring(fullPath, 0, 1).equals(File.separator)) {
+			
+			has_root = true;
+			
+		}
+		
+		// Log
+		Log.d("[" + "Methods.java : "
+				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ " : "
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]", "StringUtils.substring(fullPath, 0, 1) => "
+				+ StringUtils.substring(fullPath, 0, 1));
+		
+		// Return
+		if (fullPath == null) {
+			
+			return null;
+			
+		} else {//if (fullPath == null)
+			
+			String[] array = StringUtils.split(fullPath, File.separator);
+			
+			int array_length = array.length;
+			
+			String[] result_array = Arrays.copyOfRange(array, 0, (array_length - 1));
+			
+			// Return
+			if (has_root == true) {
+				
+				return File.separator + StringUtils.join(result_array, File.separator);
+				
+			} else {//if (has_root == true)
+				
+				return StringUtils.join(result_array, File.separator);
+				
+			}//if (has_root == true)
+			
+			
+		}//if (fullPath == null)
+		
+	}//public static String get_DirPath(String fullPath) {
 
 }//public class Methods
 

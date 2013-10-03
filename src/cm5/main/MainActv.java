@@ -26,6 +26,7 @@ import cm5.utils.Tags;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -90,9 +91,6 @@ public class MainActv extends ListActivity {
         
         vib = (Vibrator) this.getSystemService(this.VIBRATOR_SERVICE);
         
-        //
-//        B13_v_1_0_reset_pref_current_path();
-        
         /*----------------------------
 		 * 4. Set list
 			----------------------------*/
@@ -120,6 +118,10 @@ public class MainActv extends ListActivity {
 
 //		B14_v_1_2_verify_table_name_in_record();
 		
+		/*********************************
+		 * Debugs
+		 *********************************/
+//		do_debug();
         
     }//public void onCreate(Bundle savedInstanceState)
 
@@ -232,9 +234,9 @@ public class MainActv extends ListActivity {
 		 *********************************/
 //		copy_db_file();
 //		test_simple_format();
-//		restore_db("ifm9_backup_20121001_140224.bk");
+		restore_db("cm5_backup_20131003_090245.bk");
 //		check_db();
-		show_column_list("IFM9__Android");
+//		show_column_list("IFM9__Android");
 //		10-01 15:05:54.408: D/MainActv.java[260](14946): New col added to: IFM9__Android
 
     	/*********************************
@@ -477,10 +479,32 @@ public class MainActv extends ListActivity {
 				+ Thread.currentThread().getStackTrace()[2].getLineNumber()
 				+ "]", "Starting: restore_db()");
     	
-		String src = "/mnt/sdcard-ext/IFM9_backup/" + dbFile_name;
-		String dst = StringUtils.join(new String[]{"/data/data/ifm9.main/databases", CONS.dbName}, File.separator);
+		String src = StringUtils.join(
+						new String[]{
+							CONS.DB.dPath_dbFile_backup,
+							dbFile_name},
+							
+						File.separator);
 		
-//		String dst = "/data/data/ifm9.main/databases" + MainActv.dbName;
+//		String src = "/mnt/sdcard-ext/IFM9_backup/" + dbFile_name;
+		String dst = StringUtils.join(
+						new String[]{
+							CONS.DB.dPath_dbFile,
+							CONS.DB.dbName},
+						
+						File.separator);
+		
+		// Log
+		Log.d("[" + "MainActv.java : "
+				+ +Thread.currentThread().getStackTrace()[2].getLineNumber()
+				+ " : "
+				+ Thread.currentThread().getStackTrace()[2].getMethodName()
+				+ "]",
+				"src=" + src
+				+ "/"
+				+ "dst=" + dst);
+		
+////		String dst = "/data/data/ifm9.main/databases" + MainActv.dbName;
 		boolean res = Methods.restore_db(this, CONS.dbName, src, dst);
 		
 		// Log
